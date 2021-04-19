@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "cross-env": "^7.0.3",
+    "discord-slash-commands-client": "^1.1.1",
     "discord.js": "^12.5.3",
     "dotenv": "^8.2.0",
     "firebase-admin": "^9.6.0",
@@ -8,11 +9,12 @@
   },
   "name": "neobotjs",
   "description": "Bot not yet official N E O | Army",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon src/scripts/run dev"
+    "dev": "nodemon src/scripts/run dev",
+    "start": "node src/scripts/run production"
   },
   "repository": {
     "type": "git",

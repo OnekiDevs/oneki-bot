@@ -34,24 +34,21 @@ module.exports = async (dev) => {
     }
 
     //load events
-    const eventos = fs.readdirSync("./src/events").filter((f) => f.endsWith(".js"));
-    for (const file of eventos) {
+    for (const file of fs.readdirSync("./src/events").filter((f) => f.endsWith(".js"))) {
         const event = require(`../events/${file}`);
         client.on(event.name, event.run.bind(null, client));
         console.log("\x1b[33m%s\x1b[0m", file, "fue cargado correctamente");
     }
 
     //load commands
-    const commandsDir = fs.readdirSync("./src/commands").filter((f) => f.endsWith(".js"));
-    for (const file of commandsDir) {
+    for (const file of fs.readdirSync("./src/commands").filter((f) => f.endsWith(".js"))) {
         const command = require("../commands/" + file);
         client.commands.set(command.name, command);
         console.log("\x1b[36m%s\x1b[0m", file, "fue cargado correctamente");
     }
 
     //load slash
-    const slashDir = fs.readdirSync("./src/slash").filter((f) => f.endsWith(".js"));
-    for (const file of slashDir) {
+    for (const file of fs.readdirSync("./src/slash").filter((f) => f.endsWith(".js"))) {
         const slash = require("../slash/" + file);
         client.slash.set(slash.data.name, slash);
         console.log("\x1b[32m%s\x1b[0m", file, "fue cargado correctamente");
@@ -63,11 +60,11 @@ module.exports = async (dev) => {
             cmd = await client.slash.get(interact.data.name);
             if (cmd) {
                 const response = await cmd.run(client, interact);
-                let r = await client.api.interactions(interact.id, interact.token).callback.post({data: response});
-                console.log(r);
+                client.api.interactions(interact.id, interact.token).callback.post({data: response});
             }
         } catch (error) {
-            require('./error')(client, error, `/${cmd?.data.name}`, interact.data.toString(), interact.guild_id, { id:interact.guild_id, name:client.guilds.cache.get(interact.guild_id)?.name })
+            client.emit('error', client, error, `Channel: <#${interact.channel_id}>\nServer: ${interact.guild_id}\nInteract: ${interact.data?JSON.stringify(interact.data):''}`)
+            // require('./error')(client, error, `/${cmd?.data.name}`, interact.data.toString(), interact.guild_id, { id:interact.guild_id, name:client.guilds.cache.get(interact.guild_id)?.name })
         }
     });
 
