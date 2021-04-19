@@ -1,2 +1,2 @@
 # NeoBotJs
-Bot not yet official N N O | Army 
+Bot not yet official N E O | Army 
