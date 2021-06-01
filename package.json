@@ -7,7 +7,8 @@
     "fetch-node": "0.0.1",
     "firebase-admin": "^9.6.0",
     "nodemon": "^2.0.7",
-    "puppeteer": "^10.0.0"
+    "puppeteer": "^10.0.0",
+    "shortid": "^2.2.16"
   },
   "name": "neobotjs",
   "description": "Bot not yet official N E O | Army",

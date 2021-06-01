@@ -18,6 +18,7 @@ module.exports = async (dev) => {
         }
     });
     client.commands = new Collection();
+    client.buttons = new Collection();
     client.slash = new Collection();
     const serviceAccount = require("../../firebase-key.json");
     admin.initializeApp({
@@ -55,12 +56,17 @@ module.exports = async (dev) => {
     }
 
     client.ws.on('INTERACTION_CREATE', async interact => {
-        let cmd;
+        let cmd, btn;
         try {
             cmd = await client.slash.get(interact.data.name);
+            btn = await client.buttons.get(interact.data.custom_id)
             if (cmd) {
                 const response = await cmd.run(client, interact);
                 client.api.interactions(interact.id, interact.token).callback.post({data: response});
+            } else if (btn) {
+                const data = await btn.run(client, interact, btn.params);
+                client.api.interactions(interact.id, interact.token).callback.post({ data });
+                if (btn.borrable) client.buttons.delete(interact.data.custom_id)
             }
         } catch (error) {
             client.emit('error', client, error, `Channel: <#${interact.channel_id}>\nServer: ${interact.guild_id}\nInteract: ${interact.data?JSON.stringify(interact.data):''}`)
