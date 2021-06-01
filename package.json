@@ -4,8 +4,10 @@
     "discord-slash-commands-client": "^1.1.1",
     "discord.js": "^12.5.3",
     "dotenv": "^8.2.0",
+    "fetch-node": "0.0.1",
     "firebase-admin": "^9.6.0",
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.7",
+    "puppeteer": "^10.0.0"
   },
   "name": "neobotjs",
   "description": "Bot not yet official N E O | Army",
