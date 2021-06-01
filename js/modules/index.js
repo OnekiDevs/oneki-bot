@@ -20,7 +20,7 @@ module.exports = async (dev) => {
     client.commands = new Collection();
     client.buttons = new Collection();
     client.slash = new Collection();
-    const serviceAccount = require("../../firebase-key.json");
+    const serviceAccount = require("../../src/firebase-key.json");
     admin.initializeApp({
         credential: admin.credential.cert(serviceAccount)
     });
@@ -35,21 +35,21 @@ module.exports = async (dev) => {
     }
 
     //load events
-    for (const file of fs.readdirSync("./src/events").filter((f) => f.endsWith(".js"))) {
+    for (const file of fs.readdirSync("./js/events").filter((f) => f.endsWith(".js"))) {
         const event = require(`../events/${file}`);
         client.on(event.name, event.run.bind(null, client));
         console.log("\x1b[33m%s\x1b[0m", file, "fue cargado correctamente");
     }
 
     //load commands
-    for (const file of fs.readdirSync("./src/commands").filter((f) => f.endsWith(".js"))) {
+    for (const file of fs.readdirSync("./js/commands").filter((f) => f.endsWith(".js"))) {
         const command = require("../commands/" + file);
         client.commands.set(command.name, command);
         console.log("\x1b[36m%s\x1b[0m", file, "fue cargado correctamente");
     }
 
     //load slash
-    for (const file of fs.readdirSync("./src/slash").filter((f) => f.endsWith(".js"))) {
+    for (const file of fs.readdirSync("./js/slash").filter((f) => f.endsWith(".js"))) {
         const slash = require("../slash/" + file);
         client.slash.set(slash.data.name, slash);
         console.log("\x1b[32m%s\x1b[0m", file, "fue cargado correctamente");

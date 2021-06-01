@@ -10,14 +10,14 @@
     "puppeteer": "^10.0.0",
     "shortid": "^2.2.16"
   },
-  "name": "neobotjs",
+  "name": "neobot",
   "description": "Bot not yet official N E O | Army",
   "version": "0.1.0",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon src/scripts/run dev",
-    "start": "node src/scripts/run production"
+    "dev": "nodemon js/scripts/run dev",
+    "start": "node js/scripts/run production"
   },
   "repository": {
     "type": "git",
@@ -27,7 +27,7 @@
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/EliMacMun/NeoBotJs/issues"
+    "url": "https://github.com/EliMacMun/NeoBot/issues"
   },
-  "homepage": "https://github.com/EliMacMun/NeoBotJs#readme"
+  "homepage": "https://github.com/EliMacMun/NeoBot#readme"
 }
