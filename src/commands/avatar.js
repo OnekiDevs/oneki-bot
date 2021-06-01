@@ -1,3 +1,4 @@
+const { MessageEmbed } = require('discord.js')
 module.exports = {
     name: "avatar",
     alias: [],
@@ -13,7 +14,6 @@ module.exports = {
                 size: 512
             })) // El avatar
             .setTitle(`Avatar de ${user.username}`) // El titulo
-            .setFooter(`${client.user.username} Bot ${package.version}`, client.user.avatarURL())
             .setFooter(`${client.user.username} ${package.version}`, client.user.avatarURL())
             .setTimestamp();
         message.inlineReply(embed);
