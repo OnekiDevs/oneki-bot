@@ -29,8 +29,6 @@ module.exports = {
             params += `&verified=${message.author.flags.has('VERIFIED_BOT')?'1':'0'}`
         }
         const page = await browser.newPage();
-        // console.log(`http://localhost:3000/api/fakeDiscordMessage?${params}`)
-        // await page.goto(`http://localhost:3000/api/fakeDiscordMessage?${params}`);
         await page.goto(`http://koneweb.herokuapp.com/api/fakeDiscordMessage?${params}`);
         const ss = await page.screenshot();
         const attachment = new MessageAttachment(ss);
