@@ -13,7 +13,7 @@ const { sleep } = require('../modules/util');
 
 const post = async (dev) => {
     const client = new interactions.Client(dev?process.env.TOKEN_DISCORD_DEV:process.env.TOKEN_DISCORD, dev?process.env.BOT_ID_DEV:process.env.BOT_ID);
-    let slashDir = fs.readdirSync("./src/slash").filter((f) => f.endsWith(".js"));
+    let slashDir = fs.readdirSync("./js/slash").filter((f) => f.endsWith(".js"));
     for (let file of slashDir) {
         let slash = require('../slash/'+file);
         client.createCommand(slash.data)
@@ -52,9 +52,9 @@ const main = () => {
     }
     //ejecutamos el bot
     try {
-        rpost(dev)
+        post(dev)
     } catch (error) {
-        console.log(error.lineNumber);
+        console.log(error);
     }
 
 }

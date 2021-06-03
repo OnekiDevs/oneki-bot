@@ -27,12 +27,14 @@ module.exports = async (dev) => {
     const db = admin.firestore();
 
     //load config
-    const snapshot = await db.collection('servers').doc(dev?process.env.SERVER_DEV:process.env.SERVER).get();
-    client.settings = {
-        dmChannel: snapshot.data().dmChannel,
-        guild: snapshot.data().id,
-        prefix: snapshot.data().prefix??'n!',
-    }
+    db.collection('servers').doc(dev?process.env.SERVER_DEV:process.env.SERVER).get().then(snapshot => {
+        client.settings = {
+            dmChannel: snapshot.data().dmChannel,
+            guild: snapshot.data().id,
+            prefix: snapshot.data().prefix??'n!',
+        }
+    })
+    
 
     //load events
     for (const file of fs.readdirSync("./js/events").filter((f) => f.endsWith(".js"))) {
@@ -55,19 +57,18 @@ module.exports = async (dev) => {
         console.log("\x1b[32m%s\x1b[0m", file, "fue cargado correctamente");
     }
 
+    //load buttons
+    for (const file of fs.readdirSync("./js/buttons").filter((f) => f.endsWith(".js"))) {
+        const button = require("../buttons/" + file);
+        client.slash.set(button.name, button);
+        console.log("\x1b[35m%s\x1b[0m", file, "fue cargado correctamente");
+    }
+
     client.ws.on('INTERACTION_CREATE', async interact => {
-        let cmd, btn;
+        // console.log(interact);
         try {
-            cmd = await client.slash.get(interact.data.name);
-            btn = await client.buttons.get(interact.data.custom_id)
-            if (cmd) {
-                const response = await cmd.run(client, interact);
-                client.api.interactions(interact.id, interact.token).callback.post({data: response});
-            } else if (btn) {
-                const data = await btn.run(client, interact, btn.params);
-                client.api.interactions(interact.id, interact.token).callback.post({ data });
-                if (btn.borrable) client.buttons.delete(interact.data.custom_id)
-            }
+            let cmd = client.slash.get(interact.data.name)??client.buttons.get(interact.data.custom_id);
+            if (cmd) cmd.run(client, interact, cmd.params);
         } catch (error) {
             client.emit('error', client, error, `Channel: <#${interact.channel_id}>\nServer: ${interact.guild_id}\nInteract: ${interact.data?JSON.stringify(interact.data):''}`)
             // require('./error')(client, error, `/${cmd?.data.name}`, interact.data.toString(), interact.guild_id, { id:interact.guild_id, name:client.guilds.cache.get(interact.guild_id)?.name })

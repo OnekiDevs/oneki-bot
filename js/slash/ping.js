@@ -4,16 +4,12 @@ module.exports = {
         description: "ping pong"
     },
     run: async (client, interact) => {
-        return new Promise(resolve => {
-            try {
-                resolve({
-                    type: 4, 
-                    data: {
-                        content: 'pong'
-                    }
-                });
-            } catch (error) {
-                throw error;
+        client.api.interactions(interact.id, interact.token).callback.post({
+            data: {
+                type: 4, 
+                data: {
+                    content: 'pong'
+                }
             }
         });
     }
