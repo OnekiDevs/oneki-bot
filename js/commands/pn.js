@@ -3,7 +3,7 @@ const shortid = require("shortid");
 module.exports = {
     name: "pn",
     botPermissions: [],
-    alias: [],
+    alias: ["pokernight", "poker-night"],
     run: async (client, message, args) => {
         const channel = message.member.voice.channel;
         if (!channel) return message.inlineReply("No estas en un canal de voz");
@@ -25,7 +25,7 @@ module.exports = {
         .then((response) => response.json())
         .then((invite) => {
             const ID = shortid.generate();
-            if (!invite.code || invite.errors) return message.inlineReply("Lamentablemente no puedo usar ytt");
+            if (!invite.code || invite.errors) return message.inlineReply("Lamentablemente no puedo usar pn");
             else {
                 client.api.channels(message.channel.id).messages.post({
                     data: {

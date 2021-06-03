@@ -3,9 +3,10 @@ const shortid = require("shortid");
 module.exports = {
     name: "fio",
     botPermissions: [],
-    alias: [],
+    alias: ['fishing.io'],
     run: async (client, message, args) => {
         const channel = message.member.voice.channel;
+        console.log(channel);
         if (!channel) return message.inlineReply("No estas en un canal de voz");
         fetch(`https://discord.com/api/v8/channels/${channel.id}/invites`, {
             method: "POST",
@@ -25,7 +26,7 @@ module.exports = {
         .then((response) => response.json())
         .then((invite) => {
             const ID = shortid.generate();
-            if (!invite.code || invite.errors) return message.inlineReply("Lamentablemente no puedo usar ytt");
+            if (!invite.code || invite.errors) return message.inlineReply("Lamentablemente no puedo usar fio");
             else {
                 client.api.channels(message.channel.id).messages.post({
                     data: {

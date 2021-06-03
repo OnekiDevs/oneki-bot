@@ -3,7 +3,7 @@ const shortid = require("shortid");
 module.exports = {
     name: "ytt",
     botPermissions: [],
-    alias: [],
+    alias: ["youtubetogether", "youtube-together"],
     run: async (client, message, args) => {
         const channel = message.member.voice.channel;
         if (!channel) return message.inlineReply("No estas en un canal de voz");
