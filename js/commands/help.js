@@ -5,7 +5,7 @@ module.exports = {
     alias: [],
     run: async (client, message, args) => {
         const embed = new MessageEmbed();
-        const commands = require('../../src/commands.json').Diversion;
+        const commands = require('../../src/commands.json').Entretenimiento;
         embed.setTimestamp();
         embed.setTitle('Lista de comandos de N Ξ O | Bot')
         embed.setDescription('**Categoria de Diversión**');
@@ -25,8 +25,14 @@ module.exports = {
                         components: [
                             {
                                 style: 1,
-                                label: 'Diversión',
-                                custom_id: 'help_diversion',
+                                label: 'Entretenimiento',
+                                custom_id: 'help_entretenimiento',
+                                type: 2
+                            },
+                            {
+                                style: 1,
+                                label: 'Ayuda',
+                                custom_id: 'help_ayuda',
                                 type: 2
                             }
                         ]
