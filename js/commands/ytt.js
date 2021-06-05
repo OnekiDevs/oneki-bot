@@ -5,7 +5,9 @@ module.exports = {
     botPermissions: [],
     alias: ["youtubetogether", "youtube-together"],
     run: async (client, message, args) => {
-        const channel = message.member.voice.channel;
+        const channel = await message.member.voice.channel;
+        console.log(message.member.voice.channel);
+        console.log("'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''");
         console.log(message.member.voice);
         if (!channel) return message.inlineReply("No estas en un canal de voz");
         fetch(`https://discord.com/api/v8/channels/${channel.id}/invites`, {
