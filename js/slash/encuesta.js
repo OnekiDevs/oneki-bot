@@ -119,16 +119,23 @@ module.exports = {
     },
     server: 'all',
     run: async (client, interact) => {
-        console.log("en");
-        //revisar si es admin
-        console.log(interact.member.user.id);
         let opciones = [];
-        // console.log(interact.data.options);
         const channelid = interact.data.options.find(i => i.name=='cahnnel')?.value;
         const context = interact.data.options.find(i => i.name=='context')?.value;
         const guild = await client.guilds.cache.get(interact.guild_id);
         const member = await guild.members.fetch(interact.member.user.id);
         const channel = client.channels.cache.get(channelid??interact.channel_id);
+        if(channel.permissionsFor(member).has('SEND_MESSAGES')) {
+            return client.api.interactions(interact.id, interact.token).callback.post({
+                data: {
+                    type: 4, 
+                    data: {
+                        content: 'No tienes permisos para enviar mensajes en ese canal',
+                        flags: 1 << 6
+                    }
+                }
+            });
+        }
         for (const opcion of interact.data.options) {
             if ((/opcion\d{1,2}/g).test(opcion.name)) opciones.push(opcion.value);
         }
