@@ -17,7 +17,7 @@ module.exports = {
                 height: 100
             }
         });
-        console.log(args[0], args[0].match(/<@!?(\d{17,19})>/))
+        // console.log(args[0], args[0].match(/<@!?(\d{17,19})>/))
         let params = "text="+(!args[0].match(/<@!?(\d{17,19})>/)?args.join(" "):args.slice(1).join(" "));
         if (args[0].match(/<@!?(\d{17,19})>/)) {
             params += `&user=${message.mentions.members.first().displayName}`;

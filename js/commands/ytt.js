@@ -6,6 +6,7 @@ module.exports = {
     alias: ["youtubetogether", "youtube-together"],
     run: async (client, message, args) => {
         const channel = message.member.voice.channel;
+        console.log(channel);
         if (!channel) return message.inlineReply("No estas en un canal de voz");
         fetch(`https://discord.com/api/v8/channels/${channel.id}/invites`, {
             method: "POST",
