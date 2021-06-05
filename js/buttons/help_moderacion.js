@@ -5,11 +5,11 @@ module.exports.run = async (client, interact, params) => {
     const embed = new MessageEmbed();
     const commands = require('../../src/commands.json').Moderacion;
     embed.setTimestamp();
-    embed.setTitle('Lista de comandos de N Ξ O | Bot')
+    embed.setTitle(`Lista de comandos de ${client.user.username} Bot`)
     embed.setDescription('**Categoria de Moderación**\n`<>` significa opcional\n`[]` significa obligatorio');
     for (const command in commands) {
         let cmd = commands[command];
-        embed.addField(command, `*${cmd.description}*${cmd.alias.length>0?`\nAlias: \`${cmd.alias.join('` `')}\``:""}\nUso: \`${cmd.use}\``, true);
+        embed.addField(command, `*${cmd.description}*${cmd.alias.length>0?`\nAlias: \`${cmd.alias.join('` `')}\``:""}${cmd.type=='command'?'\nUso: `n!'+cmd.use+'`':''}`, true);
     }
     embed.setFooter(`${client.user.username} ${require('../../package.json').version}`, client.user.displayAvatarURL())
     embed.setThumbnail(client.user.displayAvatarURL())
@@ -37,6 +37,12 @@ module.exports.run = async (client, interact, params) => {
                             style: 1,
                             label: 'Moderación',
                             custom_id: 'help_moderacion',
+                            type: 2
+                        },
+                        {
+                            style: 1,
+                            label: 'Extra',
+                            custom_id: 'help_extra',
                             type: 2
                         }
                     ]
