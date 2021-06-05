@@ -1,7 +1,7 @@
 const { MessageEmbed } = require('discord.js');
 module.exports = {
     data: {
-        name: "encuestar",
+        name: "encuesta",
         description: "Has una encuesta",
         options: [
             {
@@ -119,60 +119,42 @@ module.exports = {
     },
     server: 'all',
     run: async (client, interact) => {
+        console.log("en");
         //revisar si es admin
+        console.log(interact.member.user.id);
         let opciones = [];
         // console.log(interact.data.options);
         const channelid = interact.data.options.find(i => i.name=='cahnnel')?.value;
         const context = interact.data.options.find(i => i.name=='context')?.value;
         const guild = await client.guilds.cache.get(interact.guild_id);
-        const member = await guild.members.cache.get(interact.member.user.id);
+        const member = await guild.members.fetch(interact.member.user.id);
+        const channel = client.channels.cache.get(channelid??interact.channel_id);
         for (const opcion of interact.data.options) {
             if ((/opcion\d{1,2}/g).test(opcion.name)) opciones.push(opcion.value);
         }
         const reacciones = ['🇦', '🇧', '🇨', '🇩', '🇪', '🇫', '🇬', '🇭', '🇮', '🇯', '🇰', '🇱', '🇲', '🇳', '🇴', '🇵', '🇶', '🇷', '🇸', '🇹'];
         const embed = new MessageEmbed();
-        embed.setAuthor(member.nickname??member.user.username, member.user.displayAvatarURL());
+        embed.setAuthor(member.displayName, member.user.displayAvatarURL());
         embed.setDescription(context);
-        embed.setFooter(`${client.user.username} BOT ${package.version}`, client.user.avatarURL());
+        embed.setFooter(`${client.user.username} BOT ${require('../../package.json').version}`, client.user.avatarURL());
         embed.setColor('RANDOM');
-        if (opciones.length > 0) {
-            for (const opcion of opciones.slice(0, 19)) embed.addField(`Opcion ${reacciones[opciones.indexOf(opcion)]}`, opcion);
-            const msg = await channel.send(embed);
-            for (const opcion of opciones.slice(0, 19)) {
-                msg.react(`${reacciones[opciones.indexOf(opcion)]}`);
-                await sleep(500);
+        if (opciones.length == 0) opciones.push('Si/Yes', 'No');
+        for (const opcion of opciones.slice(0, 19)) embed.addField(`Opcion ${reacciones[opciones.indexOf(opcion)]}`, opcion);
+        client.api.interactions(interact.id, interact.token).callback.post({
+            data: {
+                type: 4, 
+                data: {
+                    content: 'Enviando encuesta',
+                    flags: 1 << 6
+                }
             }
-        } else {
-            embed.addField(`Opcion 🇦`, 'Si/Yes');
-            embed.addField(`Opcion 🇧`, 'No');
-            const msg = await channel.send(embed);
-            msg.react(`🇦`);        
-            msg.react(`🇧`);
-        }  
-        if (channelid) {
-            const channel = client.channels.cache.get(channelid);
-            channel.send(embed);
-            client.api.interactions(interact.id, interact.token).callback.post({
-                data: {
-                    type: 4, 
-                    data: {
-                        content: 'Enviando encuesta',
-                        flags: 1 << 6
-                    }
-                }
-            });
-        } else {
-            client.api.interactions(interact.id, interact.token).callback.post({
-                data: {
-                    type: 4, 
-                    data: {
-                        embed: embed
-                    }
-                }
-            });
+        });
+        const msg = await channel.send(embed);
+        for (const opcion of opciones.slice(0, 19)) {
+            msg.react(`${reacciones[opciones.indexOf(opcion)]}`);
+            await client.util.sleep(500);
         }
     }
 }
-//token WzcxMjA2MzcwNTUzNzQ0NTk0OCxmYWxzZV0.YHXQJg.c8KS2Zdk6K9ogYgOk0nBidbwanY
 
 

@@ -5,6 +5,7 @@
                 "fishing.io"
             ],
             "use": "n!fio <#!channel>",
+            "type": "command",
             "description": "Genera un juego de Fishing.io"
         },
         "bio": {
@@ -12,6 +13,7 @@
                 "betrayal.io"
             ],
             "use": "n!bio <#!channel>",
+            "type": "command",
             "description": "Genera un juego de Betrayal.io"
         },
         "pkn": {
@@ -19,7 +21,8 @@
                 "pokernight", 
                 "poker-night"
             ],
-            "use": "n!pn <#!channel>",
+            "use": "n!pkn <#!channel>",
+            "type": "command",
             "description": "Genera un juego de Poker Night"
         },
         "ytt": {
@@ -28,21 +31,25 @@
                 "youtube-together"
             ],
             "use": "n!ytt <#!channel>",
+            "type": "command",
             "description": "Genera una sala de YoouTube"
         },
         "ping": {
             "alias": [],
             "use": "n!ping",
+            "type": "command",
             "description": "pong!"
         },
         "ss": {
             "alias": [],
             "use": "n!ss <@user> [text]",
+            "type": "command",
             "description": "Genera una captura de un chat falso"
         },
         "ahorcado": {
             "alias": [],
             "use": "n!ahorcado <@user>",
+            "type": "command",
             "description": "Genera un juego simple de ahorcado. Tienes 30 segundos para responder, el contador se reinicia con cada intento, los simbolos y palabras las ignora, las \"ñ\" estan remplazadas por \"n\""
         }
     },
@@ -50,6 +57,7 @@
         "help": {
             "alias": [],
             "use": "n!help",
+            "type": "command",
             "description": "Muestra los comandos disponibles"
         }
     },
@@ -57,6 +65,7 @@
         "clear": {
             "alias": [],
             "use": "n!clear <-y>",
+            "type": "command",
             "description": "Limpia los mensajes de todo el canal"
         }
     }
