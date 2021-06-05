@@ -8,6 +8,10 @@ module.exports = {
         message.delete();
         if (!args[0]) return message.channel.send("También escribe lo que quieres que diga");
         const browser = await puppeteer.launch({
+            args: [
+                "--no-sandbox", 
+                "--disable-setuid-sandbox"
+            ],
             defaultViewport: {
                 width: 400, 
                 height: 100

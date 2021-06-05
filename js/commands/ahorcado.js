@@ -29,7 +29,7 @@ module.exports = {
             msg.edit(`Usadas: ${usedLetters}\n\`${wordShow}\`\n${life}`);
             if (life.i == 0) return msg.inlineReply(`${message.author} suarte para la próxima, la palabra era **${word.join('')}**`);
             if (!wordShow.a.includes("_")) return msg.inlineReply(`${message.author} GG has ganado`);
-            const filter = m => m.author.id == message.author.id && validLetters.includes(m.content.toLowerCase().charAt(0));
+            const filter = m => m.author.id == message.author.id && validLetters.includes(m.content.toLowerCase());
             try { 
                 m = (await msg.channel.awaitMessages(filter, {max:1, time: 30000, errors: ['time']})).first()
             } catch (e) {

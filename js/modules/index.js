@@ -60,14 +60,11 @@ module.exports = async (dev) => {
     //load buttons
     for (const file of fs.readdirSync("./js/buttons").filter((f) => f.endsWith(".js"))) {
         const button = require("../buttons/" + file);
-        console.log(button);
         client.buttons.set(button.id, button);
         console.log("\x1b[35m%s\x1b[0m", file, "fue cargado correctamente");
     }
-    console.log(client.buttons);
 
     client.ws.on('INTERACTION_CREATE', async interact => {
-        console.log(interact.data.custom_id);
         try {
             let cmd = client.slash.get(interact.data.name)??client.buttons.get(interact.data.custom_id);
             if (cmd) cmd.run(client, interact, cmd.params);
@@ -79,4 +76,12 @@ module.exports = async (dev) => {
 
     //login
     client.login(dev?process.env.TOKEN_DISCORD_DEV:process.env.TOKEN_DISCORD);
+
+    if (dev) {
+        const exec = require('child_process').exec;
+        exec('py .\\py\\main.py', (err, stdout) => {
+            if (err) console.error(err);
+            if (stdout) console.log(stdout);
+        })
+    }
 }

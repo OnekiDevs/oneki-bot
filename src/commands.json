@@ -43,7 +43,7 @@
         "ahorcado": {
             "alias": [],
             "use": "n!ahorcado",
-            "description": "Genera un juego simple de ahorcado. Te muestra cantas letras contiene la palabra y deberas adivinar la palabra letra por letra escribiendola en el chat. Tienes 30 segundos para responder, el contador se reinicia con cada intento, los simbolos los ignora, las \"ñ\" estan remplazadas por \"n\", si escribes mas de una letra solo toma la primera"
+            "description": "Genera un juego simple de ahorcado. Tienes 30 segundos para responder, el contador se reinicia con cada intento, los simbolos y palabras las ignora, las \"ñ\" estan remplazadas por \"n\""
         }
     },
     "Ayuda":{
