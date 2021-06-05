@@ -42,7 +42,7 @@
         },
         "ahorcado": {
             "alias": [],
-            "use": "n!ahorcado",
+            "use": "n!ahorcado <@user>",
             "description": "Genera un juego simple de ahorcado. Tienes 30 segundos para responder, el contador se reinicia con cada intento, los simbolos y palabras las ignora, las \"ñ\" estan remplazadas por \"n\""
         }
     },

@@ -17,8 +17,11 @@ module.exports = {
         }, usedLetters = {
             a: [],
             toString:()=>usedLetters.a.join(' ')
-        }, wordShow = {}, validLetters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'], m;
-        const msg = await message.inlineReply(`\`${word.map(()=>"_").join(' ')}\``);
+        }, wordShow = {}, participants = [], validLetters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'], m;
+        const msg = await message.inlineReply(`cargando...`);
+        participants.push(message.author.id);
+        message.mentions.users.map(u=>u.id).forEach(u=>participants.push(u));
+        console.log(participants);
         while (true) {
             wordShow = {
                 a: word.map(i=>{
@@ -30,7 +33,7 @@ module.exports = {
             msg.edit(`Usadas: ${usedLetters}\n\`${wordShow}\`\n${life}`);
             if (life.i == 0) return msg.inlineReply(`${message.author} suarte para la próxima, la palabra era **${word.join('')}**`);
             if (!wordShow.a.includes("_")) return msg.inlineReply(`${message.author} GG has ganado`);
-            const filter = m => m.author.id == message.author.id && validLetters.includes(m.content.toLowerCase());
+            const filter = m => participants.includes(m.author.id) && validLetters.includes(m.content.toLowerCase());
             try { 
                 m = (await msg.channel.awaitMessages(filter, {max:1, time: 30000, errors: ['time']})).first()
             } catch (e) {
