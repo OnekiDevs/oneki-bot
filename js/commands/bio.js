@@ -60,14 +60,14 @@ module.exports = {
                         url: `https://discord.com/invite/${invite.code}`,
                     },
                     run: (client, interact, { url }) => {
-                        return new Promise((resolve, reject) => {
-                            resolve({
-                                type: 4,
+                        client.api.interactions(interact.id, interact.token).callback.post({
+                            data: {
+                                type: 4, 
                                 data: {
                                     content: url,
                                     flags: 1 << 6,
-                                },
-                            });
+                                }
+                            }
                         });
                     },
                 });

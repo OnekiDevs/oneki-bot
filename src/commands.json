@@ -14,7 +14,7 @@
             "use": "n!bio <#!channel>",
             "description": "Genera un juego de Betrayal.io"
         },
-        "pn": {
+        "pkn": {
             "alias": [
                 "pokernight", 
                 "poker-night"

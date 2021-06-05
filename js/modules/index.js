@@ -77,11 +77,11 @@ module.exports = async (dev) => {
     //login
     client.login(dev?process.env.TOKEN_DISCORD_DEV:process.env.TOKEN_DISCORD);
 
-    if (dev) {
-        const exec = require('child_process').exec;
-        exec('py .\\py\\main.py', (err, stdout) => {
-            if (err) console.error(err);
-            if (stdout) console.log(stdout);
-        })
-    }
+    // if (dev) {
+    //     const exec = require('child_process').exec;
+    //     exec('py .\\py\\main.py', (err, stdout) => {
+    //         if (err) console.error(err);
+    //         if (stdout) console.log(stdout);
+    //     })
+    // }
 }
