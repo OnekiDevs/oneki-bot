@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, Permissions } = require('discord.js');
 module.exports = {
     data: {
         name: "encuesta",
@@ -125,7 +125,10 @@ module.exports = {
         const guild = await client.guilds.cache.get(interact.guild_id);
         const member = await guild.members.fetch(interact.member.user.id);
         const channel = client.channels.cache.get(channelid??interact.channel_id);
-        if(channel.permissionsFor(member).has('SEND_MESSAGES')) {
+        console.log(channel.permissionsFor(member));
+        const permissions = new Permissions(channel.permissionsFor(member))
+        console.log(permissions.has('SEND_MESSAGES'));
+        if(permissions.has('SEND_MESSAGES')) {
             return client.api.interactions(interact.id, interact.token).callback.post({
                 data: {
                     type: 4, 
