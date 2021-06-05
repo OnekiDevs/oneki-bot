@@ -6,8 +6,8 @@ module.exports = {
     usersPermissions: [],
     alias: ["pokernight", "poker-night"],
     run: async (client, message, args) => {
-        const channel = message.member.voice.channel;
-        if (!channel) return message.inlineReply("No estas en un canal de voz");
+        const channel = message.mentions.channels.find(m => m.type == 'voice');
+        if (!channel) return message.inlineReply("Menciona un canal de voz");
         fetch(`https://discord.com/api/v8/channels/${channel.id}/invites`, {
             method: "POST",
             body: JSON.stringify({

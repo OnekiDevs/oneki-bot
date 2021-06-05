@@ -4,14 +4,14 @@
             "alias": [
                 "fishing.io"
             ],
-            "use": "n!fio",
+            "use": "n!fio <#!channel>",
             "description": "Genera un juego de Fishing.io"
         },
         "bio": {
             "alias": [
                 "betrayal.io"
             ],
-            "use": "n!bio",
+            "use": "n!bio <#!channel>",
             "description": "Genera un juego de Betrayal.io"
         },
         "pn": {
@@ -19,7 +19,7 @@
                 "pokernight", 
                 "poker-night"
             ],
-            "use": "n!pn",
+            "use": "n!pn <#!channel>",
             "description": "Genera un juego de Poker Night"
         },
         "ytt": {
@@ -27,7 +27,7 @@
                 "youtubetogether", 
                 "youtube-together"
             ],
-            "use": "n!ytt",
+            "use": "n!ytt <#!channel>",
             "description": "Genera una sala de YoouTube"
         },
         "ping": {
