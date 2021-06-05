@@ -3,10 +3,10 @@ module.exports.run = async (client, interact, params) => {
     const channel = await client.channels.fetch(interact.channel_id);
     const message = await channel.messages.fetch(interact.message.id);
     const embed = new MessageEmbed();
-    const commands = require('../../src/commands.json').Entretenimiento;
+    const commands = require('../../src/commands.json').Ayuda;
     embed.setTimestamp();
     embed.setTitle('Lista de comandos de N Ξ O | Bot')
-    embed.setDescription('**Categoria de Entretenimiento**');
+    embed.setDescription('**Categoria de Ayuda**\n`<>` significa opcional\n`[]` significa obligatorio');
     for (const command in commands) {
         let cmd = commands[command];
         embed.addField(command, `*${cmd.description}*${cmd.alias.length>0?`\nAlias: \`${cmd.alias.join('` `')}\``:""}\nUso: \`${cmd.use}\``, true);
@@ -32,6 +32,12 @@ module.exports.run = async (client, interact, params) => {
                             label: 'Ayuda',
                             custom_id: 'help_ayuda',
                             type: 2
+                        },
+                        {
+                            style: 1,
+                            label: 'Moderación',
+                            custom_id: 'help_moderacion',
+                            type: 2
                         }
                     ]
                 }
@@ -44,4 +50,4 @@ module.exports.run = async (client, interact, params) => {
         }
     });
 }
-module.exports.id = 'help_entretenimiento';
+module.exports.id = 'help_ayuda';

@@ -28,7 +28,7 @@
                 "youtube-together"
             ],
             "use": "n!ytt",
-            "description": "Genera un juego de Poker Night"
+            "description": "Genera una sala de YoouTube"
         },
         "ping": {
             "alias": [],
@@ -51,6 +51,13 @@
             "alias": [],
             "use": "n!help",
             "description": "Muestra los comandos disponibles"
+        }
+    },
+    "Moderacion": {
+        "clear": {
+            "alias": [],
+            "use": "n!clear <-y>",
+            "description": "Limpia los mensajes de todo el canal"
         }
     }
 }

@@ -3,6 +3,7 @@ const shortid = require("shortid");
 module.exports = {
     name: "ahorcado",
     botPermissions: ['MANAGE_MESSAGES'],
+    usersPermissions: [],
     alias: [],
     run: async (client, message, args) => {
         const word = require('../../src/words.json')[Math.floor(Math.random() * require('../../src/words.json').length)].split('');

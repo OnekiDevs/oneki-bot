@@ -3,6 +3,7 @@ const shortid = require("shortid");
 module.exports = {
     name: "bio",
     botPermissions: [],
+    usersPermissions: [],
     alias: ["betrayal.io"],
     run: async (client, message, args) => {
         const channel = message.member.voice.channel;

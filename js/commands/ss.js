@@ -3,8 +3,10 @@ const  { MessageAttachment } = require('discord.js')
 module.exports = {
     name: 'ss',
     botPermissions: ['MANAGE_MESSAGES'],
+    usersPermissions: [],
     alias: [],
     run: async (client, message, args) => {
+        message.channel.startTyping();
         message.delete();
         if (!args[0]) return message.channel.send("También escribe lo que quieres que diga");
         const browser = await puppeteer.launch({
@@ -38,5 +40,6 @@ module.exports = {
         const attachment = new MessageAttachment(ss);
         message.channel.send(attachment);
         await browser.close();
+        message.channel.stopTyping();
     }
 }

@@ -3,6 +3,7 @@ const shortid = require("shortid");
 module.exports = {
     name: "pn",
     botPermissions: [],
+    usersPermissions: [],
     alias: ["pokernight", "poker-night"],
     run: async (client, message, args) => {
         const channel = message.member.voice.channel;
