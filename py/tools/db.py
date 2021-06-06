@@ -12,7 +12,7 @@ class ctx:
         if(doc.exists): 
             if(name != None):
                 return doc.to_dict()[f"{name}"]
-            else: doc.to_dict()
+            else: return doc.to_dict()
         else: return False
 
     def where(self, filter, operation, value, compound_queries = False, filter2 = None, operation2 = None, value2 = None):
