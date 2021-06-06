@@ -32,7 +32,7 @@ module.exports = async (dev) => {
         client.settings = {
             dmChannel: snapshot.data().dmChannel,
             guild: snapshot.data().id,
-            prefix: snapshot.data().prefix??'n!',
+            prefix: snapshot.data().prefix??'r!',
         }
     })
     

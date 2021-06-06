@@ -9,7 +9,7 @@ module.exports.run = async (client, interact, params) => {
     embed.setDescription('**Categoria Extra**\n`<>` significa opcional\n`[]` significa obligatorio');
     for (const command in commands) {
         let cmd = commands[command];
-        embed.addField(command, `*${cmd.description}*${cmd.alias?.length>0?`\nAlias: \`${cmd.alias.join('` `')}\``:""}${cmd.type=='command'?'\nUso: `n!'+cmd.use+'`':''}`, true);
+        embed.addField(command, `*${cmd.description}*${cmd.alias?.length>0?`\nAlias: \`${cmd.alias.join('` `')}\``:""}\nUso:${cmd.type=='slash'?'/':client.settings.prefix}${cmd.use}`, true);
     }
     embed.setFooter(`${client.user.username} ${require('../../package.json').version}`, client.user.displayAvatarURL())
     embed.setThumbnail(client.user.displayAvatarURL())

@@ -66,10 +66,12 @@
     "Extra": {
         "ping": {
             "type": "slash",
+            "use": "ping",
             "description": "pong!"
         },
         "encuesta": {
             "type": "slash",
+            "use": "encuesta [Contexto] <Canal> <Opcion1> ...",
             "description": "Crea una encuesta"
         }
     }
