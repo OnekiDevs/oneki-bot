@@ -1,5 +1,5 @@
 const  { MessageEmbed } = require('discord.js')
-module.exports = (commands, type) => {
+module.exports = (client, commands, type) => {
     return new Promise((resolve, reject) => {
         const embed = new MessageEmbed();
         embed.setTimestamp();

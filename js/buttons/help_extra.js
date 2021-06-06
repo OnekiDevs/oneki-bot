@@ -1,6 +1,6 @@
 const  { MessageEmbed } = require('discord.js');
 module.exports.run = async (client, interact, params) => {
-    const embed = await require('../modules/help')(require('../../src/commands.json').Extra, 'Extra');
+    const embed = await require('../modules/help')(client, require('../../src/commands.json').Extra, 'Extra');
     client.api.channels(message.channel.id).messages(message.id).patch({ 
         data: {
             embed: embed,
