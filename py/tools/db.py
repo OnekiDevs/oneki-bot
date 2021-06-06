@@ -2,7 +2,7 @@ from firebase_admin import credentials, firestore
 import firebase_admin
 
 class ctx:
-    firebase_admin.initialize_app(credentials.Certificate("src/firebase-key.json"))
+    firebase_admin.initialize_app(credentials.Certificate("../src/firebase-key.json"))
     db = firestore.client()
     def __init__(self, collection):
         self.collection = self.db.collection(collection)
@@ -12,7 +12,7 @@ class ctx:
         if(doc.exists): 
             if(name != None):
                 return doc.to_dict()[f"{name}"]
-            else: doc.to_dict()
+            else: return doc.to_dict()
         else: return False
 
     def where(self, filter, operation, value, compound_queries = False, filter2 = None, operation2 = None, value2 = None):

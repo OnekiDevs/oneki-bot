@@ -2,7 +2,7 @@ import tools
 
 @tools.bot.event
 async def on_member_join(message):
-    channel = Client.bot.get_channel()
+    channel = tools.bot.get_channel(int(tools.db.ctx(f"{message.guild.id}").get("bienvenidas", "channel")))
 
     img = tools.Image.open("src/welcome.png")
     font = tools.ImageFont.truetype("Tools/arial.ttf", 30)
