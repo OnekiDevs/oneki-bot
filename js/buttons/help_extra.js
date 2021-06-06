@@ -1,19 +1,6 @@
 const  { MessageEmbed } = require('discord.js');
 module.exports.run = async (client, interact, params) => {
-    const channel = await client.channels.fetch(interact.channel_id);
-    const message = await channel.messages.fetch(interact.message.id);
-    const embed = new MessageEmbed();
-    const commands = require('../../src/commands.json').Extra;
-    embed.setTimestamp();
-    embed.setTitle(`Lista de comandos de ${client.user.username} Bot`)
-    embed.setDescription('**Categoria Extra**\n`<>` significa opcional\n`[]` significa obligatorio');
-    for (const command in commands) {
-        let cmd = commands[command];
-        embed.addField(command, `*${cmd.description}*${cmd.alias?.length>0?`\nAlias: \`${cmd.alias.join('` `')}\``:""}\nUso:${cmd.type=='slash'?'/':client.settings.prefix}${cmd.use}`, true);
-    }
-    embed.setFooter(`${client.user.username} ${require('../../package.json').version}`, client.user.displayAvatarURL())
-    embed.setThumbnail(client.user.displayAvatarURL())
-    embed.setColor('RANDOM')
+    const embed = await require('../modules/help')(require('../../src/commands.json').Extra, 'Extra');
     client.api.channels(message.channel.id).messages(message.id).patch({ 
         data: {
             embed: embed,
