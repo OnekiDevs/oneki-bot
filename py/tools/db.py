@@ -2,7 +2,7 @@ from firebase_admin import credentials, firestore
 import firebase_admin
 
 class ctx:
-    firebase_admin.initialize_app(credentials.Certificate("../src/firebase-key.json"))
+    firebase_admin.initialize_app(credentials.Certificate("src/firebase-key.json"))
     db = firestore.client()
     def __init__(self, collection):
         self.collection = self.db.collection(collection)
