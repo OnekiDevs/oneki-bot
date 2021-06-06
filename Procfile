@@ -1,1 +1,2 @@
-worker: npm start && python .\py\main.py
+worker: npm start 
+python: python .\py\main.py
