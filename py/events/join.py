@@ -2,11 +2,13 @@ import tools
 
 @tools.bot.event
 async def on_member_join(message):
-    channel = tools.bot.get_channel(int(tools.db.ctx(f"{message.guild.id}").get("bienvenidas", "channel")))
+    data = tools.db.ctx(f"{message.guild.id}")
+    if(f"{message.guild.id}" == 825936007449935903): return
+    channel = tools.bot.get_channel(int(data.get("bienvenidas", "channel")))
 
     img = tools.Image.open("src/welcome.png")
     font = tools.ImageFont.truetype("Tools/arial.ttf", 30)
-    tools.ImageDraw.ImageDraw(img).text((210, 155), text = f"{message.name} Bienvenido a {message.guild.name}!", font = font, fill = "white")
+    tools.ImageDraw.ImageDraw(img).text((210, 155), text = data.get("bienvenidas", "mensaje").format(message.name, message.guild.name), font = font, fill = "white")
 
     pfp = tools.Image.open(tools.BytesIO (await message.avatar_url_as(size = 128).read()))
     pfp = pfp.resize((100, 100))
@@ -21,6 +23,6 @@ async def on_member_join(message):
     
     img.paste(pfp, (90, 120), pfp)
     img.save("src/cache.png")
-    await channel.send("{0.mention}".format(message), file = tools.discord.File("src/cache.png", filename = "welcome.png", spoiler = True))
+    await channel.send("{0.mention}".format(message), file = tools.discord.File("src/cache.png", filename = "welcome.png"))
     tools.remove("src/cache.png")
     tools.remove("src/pfp.png")
