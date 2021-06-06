@@ -17,7 +17,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon js/scripts/run dev",
-    "start": "node js/scripts/run production ; python .\\py\\main.py"
+    "start": "node js/scripts/run production ; python .\\py\\main.py",
+    "py": "python py/main.py"
   },
   "repository": {
     "type": "git",
