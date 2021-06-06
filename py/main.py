@@ -1,6 +1,9 @@
+from dotenv import load_dotenv
 import tools
+
+load_dotenv()
 
 from commands import pruebas
 from events import join, messages, ready
 
-tools.bot.run("ODQ5ODU0MjI0OTM4Njk2NzI1.YLhObA.LMd5fkmAH56MzPmU3qJtx0ibL28")
+tools.bot.run(tools.getenv("TOKEN_DISCORD_DEV"))
