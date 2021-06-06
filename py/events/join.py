@@ -21,7 +21,7 @@ async def on_member_join(message):
     output.putalpha(mask)
     output.save('src/pfp.png')
     
-    img.paste(pfp, (90, 120), pfp)
+    img.paste(pfp, (89, 121), pfp)
     img.save("src/cache.png")
     await channel.send("{0.mention}".format(message), file = tools.discord.File("src/cache.png", filename = "welcome.png"))
     tools.remove("src/cache.png")
