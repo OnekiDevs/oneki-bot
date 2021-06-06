@@ -120,7 +120,7 @@ module.exports = {
     server: 'all',
     run: async (client, interact) => {
         let opciones = [];
-        const channelid = interact.data.options.find(i => i.name=='cahnnel')?.value;
+        const channelid = interact.data.options.find(i => i.name=='channel')?.value;
         const context = interact.data.options.find(i => i.name=='context')?.value;
         const guild = await client.guilds.cache.get(interact.guild_id);
         const member = await guild.members.fetch(interact.member.user.id);
