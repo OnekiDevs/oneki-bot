@@ -1,25 +1,28 @@
 {
-    "Diversion": {
+    "Entretenimiento": {
         "fio": {
             "alias": [
                 "fishing.io"
             ],
-            "use": "n!fio",
+            "use": "fio <#!channel>",
+            "type": "command",
             "description": "Genera un juego de Fishing.io"
         },
         "bio": {
             "alias": [
                 "betrayal.io"
             ],
-            "use": "n!bio",
+            "use": "bio <#!channel>",
+            "type": "command",
             "description": "Genera un juego de Betrayal.io"
         },
-        "pn": {
+        "pkn": {
             "alias": [
                 "pokernight", 
                 "poker-night"
             ],
-            "use": "n!pn",
+            "use": "pkn <#!channel>",
+            "type": "command",
             "description": "Genera un juego de Poker Night"
         },
         "ytt": {
@@ -27,18 +30,49 @@
                 "youtubetogether", 
                 "youtube-together"
             ],
-            "use": "n!ytt",
-            "description": "Genera un juego de Poker Night"
-        },
-        "ping": {
-            "alias": [],
-            "use": "n!ping",
-            "description": "pong!"
+            "use": "ytt <#!channel>",
+            "type": "command",
+            "description": "Genera una sala de YoouTube"
         },
         "ss": {
             "alias": [],
-            "use": "n!ss <@user> [text]",
+            "use": "ss <@user> [text]",
+            "type": "command",
             "description": "Genera una captura de un chat falso"
+        },
+        "ahorcado": {
+            "alias": [],
+            "use": "ahorcado <@user>",
+            "type": "command",
+            "description": "Genera un juego simple de ahorcado. Tienes 30 segundos para responder, el contador se reinicia con cada intento, los simbolos y palabras las ignora, las \"ñ\" estan remplazadas por \"n\""
+        }
+    },
+    "Ayuda":{
+        "help": {
+            "alias": [],
+            "use": "help",
+            "type": "command",
+            "description": "Muestra los comandos disponibles"
+        }
+    },
+    "Moderacion": {
+        "clear": {
+            "alias": [],
+            "use": "clear <-y>",
+            "type": "command",
+            "description": "Limpia los mensajes de todo el canal"
+        }
+    },
+    "Extra": {
+        "ping": {
+            "type": "slash",
+            "use": "ping",
+            "description": "pong!"
+        },
+        "encuesta": {
+            "type": "slash",
+            "use": "encuesta [Contexto] <Canal> <Opcion1> ...",
+            "description": "Crea una encuesta"
         }
     }
 }

@@ -18,6 +18,7 @@ module.exports = async (dev) => {
         }
     });
     client.commands = new Collection();
+    client.util = require('../modules/util');
     client.buttons = new Collection();
     client.slash = new Collection();
     const serviceAccount = require("../../src/firebase-key.json");
@@ -31,7 +32,7 @@ module.exports = async (dev) => {
         client.settings = {
             dmChannel: snapshot.data().dmChannel,
             guild: snapshot.data().id,
-            prefix: snapshot.data().prefix??'n!',
+            prefix: snapshot.data().prefix??'r!',
         }
     })
     
@@ -60,12 +61,11 @@ module.exports = async (dev) => {
     //load buttons
     for (const file of fs.readdirSync("./js/buttons").filter((f) => f.endsWith(".js"))) {
         const button = require("../buttons/" + file);
-        client.slash.set(button.name, button);
+        client.buttons.set(button.id, button);
         console.log("\x1b[35m%s\x1b[0m", file, "fue cargado correctamente");
     }
 
     client.ws.on('INTERACTION_CREATE', async interact => {
-        // console.log(interact);
         try {
             let cmd = client.slash.get(interact.data.name)??client.buttons.get(interact.data.custom_id);
             if (cmd) cmd.run(client, interact, cmd.params);
@@ -77,4 +77,12 @@ module.exports = async (dev) => {
 
     //login
     client.login(dev?process.env.TOKEN_DISCORD_DEV:process.env.TOKEN_DISCORD);
+
+    // if (dev) {
+    //     const exec = require('child_process').exec;
+    //     exec('py .\\py\\main.py', (err, stdout) => {
+    //         if (err) console.error(err);
+    //         if (stdout) console.log(stdout);
+    //     })
+    // }
 }

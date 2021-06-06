@@ -1,12 +1,13 @@
 const fetch = require("node-fetch");
 const shortid = require("shortid");
 module.exports = {
-    name: "pn",
+    name: "pkn",
     botPermissions: [],
+    usersPermissions: [],
     alias: ["pokernight", "poker-night"],
     run: async (client, message, args) => {
-        const channel = message.member.voice.channel;
-        if (!channel) return message.inlineReply("No estas en un canal de voz");
+        const channel = message.mentions.channels.find(m => m.type == 'voice');
+        if (!channel) return message.inlineReply("Menciona un canal de voz");
         fetch(`https://discord.com/api/v8/channels/${channel.id}/invites`, {
             method: "POST",
             body: JSON.stringify({
@@ -59,14 +60,14 @@ module.exports = {
                         url: `https://discord.com/invite/${invite.code}`,
                     },
                     run: (client, interact, { url }) => {
-                        return new Promise((resolve, reject) => {
-                            resolve({
-                                type: 4,
+                        client.api.interactions(interact.id, interact.token).callback.post({
+                            data: {
+                                type: 4, 
                                 data: {
                                     content: url,
                                     flags: 1 << 6,
-                                },
-                            });
+                                }
+                            }
                         });
                     },
                 });
