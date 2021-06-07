@@ -43,9 +43,9 @@ module.exports = {
             if (usedLetters.a.includes(l)) {
                 m.inlineReply('Ya has usado esa letra').then(ms => ms.delete({ timeout: 5000 }).then(() =>m.delete()))
             } else {
-                m.delete();
                 usedLetters.a.push(l);
                 if (!word.includes(l)) life.i--;
+                m.delete({ timeout: 500 });
             }
         }
     }

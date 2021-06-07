@@ -11,4 +11,4 @@ import json
 #Modulos del proyecto
 from tools import db
 
-bot = commands.Bot(command_prefix = "n!", description = "Bot aun NO oficial de la neo army", intents = discord.Intents.all())
+bot = commands.Bot(command_prefix = "r!", description = "Bot oficial de La Resistencia", intents = discord.Intents.all())

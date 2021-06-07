@@ -21,6 +21,7 @@ module.exports = async (dev) => {
     client.util = require('../modules/util');
     client.buttons = new Collection();
     client.slash = new Collection();
+    client.uno = new Collection();
     const serviceAccount = require("../../src/firebase-key.json");
     admin.initializeApp({
         credential: admin.credential.cert(serviceAccount)
@@ -69,7 +70,17 @@ module.exports = async (dev) => {
         try {
             let cmd = client.slash.get(interact.data.name)??client.buttons.get(interact.data.custom_id);
             if (cmd) cmd.run(client, interact, cmd.params);
+            else if ((/uno_i_.{9}/g).test(interact.data.custom_id)) {
+                require('./uno').ingresar(client, interact)
+            } else if ((/uno_c_.{9}/g).test(interact.data.custom_id)) {
+                require('./uno').comenzar(client, interact)
+            } else if ((/uno_m_.{9}/g).test(interact.data.custom_id)) {
+                console.log(interact.data.custom_id);
+            } else if ((/uno_e_.{9}/g).test(interact.data.custom_id)) {
+                console.log(interact.data.custom_id);
+            }
         } catch (error) {
+            console.log(error);
             client.emit('error', client, error, `Channel: <#${interact.channel_id}>\nServer: ${interact.guild_id}\nInteract: ${interact.data?JSON.stringify(interact.data):''}`)
             // require('./error')(client, error, `/${cmd?.data.name}`, interact.data.toString(), interact.guild_id, { id:interact.guild_id, name:client.guilds.cache.get(interact.guild_id)?.name })
         }
