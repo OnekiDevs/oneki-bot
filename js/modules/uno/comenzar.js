@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js');
-module.exports = (client, interact) => {
-    const partida = client.uno.get(interact.data.custom_id.slice(6))
+module.exports = async (client, interact) => {
+    let partida = client.uno.get(interact.data.custom_id.slice(6))
     if (!partida) {
         return client.api.interactions(interact.id, interact.token).callback.post({
             data: {
@@ -12,6 +12,7 @@ module.exports = (client, interact) => {
         if (partida.jugadores.length > 1) {
             partida.estado = 'curso'
             const embed = require('./embedUno')(partida);
+            partida = await require('../uno').repartir(partida);
             client.uno.set(interact.data.custom_id.slice(6), partida)
             client.api.channels(interact.channel_id).messages(interact.message.id).patch({
                 data: {

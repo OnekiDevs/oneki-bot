@@ -1,11 +1,12 @@
 const { MessageEmbed } = require('discord.js');
-module.exports = (client, interact) => {
-    const partida = client.uno.get(interact.data.custom_id.slice(6))
+module.exports = async (client, interact) => {
+    let partida = client.uno.get(interact.data.custom_id.slice(6));
     if (partida && !partida.jugadores.includes(interact.member.user.id)){
         partida.jugadores.push(interact.member.user.id);
         let botones = [];
         if (partida.jugadores.length == 8) {
             partida.estado = 'curso'
+            partida = await require('../uno').repartir(partida);
             //TODO Partida en curso, desarrollar la logica, que ya no mande el boton de unirse o el de iniciar, cambiarlos por mostrar cartas
             botones.push({
                 type: 2,
