@@ -2,7 +2,7 @@ from firebase_admin import credentials, firestore
 import firebase_admin
 
 class ctx:
-    firebase_admin.initialize_app(credentials.Certificate("../src/firebase-key.json"))
+    firebase_admin.initialize_app(credentials.Certificate("src/firebase-key.json"))
     db = firestore.client()
     def __init__(self, collection):
         self.collection = self.db.collection(collection)
@@ -47,5 +47,3 @@ class ctx:
                 self.collection.document(documnt).collection(subcollection).document(subdocumnt).update({f'{campo}': firestore.DELETE_FIELD})
             else: self.collection.document(documnt).collection(subcollection).document(subdocumnt).delete()
         else: self.collection.document(documnt).delete()
-
-print(ctx("850338969135611924").get("history", "reports", "617154779755446280"))
