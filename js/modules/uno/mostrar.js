@@ -1,3 +1,4 @@
+const canvas = require('canvas');
 module.exports = async (client, interact) => {
     let partida = client.uno.get(interact.data.custom_id.slice(6))
     // partida[interact.member.user.id].cartas
