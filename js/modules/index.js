@@ -29,7 +29,7 @@ module.exports = async (dev) => {
     const db = admin.firestore();
 
     //load config
-    // db.collection(dev?process.env.SERVER_DEV:process.env.SERVER).doc(dev?process.env.SERVER_DEV:process.env.SERVER).get().then(snapshot => {
+    //db.collection(dev?process.env.SERVER_DEV:process.env.SERVER).doc(dev?process.env.SERVER_DEV:process.env.SERVER).get().then(snapshot => {
         client.settings = {
             dmChannel: /*snapshot.data()?.dmChannel??*/"832788680200028212",
             guild: /*snapshot.data()?.id??*/"825936007449935903",

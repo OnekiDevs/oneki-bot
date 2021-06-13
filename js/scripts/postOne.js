@@ -4,8 +4,7 @@ const one = ({name, token, id}) => {
     try {
         const interactions = require("discord-slash-commands-client");
         const client = new interactions.Client(token, id);
-        const { sleep } = require('../../utiles/utils');
-        let slash = require('../../slash/'+name);
+        let slash = require('../slash/'+name);
         client.createCommand(slash.data).then((response) => console.log(response.name + " created:", response)).catch((error) => console.error("Error",error.toJSON()));
     } catch (error) {
         if(error.toString().startsWith('Error: Cannot find module')) console.error('No se encontro el slash '+name)
