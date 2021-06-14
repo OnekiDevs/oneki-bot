@@ -30,7 +30,7 @@ async def mute(ctx, member : tools.discord.Member = None, time : str = "", *, re
             num = int(tools.re.search("s", time).string.split('s')[0])
             tempo = tools.datetime.utcnow() + tools.timedelta(seconds = num), float(num)
         else: 
-            tempo = tools.datetime.utcnow() + tools.timedelta(minutes = 5)
+            tempo = tools.datetime.utcnow() + tools.timedelta(minutes = 5), float(3600 * 5)
         roles = await tools.remove_role(ctx, member)
         await tools.give_role(ctx, member, "Mute")
 
