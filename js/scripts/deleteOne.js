@@ -1,16 +1,15 @@
 require("dotenv").config();
-const interactions = require("discord-slash-commands-client");
 
 const one = ({name, token, id}) => {
-    try {
-        const interactions = require("discord-slash-commands-client");
-        const client = new interactions.Client(token, id);
-        let slash = require('../slash/'+name);
-        client.createCommand(slash.data).then((response) => console.log(response.name + " created:", response)).catch((error) => console.error("Error",error.toJSON()));
-    } catch (error) {
-        if(error.toString().startsWith('Error: Cannot find module')) console.error('No se encontro el slash '+name)
-        else console.error(error)
-    }
+    const interactions = require("discord-slash-commands-client");
+    const client = new interactions.Client(token, id);
+    let check = false;
+    client.getCommands().then(async (commands) => {
+        for (const command of commands) {
+            if (command.name == name) client.deleteCommand(command.id).then(console.log('Eliminado', command.name)).catch(console.error);
+        }
+    }).catch(console.error);
+    if (!check) console.log('No se encontro el slash '+name);
 }
 
 const main = () => {
