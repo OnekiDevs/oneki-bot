@@ -8,12 +8,13 @@ from datetime import datetime, timedelta
 from os import getenv, remove
 from asyncio import sleep
 from io import BytesIO
+from random import choice
 import json
 import re
 
 #Modulos del proyecto
 from tools import db
-from tools.roles import give_role_mute, remove_role_mute
+from tools.roles import give_role, remove_role, give_list_roles
 
 
-bot = commands.Bot(command_prefix = "r!", description = "Bot oficial de La Resistencia", intents = discord.Intents.all())
+bot = commands.Bot(command_prefix = db.ctx("config").get("bot", "prefix"), description = "Bot oficial de La Resistencia", intents = discord.Intents.all())
