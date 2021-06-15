@@ -45,6 +45,12 @@
             "use": "ahorcado <@user>",
             "type": "command",
             "description": "Genera un juego simple de ahorcado. Tienes 30 segundos para responder, el contador se reinicia con cada intento, los simbolos y palabras las ignora, las \"ñ\" estan remplazadas por \"n\""
+        },
+        "buscaminas" : {
+            "alias": ["minesearch"],
+            "use": "buscaminas",
+            "type": "command",
+            "description": "Genera un juego simple de buscaminas"
         }
     },
     "Ayuda":{
