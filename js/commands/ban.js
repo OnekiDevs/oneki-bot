@@ -6,6 +6,7 @@ module.exports = {
     users_permissions: ['BAN_MEMBERS'],
     guildOnly: true,
     usage: '[usuario] [razón] <dias de eliminacion de mensajes>',
+    alias: [],
     run: async (client, message, args) => {
         const db = admin.firestore();
         if (!message.member.hasPermission(['BAN_MEMBERS'])) {
