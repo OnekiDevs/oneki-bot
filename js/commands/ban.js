@@ -78,6 +78,12 @@ module.exports = {
                     return;
                 }
 
+            } else {
+                sanctionsRef.set({ numberOfBans: 1, ban1: { banId: 1, banReason: reason } }).then(() => {
+                    console.log(`Sanctions ref for user "${user.tag}" didn't existed, created.\nRegistered ban, and incremented number of bans by 1.`);
+                    firstBan = true;
+                    return null;
+                })
             }
             if (doc.data().numberOfBans == undefined) {
                 sanctionsRef.set({ numberOfBans: 1, ban1: { banId: 1, banReason: reason } }).then(() => {
