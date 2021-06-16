@@ -5,7 +5,7 @@ module.exports = {
     description: 'Banea un miembro del servidor (Solo para gente con permiso "Administrador" o "Banear")!',
     users_permissions: ['BAN_MEMBERS'],
     guildOnly: true,
-    usage: '[usuario] [razón] <dias de eliminacion de mensajes>',
+    usage: '[usuario] [razón]',
     alias: [],
     run: async (client, message, args) => {
         const db = admin.firestore();

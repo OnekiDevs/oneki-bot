@@ -67,6 +67,12 @@
             "use": "clear <-y>",
             "type": "command",
             "description": "Limpia los mensajes de todo el canal"
+        },
+        "ban": {
+            "alias": [],
+            "use": "ban [usuario] [razón]",
+            "type": "command",
+            "description": "Banea miembros!"
         }
     },
     "Extra": {
