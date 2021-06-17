@@ -11,4 +11,4 @@ from commands.moderation import mute, unmute
 #Eventos
 from events import error, join, messages, ready
 
-tools.bot.run(tools.getenv("TOKEN_DISCORD"))
+tools.bot.run(tools.getenv("TOKEN_DISCORD_DEV"))
