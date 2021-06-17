@@ -72,7 +72,13 @@
             "alias": [],
             "use": "ban [usuario] [razón]",
             "type": "command",
-            "description": "Banea miembros!"
+            "description": "¡Banea miembros!"
+        },
+        "unban": {
+            "alias": [],
+            "use": "unban [id usuario]",
+            "type": "command",
+            "description": "Desbanea miembros"
         }
     },
     "Extra": {

@@ -3,15 +3,14 @@ const serviceAccount = require("../../src/firebase-key.json");
 module.exports = {
     name: 'ban',
     description: 'Banea un miembro del servidor (Solo para gente con permiso "Administrador" o "Banear")!',
-    users_permissions: ['BAN_MEMBERS'],
     guildOnly: true,
     usage: '[usuario] [razón]',
     alias: [],
     run: async (client, message, args) => {
         const db = admin.firestore();
         if (!message.member.hasPermission(['BAN_MEMBERS'])) {
-        	message.inlineReply('No tienes los suficientes permisos para hacer esto!');
-        	return;
+            message.inlineReply('No tienes los suficientes permisos para hacer esto!');
+            return;
         }
 
         function getUserFromMention(mention) {
@@ -43,17 +42,23 @@ module.exports = {
         const reason = args.slice(1).join(' ');
         const deleteDays = args[3]
         if (user.id === message.author.id) {
-        	message.inlineReply('No puedes banearte a ti mismo.');
-        	return;
+            message.inlineReply('No puedes banearte a ti mismo.\n(De hecho si puedes pero estoy no te voy a dejar)');
+            return;
         }
 
-        let banInform = user.send(`Has sido baneado de **${message.guild.name}**, razón: ${reason}`);
-        await message.guild.members.ban(user, { deleteDays, reason })
-            .then(_ => message.inlineReply(`Successfully banned **${user.tag}** from the server!`))
-            .catch((error) => {
-                banInform.then(message => message.delete({ timeout: 0 }))
-                message.inlineReply(`Failed to ban **${user.tag}**: ${error}`);
+        let member = message.guild.members.cache.get(user.id);
+        if (!member.bannable) {
+            return message.inlineReply('No puedes banear a este usuario!\nRevisa la jerarquia de los roles!')
+        }
+        if (member.bannable) {
+            user.send(`Has sido baneado de **${message.guild.name}**, razón: ${reason}`).then(() => {
+                message.guild.members.ban(user, { deleteDays, reason })
+                .then(_ => message.inlineReply(`Successfully banned **${user.tag}** from the server!`))
+                .catch((error) => {
+                    message.inlineReply(`Failed to ban **${user.tag}**: ${error}`);
+                })
             })
+        }
 
         let firstBan = true;
         let canContinue = true;
