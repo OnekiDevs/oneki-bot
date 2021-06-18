@@ -13,6 +13,7 @@ async def on_command_error(ctx, error):
             msg = msg + f"{i}\n"
         await ctx.send(msg)
     elif(type(error) == tools.commands.errors.CommandNotFound): pass
+    elif(type(error) == tools.exceptions.WrongPrefix): pass
     else: 
         channel = tools.bot.get_channel(833780614712131616)
         embed = tools.discord.Embed(description = "Se a producido un error D:", color = tools.discord.Colour.blue())

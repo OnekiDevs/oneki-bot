@@ -15,5 +15,12 @@ import re
 #Modulos del proyecto
 from tools import db
 from tools.roles import give_role, remove_role, give_list_roles
+from tools import exceptions
 
-bot = commands.Bot(command_prefix = "", description = "Bot oficial de La Resistencia", intents = discord.Intents.all())
+#Funciones y variables
+def get_prefix(ctx):
+    if(ctx.prefix == db.ctx(f"{ctx.guild.id}").get("config", "prefix")): pass
+    else:
+        raise exceptions.WrongPrefix("Prefijo equivocado")
+
+bot = commands.Bot(command_prefix = ["!", ">"], description = "Bot oficial de La Resistencia", intents = discord.Intents.all())

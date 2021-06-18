@@ -3,6 +3,7 @@ import tools
 @tools.bot.command()
 @tools.commands.has_permissions(kick_members = True)
 async def unmute(ctx, miembro : tools.discord.Member):
+    tools.get_prefix(ctx)
     for role in ctx.guild.roles:
         if (role.name == "Mute"):
             for roles in miembro._roles:
