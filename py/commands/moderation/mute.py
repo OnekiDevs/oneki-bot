@@ -3,6 +3,7 @@ import tools
 @tools.bot.command()
 @tools.commands.has_permissions(kick_members = True)
 async def mute(ctx, member : tools.discord.Member = None, time : str = "", *, reason  : str = "No se dio una razón"):
+    tools.get_prefix(ctx)
     collection = tools.db.ctx(f"{ctx.guild.id}")
     if(member == ctx.author): await ctx.channel.send("Lamentablemente no te puedes mutear a ti mismo")
     elif (member == None): await ctx.channel.send("Especifica el usuario al que quieres dar mute")

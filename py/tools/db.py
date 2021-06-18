@@ -1,4 +1,4 @@
-from firebase_admin import credentials, firestore
+from firebase_admin import credentials, firestore, threading
 import firebase_admin
 
 class ctx:
@@ -27,7 +27,7 @@ class ctx:
                 else: return False
             else:
                 if(doc.get().exists): 
-                    return doc.to_dict()
+                    return doc.get().to_dict()
                 else: return False
 
     def where(self, filter, operation, value, compound_queries = False, filter2 = None, operation2 = None, value2 = None):
@@ -47,3 +47,6 @@ class ctx:
                 self.collection.document(documnt).collection(subcollection).document(subdocumnt).update({f'{campo}': firestore.DELETE_FIELD})
             else: self.collection.document(documnt).collection(subcollection).document(subdocumnt).delete()
         else: self.collection.document(documnt).delete()
+    def detect_change(self, documnt, metode):
+        a = threading.Event()
+        pass

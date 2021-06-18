@@ -9,7 +9,7 @@ module.exports = async (client, interact) => {
         });
     }
     if (partida.host == interact.member.user.id) {
-        if (partida.jugadores.length > 1) {
+        if (partida.jugadores.length > 1 || true) {
             partida.estado = 'curso'
             const embed = require('./embedUno')(partida);
             partida = await require('../uno').repartir(partida);

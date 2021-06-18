@@ -5,7 +5,10 @@ load_dotenv()
 
 tools.bot.remove_command('help')
 
-from commands import moderation, avatar
-from events import join, messages, ready
+#Comandos del bot
+from commands import avatar
+from commands.moderation import mute, unmute
+#Eventos
+from events import error, join, messages, ready
 
 tools.bot.run(tools.getenv("TOKEN_DISCORD"))
