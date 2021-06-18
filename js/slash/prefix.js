@@ -1,5 +1,5 @@
 const { Permissions } = require('discord.js');
-const admin = require('firebase-admin');
+    const admin = require('firebase-admin');
 const serviceAccount = require("../../src/firebase-key.json");
 module.exports = {
     data: {
@@ -19,7 +19,11 @@ module.exports = {
         let opciones = [];
         const guild = await client.guilds.cache.get(interact.guild_id);
         const member = await guild.members.fetch(interact.member.user.id);
-        if(!member.hasPermission("MANAGE_GUILD")) {
+        // console.log(client);
+        // let config = client.servers.get(interact.guild_id);
+        // config.prefix = opciones[0].value
+        // client.servers.set(interact.guild_id, config);
+        if (!member.hasPermission("MANAGE_GUILD")) {
             return client.api.interactions(interact.id, interact.token).callback.post({
                 data: {
                     type: 4,
@@ -34,20 +38,29 @@ module.exports = {
         console.log(opciones[0]);
         client.api.interactions(interact.id, interact.token).callback.post({
             data: {
-                type: 4, 
+                type: 4,
                 data: {
                     content: 'Prefix cambiado exitosamente a ' + '"' + opciones[0].value + '"'
                 }
             }
-        });        
+        });
         const db = admin.firestore();
-        db.collection(`config`).doc("prefix").update({
+
+        console.log(interact.guild_id);
+        db.collection(interact.guild_id).doc('config').update({
             prefix: opciones[0].value
         }).catch((err) => {
-            if (err.details.startsWith("No document to update")) db.collection(`config`).doc("bot").set({
+            if (err.details.startsWith("No document to update")) db.collection(interact.guild_id).doc('config').set({
                 prefix: opciones[0].value
             });
         });
-        client.settings.prefix = opciones[0].value;
+        // db.collection(`config`).doc("prefix").update({
+        //     prefix: opciones[0].value
+        // }).catch((err) => {
+        //     if (err.details.startsWith("No document to update")) db.collection(`config`).doc("bot").set({
+        //         prefix: opciones[0].value
+        //     });
+        // });
+        // client.settings.prefix = opciones[0].value;
     }
 }
