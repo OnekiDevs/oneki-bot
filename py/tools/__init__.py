@@ -16,4 +16,4 @@ import re
 from tools import db
 from tools.roles import give_role, remove_role, give_list_roles
 
-bot = commands.Bot(command_prefix = db.ctx("config").get("bot", "prefix"), description = "Bot oficial de La Resistencia", intents = discord.Intents.all())
+bot = commands.Bot(command_prefix = "", description = "Bot oficial de La Resistencia", intents = discord.Intents.all())
