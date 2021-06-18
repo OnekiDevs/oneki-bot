@@ -13,7 +13,8 @@ module.exports = async (dev) => {
                 'DIRECT_MESSAGES',
                 'GUILD_MESSAGES',
                 'GUILDS',
-                'GUILD_WEBHOOKS'
+                'GUILD_WEBHOOKS',
+                'GUILD_BANS'
             ]
         }
     });
