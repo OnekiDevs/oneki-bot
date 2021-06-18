@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "canvas": "^2.8.0",
     "cross-env": "^7.0.3",
     "discord-slash-commands-client": "^1.1.1",
     "discord.js": "^12.5.3",

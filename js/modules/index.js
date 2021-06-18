@@ -20,6 +20,7 @@ module.exports = async (dev) => {
     client.commands = new Collection();
     client.util = require('../modules/util');
     client.buttons = new Collection();
+    client.servers = new Collection();
     client.slash = new Collection();
     client.uno = new Collection();
     const serviceAccount = require("../../src/firebase-key.json");

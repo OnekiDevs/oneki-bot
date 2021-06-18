@@ -8,11 +8,7 @@ module.exports.repartir = (partida) => {
             partida[j] = {
                 cartas: []
             };
-            for(i=7;i;i--) {
-                let carta = cartas[Math.floor(Math.random()*cartas.length)];
-                partida[j].cartas.push(carta);
-                cartas.splice(cartas.indexOf(carta),1);
-            }
+            for(i=7;i;i--) partida[j].cartas.push(cartas.splice(cartas.indexOf(cartas[Math.floor(Math.random()*cartas.length)]),1)[0]);
         });
         partida.cartas = cartas;
         resolve(partida);
