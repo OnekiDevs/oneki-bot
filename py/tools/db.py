@@ -47,3 +47,6 @@ class ctx:
                 self.collection.document(documnt).collection(subcollection).document(subdocumnt).update({f'{campo}': firestore.DELETE_FIELD})
             else: self.collection.document(documnt).collection(subcollection).document(subdocumnt).delete()
         else: self.collection.document(documnt).delete()
+    def detect_change():
+        
+        pass
