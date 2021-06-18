@@ -1,11 +1,13 @@
 {
   "dependencies": {
+    "canvas": "^2.8.0",
     "cross-env": "^7.0.3",
     "discord-slash-commands-client": "^1.1.1",
     "discord.js": "^12.5.3",
     "dotenv": "^8.2.0",
     "fetch-node": "0.0.1",
     "firebase-admin": "^9.6.0",
+    "node-fetch": "^2.6.1",
     "nodemon": "^2.0.7",
     "puppeteer": "^10.0.0",
     "shortid": "^2.2.16"

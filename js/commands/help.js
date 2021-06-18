@@ -4,7 +4,7 @@ module.exports = {
     usersPermissions: [],
     alias: [],
     run: async (client, message, args) => {
-        const embed = await require('../modules/help')(client, require('../../src/commands.json').Entretenimiento, 'de Entretenimento');
+        const embed = await require('../modules/help')(client, require('../../src/commands.json').Entretenimiento, 'de Entretenimento', message.guild.id);
         client.api.channels(message.channel.id).messages.post({ 
             data: {
                 embed: embed,

@@ -1,56 +1,164 @@
 {
-    "0r": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "1r": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "2r": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "3r": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "4r": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "5r": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "6r": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "7r": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "8r": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "9r": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "0g": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "1g": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "2g": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "3g": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "4g": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "5g": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "6g": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "7g": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "8g": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "9g": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "0y": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "1y": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "2y": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "3y": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "4y": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "5y": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "6y": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "7y": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "8y": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "9y": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "0b": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "1b": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "2b": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "3b": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "4b": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "5b": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "6b": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "7b": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "8b": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "9b": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "p4": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "py": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "pr": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "pg": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "pb": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "cc": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "ry": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "rb": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "rg": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "rr": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "cr": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "cb": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "cy": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg",
-    "cg": "https://www.uno-juego.es/wp-content/uploads/2020/01/retoure-karte.jpg"
+    "0r": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "1r": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "2r": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "3r": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "4r": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "5r": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "6r": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "7r": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "8r": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "9r": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "0g": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "1g": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "2g": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "3g": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "4g": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "5g": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "6g": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "7g": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "8g": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "9g": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "0y": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "1y": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "2y": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "3y": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "4y": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "5y": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "6y": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "7y": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "8y": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "9y": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "0b": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "1b": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "2b": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "3b": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "4b": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "5b": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "6b": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "7b": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "8b": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "9b": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "p4": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "py": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "pr": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "pg": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "pb": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "cc": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "ry": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "rb": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "rg": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "rr": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "cr": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "cb": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "cy": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    },
+    "cg": {
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+    }
 }
