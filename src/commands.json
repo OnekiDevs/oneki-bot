@@ -32,7 +32,7 @@
             ],
             "use": "ytt <#!channel>",
             "type": "command",
-            "description": "Genera una sala de YoouTube"
+            "description": "Genera una sala de YouTube"
         },
         "ss": {
             "alias": [],
@@ -70,9 +70,9 @@
         },
         "ban": {
             "alias": [],
-            "use": "ban [usuario] [razón]",
+            "use": "ban [usuario] [Dias de eliminacion de historial de mensajes] [-s|-i (Mostrar el nombre del moderador responsable al baneado)] [razón]",
             "type": "command",
-            "description": "¡Banea miembros!"
+            "description": "¡Banea miembros! (Si solo se proporciona el usuario, el comando entra en modo interactivo)"
         },
         "unban": {
             "alias": [],

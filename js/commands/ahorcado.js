@@ -31,7 +31,7 @@ module.exports = {
                 toString:()=>wordShow.a.join(' ')
             }
             msg.edit(`Usadas: ${usedLetters}\n\`${wordShow}\`\n${life}`);
-            if (life.i == 0) return msg.inlineReply(`${message.author} suarte para la próxima, la palabra era **${word.join('')}**`);
+            if (life.i == 0) return msg.inlineReply(`${message.author} suerte para la próxima, la palabra era **${word.join('')}**`);
             if (!wordShow.a.includes("_")) return msg.inlineReply(`${message.author} GG has ganado`);
             const filter = m => participants.includes(m.author.id) && validLetters.includes(m.content.toLowerCase());
             try { 

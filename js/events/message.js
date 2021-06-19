@@ -15,7 +15,6 @@ module.exports = {
                     useDefaultPrefix = true;
                 }
             })
-            console.log(useDefaultPrefix, localPrefix);
             let args;
             if (useDefaultPrefix) {
                 if (!message.content.toLowerCase().startsWith(client.settings.prefix)) return;
