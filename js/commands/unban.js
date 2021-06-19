@@ -11,6 +11,7 @@ module.exports = {
         }
 
         const userToUnbanID = args[0];
+        if (!userToUnbanID) return;
         message.guild.members.unban(userToUnbanID);
         return message.inlineReply('A el usuario se le ha revocado el ban exitosamente!');
     },

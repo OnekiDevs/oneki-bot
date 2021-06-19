@@ -80,7 +80,7 @@ module.exports = {
             return message.inlineReply('Por favor menciona a alguien.');
         }
 
-        reason = args.slice(3).join(' ');
+        let reason = args.slice(3).join(' ');
         let showMod = args[2] ?? '-i'
 
         if (args.length < 3) {
@@ -119,7 +119,7 @@ module.exports = {
         if (reason.length === 0) {
             message.inlineReply('Por favor proporciona una razón, escuchando...')
             const filter = m => m.author.id === message.author.id
-            message.channel.awaitMessages(filter, { max: 1, time: 10000, errors: ['time'] })
+            await message.channel.awaitMessages(filter, { max: 1, time: 15000, errors: ['time'] })
                 .then(collected => {
                     reason = collected.first().content;
                 })
