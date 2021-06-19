@@ -40,7 +40,7 @@ module.exports = {
             data: {
                 type: 4,
                 data: {
-                    content: 'Prefix cambiado exitosamente a ' + '"' + opciones[0].value + '"'
+                    content: `Prefix cambiado exitosamente a "${opciones[0].value}"`
                 }
             }
         });
@@ -54,6 +54,10 @@ module.exports = {
                 prefix: opciones[0].value
             });
         });
+        //se actualiza el prefix en el cliente
+        const config = client.servers.get(interact.guild_id)
+        config.prefix = opciones[0].value;
+        client.servers.set(interact.guild_id, config);
         // db.collection(`config`).doc("prefix").update({
         //     prefix: opciones[0].value
         // }).catch((err) => {
