@@ -13,7 +13,9 @@ async def on_member_join(message):
         font = tools.ImageFont.truetype("src/arial.ttf", 30)
         tools.ImageDraw.ImageDraw(img).text((210, 155), text = data["mensaje"].format(message.name, message.guild.name), font = font, fill = "white")
 
-        pfp = tools.Image.open(tools.BytesIO (await message.avatar_url_as(size = 128).read()))
+        pfp = tools.Image.open(tools.BytesIO(await message.avatar_url_as(size = 128).read()))
+        pfp.save("src/pfp.png")
+        pfp = tools.Image.open("src/pfp.png")
         pfp = pfp.resize((100, 100))
         bigsize = (pfp.size[0] * 3, pfp.size[1] * 3)
         mask = tools.Image.new('L', bigsize, 0)
