@@ -35,17 +35,23 @@ class ctx:
             return self.collection.where(f"{filter}", f"{operation}", f"{value}").where(f"{filter2}", f"{operation2}", f"{value2}").stream()
         else: return self.collection.where(f"{filter}", f"{operation}", f"{value}").stream()
 
-    def update(self, documnt, camp, value, array = False): 
-        if(array): self.collection.document(documnt).update({f'{camp}': firestore.firestore.ArrayUnion(value)})
+    def update(self, documnt, camp, value, subcollection = None, subdocumnt = None, array = False): 
+        if(subcollection != None and subdocumnt != None): 
+            if(array): 
+                self.collection.document(documnt).collection(subcollection).document(subdocumnt).update({f'{camp}' : firestore.firestore.ArrayUnion(value)})
+            else: self.collection.document(documnt).collection(subcollection).document(subdocumnt).update({f'{camp}' : value})
+        elif(array): self.collection.document(documnt).update({f'{camp}': firestore.firestore.ArrayUnion(value)})
         else: self.collection.document(documnt).update({f'{camp}': value})
 
-    def delete(self, documnt, array = False, camp = False, campo = None, value = None, subcollection = None, subdocumnt = None): 
-        if(array): self.collection.document(documnt).update({f'{campo}': firestore.firestore.ArrayRemove(value)})
-        elif(camp): self.collection.document(documnt).update({f'{campo}': firestore.DELETE_FIELD})
-        elif(subcollection != None and subdocumnt != None): 
-            if(campo != None):
-                self.collection.document(documnt).collection(subcollection).document(subdocumnt).update({f'{campo}': firestore.DELETE_FIELD})
+    def delete(self, documnt, camp = None, value = None, subcollection = None, subdocumnt = None, array = False): 
+        if(subcollection != None and subdocumnt != None): 
+            if(camp != None):
+                self.collection.document(documnt).collection(subcollection).document(subdocumnt).update({f'{camp}': firestore.DELETE_FIELD})
+            elif(array): 
+                self.collection.document(documnt).collection(subcollection).document(subdocumnt).update({f'{camp}': firestore.firestore.ArrayRemove(value)})
             else: self.collection.document(documnt).collection(subcollection).document(subdocumnt).delete()
+        elif(array): self.collection.document(documnt).update({f'{camp}': firestore.firestore.ArrayRemove(value)})
+        elif(camp != None): self.collection.document(documnt).update({f'{camp}': firestore.DELETE_FIELD})
         else: self.collection.document(documnt).delete()
     def detect_change(self, documnt, metode):
         a = threading.Event()
