@@ -22,7 +22,8 @@ def mutetime(dic_mutes):
     for i in dic_mutes:
         for j in dic_mutes[i]:
             time = dic_mutes[i][j]['time']
-            if (tools.datetime(time.year, time.month, time.day, time.hour, time.minute, time.second, time.tzinfo, time.fold) < tools.datetime.utcnow()):
+            print(type(time))
+            if (tools.datetime(time.year, time.month, time.day, time.hour, time.minute, time.second, time.microsecond, time.tzinfo) > tools.datetime.utcnow()):
                 tools.give_list_roles(
                     tools.bot.get_guild(int(i)), 
                     int(j),

@@ -32,7 +32,7 @@ async def remove_role(guild, member : Member, id_role = None):
 async def give_list_roles(guild, member : Member, list_roles):
     for role in guild.roles:
         for role2 in list_roles: 
-            if(role.id == role2):
+            if(role.id == int(role2)):
                 await member.add_roles(role)
             if(role.name == "Mute"):
                 await member.remove_roles(role)

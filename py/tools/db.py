@@ -38,9 +38,9 @@ class ctx:
     def update(self, documnt, camp, value, subcollection = None, subdocumnt = None, array = False): 
         if(subcollection != None and subdocumnt != None): 
             if(array): 
-                self.collection.document(documnt).collection(subcollection).document(subdocumnt).update({f'{camp}' : firestore.firestore.ArrayUnion(value)})
+                self.collection.document(documnt).collection(subcollection).document(subdocumnt).update({f'{camp}' : firestore.firestore.ArrayUnion([value])})
             else: self.collection.document(documnt).collection(subcollection).document(subdocumnt).update({f'{camp}' : value})
-        elif(array): self.collection.document(documnt).update({f'{camp}': firestore.firestore.ArrayUnion(value)})
+        elif(array): self.collection.document(documnt).update({f'{camp}': firestore.firestore.ArrayUnion([value])})
         else: self.collection.document(documnt).update({f'{camp}': value})
 
     def delete(self, documnt, camp = None, value = None, subcollection = None, subdocumnt = None, array = False): 
@@ -48,9 +48,9 @@ class ctx:
             if(camp != None):
                 self.collection.document(documnt).collection(subcollection).document(subdocumnt).update({f'{camp}': firestore.DELETE_FIELD})
             elif(array): 
-                self.collection.document(documnt).collection(subcollection).document(subdocumnt).update({f'{camp}': firestore.firestore.ArrayRemove(value)})
+                self.collection.document(documnt).collection(subcollection).document(subdocumnt).update({f'{camp}': firestore.firestore.ArrayRemove([value])})
             else: self.collection.document(documnt).collection(subcollection).document(subdocumnt).delete()
-        elif(array): self.collection.document(documnt).update({f'{camp}': firestore.firestore.ArrayRemove(value)})
+        elif(array): self.collection.document(documnt).update({f'{camp}': firestore.firestore.ArrayRemove([value])})
         elif(camp != None): self.collection.document(documnt).update({f'{camp}': firestore.DELETE_FIELD})
         else: self.collection.document(documnt).delete()
     def detect_change(self, documnt, metode):
