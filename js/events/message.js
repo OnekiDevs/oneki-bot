@@ -8,7 +8,7 @@ module.exports = {
         try {
             if (message.author.bot) return;
             if (message.channel.type == 'dm') return client.emit('directMessage', message);
-            await db.collection(message.guild.id).doc('config').get().then((doc) => {
+            await db.collection('config').doc(message.guild.id).get().then((doc) => {
                 if (doc.exists) {
                     localPrefix = doc.data().prefix;
                 } else {
