@@ -47,10 +47,10 @@ module.exports = {
         const db = admin.firestore();
 
         console.log(interact.guild_id);
-        db.collection(interact.guild_id).doc('config').update({
+        db.collection('config').doc(interact.guild_id).update({
             prefix: opciones[0].value
         }).catch((err) => {
-            if (err.details.startsWith("No document to update")) db.collection(interact.guild_id).doc('config').set({
+            if (err.details.startsWith("No document to update")) db.collection('config').doc(interact.guild_id).set({
                 prefix: opciones[0].value
             });
         });
@@ -58,13 +58,5 @@ module.exports = {
         const config = client.servers.get(interact.guild_id)
         config.prefix = opciones[0].value;
         client.servers.set(interact.guild_id, config);
-        // db.collection(`config`).doc("prefix").update({
-        //     prefix: opciones[0].value
-        // }).catch((err) => {
-        //     if (err.details.startsWith("No document to update")) db.collection(`config`).doc("bot").set({
-        //         prefix: opciones[0].value
-        //     });
-        // });
-        // client.settings.prefix = opciones[0].value;
     }
 }
