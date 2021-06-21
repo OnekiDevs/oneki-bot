@@ -5,12 +5,12 @@ async def on_command_error(ctx, error):
     if(type(error) == tools.commands.errors.MissingPermissions):
         msg = "No tienes los suficientes permisos para usar este comando\n**Permisos faltantes:**\n"
         for i in error.missing_perms:
-            msg = msg + f"{i}\n"
+            msg = msg + f"`{i}`\n"
         await ctx.send(msg)
     elif(type(error) == tools.commands.errors.BotMissingPermissions):
         msg = "No tengo los suficientes permisos para este comando\n**Permisos faltantes:**\n"
         for i in error.missing_perms:
-            msg = msg + f"{i}\n"
+            msg = msg + f"`{i}`\n"
         await ctx.send(msg)
     elif(type(error) == tools.commands.errors.CommandNotFound): pass
     elif(type(error) == tools.exceptions.WrongPrefix): pass
