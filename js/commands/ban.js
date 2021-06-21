@@ -5,7 +5,7 @@ module.exports = {
     name: 'ban',
     description: 'Banea un miembro del servidor (Solo para gente con permiso "Administrador" o "Banear")!',
     guildOnly: true,
-    usage: '[usuario] [Dias de eliminacion de historial de mensajes] [-s|-i (Mostrar el nombre del moderador responsable al baneado)] [razón]',
+    usage: '[usuario] [Dias de eliminacion de historial de mensajes] [-s (Mostrar el nombre del moderador responsable al ban] [razón]',
     alias: [],
     run: async (client, message, args) => {
         const db = admin.firestore();
@@ -43,37 +43,7 @@ module.exports = {
         let deleteDays = args[1] ?? 1
         console.log(user);
         if (args.length < 2) {
-            message.inlineReply(`No se ha proporcionado cuantos dias de historial de mensajes del usuario eliminar, predeterminando a ${deleteDays}. Continuar? (Proporcionar/Continuar, 10 secs para responder)`);
-            const filter = m => m.author.id === message.author.id
-            await message.channel.awaitMessages(filter, { max: 1, time: 10000, errors: ['time'] })
-                .then(collected => {
-                    if (collected.first().content.toLowerCase() === 'proporcionar') {
-                        collected.first().inlineReply('Escuchando... (Por favor pon un numero entre 0 y 7)').then(() => {
-                            const filter2 = m => m.author.id === message.author.id
-                            message.channel.awaitMessages(filter2, { max: 1, time: 10000, errors: ['time'] })
-                                .then(collected => {
-                                    if (collected.first().content.length == 1 && parseInt(collected.first().content) < 8) {
-                                        deleteDays = parseInt(collected.first().content);
-                                        message.channel.send(`Continuando con ${deleteDays}!`)
-                                    } else {
-                                        collected.first().inlineReply('Por favor empieza de nuevo y proporciona un numero entre 0 y 7.')
-                                    }
-                                })
-                                .catch(() => {
-                                    message.channel.send(`Continuando con ${deleteDays}!`)
-                                })
-                        })
-                    }
-                    if (collected.first().content.toLowerCase() === 'continuar') {
-                        collected.first().inlineReply(`Esta bien, continuando con ${deleteDays}!`)
-                    }
-                    if (collected.first().content.toLowerCase() != 'continuar' || collected.first().content.toLowerCase() != 'proporcionar') {
-                        message.channel.send(`Continuando con ${deleteDays}!`)
-                    }
-                })
-                .catch(() => {
-                    message.channel.send(`Continuando con ${deleteDays}.`)
-                })
+            message.channel.send(`No se ha proporcionado cuantos dias de historial de mensajes del usuario eliminar, predeterminando a ${deleteDays}.`);
         }
 
         if (!user) {
@@ -81,65 +51,29 @@ module.exports = {
         }
 
         let reason = args.slice(3).join(' ');
+        console.log(reason);
         let showMod = args[2] ?? '-i'
 
         if (args.length < 3) {
-            message.inlineReply(`No se ha proporcionado el anonimato del moderador, predeterminando a ${showMod}. Continuar? (Proporcionar/Continuar, 10 secs para responder)`);
-            const filter = m => m.author.id === message.author.id
-            await message.channel.awaitMessages(filter, { max: 1, time: 10000, errors: ['time'] })
-                .then(collected => {
-                    if (collected.first().content.toLowerCase() === 'proporcionar') {
-                        collected.first().inlineReply('Escuchando... (Por favor pon la bandera -s o -i)').then(() => {
-                            const filter2 = m => m.author.id === message.author.id
-                            message.channel.awaitMessages(filter2, { max: 1, time: 10000, errors: ['time'] })
-                                .then(collected => {
-                                    if (collected.first().content.length == 2 && collected.first().content == '-s' || collected.first().content == '-i') {
-                                        deleteDays = parseInt(collected.first().content);
-                                        message.channel.send(`Continuando con ${showMod}!`)
-                                    } else {
-                                        collected.first().inlineReply('Por favor empieza de nuevo y proporciona una bandera valida.')
-                                    }
-                                })
-                                .catch(() => {
-                                    message.channel.send(`Continuando con ${showMod}!`)
-                                })
-                        })
-                    }
-                    if (collected.first().content.toLowerCase() === 'continuar') {
-                        collected.first().inlineReply(`Esta bien, continuando con ${showMod}!`)
-                    }
-                    if (collected.first().content.toLowerCase() != 'continuar' || collected.first().content.toLowerCase() != 'proporcionar') {
-                        message.channel.send(`Continuando con ${showMod}!`)
-                    }
-                })
-                .catch(() => {
-                    message.channel.send(`Continuando con ${showMod}.`)
-                })
+            message.channel.send(`No se ha proporcionado la bandera "-s", ban anonimo.`);
         } 
         if (reason.length === 0) {
-            message.inlineReply('Por favor proporciona una razón, escuchando...')
-            const filter = m => m.author.id === message.author.id
-            await message.channel.awaitMessages(filter, { max: 1, time: 15000, errors: ['time'] })
-                .then(collected => {
-                    reason = collected.first().content;
-                })
-                .catch(() => {
-                    message.inlineReply('Empieza de nuevo por favor.')
-                })
+            message.channel.send('No se ha proporcionado una razon, se mandara sin razon el informe.')
+            reason = 'No se ha dado razon'
         }
 
         let member = message.guild.members.cache.get(user.id);
         let embed = new Discord.MessageEmbed()
             .setColor(member.displayHexColor)
             .setTitle(`Has sido baneado de **${message.guild.name}**`)
-            .setDescription(`Parece que has sido baneado de **${message.guild.name}**, abajo la razon.`)
             .setImage('https://media1.tenor.com/images/de413d89fff5502df7cff9f68b24dca5/tenor.gif?itemid=12850590')
             .setThumbnail(user.avatarURL())
             .addField('Razón:', reason, true)
             .setTimestamp()
 
         if (showMod == '-s') {
-            embed.setAuthor(`Moderador responsable: ${message.author.tag}`, message.author.avatarURL(), 'https://discord.gg/laresistencia')
+            embed.setAuthor(`Moderador responsable: ${message.author.tag}`, message.author.avatarURL(), 'https://discord.gg/laresistencia');
+            embed.setDescription(`Parece que has sido baneado de **${message.guild.name}** por ${message.author.tag}`);
         }
 
         // return message.inlineReply(embed)
@@ -148,7 +82,7 @@ module.exports = {
         }
         if (member.bannable) {
             user.send(embed).then(() => {
-                message.guild.members.ban(user, { deleteDays: deleteDays, reason })
+                message.guild.members.ban(user, { deleteDays: deleteDays, reason: reason })
                     .then(_ => message.inlineReply(`Successfully banned **${user.tag}** from the server!`))
                     .catch((error) => {
                         message.inlineReply(`Failed to ban **${user.tag}**: ${error}`);
