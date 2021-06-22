@@ -17,7 +17,7 @@ module.exports = {
         let opciones = [];
         const guild = await client.guilds.cache.get(interact.guild_id);
         const member = await guild.members.fetch(interact.member.user.id);
-        if (!member.hasPermission("MANAGE_GUILD")) {
+        if (!member.permissions.has("MANAGE_GUILD")) {
             return client.api.interactions(interact.id, interact.token).callback.post({
                 data: {
                     type: 4,
