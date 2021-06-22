@@ -12,7 +12,8 @@ module.exports = {
         if (!message.member.hasPermission(['BAN_MEMBERS'])) {
             message.inlineReply('No tienes los suficientes permisos para hacer esto!');
             return;
-        } else if (!message.guild.me.hasPermission(['BAN_MEMBERS'])) {
+        } 
+        if (!message.guild.me.hasPermission(['BAN_MEMBERS'])) {
             message.inlineReply('No tengo permisos para hacer esto!');
             return;
         }
