@@ -10,10 +10,23 @@ module.exports = async (client, interact) => {
     }
     if (partida.host == interact.member.user.id) {
         if (partida.jugadores.length > 1 || true) {
-            partida.estado = 'curso'
-            const embed = require('./embedUno')(partida);
+            partida.estado = 'repartiendo'
+            let embed = require('./embedUno')(partida);
+            client.api.channels(interact.channel_id).messages(interact.message.id).patch({
+                data: {
+                    embed: embed,
+                    components: []
+                }
+            });
+            client.api.interactions(interact.id, interact.token).callback.post({
+                data: {
+                    type: 6
+                }
+            });
             partida = await require('../uno').repartir(partida);
-            client.uno.set(interact.data.custom_id.slice(6), partida)
+            partida.estado = 'curso'
+            embed = require('./embedUno')(partida);
+            client.uno.set(interact.data.custom_id.slice(6), partida);
             client.api.channels(interact.channel_id).messages(interact.message.id).patch({
                 data: {
                     embed: embed,
@@ -36,11 +49,6 @@ module.exports = async (client, interact) => {
                             ]
                         }
                     ]
-                }
-            });
-            client.api.interactions(interact.id, interact.token).callback.post({
-                data: {
-                    type: 6
                 }
             });
         } else {

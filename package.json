@@ -3,7 +3,7 @@
     "canvas": "^2.8.0",
     "cross-env": "^7.0.3",
     "discord-slash-commands-client": "^1.1.1",
-    "discord.js": "^12.5.3",
+    "discord.js": "^13.0.0-dev.c850ae10270076c4b2e10b130dd8f88eed4ed201",
     "dotenv": "^8.2.0",
     "fetch-node": "0.0.1",
     "firebase-admin": "^9.6.0",
