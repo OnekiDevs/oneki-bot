@@ -8,15 +8,13 @@ module.exports = async (dev) => {
     //declarations
     require("./extendedMessage");
     const client = new Client({
-        ws: {
-            intents: [
-                'DIRECT_MESSAGES',
-                'GUILD_MESSAGES',
-                'GUILDS',
-                'GUILD_WEBHOOKS',
-                'GUILD_BANS'
-            ]
-        }
+        intents: [
+            'DIRECT_MESSAGES',
+            'GUILD_MESSAGES',
+            'GUILDS',
+            'GUILD_WEBHOOKS',
+            'GUILD_BANS'
+        ]
     });
     client.commands = new Collection();
     client.util = require('../modules/util');
