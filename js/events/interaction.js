@@ -7,9 +7,9 @@ module.exports = {
             else if ((/uno_i_.{9}/g).test(interact.customID)) {
                 require('../modules/uno').ingresar(client, interact);
             } else if ((/uno_c_.{9}/g).test(interact.customID)) {
-                require('./modules/uno').comenzar(client, interact);
+                require('../modules/uno').comenzar(client, interact);
             } else if ((/uno_m_.{9}/g).test(interact.customID)) {
-                require('./modules/uno').mostrar(client, interact);
+                require('../modules/uno').mostrar(client, interact);
             } else if ((/uno_e_.{9}/g).test(interact.customID)) {
                 console.log(interact.customID);
             }

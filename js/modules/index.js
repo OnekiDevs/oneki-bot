@@ -6,7 +6,6 @@ module.exports = async (dev) => {
     const admin = require('firebase-admin');    
 
     //declarations
-    require("./extendedMessage");
     const client = new Client({
         intents: [
             'DIRECT_MESSAGES',

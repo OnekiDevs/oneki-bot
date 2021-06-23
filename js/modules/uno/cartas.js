@@ -10,12 +10,12 @@ module.exports = async (maso) => {
         for (const i of maso) {
             img = await canvas.loadImage(require('../../../src/unoCards.json')[i].url)
             await ctx.drawImage(img, (p*img.width)/2, 0, img.width, img.height)
-            console.log(p*img.width);
+            // console.log(p*img.width);
             p++
         }
-        fs.writeFile('prueba.png', c.toBuffer('image/png'), err => {
-            console.log(err);
-        })
+        // fs.writeFile('prueba.png', c.toBuffer('image/png'), err => {
+        //     console.log(err);
+        // })
         resolve(c.toBuffer('image/png'));
     })
 }

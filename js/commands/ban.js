@@ -1,20 +1,20 @@
-const admin = require('firebase-admin');
-const serviceAccount = require("../../src/firebase-key.json");
-const Discord = require('discord.js')
+const { Permissions } = require('discord.js')
 module.exports = {
     name: 'ban',
+    userPermissions: [Permissions.FLAGS.BAN_MEMBERS],
+    botPermissions: [Permissions.FLAGS.BAN_MEMBERS],
     description: 'Banea un miembro del servidor (Solo para gente con permiso "Administrador" o "Banear")!',
     guildOnly: true,
     usage: '[usuario] [Dias de eliminacion de historial de mensajes] [-s (Mostrar el nombre del moderador responsable al ban] [razón]',
     alias: [],
     run: async (client, message, args) => {
-        const db = admin.firestore();
-        if (!message.member.hasPermission(['BAN_MEMBERS'])) {
-            message.inlineReply('No tienes los suficientes permisos para hacer esto!');
+        const db = require('firebase-admin').firestore();
+        if (!message.member.permissions.has(['BAN_MEMBERS'])) {
+            message.reply('No tienes los suficientes permisos para hacer esto!');
             return;
         } 
-        if (!message.guild.me.hasPermission(['BAN_MEMBERS'])) {
-            message.inlineReply('No tengo permisos para hacer esto!');
+        if (!message.guild.me.permissions.has(['BAN_MEMBERS'])) {
+            message.reply('No tengo permisos para hacer esto!');
             return;
         }
 
@@ -37,18 +37,18 @@ module.exports = {
         const user = getUserFromMention(args[0]);
 
         if (user.id === message.author.id) {
-            message.inlineReply('No puedes banearte a ti mismo.');
+            message.reply('No puedes banearte a ti mismo.');
             return;
         }
 
         let deleteDays = args[1] ?? 1
         console.log(user);
         if (args.length < 2) {
-            message.channel.send(`No se ha proporcionado cuantos dias de historial de mensajes del usuario eliminar, predeterminando a ${deleteDays}.`);
+            message.reply(`No se ha proporcionado cuantos dias de historial de mensajes del usuario eliminar, predeterminando a ${deleteDays}.`);
         }
 
         if (!user) {
-            return message.inlineReply('Por favor menciona a alguien.');
+            return message.reply('Por favor menciona a alguien.');
         }
 
         let reason = args.slice(3).join(' ');
@@ -56,10 +56,10 @@ module.exports = {
         let showMod = args[2] ?? '-i'
 
         if (args.length < 3) {
-            message.channel.send(`No se ha proporcionado la bandera "-s", ban anonimo.`);
+            message.reply(`No se ha proporcionado la bandera "-s", ban anonimo.`);
         } 
         if (reason.length === 0) {
-            message.channel.send('No se ha proporcionado una razon, se mandara sin razon el informe.')
+            message.reply('No se ha proporcionado una razon, se mandara sin razon el informe.')
             reason = 'No se ha dado razon'
         }
 
@@ -79,14 +79,14 @@ module.exports = {
 
         // return message.inlineReply(embed)
         if (!member.bannable) {
-            return message.inlineReply('No puedes banear a este usuario!\nRevisa la jerarquia de los roles!')
+            return message.reply('No puedes banear a este usuario!\nRevisa la jerarquia de los roles!')
         }
         if (member.bannable) {
             user.send(embed).then(() => {
                 message.guild.members.ban(user, { deleteDays: deleteDays, reason: reason })
-                    .then(_ => message.inlineReply(`Successfully banned **${user.tag}** from the server!`))
+                    .then(_ => message.reply(`Successfully banned **${user.tag}** from the server!`))
                     .catch((error) => {
-                        message.inlineReply(`Failed to ban **${user.tag}**: ${error}`);
+                        message.reply(`Failed to ban **${user.tag}**: ${error}`);
                     })
             })
         }
