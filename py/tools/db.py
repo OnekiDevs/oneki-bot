@@ -2,18 +2,18 @@ from firebase_admin import credentials, firestore, threading
 import firebase_admin
 
 class ctx:
-    # Docu
-    """
-    Clase que recibe como parametro la colección a la que se quiere entrar
-    
-    Mas información en:
-    ------------------
-    https://discord.com/channels/825936007449935903/849325692252061696/852408021513666583
-    """
-    # Code
     firebase_admin.initialize_app(credentials.Certificate("src/firebase-key.json"))
     db = firestore.client()
     def __init__(self, collection):
+        # Docu
+        """
+        Clase que recibe como parametro la colección a la que se quiere entrar
+        
+        Mas información en:
+        ------------------
+        https://discord.com/channels/825936007449935903/849325692252061696/852408021513666583
+        """
+        # Code
         self.collection = self.db.collection(collection)
 
     def get(self, documnt, camp = None, subcollection = None, subdocumnt = None): 

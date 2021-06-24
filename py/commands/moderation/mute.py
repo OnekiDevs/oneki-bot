@@ -2,10 +2,9 @@ import tools
 
 @tools.bot.command()
 @tools.commands.has_permissions(kick_members = True)
-async def mute(ctx, member : tools.discord.Member = None, time : str = "", *, reason  : str = "No se dio una razón"):
+async def mute(ctx, member : tools.discord.Member, time : str = "", *, reason  : str = "No se dio una razón"):
     tools.get_prefix(ctx, tools.serv)
     if(member == ctx.author): await ctx.channel.send("Lamentablemente no te puedes mutear a ti mismo")
-    elif (member == None): await ctx.channel.send("Especifica el usuario al que quieres dar mute")
     else:
         collection_serv = tools.db.ctx(f"{ctx.guild.id}")
         collection_times = tools.db.ctx("times")
@@ -19,6 +18,7 @@ async def mute(ctx, member : tools.discord.Member = None, time : str = "", *, re
         embed.add_field(name = "Razón:", value = f"```\n{reason}\n```")
         embed.set_image(url = tools.choice(["https://media.discordapp.net/attachments/725140299873124372/856284630003744789/erziokmute.gif", "https://media.discordapp.net/attachments/725140299873124372/856284825383338004/fakumute.gif"]))
         if(tools.re.search("-c", reason) is not None):
+            reason = reason.split("-c")[1]
             embed.add_field(name = "Moderador", value = f"```\n{ctx.author.name}\n```")
 
         if(tools.re.search(".d", time) is not None): 
