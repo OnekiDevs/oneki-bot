@@ -1,33 +1,17 @@
 const { MessageEmbed } = require('discord.js');
 module.exports = async (client, interact) => {
-    let partida = client.uno.get(interact.data.custom_id.slice(6))
+    let partida = client.uno.get(interact.customID.slice(6))
     if (!partida) {
-        return client.api.interactions(interact.id, interact.token).callback.post({
-            data: {
-                type: 6
-            }
-        });
+        return interact.deferUpdate();
     }
     if (partida.host == interact.member.user.id) {
         if (partida.jugadores.length > 1 || true) {
-            partida.estado = 'repartiendo'
-            let embed = require('./embedUno')(partida);
-            client.api.channels(interact.channel_id).messages(interact.message.id).patch({
-                data: {
-                    embed: embed,
-                    components: []
-                }
-            });
-            client.api.interactions(interact.id, interact.token).callback.post({
-                data: {
-                    type: 6
-                }
-            });
-            partida = await require('../uno').repartir(partida);
             partida.estado = 'curso'
-            embed = require('./embedUno')(partida);
-            client.uno.set(interact.data.custom_id.slice(6), partida);
-            client.api.channels(interact.channel_id).messages(interact.message.id).patch({
+            let embed = require('./embedUno')(partida);
+            partida = await require('../uno').repartir(partida);
+            client.uno.set(interact.customID.slice(6), partida);
+            interact.deferUpdate();
+            client.api.channels(interact.channelID).messages(interact.message.id).patch({
                 data: {
                     embed: embed,
                     components: [
@@ -52,25 +36,15 @@ module.exports = async (client, interact) => {
                 }
             });
         } else {
-            client.api.interactions(interact.id, interact.token).callback.post({
-                data: {
-                    type: 4,
-                    data: {
-                        content: "Se requieren minimo 2 jugadores para comenzar",
-                        flags: 1 << 6
-                    }
-                }
+            interact.reply({
+                content: "Se requieren minimo 2 jugadores para comenzar",
+                ephemeral: true
             });
         }
     } else {
-        client.api.interactions(interact.id, interact.token).callback.post({
-            data: {
-                type: 4,
-                data: {
-                    content: "Solo el Host puede empezar la partida",
-                    flags: 1 << 6
-                }
-            }
+        interact.reply({
+            content: "Solo el Host puede empezar la partida",
+            ephemeral: true
         });
     }
 }

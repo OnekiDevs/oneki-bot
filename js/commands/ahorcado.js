@@ -1,8 +1,9 @@
 const fetch = require("node-fetch");
 const shortid = require("shortid");
+const { Permissions } = require("discord.js");
 module.exports = {
     name: "ahorcado",
-    botPermissions: ['MANAGE_MESSAGES'],
+    botPermissions: [Permissions.FLAGS.MANAGE_MESSAGES],
     usersPermissions: [],
     alias: [],
     run: async (client, message, args) => {

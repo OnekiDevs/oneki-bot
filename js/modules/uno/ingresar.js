@@ -1,8 +1,8 @@
 const { MessageEmbed } = require('discord.js');
 module.exports = async (client, interact) => {
-    let partida = client.uno.get(interact.data.custom_id.slice(6));
-    if (partida && !partida.jugadores.includes(interact.member.user.id)){
-        partida.jugadores.push(interact.member.user.id);
+    let partida = client.uno.get(interact.customID.slice(6));
+    if (partida && !partida.jugadores.includes(interact.user.id)){
+        partida.jugadores.push(interact.user.id);
         let botones = [];
         if (partida.jugadores.length == 8) {
             partida.estado = 'curso'
@@ -21,7 +21,7 @@ module.exports = async (client, interact) => {
                 label: "Comer",
             })
             //TODO agregar primera carta y repartir embed.setThumbnail()
-            client.uno.set(interact.data.custom_id.slice(6), partida)
+            client.uno.set(interact.customID.slice(6), partida)
         } else {
             botones.push({
                 type: 2,
@@ -37,7 +37,7 @@ module.exports = async (client, interact) => {
             })
         }
         const embed = require('./embedUno')(partida);
-        client.api.channels(interact.channel_id).messages(interact.message.id).patch({
+        client.api.channels(interact.channelID).messages(interact.message.id).patch({
             data: {
                 embed: embed,
                 components: [
@@ -49,9 +49,5 @@ module.exports = async (client, interact) => {
             }
         });
     } 
-    client.api.interactions(interact.id, interact.token).callback.post({
-        data: {
-            type: 6
-        }
-    });
+    interact.deferUpdate();
 }

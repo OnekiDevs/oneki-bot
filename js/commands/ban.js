@@ -1,8 +1,8 @@
-const admin = require('firebase-admin');
-const serviceAccount = require("../../src/firebase-key.json");
-const Discord = require('discord.js')
+const { Permissions } = require('discord.js')
 module.exports = {
     name: 'ban',
+    userPermissions: [Permissions.FLAGS.BAN_MEMBERS],
+    botPermissions: [Permissions.FLAGS.BAN_MEMBERS],
     description: 'Banea un miembro del servidor (Solo para gente con permiso "Administrador" o "Banear")!',
     guildOnly: true,
     usage: '[usuario] [Dias de eliminacion de historial de mensajes] [-s (Mostrar el nombre del moderador responsable al ban] [razón]',
@@ -36,10 +36,10 @@ module.exports = {
 
         const user = getUserFromMention(args[0]);
 
-        // if (user.id === message.author.id) {
-        //     message.inlineReply('No puedes banearte a ti mismo.');
-        //     return;
-        // }
+        if (user.id === message.author.id) {
+            message.inlineReply('No puedes banearte a ti mismo.');
+            return;
+        }
 
         let deleteDays = args[1] ?? 1
         let providedDeleteDays;
@@ -49,7 +49,7 @@ module.exports = {
         }
 
         if (!user) {
-            return message.inlineReply('Por favor menciona a alguien.');
+            return message.reply('Por favor menciona a alguien.');
         }
 
         let reason = args.slice(3).join(' ');
@@ -78,7 +78,7 @@ module.exports = {
         }
 
         if (!member.bannable) {
-            return message.inlineReply('No puedes banear a este usuario!\nRevisa la jerarquia de los roles!')
+            return message.reply('No puedes banear a este usuario!\nRevisa la jerarquia de los roles!')
         }
         if (member.bannable) {
             let informBan = `Se ha baneado correctamente al usuario **${user.tag}**`
@@ -92,7 +92,7 @@ module.exports = {
                 message.guild.members.ban(user, { deleteDays: deleteDays, reason: reason })
                     .then(_ => message.inlineReply(informBan))
                     .catch((error) => {
-                        message.inlineReply(`Failed to ban **${user.tag}**: ${error}`);
+                        message.reply(`Failed to ban **${user.tag}**: ${error}`);
                     })
             })
         }

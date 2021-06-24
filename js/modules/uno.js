@@ -10,7 +10,7 @@ module.exports.repartir = (partida) => {
                 cartas: []
             };
             for(i=7;i;i--) partida[j].cartas.push(cartas.splice(cartas.indexOf(cartas[Math.floor(Math.random()*cartas.length)]),1)[0]);
-            partida[j].maso = await require('./uno').cartas(partida[j].cartas);
+            // partida[j].maso = await require('./uno').cartas(partida[j].cartas);
         }
         partida.cartas = cartas;
         resolve(partida);

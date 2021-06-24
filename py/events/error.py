@@ -12,6 +12,8 @@ async def on_command_error(ctx, error):
         for i in error.missing_perms:
             msg = msg + f"`{i}`\n"
         await ctx.send(msg)
+    elif(type(error) == tools.commands.errors.MissingRequiredArgument): 
+        await ctx.send(f"**Argumento faltante:** `{error.param.name}`")
     elif(type(error) == tools.commands.errors.CommandNotFound): pass
     elif(type(error) == tools.exceptions.WrongPrefix): pass
     else: 

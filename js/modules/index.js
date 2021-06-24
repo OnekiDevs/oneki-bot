@@ -6,7 +6,6 @@ module.exports = async (dev) => {
     const admin = require('firebase-admin');    
 
     //declarations
-    require("./extendedMessage");
     const client = new Client({
         intents: [
             'DIRECT_MESSAGES',
@@ -67,4 +66,8 @@ module.exports = async (dev) => {
     
     //login
     client.login(dev?process.env.TOKEN_DISCORD_DEV:process.env.TOKEN_DISCORD);
+
+    // client.on('interaction', interaction => {
+    //     console.log(interaction);
+    // })
 }

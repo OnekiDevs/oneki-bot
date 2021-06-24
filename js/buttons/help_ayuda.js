@@ -1,7 +1,7 @@
 const  { MessageEmbed } = require('discord.js');
 module.exports.run = async (client, interact, params) => {
-    const embed = await require('../modules/help')(client, require('../../src/commands.json').Ayuda, 'de Ayuda');
-    client.api.channels(interact.channel_id).messages(interact.message.id).patch({
+    const embed = await require('../modules/help')(client, require('../../src/commands.json').Ayuda, 'de Ayuda', interact.guildID);
+    client.api.channels(interact.channelID).messages(interact.message.id).patch({
         data: {
             embed: embed,
             components: [
@@ -37,10 +37,6 @@ module.exports.run = async (client, interact, params) => {
             ]
         }
     });
-    client.api.interactions(interact.id, interact.token).callback.post({
-        data: {
-            type: 6
-        }
-    });
+    interact.deferUpdate();
 }
 module.exports.id = 'help_ayuda';

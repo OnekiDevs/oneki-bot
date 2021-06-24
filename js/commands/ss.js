@@ -1,8 +1,8 @@
 const puppeteer = require('puppeteer');
-const  { MessageAttachment } = require('discord.js')
+const  { MessageAttachment, Permissions } = require('discord.js')
 module.exports = {
     name: 'ss',
-    botPermissions: ['MANAGE_MESSAGES'],
+    botPermissions: [Permissions.FLAGS.MANAGE_MESSAGES],
     usersPermissions: [],
     alias: [],
     run: async (client, message, args) => {

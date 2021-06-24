@@ -1,7 +1,8 @@
+const { Permissions } = require('discord.js');
 module.exports = {
     name: "ytt",
-    botPermissions: [],
-    usersPermissions: ['MANAGE_MESSAGES', 'MANAGE_CHANNELS'],
+    botPermissions: [Permissions.FLAGS.MANAGE_MESSAGES, Permissions.FLAGS.MANAGE_CHANNELS],
+    usersPermissions: [Permissions.FLAGS.MANAGE_MESSAGES, Permissions.FLAGS.MANAGE_CHANNELS],
     alias: ["youtubetogether", "youtube-together"],
     run: async (client, message, args) => {
         if (!args[0] || args[0] != "-y"){

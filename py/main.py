@@ -6,7 +6,7 @@ load_dotenv()
 tools.bot.remove_command('help')
 
 #Comandos del bot
-from commands import avatar
+from commands import avatar, info
 from commands.moderation import mute, unmute
 #Eventos
 from events import error, join, messages, ready

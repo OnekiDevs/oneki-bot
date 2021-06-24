@@ -4,6 +4,6 @@ module.exports = {
     usersPermissions: [],
     botPermissions: [],
     run: async (client, message, args) => {
-        return message.inlineReply('pong');
+        return message.reply('pong');
     }
 }
