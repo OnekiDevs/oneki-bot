@@ -8,13 +8,14 @@ async def mute(ctx, member : tools.discord.Member, time : str = "", *, reason  :
     else:
         collection_serv = tools.db.ctx(f"{ctx.guild.id}")
         collection_times = tools.db.ctx("times")
+        user = tools.get_user(member)
 
         embed = tools.discord.Embed(
             description = f"Oh no, has sido muteado en {ctx.guild.name} <:pepe_resistencia2:851973342658428950>",
             colour = tools.discord.Colour.from_rgb(178, 34, 34),
             timestamp = tools.datetime.utcnow()
         )
-        embed.set_author(name = "Mute", icon_url = member.avatar_url)
+        embed.set_author(name = "Mute", icon_url = user.avatar_url)
         embed.add_field(name = "Razón:", value = f"```\n{reason}\n```")
         embed.set_image(url = tools.choice(["https://media.discordapp.net/attachments/725140299873124372/856284630003744789/erziokmute.gif", "https://media.discordapp.net/attachments/725140299873124372/856284825383338004/fakumute.gif"]))
         if(tools.re.search("-c", reason) is not None):
@@ -35,7 +36,6 @@ async def mute(ctx, member : tools.discord.Member, time : str = "", *, reason  :
             tempo = tools.datetime.utcnow() + tools.timedelta(seconds = num), float(num)
         else: 
             tempo = tools.datetime.utcnow() + tools.timedelta(minutes = 5), float(3600 * 5)
-        user = tools.get_user(member)
         roles = await tools.remove_role(ctx.guild, member)
         await tools.give_role(ctx.guild, member, "Mute")
         collection_times.update(f"{ctx.guild.id}", f"mute.{user.id}", {"time" : tempo[0]})
