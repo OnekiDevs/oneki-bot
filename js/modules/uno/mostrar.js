@@ -7,12 +7,12 @@ module.exports = async (client, interact) => {
             ephemeral: true 
         })
         const maso = await require('./cartas')(partida[interact.user.id].cartas);
-        const attachment = new MessageAttachment(maso)
+        const attachment = new MessageAttachment(maso, 'cartas.png')
         interact.editReply({
             content: 'Tus cartas',
             files: [attachment],
             ephemeral: true
-        })
+        });
     } else {
         interact.deferUpdate();
     }

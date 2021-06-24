@@ -10,6 +10,7 @@ module.exports = async (client, interact) => {
             let embed = require('./embedUno')(partida);
             partida = await require('../uno').repartir(partida);
             client.uno.set(interact.customID.slice(6), partida);
+            interact.deferUpdate();
             client.api.channels(interact.channelID).messages(interact.message.id).patch({
                 data: {
                     embed: embed,
@@ -34,7 +35,6 @@ module.exports = async (client, interact) => {
                     ]
                 }
             });
-            interact.deferUpdate();
         } else {
             interact.reply({
                 content: "Se requieren minimo 2 jugadores para comenzar",
