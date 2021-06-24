@@ -41,7 +41,7 @@ async def mute(ctx, member : tools.discord.Member = None, time : str = "", *, re
         collection_times.update(f"{ctx.guild.id}", f"mute.{user.id}", {"time" : tempo[0]})
         for i in roles:
             collection_times.update(f"{ctx.guild.id}", f"mute.{user.id}.roles", str(i), array = True)
-        #collection_serv.update("users", "mute", reason, subcollection = f"{user.id}", subdocumnt = "sanctions", array = True)
+        collection_serv.update("users", "mute", {"razon" : reason, "time" : tools.datetime.utcnow()}, subcollection = f"{user.id}", subdocumnt = "sanctions", array = True)
 
         await ctx.send(f"{member} a sido muteado! D:")
         await member.send(embed = embed)
