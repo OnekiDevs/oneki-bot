@@ -9,14 +9,14 @@ module.exports = {
     alias: [],
     run: async (client, message, args) => {
         const db = admin.firestore();
-        if (!message.member.hasPermission(['BAN_MEMBERS'])) {
-            message.inlineReply('No tienes los suficientes permisos para hacer esto!');
-            return;
-        } 
-        if (!message.guild.me.hasPermission(['BAN_MEMBERS'])) {
-            message.inlineReply('No tengo permisos para hacer esto!');
-            return;
-        }
+        // if (!message.member.permissions.has(Permissions.FLAGS.BAN_MEMBERS)) {
+        //     message.inlineReply('No tienes los suficientes permisos para hacer esto!');
+        //     return;
+        // }
+        // if (!message.guild.me.permissions.has(Permissions.FLAGS.BAN_MEMBERS)) {
+        //     message.inlineReply('No tengo permisos para hacer esto!');
+        //     return;
+        // }
 
         function getUserFromMention(mention) {
             if (!mention) return;
@@ -36,15 +36,16 @@ module.exports = {
 
         const user = getUserFromMention(args[0]);
 
-        if (user.id === message.author.id) {
-            message.inlineReply('No puedes banearte a ti mismo.');
-            return;
-        }
+        // if (user.id === message.author.id) {
+        //     message.inlineReply('No puedes banearte a ti mismo.');
+        //     return;
+        // }
 
         let deleteDays = args[1] ?? 1
+        let providedDeleteDays;
         console.log(user);
         if (args.length < 2) {
-            message.channel.send(`No se ha proporcionado cuantos dias de historial de mensajes del usuario eliminar, predeterminando a ${deleteDays}.`);
+            providedDeleteDays = 1;
         }
 
         if (!user) {
@@ -56,11 +57,10 @@ module.exports = {
         let showMod = args[2] ?? '-i'
 
         if (args.length < 3) {
-            message.channel.send(`No se ha proporcionado la bandera "-s", ban anonimo.`);
-        } 
+            showMod = '-1'
+        }
         if (reason.length === 0) {
-            message.channel.send('No se ha proporcionado una razon, se mandara sin razon el informe.')
-            reason = 'No se ha dado razon'
+            reason = 'No se ha dado razon.'
         }
 
         let member = message.guild.members.cache.get(user.id);
@@ -77,19 +77,27 @@ module.exports = {
             embed.setDescription(`Parece que has sido baneado de **${message.guild.name}** por ${message.author.tag}`);
         }
 
-        // return message.inlineReply(embed)
         if (!member.bannable) {
             return message.inlineReply('No puedes banear a este usuario!\nRevisa la jerarquia de los roles!')
         }
         if (member.bannable) {
+            let informBan = `Se ha baneado correctamente al usuario **${user.tag}**`
+            if (reason === 'No se ha dado razon.') {
+                informBan = `Se ha baneado correctamente al usuario **${user.tag}**, sin razon.`
+            }
+            if (!providedDeleteDays) {
+                informBan = `Se ha baneado correctamente al usuario **${user.tag}**, borrando ${deleteDays} dias de mensajes del usuario.`
+            }
             user.send(embed).then(() => {
                 message.guild.members.ban(user, { deleteDays: deleteDays, reason: reason })
-                    .then(_ => message.inlineReply(`Successfully banned **${user.tag}** from the server!`))
+                    .then(_ => message.inlineReply(informBan))
                     .catch((error) => {
                         message.inlineReply(`Failed to ban **${user.tag}**: ${error}`);
                     })
             })
         }
+
+        // Save of ban in the DB
 
         let firstBan = true;
         let canContinue = true;
@@ -105,7 +113,7 @@ module.exports = {
                 })
                 if (doc.data().numberOfBans == undefined) {
                     console.log(doc.data().numberOfBans);
-                    sanctionsRef.set({ numberOfBans: 1, ban1: { banId: 1, banReason: reason } }).then(() => {
+                    sanctionsRef.set({ numberOfBans: 1, bans: [{ reason: reason }] }).then(() => {
                         console.log(`Sanctions ref for user "${user.tag}" didn't existed, created.\nRegistered ban, and incremented number of bans by 1.`);
                         firstBan = true;
                         return null;
@@ -116,14 +124,14 @@ module.exports = {
                 }
 
             } else {
-                sanctionsRef.set({ numberOfBans: 1, ban1: { banId: 1, banReason: reason } }).then(() => {
+                sanctionsRef.set({ numberOfBans: 1, bans: [{ reason: reason }] }).then(() => {
                     console.log(`Sanctions ref for user "${user.tag}" didn't existed, created.\nRegistered ban, and incremented number of bans by 1.`);
                     firstBan = true;
                     return null;
                 })
             }
             if (doc.data().numberOfBans == undefined) {
-                sanctionsRef.set({ numberOfBans: 1, ban1: { banId: 1, banReason: reason } }).then(() => {
+                sanctionsRef.set({ numberOfBans: 1, bans: [{ reason: reason }] }).then(() => {
                     console.log(`Sanctions ref for user "${user.tag}" didn't existed, created.\nRegistered ban, and incremented number of bans by 1.`);
                     firstBan = true;
                     return null;
@@ -134,7 +142,7 @@ module.exports = {
         await db.collection(message.guild.id).doc('users').collection(user.id).doc('sanctions').get().then(doc => {
             if (firstBan) return
             if (doc.data().numberOfBans == undefined) {
-                sanctionsRef.set({ numberOfBans: 1, ban1: { banId: 1, banReason: reason } }).then(() => {
+                sanctionsRef.set({ numberOfBans: 1, bans: [{ reason: reason }] }).then(() => {
                     console.log(`Sanctions ref for user "${user.tag}" didn't existed, created.\nRegistered ban, and incremented number of bans by 1.`);
                     firstBan = true;
                     return null;
@@ -145,12 +153,15 @@ module.exports = {
                 let previousBans = doc.data().numberOfBans;
                 let setMap = new Map()
                 setMap.set('numberOfBans', previousBans + 1)
-                setMap.set(`ban${previousBans + 1}`, { banId: previousBans + 1, banReason: reason })
 
                 let obj = Array.from(setMap).reduce((obj, [key, value]) => (
                     Object.assign(obj, { [key]: value }) // Be careful! Maps can have non-String keys; object literals can't.
                 ), {});
-                userSanctionsRef.set(obj, { merge: true }).then(() => {
+                const arrayUnion = admin.firestore.FieldValue.arrayUnion;
+                userSanctionsRef.update(
+                    { bans: arrayUnion(reason) }
+                    // { bans: [{ reason: reason }] }, { merge: true } 
+                ).then(() => {
                     console.log(`New ban for user "${user.tag} registered.`);
                 })
                 userSanctionsRef.update({ numberOfBans: previousBans + 1 }).then(() => {
