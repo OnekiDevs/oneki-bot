@@ -9,14 +9,14 @@ module.exports = {
     alias: [],
     run: async (client, message, args) => {
         const db = admin.firestore();
-        // if (!message.member.permissions.has(Permissions.FLAGS.BAN_MEMBERS)) {
-        //     message.inlineReply('No tienes los suficientes permisos para hacer esto!');
-        //     return;
-        // }
-        // if (!message.guild.me.permissions.has(Permissions.FLAGS.BAN_MEMBERS)) {
-        //     message.inlineReply('No tengo permisos para hacer esto!');
-        //     return;
-        // }
+        if (!message.member.permissions.has(Permissions.FLAGS.BAN_MEMBERS)) {
+            message.inlineReply('No tienes los suficientes permisos para hacer esto!');
+            return;
+        }
+        if (!message.guild.me.permissions.has(Permissions.FLAGS.BAN_MEMBERS)) {
+            message.inlineReply('No tengo permisos para hacer esto!');
+            return;
+        }
 
         function getUserFromMention(mention) {
             if (!mention) return;
