@@ -7,8 +7,8 @@ module.exports = async (client, interact) => {
     if (partida.host == interact.member.user.id) {
         if (partida.jugadores.length > 1 || true) {
             partida.estado = 'curso'
-            let embed = require('./embedUno')(partida);
             partida = await require('../uno').repartir(partida);
+            let embed = require('./embedUno')(partida);
             client.uno.set(interact.customID.slice(6), partida);
             interact.deferUpdate();
             client.api.channels(interact.channelID).messages(interact.message.id).patch({
