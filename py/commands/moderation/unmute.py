@@ -3,7 +3,7 @@ import tools
 @tools.bot.command()
 @tools.commands.has_permissions(kick_members = True)
 async def unmute(ctx, member : tools.discord.Member):
-    tools.get_prefix(ctx, tools.serv)
+    tools.get_prefix(ctx)
     collection_times = tools.db.ctx("times")
     dic = collection_times.get(f"{ctx.guild.id}", "mute")
     try:
