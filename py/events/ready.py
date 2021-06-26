@@ -7,7 +7,7 @@ async def on_ready():
     print("Cargando...")
     tools.bot.command_prefix = collection.get("bot", "prefixes")
     print("Prefijos cargados correctamente")
-    tools.serv = tools.dic_prefixes()
+    tools.serv = tools.dic_servers()
     #tools.mutes = times.dic_mutes()
     print("Diccionarios creados correctamente xd")
     #times.mutetime(tools.mutes)

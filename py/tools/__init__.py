@@ -23,15 +23,22 @@ mutes = {}
 bot = commands.Bot(command_prefix = ["!", ">"], description = "Bot oficial de La Resistencia", intents = discord.Intents.all())
 
 def get_prefix(ctx):
-    if(ctx.prefix == serv[f"{ctx.guild.id}"]): pass
-    else:
-        raise exceptions.WrongPrefix("Prefijo equivocado")
+    try:
+        if(ctx.prefix == serv[f"{ctx.guild.id}"]["prefix"]): return ">"
+        else:
+            raise exceptions.WrongPrefix("Prefijo equivocado")
+    except(KeyError): 
+        if(ctx.prefix == ">"): return ">"
 
-def dic_prefixes():
+def get_lang(ctx):
+    pass
+
+def dic_servers():
     collection = db.ctx("config")
     for guild in bot.guilds:
-        prefix = collection.get(f"{guild.id}", "prefix")
-        if(prefix == False): continue
+        doc = collection.get(f"{guild.id}")
+        if(doc == False): continue
         else: 
-            serv[f"{guild.id}"] = prefix
+            serv[f"{guild.id}"] = doc
     return serv
+
