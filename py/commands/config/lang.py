@@ -2,6 +2,7 @@ import tools
 
 idioms = ["en", "es"]
 
+@tools.commands.has_permissions(administrator = True)
 @tools.bot.command(name = "lang", aliases = ["language"])
 async def lang(ctx, language):
     lang = tools.get_config(ctx)
