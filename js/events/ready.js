@@ -6,13 +6,15 @@ module.exports = {
         if (!config.empty) {
             config.forEach(c => {
                 client.servers.set(c.id, {
-                    prefix: c.data()?.prefix ?? '>'
+                    prefix: c.data()?.prefix ?? '>',
+                    lang: c.data()?.lang ?? 'es'
                 });
             });
         }
         client.guilds.cache.map(async guild => {
             if (!client.servers.get(guild.id)) client.servers.set(guild.id, {
-                prefix: '>'
+                prefix: '>',
+                lang: 'es'
             });
         });
         console.log('\x1b[31m%s\x1b[0m', `${client.user.username} ${require('../../package.json').version} Listo y Atento!!!`);
