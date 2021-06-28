@@ -16,6 +16,10 @@ class ctx:
         # Code
         self.collection = self.db.collection(collection)
 
+    def set(self, documnt, values):
+        doc = self.collection.document(documnt)
+        doc.set(values)
+
     def get(self, documnt, camp = None, subcollection = None, subdocumnt = None): 
         # Docu
         """
@@ -43,33 +47,21 @@ class ctx:
                 subdocument = doc.collection(subcollection).document(subdocumnt).get()
                 if(subdocument.exists):
                     return subdocument.to_dict()[f"{camp}"]
-                else: return False
+                else: return None
             else:
                 if(doc.get().exists): 
                     return doc.get().to_dict()[f"{camp}"]
-                else: return False
+                else: return None
         else: 
             if(subcollection != None): 
                 subdocument = doc.collection(subcollection).document(subdocumnt).get()
                 if(subdocument.exists):
                     return subdocument.to_dict()
-                else: return False
+                else: return None
             else:
                 if(doc.get().exists): 
                     return doc.get().to_dict()
-                else: return False
-
-    def where(self, filter, operation, value, compound_queries = False, filter2 = None, operation2 = None, value2 = None):
-        """
-        Metodo para hacer consultas en la colección
-
-        Mas información en:
-        ------------------
-        https://discord.com/channels/825936007449935903/849325692252061696/852408181640658944
-        """
-        if(compound_queries):
-            return self.collection.where(f"{filter}", f"{operation}", f"{value}").where(f"{filter2}", f"{operation2}", f"{value2}").stream()
-        else: return self.collection.where(f"{filter}", f"{operation}", f"{value}").stream()
+                else: return None
 
     def update(self, documnt, camp, value, subcollection = None, subdocumnt = None, array = False): 
         """
@@ -134,6 +126,19 @@ class ctx:
         elif(array): doc.update({f'{camp}': firestore.firestore.ArrayRemove([value])})
         elif(camp != None): doc.update({f'{camp}': firestore.DELETE_FIELD})
         else: doc.delete()
+
+    def where(self, filter, operation, value, compound_queries = False, filter2 = None, operation2 = None, value2 = None):
+        """
+        Metodo para hacer consultas en la colección
+
+        Mas información en:
+        ------------------
+        https://discord.com/channels/825936007449935903/849325692252061696/852408181640658944
+        """
+        if(compound_queries):
+            return self.collection.where(f"{filter}", f"{operation}", f"{value}").where(f"{filter2}", f"{operation2}", f"{value2}").stream()
+        else: return self.collection.where(f"{filter}", f"{operation}", f"{value}").stream()
+
     def detect_change(self, documnt, metode):
         """
         a

@@ -2,7 +2,7 @@ import tools
 
 @tools.bot.command()
 async def avatar (ctx, member : tools.discord.Member = None):
-    tools.get_prefix(ctx)
+    lang = tools.get_config(ctx)
     if (member == None): mem = ctx.author
     else: mem = member
     embed = tools.discord.Embed(colour = mem.color)

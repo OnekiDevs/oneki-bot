@@ -2,7 +2,7 @@ import tools
 
 @tools.bot.command()
 async def info(ctx, member : tools.discord.Member = None):
-    tools.get_prefix(ctx)
+    lang = tools.get_config(ctx)
     if(member == None): member = ctx.author
     roles = ""
     for role in member.roles: roles = "{0} {1.mention}".format(roles, role)

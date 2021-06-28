@@ -3,6 +3,11 @@ from discord import User, Member, PermissionOverwrite, utils, Colour
 def get_user(user : User):
     return user
 
+def is_empty(data_structure):
+    if(data_structure): 
+        return True
+    else: return False
+
 async def give_role(guild, member : Member, name_role):
     for role in guild.roles:
         if (role.name == name_role):

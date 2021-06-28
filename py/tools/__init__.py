@@ -1,4 +1,5 @@
 #Libreria discord.py
+from typing import Dict
 import discord
 from discord.ext import commands
 
@@ -14,7 +15,7 @@ import re
 
 #Modulos del proyecto
 from tools import db
-from tools.defs import get_user, give_role, remove_role, give_list_roles
+from tools.defs import get_user, give_role, remove_role, give_list_roles, is_empty
 from tools import exceptions
 
 #Funciones y variables
@@ -22,23 +23,24 @@ serv = {}
 mutes = {}
 bot = commands.Bot(command_prefix = ["!", ">"], description = "Bot oficial de La Resistencia", intents = discord.Intents.all())
 
-def get_prefix(ctx):
-    try:
-        if(ctx.prefix == serv[f"{ctx.guild.id}"]["prefix"]): return ">"
-        else:
-            raise exceptions.WrongPrefix("Prefijo equivocado")
-    except(KeyError): 
-        if(ctx.prefix == ">"): return ">"
-
-def get_lang(ctx):
-    pass
+def get_config(ctx):
+    try: 
+        server = serv[f"{ctx.guild.id}"]
+        prefix = server["prefix"]
+        lang = server["lang"]
+    except(KeyError):
+        prefix = ">"
+        lang = "en"
+    if(ctx.prefix == prefix): return lang
+    else: raise exceptions.WrongPrefix("Prefijo equivocado")
 
 def dic_servers():
     collection = db.ctx("config")
     for guild in bot.guilds:
         doc = collection.get(f"{guild.id}")
-        if(doc == False): continue
+        if(doc == None or is_empty(doc) == False): continue
         else: 
+            if(doc.get("lang") == None): doc["lang"] = "en"
+            elif(doc.get("prefix") == None): doc["prefix"] = ">"
             serv[f"{guild.id}"] = doc
     return serv
-

@@ -5,7 +5,7 @@ async def on_member_join(message):
     collection = tools.db.ctx(f"{message.guild.id}")
     data = collection.get("bienvenidas")
     if(f"{message.guild.id}" == 825936007449935903): pass
-    elif(data == False): pass
+    elif(data == None): pass
     else:
         channel = tools.bot.get_channel(int(data["channel"]))
 
