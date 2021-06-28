@@ -91,6 +91,11 @@
             "type": "slash",
             "use": "encuesta [Contexto] <Canal> <Opcion1> ...",
             "description": "Crea una encuesta"
+        },
+        "sugerir":{
+            "type": "command",
+            "use": "sugerir <canal> [Sugerencia]",
+            "description": "Sugiere una sugerencia. Puede mencionar el nombre del canal espablecido antes de la sugerencia u omitirlo"
         }
     }
 }
