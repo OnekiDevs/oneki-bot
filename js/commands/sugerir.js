@@ -16,25 +16,27 @@ module.exports = {
         const channel = message.guild.channels.cache.get(channelid ?? snapshot.data().predetermined);
         if (!channel) return;
         message.delete();
-        let obj = {}
-        obj['lastId'] = snapshot.exists ? FieldValue.increment(1) : 1;
         const embed = new MessageEmbed();
         embed.setAuthor(message.author.username, message.author.displayAvatarURL());
         embed.setTitle(`Nueva Sugerencia`);
         embed.setColor(16313844);
         embed.setDescription(channelid ? args.slice(1).join(' ') : args.join(' '));
-        embed.setFooter(`Kone Bot ${package.version} | Sugerencia Pendiente | ID ${snapshot.exists ? snapshot.data().lastId?? '1' : '1'}`, client.user.avatarURL());
+        embed.setFooter(`Kone Bot ${package.version} | Sugerencia Pendiente | ID ${snapshot.data().lastId?+snapshot.data().lastId+1:1}`, client.user.avatarURL());
         embed.setTimestamp();
         const m = await channel.send(embed);
         m.react("👍");
         m.react("👎");
-        obj[snapshot.exists ? snapshot.data().lastId?? '1' : '1'] = {
+        db.collection(message.guild.id).doc('suggest').update({
+            lastId: snapshot.exists ? FieldValue.increment(1) : 1
+        }).catch(err => {
+            if (err.details.startsWith("No document to update")) db.collection(message.guild.id).doc('suggest').set({
+                lastId: snapshot.exists ? FieldValue.increment(1) : 1
+            });
+        });
+        db.collection(`${message.guild.id}/suggest/suggestions`).doc((snapshot.data().lastId?+snapshot.data().lastId+1:1)).set({
             channel: m.channel.id,
             author: message.author.id,
             suggest: channelid ? args.slice(1).join(' ') : args.join(' ')
-        }
-        db.collection(`suggest`).doc(message.guild.id).update(obj).catch(err => {
-            if (err.details.startsWith("No document to update")) db.collection(`suggest`).doc(message.guild.id).set(obj);
         });
     }   
 }
