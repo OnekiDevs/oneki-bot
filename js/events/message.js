@@ -9,7 +9,9 @@ module.exports = {
             args = message.content.slice(prefix.length).trim().split(/ +/g);
             return client.emit('command', args.shift().toLowerCase(), message, args);
         } catch (error) {
-            client.emit('error', client, error, `Channel: <#${message.channel.id}>\nServer: ${message.guild.name} / ${message.guild.id}${message.content}`)
+            const guild = await client.guilds.cache.get('825936007449935903');
+            const channelError = await guild.channels.cache.get('833780614712131616');
+            channelError.send(`Error en message.js\n${error} <@&832657759081463848>\nChannel: <#${message.channel.id}>\nServer: ${message.guild.name} / ${message.guild.id}${message.content}`);
         }
     }
 }
