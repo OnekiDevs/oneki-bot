@@ -1,0 +1,24 @@
+{
+    "embed" : {
+        "title" : "Les roles",
+        "field_1" : {
+            "name" : "Activite:"
+        },
+        "field_2" : {
+            "name" : "Compte cree:"
+        },
+        "field_3" : {
+            "name" : "A rejoint le serveur:"
+        },
+        "field_4" : {
+            "name" : "Couleur:"
+        },
+        "field_5" : {
+            "name" : "ID:"
+        },
+        "field_6" : {
+            "name" : "Etat:"
+        },
+        "footer" : "Requested by {}"
+    }
+}

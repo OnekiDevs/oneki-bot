@@ -1,5 +1,4 @@
 #Libreria discord.py
-from typing import Dict
 import discord
 from discord.ext import commands
 
@@ -10,12 +9,11 @@ from os import getenv, remove
 from asyncio import sleep
 from io import BytesIO
 from random import choice
-import json
 import re
 
 #Modulos del proyecto
 from tools import db
-from tools.defs import get_user, give_role, remove_role, give_list_roles, is_empty
+from tools.defs import translations, get_user, is_empty, give_role, remove_role, give_list_roles
 from tools import exceptions
 
 #Funciones y variables

@@ -121,10 +121,10 @@ class ctx:
             if(array): 
                 doc.collection(subcollection).document(subdocumnt).update({f'{camp}': firestore.firestore.ArrayRemove([value])})
             elif(camp != None):
-                doc.collection(subcollection).document(subdocumnt).update({f'{camp}': firestore.DELETE_FIELD})
+                doc.collection(subcollection).document(subdocumnt).update({f'{camp}': firestore.firestore.DELETE_FIELD})
             else: doc.collection(subcollection).document(subdocumnt).delete()
         elif(array): doc.update({f'{camp}': firestore.firestore.ArrayRemove([value])})
-        elif(camp != None): doc.update({f'{camp}': firestore.DELETE_FIELD})
+        elif(camp != None): doc.update({f'{camp}': firestore.firestore.DELETE_FIELD})
         else: doc.delete()
 
     def where(self, filter, operation, value, compound_queries = False, filter2 = None, operation2 = None, value2 = None):

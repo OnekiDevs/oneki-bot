@@ -2,18 +2,21 @@ import tools
 
 @tools.bot.event
 async def on_command_error(ctx, error):
+    try: 
+        translations = tools.translations(tools.get_config(ctx), "events/error")
+    except(tools.exceptions.WrongPrefix): return
     if(type(error) == tools.commands.errors.MissingPermissions):
-        msg = "No tienes los suficientes permisos para usar este comando\n**Permisos faltantes:**\n"
+        msg = translations["MissingPermissions"]
         for i in error.missing_perms:
             msg = msg + f"`{i}`\n"
         await ctx.send(msg)
     elif(type(error) == tools.commands.errors.BotMissingPermissions):
-        msg = "No tengo los suficientes permisos para este comando\n**Permisos faltantes:**\n"
+        msg = translations["BotMissingPermissions"]
         for i in error.missing_perms:
             msg = msg + f"`{i}`\n"
         await ctx.send(msg)
     elif(type(error) == tools.commands.errors.MissingRequiredArgument): 
-        await ctx.send(f"**Argumento faltante:** `{error.param.name}`")
+        await ctx.send(translations["MissingRequiredArgument"].format(error.param.name))
     elif(type(error) == tools.commands.errors.CommandNotFound): pass
     elif(type(error) == tools.exceptions.WrongPrefix): pass
     else: 

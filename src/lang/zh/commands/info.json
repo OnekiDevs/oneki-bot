@@ -1,0 +1,24 @@
+{
+    "embed" : {
+        "title" : "角色",
+        "field_1" : {
+            "name" : "活动:"
+        },
+        "field_2" : {
+            "name" : "帐户已创建:"
+        },
+        "field_3" : {
+            "name" : "加入服务器:"
+        },
+        "field_4" : {
+            "name" : "颜色:"
+        },
+        "field_5" : {
+            "name" : "ID:"
+        },
+        "field_6" : {
+            "name" : "状况:"
+        },
+        "footer" : "被要求 {}"
+    }
+}

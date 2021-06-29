@@ -1,16 +1,22 @@
 import tools
 
-idioms = ["en", "es"]
+idioms = ["en", "es", "fr", 
+    #"zh"
+]
 
 @tools.commands.has_permissions(administrator = True)
 @tools.bot.command(name = "lang", aliases = ["language"])
 async def lang(ctx, language):
-    lang = tools.get_config(ctx)
+    translations = tools.translations(tools.get_config(ctx), "commands/config/lang")
     try: 
         idioms.index(language)
         collection = tools.db.ctx("config")
         server = collection.get(f"{ctx.guild.id}")
         if(server == None): collection.set(f"{ctx.guild.id}", {"lang" : language})
-        else: collection.update(f"{ctx.guild.id}", "lang", language)
-        await ctx.send("Se cambio el lenguaje del bot correctamente")
-    except(ValueError): await ctx.send("Lamentablemente ese lenguaje aun no esta disponible")
+        else: 
+            try: tools.serv[f"{ctx.guild.id}"]["prefix"] = server["prefix"]
+            except(KeyError): tools.serv[f"{ctx.guild.id}"]["prefix"] = ">"
+            collection.update(f"{ctx.guild.id}", "lang", language)
+        tools.serv[f"{ctx.guild.id}"]["lang"] = language
+        await ctx.send(translations["msg"])
+    except(ValueError): await ctx.send(translations["msg_error"])

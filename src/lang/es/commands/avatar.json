@@ -1,0 +1,6 @@
+{
+    "embed" : {
+        "author" : "Avatar de {}",
+        "footer" : "Solicitado por {}"
+    }
+}

@@ -1,9 +1,18 @@
 from discord import User, Member, PermissionOverwrite, utils, Colour
+from json import loads
 
-def get_user(user : User):
+def translations(language, path) -> dict:
+    try:
+        with open(f"src/lang/{language}/{path}.json", "r") as f:
+            return loads(f.read())
+    except(FileNotFoundError): 
+        with open(f"src/lang/en/{path}.json", "r") as f:
+            return loads(f.read()) 
+
+def get_user(user : User) -> User: 
     return user
 
-def is_empty(data_structure):
+def is_empty(data_structure) -> True | False: 
     if(data_structure): 
         return True
     else: return False

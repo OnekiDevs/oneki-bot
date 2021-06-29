@@ -1,0 +1,19 @@
+{
+    "msg_1": "Lamentablemente no te puedes silenciar a ti mismo",
+    "embed" : {
+        "description" : "Oh no, has sido muteado en {}",
+        "author" : "Mute",
+        "field_1" : {
+            "name" : "Razón"
+        },
+        "field_2" : {
+            "name" : "Moderador"
+        },
+        "gifs" : [
+            "https://media.discordapp.net/attachments/725140299873124372/856284630003744789/erziokmute.gif", 
+            "https://media.discordapp.net/attachments/725140299873124372/856284825383338004/fakumute.gif"
+        ]
+    },
+    "msg_2": "{} a sido muteado! D:", 
+    "msg_3" : "Se te retiró el mute"
+}

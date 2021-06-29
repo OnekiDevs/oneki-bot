@@ -1,0 +1,24 @@
+{
+    "embed" : {
+        "title" : "Roles",
+        "field_1" : {
+            "name" : "Actividad:"
+        },
+        "field_2" : {
+            "name" : "Cuenta creada:"
+        },
+        "field_3" : {
+            "name" : "Se unio al servidor:"
+        },
+        "field_4" : {
+            "name" : "Color:"
+        },
+        "field_5" : {
+            "name" : "ID:"
+        },
+        "field_6" : {
+            "name" : "Estado:"
+        },
+        "footer" : "Solicitado por {}"
+    }
+}

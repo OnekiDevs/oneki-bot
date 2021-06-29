@@ -1,0 +1,11 @@
+{
+    "msg_error" : "显然 {} 没有静音",
+    "embed" : {
+        "description" : "您已取消静音 :D",
+        "author" : "取消静音",
+        "field_1" : {
+            "name" : "版主"
+        }
+    },
+    "msg" : "{} 已取消静音！:D"
+}

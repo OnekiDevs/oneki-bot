@@ -3,24 +3,24 @@ import tools
 @tools.bot.command()
 @tools.commands.has_permissions(kick_members = True)
 async def mute(ctx, member : tools.discord.Member, time : str = "", *, reason  : str = "No se dio una razón"):
-    lang = tools.get_config(ctx)
-    if(member == ctx.author): await ctx.channel.send("Lamentablemente no te puedes mutear a ti mismo")
+    translations = tools.translations(tools.get_config(ctx), "commands/moderation/mute")
+    if(member == ctx.author): await ctx.channel.send(translations["msg_1"])
     else:
         collection_serv = tools.db.ctx(f"{ctx.guild.id}")
         collection_times = tools.db.ctx("times")
         user = tools.get_user(member)
 
         embed = tools.discord.Embed(
-            description = f"Oh no, has sido muteado en {ctx.guild.name} <:pepe_resistencia2:851973342658428950>",
+            description = translations["embed"]["description"].format(ctx.guild.name),
             colour = tools.discord.Colour.from_rgb(178, 34, 34),
             timestamp = tools.datetime.utcnow()
         )
-        embed.set_author(name = "Mute", icon_url = user.avatar_url)
-        embed.add_field(name = "Razón:", value = f"```\n{reason}\n```")
-        embed.set_image(url = tools.choice(["https://media.discordapp.net/attachments/725140299873124372/856284630003744789/erziokmute.gif", "https://media.discordapp.net/attachments/725140299873124372/856284825383338004/fakumute.gif"]))
+        embed.set_author(name = translations["embed"]["author"], icon_url = user.avatar_url)
+        embed.add_field(name = translations["embed"]["field_1"]["name"], value = f"```\n{reason}\n```")
+        embed.set_image(url = tools.choice(translations["embed"]["gifs"]))
         if(tools.re.search("-c", reason) is not None):
             reason = reason.split("-c")[1]
-            embed.add_field(name = "Moderador", value = f"```\n{ctx.author.name}\n```")
+            embed.add_field(name = translations["embed"]["field_2"]["name"], value = f"```\n{ctx.author.name}\n```")
 
         search = tools.re.search(r"[.d.h.m.s]", time)
         if(search is not None):
@@ -49,10 +49,10 @@ async def mute(ctx, member : tools.discord.Member, time : str = "", *, reason  :
         if(collection_serv.get("users") == None): collection_serv.set("users", {})
         collection_serv.update("users", "mute", {"razon" : reason, "time" : tools.datetime.utcnow()}, subcollection = f"{user.id}", subdocumnt = "sanctions", array = True)
 
-        await ctx.send(f"{member} a sido muteado! D:")
+        await ctx.send(translations["msg_2"].format(member.mention))
         await member.send(embed = embed)
 
         await tools.sleep(tempo[1])
         await tools.give_list_roles(ctx.guild, member, roles)
         collection_times.delete(f"{ctx.guild.id}", f"mute.{user.id}")
-        await member.send("Se te retiro el mute")
+        await member.send(translations["msg_3"])

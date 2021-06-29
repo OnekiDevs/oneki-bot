@@ -1,0 +1,11 @@
+{
+    "msg_error" : "Al parecer {} no esta silenciado",
+    "embed" : {
+        "description" : "Has sido desmuteado :D",
+        "author" : "Unmuted",
+        "field_1" : {
+            "name" : "Moderador"
+        }
+    },
+    "msg" : "{} a sido desmuteado! :D"
+}
