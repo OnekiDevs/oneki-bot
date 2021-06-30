@@ -1,3 +1,3 @@
 const utiles = require('./util');
-const lang = utiles.lang({lang: 'es', route:'commands/fun/ahorcado'});
+const lang = client.utiles.lang({lang: 'es', route:'commands/fun/ahorcado'});
 console.log(lang);
