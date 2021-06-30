@@ -8,7 +8,7 @@ module.exports = {
         try {
             if (!oldMessage.author || oldMessage.author?.bot) return;
             if (oldMessage.content === newMessage.content) return;
-            const snapshot = await db.collection(message.guild.id).doc("edited").get();
+            const snapshot = await db.collection(oldMessage.guild.id).doc("edited").get();
             const canal = client.channels.cache.get(snapshot.data()?.channel);
             if (!canal) return;
             const embed = new MessageEmbed()
@@ -32,9 +32,9 @@ module.exports = {
                 embed: embed
             });
         } catch (error) {
-            const guild = await client.guilds.cache.get('825936007449935903');
-            const channelError = await guild.channels.cache.get('833780614712131616');
-            channelError.send(`${error} <@&832657759081463848>\nChannel: <#${oldMessage.channel.id}>\nServer: ${oldMessage.guild.name} / ${oldMessage.guild.id}${oldMessage.content}`);
+            console.log(error);
+            const channelError = await client.channels.cache.get('833780614712131616');
+            channelError.send(`Error en **events/messageUpdate.js**\n${error} <@&832657759081463848>\nChannel: <#${oldMessage.channel.id}>\nServer: ${oldMessage.guild.name} / ${oldMessage.guild.id}${oldMessage.content}`);
         }
     }
 }

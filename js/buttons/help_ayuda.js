@@ -1,5 +1,7 @@
 const  { MessageEmbed } = require('discord.js');
 module.exports.run = async (client, interact, params) => {
+    const server = client.servers.get(interact.guildID);
+    const lang = client.util.lang({lang:server.lang, route:'commands/help/help'}).buttons;
     const embed = await require('../modules/help')(client, require('../../src/commands.json').Ayuda, 'de Ayuda', interact.guildID);
     client.api.channels(interact.channelID).messages(interact.message.id).patch({
         data: {
@@ -10,25 +12,25 @@ module.exports.run = async (client, interact, params) => {
                     components: [
                         {
                             style: 1,
-                            label: 'Entretenimiento',
+                            label: lang.entretainment,
                             custom_id: 'help_entretenimiento',
                             type: 2
                         },
                         {
                             style: 1,
-                            label: 'Ayuda',
+                            label: lang.help,
                             custom_id: 'help_ayuda',
                             type: 2
                         },
                         {
                             style: 1,
-                            label: 'Moderación',
+                            label: lang.moderation,
                             custom_id: 'help_moderacion',
                             type: 2
                         },
                         {
                             style: 1,
-                            label: 'Extra',
+                            label: lang.extra,
                             custom_id: 'help_extra',
                             type: 2
                         }
