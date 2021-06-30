@@ -8,13 +8,15 @@ module.exports = {
     usage: '[usuario] [Dias de eliminacion de historial de mensajes] [-s (Mostrar el nombre del moderador responsable al ban] [razón]',
     alias: [],
     run: async (client, message, args) => {
+        const server = client.servers.get(message.guild.id);
+        const lang = client.util.lang({lang:server.lang, route:'commands/fun/ban'});
         const db = admin.firestore();
         if (!message.member.permissions.has(Permissions.FLAGS.BAN_MEMBERS)) {
-            message.inlineReply('No tienes los suficientes permisos para hacer esto!');
+            message.reply(lang.missing_permissions_user);
             return;
         }
         if (!message.guild.me.permissions.has(Permissions.FLAGS.BAN_MEMBERS)) {
-            message.inlineReply('No tengo permisos para hacer esto!');
+            message.reply(lang.missing_permissions_bot);
             return;
         }
 
@@ -37,7 +39,7 @@ module.exports = {
         const user = getUserFromMention(args[0]);
 
         if (user.id === message.author.id) {
-            message.inlineReply('No puedes banearte a ti mismo.');
+            message.reply(lang.banself);
             return;
         }
 
@@ -49,7 +51,7 @@ module.exports = {
         }
 
         if (!user) {
-            return message.reply('Por favor menciona a alguien.');
+            return message.reply(lang.mention_lose);
         }
 
         let reason = args.slice(3).join(' ');
@@ -60,13 +62,13 @@ module.exports = {
             showMod = '-1'
         }
         if (reason.length === 0) {
-            reason = 'No se ha dado razon.'
+            reason = lang.without_reason
         }
 
         let member = message.guild.members.cache.get(user.id);
         let embed = new Discord.MessageEmbed()
             .setColor(member.displayHexColor)
-            .setTitle(`Has sido baneado de **${message.guild.name}**`)
+            .setTitle(`${lang.embed.title} **${message.guild.name}**`)
             .setImage('https://media1.tenor.com/images/de413d89fff5502df7cff9f68b24dca5/tenor.gif?itemid=12850590')
             .setThumbnail(user.avatarURL())
             .addField('Razón:', reason, true)
@@ -90,7 +92,7 @@ module.exports = {
             }
             user.send(embed).then(() => {
                 message.guild.members.ban(user, { deleteDays: deleteDays, reason: reason })
-                    .then(_ => message.inlineReply(informBan))
+                    .then(_ => message.reply(informBan))
                     .catch((error) => {
                         message.reply(`Failed to ban **${user.tag}**: ${error}`);
                     })
