@@ -1,5 +1,5 @@
 {
     "MissingPermissions" : "您没有足够的权限来使用此命令\n**缺少权限：**\n",
     "BotMissingPermissions" : "我没有足够的权限执行此命令\n**缺少权限：**\n",
-    "MissingRequiredArgument" : "**缺少权限：** `{}`"
+    "MissingRequiredArgument" : "**缺少参数：** `{}`"
 }
