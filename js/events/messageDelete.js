@@ -27,9 +27,9 @@ module.exports = {
                 embed: embed
             })
         } catch (error) {
-            const CanalError = client.channels.cache.get('734497561485901906');
-            CanalError.send(`Error en **messageDelete** <@&734599009414676551>\n${error.toString()}\nCanal: <#${message.channel.id}>\nServidor ${message.guild.name} / ${message.guild.id}`);
             console.log(error);
+            const channelError = await client.channels.cache.get('833780614712131616');
+            channelError.send(`Error en **events/messageUpdate.js**\n${error} <@&832657759081463848>\nChannel: <#${message.channel.id}>\nServer: ${message.guild.name} / ${message.guild.id}${message.content}`);
         }
     }
 }

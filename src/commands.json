@@ -79,6 +79,18 @@
             "use": "unban [id usuario]",
             "type": "command",
             "description": "Desbanea miembros"
+        },
+        "editados": {
+            "alias": [],
+            "use": "editados [#channel]",
+            "type": "command",
+            "description": "Establece un canal para mostrar los mensajes editados"
+        },
+        "eliminados": {
+            "alias": [],
+            "use": "eliminados [#channel]",
+            "type": "command",
+            "description": "Establece un canal para mostrar los mensajes eliminados"
         }
     },
     "Extra": {
