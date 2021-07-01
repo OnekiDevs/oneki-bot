@@ -17,8 +17,21 @@ class ctx:
         self.collection = self.db.collection(collection)
 
     def set(self, documnt, values):
-        doc = self.collection.document(documnt)
-        doc.set(values)
+        # Docu
+        """
+        Un método para crear documentos
+
+        Argumentos:
+        ----------
+        `documnt` --> nombre del nuevo documento
+        `values`  --> el valor del argumento
+
+        Mas información en:
+        ------------------
+        https://discord.com/channels/825936007449935903/849325692252061696/858897254558728212
+        """
+        # Code
+        self.collection.document(documnt).set(values)
 
     def get(self, documnt, camp = None, subcollection = None, subdocumnt = None): 
         # Docu
