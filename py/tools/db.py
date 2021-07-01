@@ -63,7 +63,8 @@ class ctx:
                 else: return None
             else:
                 if(doc.get().exists): 
-                    return doc.get().to_dict()[f"{camp}"]
+                    try: return doc.get().to_dict()[f"{camp}"]
+                    except KeyError: return None
                 else: return None
         else: 
             if(subcollection != None): 
@@ -73,7 +74,8 @@ class ctx:
                 else: return None
             else:
                 if(doc.get().exists): 
-                    return doc.get().to_dict()
+                    try: return doc.get().to_dict()
+                    except KeyError: return None
                 else: return None
 
     def update(self, documnt, camp, value, subcollection = None, subdocumnt = None, array = False): 
