@@ -26,6 +26,6 @@ async def info(ctx, member : tools.discord.Member = None):
     embed.add_field(name = translations["embed"]["field_4"]["name"], value = f"```{member.color}```")
     embed.add_field(name = translations["embed"]["field_5"]["name"], value = f"```{user.id}```")
     embed.add_field(name = translations["embed"]["field_6"]["name"], value = f"```{member.raw_status}```")
-    embed.set_footer(icon_url = ctx.author.avatar_url, text = translations["embed"]["footer"].format(ctx.guild.name))
+    embed.set_footer(icon_url = ctx.author.avatar_url, text = translations["embed"]["footer"].format(ctx.author.name))
 
     await ctx.send(embed = embed)
