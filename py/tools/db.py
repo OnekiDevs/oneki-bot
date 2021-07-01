@@ -16,7 +16,7 @@ class ctx:
         # Code
         self.collection = self.db.collection(collection)
 
-    def set(self, documnt, values):
+    def set(self, documnt, values, subcollection = None, subdocumnt = None):
         # Docu
         """
         Un método para crear documentos
@@ -31,7 +31,9 @@ class ctx:
         https://discord.com/channels/825936007449935903/849325692252061696/858897254558728212
         """
         # Code
-        self.collection.document(documnt).set(values)
+        if(subcollection != None and subdocumnt != None):
+            self.collection.document(documnt).collection(subcollection).document(subdocumnt).set(values)
+        else: self.collection.document(documnt).set(values)
 
     def get(self, documnt, camp = None, subcollection = None, subdocumnt = None): 
         # Docu
