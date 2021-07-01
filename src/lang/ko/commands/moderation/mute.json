@@ -1,0 +1,19 @@
+{
+    "msg_1": "불행히도 당신은 침묵 할 수 없습니다",
+    "embed" : {
+        "description" : "오, 넌 음소거 됐어 {}",
+        "author" : "음소거",
+        "field_1" : {
+            "name" : "이유"
+        },
+        "field_2" : {
+            "name" : "중재자"
+        },
+        "gifs" : [
+            "https://media.discordapp.net/attachments/725140299873124372/856284630003744789/erziokmute.gif", 
+            "https://media.discordapp.net/attachments/725140299873124372/856284825383338004/fakumute.gif"
+        ]
+    },
+    "msg_2": "{} 침묵했습니다! D:", 
+    "msg_3" : "음소거가 제거되었습니다."
+}

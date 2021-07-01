@@ -1,6 +1,6 @@
 import tools
 
-idioms = ["en", "es", "fr", "zh"]
+idioms = ["en", "es", "fr", "zh", "ko", "ru"]
 
 @tools.commands.has_permissions(administrator = True)
 @tools.bot.command(name = "lang", aliases = ["language"])
