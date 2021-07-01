@@ -2,7 +2,7 @@ import tools
 
 @tools.bot.command()
 @tools.commands.has_permissions(kick_members = True)
-async def mute(ctx, member : tools.discord.Member, time : str = "", *, reason  : str = "No se dio una razón"):
+async def mute(ctx, member : tools.discord.Member, time = "", *, reason = "No se dio una razón"):
     translations = tools.translations(tools.get_config(ctx), "commands/moderation/mute")
     if(member == ctx.author): await ctx.channel.send(translations["msg_1"])
     else:
@@ -16,12 +16,10 @@ async def mute(ctx, member : tools.discord.Member, time : str = "", *, reason  :
             timestamp = tools.datetime.utcnow()
         )
         embed.set_author(name = translations["embed"]["author"], icon_url = user.avatar_url)
-        embed.add_field(name = translations["embed"]["field_1"]["name"], value = f"```\n{reason}\n```")
-        embed.set_image(url = tools.choice(translations["embed"]["gifs"]))
         if(tools.re.search("-c", reason) is not None):
             reason = reason.split("-c")[1]
-            embed.add_field(name = translations["embed"]["field_2"]["name"], value = f"```\n{ctx.author.name}\n```")
-
+            embed.add_field(name = translations["embed"]["field_2"]["name"], value = f"```\n{ctx.author.name}\n```", inline = False)
+        embed.add_field(name = translations["embed"]["field_1"]["name"], value = f"```\n{reason}\n```")
         search = tools.re.search(r"[.d.h.m.s]", time)
         if(search is not None):
             j = search.group()
@@ -38,16 +36,19 @@ async def mute(ctx, member : tools.discord.Member, time : str = "", *, reason  :
                 num = int(search.string.split('s')[0])
                 tempo = tools.datetime.utcnow() + tools.timedelta(seconds = num), float(num)
         else: tempo = tools.datetime.utcnow() + tools.timedelta(minutes = 5), float(3600 * 5)
+        embed.add_field(name = translations["embed"]["field_3"]["name"], value = f"```\n{tempo[0]}\n```")
+        embed.set_image(url = tools.choice(translations["embed"]["gifs"]))
 
-        roles = await tools.remove_role(ctx.guild, member)
-        await tools.give_role(ctx.guild, member, "Mute")
-        lista = []
-        for i in roles: lista.append(str(i))
-        if(collection_times.get(f"{ctx.guild.id}") == None): 
-            collection_times.set(f"{ctx.guild.id}", {"mute" : {f"{user.id}" : {"time" : tempo[0], "roles" : lista}}})
-        else: collection_times.update(f"{ctx.guild.id}", f"mute.{user.id}", {"time" : tempo[0], "roles" : lista})
-        if(collection_serv.get("users") == None): collection_serv.set("users", {})
-        collection_serv.update("users", "mute", {"razon" : reason, "time" : tools.datetime.utcnow()}, subcollection = f"{user.id}", subdocumnt = "sanctions", array = True)
+        async with ctx.typing():
+            roles = await tools.remove_role(ctx.guild, member)
+            await tools.give_role(ctx.guild, member, "Mute")
+            lista = []
+            for i in roles: lista.append(str(i))
+            if(collection_times.get(f"{ctx.guild.id}") == None): 
+                collection_times.set(f"{ctx.guild.id}", {"mute" : {f"{user.id}" : {"time" : tempo[0], "roles" : lista}}})
+            else: collection_times.update(f"{ctx.guild.id}", f"mute.{user.id}", {"time" : tempo[0], "roles" : lista})
+            if(collection_serv.get("users") == None): collection_serv.set("users", {}, f"{user.id}", "sanctions")
+            collection_serv.update("users", "mute", {"razon" : reason, "time" : tools.datetime.utcnow()}, subcollection = f"{user.id}", subdocumnt = "sanctions", array = True)
 
         await ctx.send(translations["msg_2"].format(member.mention))
         await member.send(embed = embed)
