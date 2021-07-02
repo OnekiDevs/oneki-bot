@@ -11,7 +11,7 @@
             "name" : "Joined the server:"
         },
         "field_4" : {
-            "name" : "Colour:"
+            "name" : "Color:"
         },
         "field_5" : {
             "name" : "ID:"
@@ -19,6 +19,6 @@
         "field_6" : {
             "name" : "Status:"
         },
-        "footer" : "Demandée par {}"
+        "footer" : "Requested by {}"
     }
 }

@@ -1,4 +1,4 @@
 {
-    "msg" : "Bot language changed correctly",
-    "msg_error" : "Unfortunately this language is not yet available"
+    "msg" : "Bot language modified correctly",
+    "msg_error" : "Sorry, this language is not available yet."
 }

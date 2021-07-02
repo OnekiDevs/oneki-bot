@@ -1,0 +1,5 @@
+{
+    "MissingPermissions" : "이 명령을 사용할 수있는 권한이 없습니다.\n**누락 된 권한:**\n",
+    "BotMissingPermissions" : "이 명령에 대한 충분한 권한이 없습니다.\n**누락 된 권한:**\n",
+    "MissingRequiredArgument" : "**인수 누락:** `{}`"
+}

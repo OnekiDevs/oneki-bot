@@ -16,9 +16,24 @@ class ctx:
         # Code
         self.collection = self.db.collection(collection)
 
-    def set(self, documnt, values):
-        doc = self.collection.document(documnt)
-        doc.set(values)
+    def set(self, documnt, values, subcollection = None, subdocumnt = None):
+        # Docu
+        """
+        Un método para crear documentos
+
+        Argumentos:
+        ----------
+        `documnt` --> nombre del nuevo documento
+        `values`  --> el valor del argumento
+
+        Mas información en:
+        ------------------
+        https://discord.com/channels/825936007449935903/849325692252061696/858897254558728212
+        """
+        # Code
+        if(subcollection != None and subdocumnt != None):
+            self.collection.document(documnt).collection(subcollection).document(subdocumnt).set(values)
+        else: self.collection.document(documnt).set(values)
 
     def get(self, documnt, camp = None, subcollection = None, subdocumnt = None): 
         # Docu
@@ -50,7 +65,8 @@ class ctx:
                 else: return None
             else:
                 if(doc.get().exists): 
-                    return doc.get().to_dict()[f"{camp}"]
+                    try: return doc.get().to_dict()[f"{camp}"]
+                    except KeyError: return None
                 else: return None
         else: 
             if(subcollection != None): 
@@ -60,7 +76,8 @@ class ctx:
                 else: return None
             else:
                 if(doc.get().exists): 
-                    return doc.get().to_dict()
+                    try: return doc.get().to_dict()
+                    except KeyError: return None
                 else: return None
 
     def update(self, documnt, camp, value, subcollection = None, subdocumnt = None, array = False): 
