@@ -62,7 +62,7 @@ module.exports = {
             showMod = '-1'
         }
         if (reason.length === 0) {
-            reason = lang.without_reason
+            reason = null
         }
 
         let member = message.guild.members.cache.get(user.id);
@@ -71,24 +71,24 @@ module.exports = {
             .setTitle(`${lang.embed.title} **${message.guild.name}**`)
             .setImage('https://media1.tenor.com/images/de413d89fff5502df7cff9f68b24dca5/tenor.gif?itemid=12850590')
             .setThumbnail(user.avatarURL())
-            .addField('Razón:', reason, true)
+            .addField('Razón:', reason??lang.without_reason, true)
             .setTimestamp()
 
         if (showMod == '-s') {
-            embed.setAuthor(`Moderador responsable: ${message.author.tag}`, message.author.avatarURL(), 'https://discord.gg/laresistencia');
-            embed.setDescription(`Parece que has sido baneado de **${message.guild.name}** por ${message.author.tag}`);
+            embed.setAuthor(`${lang.embed.responsable}: ${message.author.tag}`, message.author.avatarURL(), 'https://discord.gg/laresistencia');
+            embed.setDescription(`${lang.embed.description} **${message.guild.name}** por ${message.author.tag}`);
         }
 
         if (!member.bannable) {
-            return message.reply('No puedes banear a este usuario!\nRevisa la jerarquia de los roles!')
+            return message.reply(lang.hierarchy);
         }
         if (member.bannable) {
-            let informBan = `Se ha baneado correctamente al usuario **${user.tag}**`
-            if (reason === 'No se ha dado razon.') {
-                informBan = `Se ha baneado correctamente al usuario **${user.tag}**, sin razon.`
+            let informBan = `${lang.ready} **${user.tag}**`
+            if (!reason) {
+                informBan = `${lang.ready} **${user.tag}**, ${lang.without_reason}`
             }
             if (!providedDeleteDays) {
-                informBan = `Se ha baneado correctamente al usuario **${user.tag}**, borrando ${deleteDays} dias de mensajes del usuario.`
+                informBan = `${lang.ready} **${user.tag}**, ${lang.erasing} ${deleteDays} dias de mensajes del usuario.`
             }
             user.send(embed).then(() => {
                 message.guild.members.ban(user, { deleteDays: deleteDays, reason: reason })

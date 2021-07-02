@@ -5,6 +5,11 @@
     "mention_lose": "Please mention someone.",
     "without_reason": "No reason has been given.",
     "embed": {
-        "title": "You have been banned from"
-    }
+        "title": "You have been banned from",
+        "resopnsable": "Responsible moderator",
+        "description": "Looks like you've been banned from"
+    },
+    "hierarchy": "You cannot ban this user!\nCheck out the role hierarchy!", 
+    "ready": "User has been successfully banned",
+    "erasing": "erasing"
 }
