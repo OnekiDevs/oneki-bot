@@ -1,7 +1,7 @@
 {
-    "msg_1": "Unfortunately you cannot mutate yourself",
+    "msg_1": "Unfortunately you cannot mute yourself",
     "embed" : {
-        "description" : "Oh no, you've been muted into {}",
+        "description" : "Oh no, you've been muted in {}",
         "author" : "Mute",
         "field_1" : {
             "name" : "Reason"
@@ -14,6 +14,6 @@
             "https://media.discordapp.net/attachments/725140299873124372/856284825383338004/fakumute.gif"
         ]
     },
-    "msg_2": "{} has been silenced! D:", 
-    "msg_3" : "Your mute was removed"
+    "msg_2": "{} has been muted! D:", 
+    "msg_3" : "Your mute was removed!"
 }
