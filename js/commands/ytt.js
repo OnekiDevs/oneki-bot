@@ -6,6 +6,8 @@ module.exports = {
     usersPermissions: [],
     alias: ["youtubetogether", "youtube-together"],
     run: async (client, message, args) => {
+        const server = client.servers.get(message.guild.id);
+        const lang = client.util.lang({lang:server.lang, route:'commands/fun/ytt'});
         const channel = message.mentions.channels.find(m => m.type == 'voice');
         if (!channel) return message.inlineReply("Menciona un canal de voz");
         fetch(`https://discord.com/api/v8/channels/${channel.id}/invites`, {
@@ -26,11 +28,11 @@ module.exports = {
         .then((response) => response.json())
         .then((invite) => {
             const ID = shortid.generate();
-            if (!invite.code || invite.errors) return message.inlineReply("Lamentablemente no puedo usar ytt");
+            if (!invite.code || invite.errors) return message.reply(lang.fail);
             else {
                 client.api.channels(message.channel.id).messages.post({
                     data: {
-                        content: `${message.member.displayName} te esta invitando a ver YouTube juntos`,
+                        content: `${await client.utiles.replace(lang.message, [{match:"{user}", replace:message.member.displayName}])}`,
                         components: [
                             {
                                 type: 1,
@@ -39,13 +41,13 @@ module.exports = {
                                         type: 2,
                                         url: `https://discord.com/invite/${invite.code}`,
                                         style: 5,
-                                        label: "Aceptar",
+                                        label: lang.accept
                                     },
                                     {
                                         type: 2,
                                         custom_id: ID,
                                         style: 1,
-                                        label: "Invitacion",
+                                        label: lang.invitation
                                     },
                                 ],
                             },

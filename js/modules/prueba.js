@@ -8,4 +8,3 @@ const utiles = require('./util');
     ]); // retorna ">Texto de prueba"
     console.log(lang);
 })();
-

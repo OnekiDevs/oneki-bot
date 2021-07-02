@@ -1,0 +1,4 @@
+{
+    "use": "Usage: {prefix}suggest <channel> [Suggestion]",
+    "pending": "Pending Suggestion"
+}

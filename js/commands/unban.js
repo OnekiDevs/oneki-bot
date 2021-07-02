@@ -8,14 +8,16 @@ module.exports = {
     usage: '[User ID]',
     alias: [],
     run: async (client, message, args) => {
+        const server = client.servers.get(message.guild.id);
+        const lang = client.util.lang({lang:server.lang, route:'commands/fun/ss'});
         if (!message.member.permissions.has(['BAN_MEMBERS'])) {
-            message.reply('no tienes los suficientes permisos para hacer esto');
+            message.reply(lang.permissions);
             return;
         }
 
         const userToUnbanID = args[0];
         if (!userToUnbanID) return;
         message.guild.members.unban(userToUnbanID);
-        return message.reply('A el usuario se le ha revocado el ban exitosamente!');
+        return message.reply(lang.ready);
     },
 };

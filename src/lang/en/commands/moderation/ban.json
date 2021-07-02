@@ -11,5 +11,8 @@
     },
     "hierarchy": "You cannot ban this user!\nCheck out the role hierarchy!", 
     "ready": "User has been successfully banned",
-    "erasing": "erasing"
+    "erasing": "deleting {deleteDays} days of user messages.",
+    "fail": "Failed to ban **{tag}**",
+    "by": "by",
+    "reason": "reason"
 }

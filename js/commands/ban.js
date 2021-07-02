@@ -9,7 +9,7 @@ module.exports = {
     alias: [],
     run: async (client, message, args) => {
         const server = client.servers.get(message.guild.id);
-        const lang = client.util.lang({lang:server.lang, route:'commands/fun/ban'});
+        const lang = client.util.lang({lang:server.lang, route:'commands/moderation/ban'});
         const db = admin.firestore();
         if (!message.member.permissions.has(Permissions.FLAGS.BAN_MEMBERS)) {
             message.reply(lang.missing_permissions_user);
@@ -71,12 +71,12 @@ module.exports = {
             .setTitle(`${lang.embed.title} **${message.guild.name}**`)
             .setImage('https://media1.tenor.com/images/de413d89fff5502df7cff9f68b24dca5/tenor.gif?itemid=12850590')
             .setThumbnail(user.avatarURL())
-            .addField('Razón:', reason??lang.without_reason, true)
+            .addField(`${lang.reason}:`, reason??lang.without_reason, true)
             .setTimestamp()
 
         if (showMod == '-s') {
             embed.setAuthor(`${lang.embed.responsable}: ${message.author.tag}`, message.author.avatarURL(), 'https://discord.gg/laresistencia');
-            embed.setDescription(`${lang.embed.description} **${message.guild.name}** por ${message.author.tag}`);
+            embed.setDescription(`${lang.embed.description} **${message.guild.name}** ${lang.by} ${message.author.tag}`);
         }
 
         if (!member.bannable) {
@@ -88,13 +88,13 @@ module.exports = {
                 informBan = `${lang.ready} **${user.tag}**, ${lang.without_reason}`
             }
             if (!providedDeleteDays) {
-                informBan = `${lang.ready} **${user.tag}**, ${lang.erasing} ${deleteDays} dias de mensajes del usuario.`
+                informBan = `${lang.ready} **${user.tag}**, ${await client.utiles.replace(lang.erasing, [{match:"{deleteDays}", replace:deleteDays}])}`
             }
             user.send(embed).then(() => {
                 message.guild.members.ban(user, { deleteDays: deleteDays, reason: reason })
                     .then(_ => message.reply(informBan))
                     .catch((error) => {
-                        message.reply(`Failed to ban **${user.tag}**: ${error}`);
+                        message.reply(`${await client.utiles.replace(lang.fail, [{match:"tag",replace:user.tag}])}: ${error}`);
                     })
             })
         }

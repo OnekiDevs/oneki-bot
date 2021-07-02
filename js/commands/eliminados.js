@@ -5,8 +5,10 @@ module.exports = {
     userPermissions: [],
     botPermissions: [],
     run: async (client, message, args) => {
+        const server = client.servers.get(message.guild.id);
+        const lang = client.util.lang({lang:server.lang, route:'commands/moderation/editados'});
         let canal = message.mentions.channels.first() || message.guild.channel.cache.get(args[0]);
-        if (!canal) return message.channel.send("Mencione un canal también");
+        if (!canal) return message.channel.send(lang.mention);
         db.collection(message.guild.id).doc("deleted").update({
             channel:canal.id
         }).catch(err => {
@@ -16,7 +18,7 @@ module.exports = {
                 })
             }
         });
-        message.inlineReply(`Canal <#${canal.id}> establecido para los mensajes eliminados`);
+        message.reply(`${await client.utiles.replace(lang.ready, [{match:"{channel}", replace:`<#${canal.id}>`}])}`);
         message.delete();
     }
 }

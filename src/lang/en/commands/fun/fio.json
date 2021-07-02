@@ -1,0 +1,6 @@
+{
+    "message": "{user} is inviting you to play Fishing.io together",
+    "fail": "Unfortunately I can't use fio",
+    "accept": "Accept",
+    "invitation": "invitation"
+}
