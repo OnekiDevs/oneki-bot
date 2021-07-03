@@ -47,8 +47,9 @@ async def mute(ctx, member : tools.discord.Member, time = "", *, reason = "No se
             if(collection_times.get(f"{ctx.guild.id}") == None): 
                 collection_times.set(f"{ctx.guild.id}", {"mute" : {f"{user.id}" : {"time" : tempo[0], "roles" : lista}}})
             else: collection_times.update(f"{ctx.guild.id}", f"mute.{user.id}", {"time" : tempo[0], "roles" : lista})
-            if(collection_serv.get("users") == None): collection_serv.set("users", {}, f"{user.id}", "sanctions")
-            collection_serv.update("users", "mute", {"razon" : reason, "time" : tools.datetime.utcnow()}, subcollection = f"{user.id}", subdocumnt = "sanctions", array = True)
+            info_dic = {"razon" : reason, "time" : tools.datetime.utcnow()}
+            if(collection_serv.get("users") == None): collection_serv.set("users", {"mute" : [info_dic]}, f"{user.id}", "sanctions")
+            else: collection_serv.update("users", "mute", info_dic, subcollection = f"{user.id}", subdocumnt = "sanctions", array = True)
 
         await ctx.send(translations["msg_2"].format(member.mention))
         await member.send(embed = embed)
