@@ -9,6 +9,9 @@
         "field_2" : {
             "name" : "중재자"
         },
+        "field_3" : {
+            "name" : "시각"
+        },
         "gifs" : [
             "https://media.discordapp.net/attachments/725140299873124372/856284630003744789/erziokmute.gif", 
             "https://media.discordapp.net/attachments/725140299873124372/856284825383338004/fakumute.gif"

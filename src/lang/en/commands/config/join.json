@@ -1,0 +1,10 @@
+{
+    "deactivate" : {
+        "message" : "Welcome messages disabled",
+        "roles" : "Roles that are given at startup disabled",
+        "defecto": "Welcome disabled"
+    },
+    "message" : "Welcome messages activated",
+    "roles" : "The roles that are given at the beginning are activated",
+    "invalido" : "**Invalid subcommand...**\n\nList of valid subcommands:\n`roles` --> subcommand to give roles when a user enters the server\n`message` --> subcommand to configure welcome messages\n`deactivate` --> subcommand to disable greetings"
+}

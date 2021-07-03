@@ -9,6 +9,9 @@
         "field_2" : {
             "name" : "Modérateur"
         },
+        "field_3" : {
+            "name" : "La meteo"
+        },
         "gifs" : [
             "https://media.discordapp.net/attachments/725140299873124372/856284630003744789/erziokmute.gif", 
             "https://media.discordapp.net/attachments/725140299873124372/856284825383338004/fakumute.gif"
