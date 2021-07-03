@@ -1,3 +1,4 @@
+const { MessageButton } = require('discord.js')
 module.exports = {
     name: 'help',
     botPermissions: [],
@@ -7,41 +8,13 @@ module.exports = {
         const server = client.servers.get(message.guild.id);
         const lang = client.util.lang({lang:server.lang, route:'commands/help/help'}).buttons;
         const embed = await require('../modules/help')(client, require('../../src/commands.json').Entretenimiento, 'de Entretenimento', message.guild.id);
-        client.api.channels(message.channel.id).messages.post({ 
-            data: {
-                embed: embed,
-                components: [
-                    {
-                        type: 1,
-                        components: [
-                            {
-                                style: 1,
-                                label: lang.entertainment,
-                                custom_id: 'help_entretenimiento',
-                                type: 2
-                            },
-                            {
-                                style: 1,
-                                label: lang.help,
-                                custom_id: 'help_ayuda',
-                                type: 2
-                            },
-                            {
-                                style: 1,
-                                label: lang.moderation,
-                                custom_id: 'help_moderacion',
-                                type: 2
-                            },
-                            {
-                                style: 1,
-                                label: lang.extra,
-                                custom_id: 'help_extra',
-                                type: 2
-                            }
-                        ]
-                    }
-                ]
-            }
+        const entretenimiento = new MessageButton().setLabel(lang.entertainment).setStyle('PRIMARY').setCustomID('help_entretenimiento');
+        const ayuda = new MessageButton().setLabel(lang.help).setStyle('PRIMARY').setCustomID('help_ayuda');
+        const moderacion = new MessageButton().setLabel(lang.moderation).setStyle('PRIMARY').setCustomID('help_moderacion');
+        const extra = new MessageButton().setLabel(lang.extra).setStyle('PRIMARY').setCustomID('help_extra');
+        message.reply({
+            embeds: [embed],
+            components: [[entretenimiento, ayuda, moderacion, extra]]
         });
     }
 }

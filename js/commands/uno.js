@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, MessageButton } = require('discord.js');
 const shortid = require('shortid');
 module.exports = {
     name: "uno",
@@ -13,31 +13,12 @@ module.exports = {
             estado: 'espera'
         };
         const embed = require('../modules/uno/embedUno')(partida);
-        client.api.channels(message.channel.id).messages.post({
+        const ingresar = new MessageButton().setLabel('Ingresar').setCustomID(`uno_i_${partida.id}`).setStyle('PRIMARY');
+        const comenzar = new MessageButton().setLabel('Comenzar').setCustomID(`uno_c_${partida.id}`).setStyle('PRIMARY');
+        message.reply({
             data: {
-                embed: embed,
-                components: [
-                    {
-                        type: 1,
-                        components: [
-                            {
-                                type: 2,
-                                style: 1,
-                                custom_id: `uno_i_${partida.id}`,
-                                label: "Ingresar",
-                            },
-                            {
-                                type: 2,
-                                style: 3,
-                                custom_id: `uno_c_${partida.id}`,
-                                label: "Comenzar",
-                            }
-                        ],
-                    },
-                ],
-                message_reference: {
-                    message_id: message.id,
-                },
+                embeds: [embed],
+                components: [[ingresar, comenzar]]
             },
         });
         client.uno.set(partida.id, partida);

@@ -1,5 +1,6 @@
 const fetch = require("node-fetch");
 const shortid = require("shortid");
+const { MessageButton } = require("discord.js");
 module.exports = {
     name: "bio",
     botPermissions: [],
@@ -30,32 +31,11 @@ module.exports = {
             const ID = shortid.generate();
             if (!invite.code || invite.errors) return message.reply(lang.fail);
             else {
-                client.api.channels(message.channel.id).messages.post({
-                    data: {
-                        content: `${await client.utiles.replace(lang.message, [{match:"{user}", replace:message.member.displayName}])}`,
-                        components: [
-                            {
-                                type: 1,
-                                components: [
-                                    {
-                                        type: 2,
-                                        url: `https://discord.com/invite/${invite.code}`,
-                                        style: 5,
-                                        label: lang.accept,
-                                    },
-                                    {
-                                        type: 2,
-                                        custom_id: ID,
-                                        style: 1,
-                                        label: lang.invitation,
-                                    },
-                                ],
-                            },
-                        ],
-                        message_reference: {
-                            message_id: message.id,
-                        },
-                    },
+                const accept = new MessageButton().setLabel(lang.accept).setStyle('LINK').setURL(`https://discord.com/invite/${invite.code}`);
+                const invite = new MessageButton().setLabel(lang.invite).setStyle('PRIMARY').setCustomID(ID);
+                message.reply({
+                    content: `${await client.utiles.replace(lang.message, [{match:"{user}", replace:message.member.displayName}])}`, 
+                    components: [[accept, invite]]
                 });
                 client.buttons.set(ID, {
                     params: {
