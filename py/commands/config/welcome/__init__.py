@@ -1,1 +1,1 @@
-from commands.config.join import roles, message, deactivate
+from commands.config.welcome import roles, message, deactivate
