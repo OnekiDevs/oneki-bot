@@ -1,9 +1,10 @@
-const  { MessageEmbed } = require('discord.js');
+const  { MessageEmbed, Permissions } = require('discord.js');
 module.exports.run = async (client, interact, params) => {
     interact.deferUpdate();
-    if (interact.user.id == interact.message.author.id) {
+    console.log(interact.message.channel);
+    if (interact.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS, Permissions.FLAGS.MANAGE_MESSAGES])) {
         let canal = await interact.message.channel.clone();
-        canal.setPosition(channel.position);
+        canal.setPosition(interact.message.channel.position);
         interact.message.channel.delete();
     }
 }
