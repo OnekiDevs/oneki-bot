@@ -7,7 +7,7 @@ tools.bot.remove_command('help')
 
 #Comandos del bot
 from commands import avatar, info
-from commands.config import lang
+from commands.config import lang, welcome
 from commands.moderation import mute, unmute, warn
 #Eventos
 from events import error, join, messages, ready

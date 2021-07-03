@@ -26,7 +26,7 @@ async def on_member_join(message):
     if(data == None): pass
     else:
         roles = collection.get("bienvenidas", "role")
-        if(roles != None and tools.is_empty(roles) == True):
+        if(roles is not None or tools.is_empty(roles) == True):
             await tools.give_list_roles(message.guild, message, roles)
         try:
             channel = tools.bot.get_channel(int(data["channel"]))

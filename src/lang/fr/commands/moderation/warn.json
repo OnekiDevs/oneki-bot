@@ -1,0 +1,14 @@
+{
+    "msg_1": "Malheureusement, vous ne pouvez pas vous avertir :(",
+    "embed" : {
+        "author" : "Avertissement",
+        "description" : "Vous avez ete prevenu dans {}",
+        "field_1" : {
+            "name" : "Raison"
+        },
+        "field_2" : {
+            "name" : "Moderateur"
+        }
+    },
+    "msg_2": "{} a ete prevenu! D:"
+}

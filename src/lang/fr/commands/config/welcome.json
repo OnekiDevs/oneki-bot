@@ -1,0 +1,10 @@
+{
+    "deactivate" : {
+        "message" : "Messages de bienvenue desactives",
+        "roles" : "Roles attribues au demarrage desactives",
+        "defecto": "Les accueils ont ete desactives"
+    },
+    "message" : "Messages de bienvenue actives",
+    "roles" : "Les roles qui sont donnés au debut sont actives",
+    "invalido" : "**Sous-commande invalide...**\n\nListe des sous-commandes valides:\n`roles` --> sous-commande pour donner des roles lorsqu'un utilisateur entre sur le serveur\n`message` --> sous-commande pour configurer les messages de bienvenue\n`deactivate` --> sous-commande pour désactiver les salutations"
+}
