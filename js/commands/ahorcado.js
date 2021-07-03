@@ -7,6 +7,8 @@ module.exports = {
     usersPermissions: [],
     alias: [],
     run: async (client, message, args) => {
+        const server = client.servers.get(message.guild.id);
+        const lang = client.util.lang({lang:server.lang, route:'commands/fun/ahorcado'});
         const word = require('../../src/words.json')[Math.floor(Math.random() * require('../../src/words.json').length)].split('');
         let life = {
             i:6,
@@ -19,7 +21,7 @@ module.exports = {
             a: [],
             toString:()=>usedLetters.a.join(' ')
         }, wordShow = {}, participants = [], validLetters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'], m;
-        const msg = await message.inlineReply(`cargando...`);
+        const msg = await message.reply(lang.loading);
         participants.push(message.author.id);
         message.mentions.users.map(u=>u.id).forEach(u=>participants.push(u));
         console.log(participants);
@@ -31,18 +33,18 @@ module.exports = {
                 }),
                 toString:()=>wordShow.a.join(' ')
             }
-            msg.edit(`Usadas: ${usedLetters}\n\`${wordShow}\`\n${life}`);
-            if (life.i == 0) return msg.inlineReply(`${message.author} suerte para la próxima, la palabra era **${word.join('')}**`);
-            if (!wordShow.a.includes("_")) return msg.inlineReply(`${message.author} GG has ganado`);
+            msg.edit(`${lang.used}: ${usedLetters}\n\`${wordShow}\`\n${life}`);
+            if (life.i == 0) return msg.reply(`${message.author} ${lang.lose} **${word.join('')}**`);
+            if (!wordShow.a.includes("_")) return msg.reply(`${message.author} ${lang.win}`);
             const filter = m => participants.includes(m.author.id) && validLetters.includes(m.content.toLowerCase());
             try { 
                 m = (await msg.channel.awaitMessages(filter, {max:1, time: 30000, errors: ['time']})).first()
             } catch (e) {
-                return msg.inlineReply(`${message.author} Se acabo el tiempo`);
+                return msg.reply(`${message.author} ${lang.timeout}`);
             }
             const l = m.content.toLowerCase().charAt(0);
             if (usedLetters.a.includes(l)) {
-                m.inlineReply('Ya has usado esa letra').then(ms => ms.delete({ timeout: 5000 }).then(() =>m.delete()))
+                m.reply(lang.repeat).then(ms => ms.delete({ timeout: 5000 }).then(() =>m.delete()))
             } else {
                 usedLetters.a.push(l);
                 if (!word.includes(l)) life.i--;

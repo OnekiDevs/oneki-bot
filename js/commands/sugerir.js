@@ -8,10 +8,12 @@ module.exports = {
     botPermissions: [Permissions.FLAGS.MANAGE_MESSAGES],
     userPermissions: [],
     run: async (client, message, args, data) => {
+        const server = client.servers.get(message.guild.id);
+        const lang = client.util.lang({lang:server.lang, route:'commands/fun/ss'});
         const snapshot = await db.collection(message.guild.id).doc("suggest").get();
         if (!snapshot.exists) return;
         const prefix = await client.servers.get(message.guild.id).prefix;
-        if (args.length < 2) return message.inlineReply(`Uso: ${prefix}sugerir <canal> [Sugerencia]`);
+        if (args.length < 2) return message.inlineReply(lang.use);
         const channelid = snapshot.data()[args[0]];
         const channel = message.guild.channels.cache.get(channelid ?? snapshot.data().predetermined);
         if (!channel) return;
@@ -21,7 +23,7 @@ module.exports = {
         embed.setTitle(`Nueva Sugerencia`);
         embed.setColor(16313844);
         embed.setDescription(channelid ? args.slice(1).join(' ') : args.join(' '));
-        embed.setFooter(`Kone Bot ${package.version} | Sugerencia Pendiente | ID ${snapshot.data().lastId?+snapshot.data().lastId+1:1}`, client.user.avatarURL());
+        embed.setFooter(`${client.user.name} Bot ${package.version} | ${lang.pending} | ID ${snapshot.data().lastId?+snapshot.data().lastId+1:1}`, client.user.avatarURL());
         embed.setTimestamp();
         const m = await channel.send(embed);
         m.react("👍");

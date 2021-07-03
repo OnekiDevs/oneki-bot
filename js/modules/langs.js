@@ -2,6 +2,7 @@ module.exports = ({lang, route}) => {
     if (!route) return new Error('Requiere el parametro { route }');
     try {
         const texts = require(`../../src/lang/${lang??'en'}/${route}`);
+        return texts;
     } catch (error) {
         if (error.toString().startsWith('Error: Cannot find module')) {
             try {

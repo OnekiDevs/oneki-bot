@@ -1,3 +1,8 @@
 {
-    "loading": "loading..."
+    "loading": "loading...",
+    "used": "Used",
+    "lose": "good luck next time, the word was",
+    "win": "GG you win",
+    "timeout": "The time is out",
+    "repeat": "You have already used this letter"
 }

@@ -12,7 +12,7 @@ module.exports.run = async (client, interact, params) => {
                     components: [
                         {
                             style: 1,
-                            label: lang.entretainment,
+                            label: lang.entertainment,
                             custom_id: 'help_entretenimiento',
                             type: 2
                         },

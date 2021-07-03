@@ -7,8 +7,10 @@ module.exports = {
     alias: [],
     run: async (client, message, args) => {
         message.channel.startTyping();
+        const server = client.servers.get(message.guild.id);
+        const lang = client.util.lang({lang:server.lang, route:'commands/fun/ss'});
         message.delete();
-        if (!args[0]) return message.channel.send("También escribe lo que quieres que diga");
+        if (!args[0]) return message.channel.send(lang.fail);
         const browser = await puppeteer.launch({
             args: [
                 "--no-sandbox", 

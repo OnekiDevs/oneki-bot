@@ -1,0 +1,6 @@
+{
+    "message": "{user} is inviting you to play Poker Night together",
+    "fail": "Unfortunately I can't use pkn",
+    "accept": "Accept",
+    "invitation": "invitation"
+}
