@@ -93,7 +93,7 @@ module.exports = {
             user.send(embed).then(() => {
                 message.guild.members.ban(user, { deleteDays: deleteDays, reason: reason })
                     .then(_ => message.reply(informBan))
-                    .catch((error) => {
+                    .catch(async (error) => {
                         message.reply(`${await client.utiles.replace(lang.fail, [{match:"tag",replace:user.tag}])}: ${error}`);
                     })
             })

@@ -26,7 +26,7 @@ module.exports = {
             },
         })
         .then((response) => response.json())
-        .then((invite) => {
+        .then(async (invite) => {
             const ID = shortid.generate();
             if (!invite.code || invite.errors) return message.reply(lang.fail);
             else {

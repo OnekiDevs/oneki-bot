@@ -4,5 +4,11 @@
         "help": "Help",
         "moderation": "Moderation",
         "extra": "Extra"
-    }
+    },
+    "embed": {
+        "description": "**Category {type}** \n`<> ` means optional \n`[] ` means mandatory",
+        "title": "{bot} Bot command list"
+    },
+    "use": "Use",
+    "alias": "Alias"
 }
