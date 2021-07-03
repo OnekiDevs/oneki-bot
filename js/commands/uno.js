@@ -16,10 +16,8 @@ module.exports = {
         const ingresar = new MessageButton().setLabel('Ingresar').setCustomID(`uno_i_${partida.id}`).setStyle('PRIMARY');
         const comenzar = new MessageButton().setLabel('Comenzar').setCustomID(`uno_c_${partida.id}`).setStyle('PRIMARY');
         message.reply({
-            data: {
                 embeds: [embed],
                 components: [[ingresar, comenzar]]
-            },
         });
         client.uno.set(partida.id, partida);
     }

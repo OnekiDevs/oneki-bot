@@ -4,7 +4,7 @@ module.exports = (partida) => {
     embed.setTitle("UNO beta");
     if (partida.estado == 'curso') {
         embed.setDescription(`Partida en curso. Turno de <@${partida.jugadores[0]}>`);
-        console.log(partida);
+        //console.log(partida);
         embed.setImage(require('../../../src/unoCards.json')[partida.jugadas[partida.jugadas.length-1]].url);
         embed.addField(`jugadores ${partida.jugadores.length}`, `${partida.jugadores.map(j=>`<@${j}>`)}`, true);
     }
