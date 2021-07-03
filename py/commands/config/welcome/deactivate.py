@@ -1,9 +1,9 @@
-from commands.config.join import index_subcommand as index
+from commands.config.welcome import index_subcommand as index
 
-@index.join.command()
+@index.welcome.command()
 @index.tools.commands.has_permissions(administrator = True)
 async def deactivate(ctx, etc = None):
-    translations = index.tools.translations(index.tools.get_config(ctx), "commands/config/join")
+    translations = index.tools.translations(index.tools.get_config(ctx), "commands/config/welcome")
     message = translations["deactivate"]["defecto"]
     async with ctx.typing():
         if(etc == "roles"):

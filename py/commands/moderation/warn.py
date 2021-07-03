@@ -4,6 +4,7 @@ import tools
 @tools.bot.command()
 @tools.commands.has_permissions(kick_members = True)
 async def warn(ctx, member: tools.discord.Member, *, reason : str = "No se dio una razón"):
+    tools.get_config(ctx)
     if(member == ctx.author): 
         await ctx.channel.send("No te puedes warnear a ti mismo!")
         return
