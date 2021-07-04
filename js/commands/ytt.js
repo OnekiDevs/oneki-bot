@@ -3,7 +3,7 @@ const shortid = require("shortid");
 module.exports = {
     name: "ytt",
     botPermissions: [],
-    usersPermissions: [],
+    userPermissions: [],
     alias: ["youtubetogether", "youtube-together"],
     run: async (client, message, args) => {
         const server = client.servers.get(message.guild.id);

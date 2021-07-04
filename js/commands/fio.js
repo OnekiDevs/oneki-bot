@@ -3,7 +3,7 @@ const shortid = require("shortid");
 module.exports = {
     name: "fio",
     botPermissions: [],
-    usersPermissions: [],
+    userPermissions: [],
     alias: ['fishing.io'],
     run: async (client, message, args) => {
         const server = client.servers.get(message.guild.id);

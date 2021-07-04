@@ -2,7 +2,7 @@ const { Permissions, MessageButton } = require('discord.js');
 module.exports = {
     name: "clear",
     botPermissions: [Permissions.FLAGS.MANAGE_MESSAGES, Permissions.FLAGS.MANAGE_CHANNELS],
-    usersPermissions: [Permissions.FLAGS.MANAGE_MESSAGES, Permissions.FLAGS.MANAGE_CHANNELS],
+    userPermissions: [Permissions.FLAGS.MANAGE_MESSAGES, Permissions.FLAGS.MANAGE_CHANNELS],
     alias: [],
     run: async (client, message, args) => {
         const server = client.servers.get(message.guild.id);

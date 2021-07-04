@@ -4,7 +4,7 @@ const { MessageButton } = require("discord.js");
 module.exports = {
     name: "bio",
     botPermissions: [],
-    usersPermissions: [],
+    userPermissions: [],
     alias: ["betrayal.io"],
     run: async (client, message, args) => {
         const server = client.servers.get(message.guild.id);

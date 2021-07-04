@@ -4,7 +4,7 @@ const { Permissions } = require("discord.js");
 module.exports = {
     name: "ahorcado",
     botPermissions: [Permissions.FLAGS.MANAGE_MESSAGES],
-    usersPermissions: [],
+    userPermissions: [],
     alias: [],
     run: async (client, message, args) => {
         const server = client.servers.get(message.guild.id);
@@ -24,7 +24,7 @@ module.exports = {
         const msg = await message.reply(lang.loading);
         participants.push(message.author.id);
         message.mentions.users.map(u=>u.id).forEach(u=>participants.push(u));
-        console.log(participants);
+        // console.log(participants);
         while (true) {
             wordShow = {
                 a: word.map(i=>{

@@ -3,7 +3,7 @@ const  { MessageAttachment, Permissions } = require('discord.js')
 module.exports = {
     name: 'ss',
     botPermissions: [Permissions.FLAGS.MANAGE_MESSAGES],
-    usersPermissions: [],
+    userPermissions: [],
     alias: [],
     run: async (client, message, args) => {
         message.channel.startTyping();

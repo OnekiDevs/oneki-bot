@@ -7,7 +7,7 @@ module.exports = {
             const cmd = client.commands.find((c) => c.name.toLowerCase() == command || c.alias.includes(command));
 
             if (cmd) {
-                if (cmd.botPermissions?.length > 0 && !message.member.permissions.has(cmd.userPermissions)) return message.reply(`No cuentas con permisos suficientes, necesitas: \`${cmd.botPermissions.join('` `')}\``);
+                if (cmd.userPermissions?.length > 0 && !message.member.permissions.has(cmd.userPermissions)) return message.reply(`No cuentas con permisos suficientes, necesitas: \`${cmd.botPermissions.join('` `')}\``);
                 if (cmd.botPermissions?.length > 0 && !message.guild.me.permissions.has(cmd.botPermissions)) return message.reply(`No cuento con permisos suficientes, necesito: \`${cmd.botPermissions.join('` `')}\``);
                 cmd.run(client, message, args);
             }

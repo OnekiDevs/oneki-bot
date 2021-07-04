@@ -3,7 +3,7 @@ const shortid = require("shortid");
 module.exports = {
     name: "pkn",
     botPermissions: [],
-    usersPermissions: [],
+    userPermissions: [],
     alias: ["pokernight", "poker-night"],
     run: async (client, message, args) => {
         const server = client.servers.get(message.guild.id);

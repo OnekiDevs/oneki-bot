@@ -3,7 +3,7 @@ const shortid = require('shortid');
 module.exports = {
     name: "uno",
     botPermissions: [],
-    usersPermissions: [],
+    userPermissions: [],
     alias: [],
     run: async (client, message, args) => {
         const partida = {

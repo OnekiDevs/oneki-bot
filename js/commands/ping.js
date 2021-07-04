@@ -1,7 +1,7 @@
 module.exports = {
     name: 'ping',
     alias: [],
-    usersPermissions: [],
+    userPermissions: [],
     botPermissions: [],
     run: async (client, message, args) => {
         return message.reply('pong');

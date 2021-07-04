@@ -2,7 +2,7 @@ const { MessageButton } = require('discord.js')
 module.exports = {
     name: 'help',
     botPermissions: [],
-    usersPermissions: [],
+    userPermissions: [],
     alias: [],
     run: async (client, message, args) => {
         const server = client.servers.get(message.guild.id);
