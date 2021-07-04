@@ -1,9 +1,6 @@
 module.exports = async (text, array = []) => {
     try {
         if(!text) return new Error('Requiere el parametro "text"');
-        // for (const i of array) {
-        //     console.log();
-        // }
         await array.forEach((i, j) => {
             if(!i.match) return new Error(`Error en: array[${j}], match no encontrado`)
             if(!i.replace) return new Error(`Error en: array[${j}], replace no encontrado`)

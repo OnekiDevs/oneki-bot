@@ -1,6 +1,6 @@
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, MessageButton } = require('discord.js');
 module.exports = async (client, interact) => {
-    let partida = client.uno.get(interact.customID.slice(6))
+    let partida = client.uno.get(interact.customID.slice(7))
     if (!partida) {
         return interact.deferUpdate();
     }
@@ -11,29 +11,11 @@ module.exports = async (client, interact) => {
             let embed = require('./embedUno')(partida);
             client.uno.set(interact.customID.slice(6), partida);
             interact.deferUpdate();
-            client.api.channels(interact.channelID).messages(interact.message.id).patch({
-                data: {
-                    embed: embed,
-                    components: [
-                        {
-                            type: 1,
-                            components: [
-                                {
-                                    type: 2,
-                                    style: 2,
-                                    custom_id: `uno_m_${partida.id}`,
-                                    label: "Mostrar Cartas",
-                                },
-                                {
-                                    type: 2,
-                                    style: 3,
-                                    custom_id: `uno_e_${partida.id}`,
-                                    label: "Comer",
-                                }
-                            ]
-                        }
-                    ]
-                }
+            const mostrar = new MessageButton().setLabel('Mostrar Cartas').setStyle('PRIMARY').setCustomID(`uno_mo_${partida.id}`)
+            const comer = new MessageButton().setLabel('comer').setStyle('SECONDARY').setCustomID(`uno_mo_${partida.id}`)
+            interact.message.edit({ 
+                embeds: [embed],
+                components: [[mostrar, comer]]
             });
         } else {
             interact.reply({

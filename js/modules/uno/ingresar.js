@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 module.exports = async (client, interact) => {
-    let partida = client.uno.get(interact.customID.slice(6));
+    let partida = client.uno.get(interact.customID.slice(7));
     if (partida && !partida.jugadores.includes(interact.user.id)){
         partida.jugadores.push(interact.user.id);
         let botones = [];
