@@ -12,7 +12,9 @@ module.exports = {
                 cmd.run(client, message, args);
             }
         } catch (error) {
-            client.emit('error', client, error, `Channel: <#${message.channel.id}>\nServer: ${message.guild.name} / ${message.guild.id}\nMessage: ${message.content}`)
+            console.log(error);
+            const channelError = await client.channels.cache.get('833780614712131616');
+            channelError.send(`Error en **events/command.js**\n${error} <@&832657759081463848>\nChannel: <#${message.channel.id}>\nServer: ${message.guild.name} / ${message.guild.id}${message.content}`);
         }
     }
 }
