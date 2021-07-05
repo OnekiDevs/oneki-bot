@@ -1,5 +1,6 @@
 const { MessageEmbed, MessageButton } = require('discord.js');
 module.exports = async (client, interact) => {
+    console.log('ss');
     let partida = client.uno.get(interact.customID.slice(7))
     if (!partida) {
         return interact.deferUpdate();
@@ -12,7 +13,7 @@ module.exports = async (client, interact) => {
             client.uno.set(interact.customID.slice(6), partida);
             interact.deferUpdate();
             const mostrar = new MessageButton().setLabel('Mostrar Cartas').setStyle('PRIMARY').setCustomID(`uno_mo_${partida.id}`)
-            const comer = new MessageButton().setLabel('comer').setStyle('SECONDARY').setCustomID(`uno_mo_${partida.id}`)
+            const comer = new MessageButton().setLabel('comer').setStyle('SECONDARY').setCustomID(`uno_ea_${partida.id}`)
             interact.message.edit({ 
                 embeds: [embed],
                 components: [[mostrar, comer]]

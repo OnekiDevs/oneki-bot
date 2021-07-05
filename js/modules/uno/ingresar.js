@@ -11,13 +11,13 @@ module.exports = async (client, interact) => {
             botones.push({
                 type: 2,
                 style: 2,
-                custom_id: `uno_m_${partida.id}`,
+                custom_id: `uno_mo_${partida.id}`,
                 label: "Mostrar Cartas",
             },
             {
                 type: 2,
                 style: 3,
-                custom_id: `uno_e_${partida.id}`,
+                custom_id: `uno_ea_${partida.id}`,
                 label: "Comer",
             })
             //TODO agregar primera carta y repartir embed.setThumbnail()
@@ -26,13 +26,13 @@ module.exports = async (client, interact) => {
             botones.push({
                 type: 2,
                 style: 1,
-                custom_id: `uno_i_${partida.id}`,
+                custom_id: `uno_in_${partida.id}`,
                 label: "Ingresar",
             },
             {
                 type: 2,
                 style: 3,
-                custom_id: `uno_c_${partida.id}`,
+                custom_id: `uno_co_${partida.id}`,
                 label: "Comenzar",
             })
         }

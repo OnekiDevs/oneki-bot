@@ -14,7 +14,7 @@ module.exports = async (client, interact) => {
         });
         interact.editReply({
             content: msg.attachments.first().url,
-            components,
+            // components,
             ephemeral: true
         });
         partida[interact.user.id].interact = interact;

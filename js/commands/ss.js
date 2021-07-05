@@ -40,7 +40,7 @@ module.exports = {
         await page.goto(`http://koneweb.herokuapp.com/api/fakeDiscordMessage?${params}`);
         const ss = await page.screenshot();
         const attachment = new MessageAttachment(ss);
-        message.channel.send(attachment);
+        message.channel.send({attachments:[attachment]});
         await browser.close();
         message.channel.stopTyping();
     }
