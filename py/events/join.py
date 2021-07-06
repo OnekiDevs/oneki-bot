@@ -25,12 +25,12 @@ async def on_member_join(message):
     data = collection.get("bienvenidas")
     if(data == None): pass
     else:
-        roles = collection.get("bienvenidas", "role")
-        if(roles is not None or tools.is_empty(roles) == True):
+        roles = collection.get("bienvenidas", "roles")
+        if(roles is not None and tools.is_empty(roles) == True):
             await tools.give_list_roles(message.guild, message, roles)
         try:
             channel = tools.bot.get_channel(int(data["channel"]))
-            await img(message, data["mensaje"])
+            await img(message, data["message"])
             await channel.send("{0.mention}".format(message), file = tools.discord.File("src/cache.png", filename = "welcome.png"))
             tools.remove("src/cache.png")
             tools.remove("src/pfp.png")

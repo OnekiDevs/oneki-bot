@@ -6,5 +6,6 @@
     },
     "message" : "Welcome messages activated",
     "roles" : "The roles that are given at the beginning are activated",
+    "roles_delete" : "Role removed from list",
     "invalido" : "**Invalid subcommand...**\n\nList of valid subcommands:\n`roles` --> subcommand to give roles when a user enters the server\n`message` --> subcommand to configure welcome messages\n`deactivate` --> subcommand to disable greetings"
 }

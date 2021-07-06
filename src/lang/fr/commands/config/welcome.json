@@ -6,5 +6,6 @@
     },
     "message" : "Messages de bienvenue actives",
     "roles" : "Les roles qui sont donnés au debut sont actives",
+    "roles_delete" : "Role supprime de la liste",
     "invalido" : "**Sous-commande invalide...**\n\nListe des sous-commandes valides:\n`roles` --> sous-commande pour donner des roles lorsqu'un utilisateur entre sur le serveur\n`message` --> sous-commande pour configurer les messages de bienvenue\n`deactivate` --> sous-commande pour désactiver les salutations"
 }

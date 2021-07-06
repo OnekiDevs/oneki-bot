@@ -56,29 +56,29 @@ class ctx:
         https://discord.com/channels/825936007449935903/849325692252061696/852408052539195422
         """
         # Code
-        doc = self.collection.document(documnt)
-        if(camp != None):
-            if(subcollection != None): 
-                subdocument = doc.collection(subcollection).document(subdocumnt).get()
-                if(subdocument.exists):
-                    return subdocument.to_dict()[f"{camp}"]
-                else: return None
-            else:
-                if(doc.get().exists): 
-                    try: return doc.get().to_dict()[f"{camp}"]
-                    except KeyError: return None
-                else: return None
-        else: 
-            if(subcollection != None): 
-                subdocument = doc.collection(subcollection).document(subdocumnt).get()
-                if(subdocument.exists):
-                    return subdocument.to_dict()
-                else: return None
-            else:
-                if(doc.get().exists): 
-                    try: return doc.get().to_dict()
-                    except KeyError: return None
-                else: return None
+        try:
+            doc = self.collection.document(documnt)
+            if(camp != None):
+                if(subcollection != None): 
+                    subdocument = doc.collection(subcollection).document(subdocumnt).get()
+                    if(subdocument.exists):
+                        return subdocument.to_dict()[f"{camp}"]
+                    else: return None
+                else:
+                    if(doc.get().exists): 
+                        return doc.get().to_dict()[f"{camp}"]
+                    else: return None
+            else: 
+                if(subcollection != None): 
+                    subdocument = doc.collection(subcollection).document(subdocumnt).get()
+                    if(subdocument.exists):
+                        return subdocument.to_dict()
+                    else: return None
+                else:
+                    if(doc.get().exists): 
+                        return doc.get().to_dict()
+                    else: return None
+        except(KeyError): return None
 
     def update(self, documnt, camp, value, subcollection = None, subdocumnt = None, array = False): 
         """
