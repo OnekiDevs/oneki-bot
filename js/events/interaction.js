@@ -8,6 +8,6 @@ module.exports = {
             else if ((/uno_co_.{9}/g).test(interact.customID)) require('../modules/uno').comenzar(client, interact);
             else if ((/uno_mo_.{9}/g).test(interact.customID)) require('../modules/uno').mostrar(client, interact);
             else if ((/uno_ea_.{9}/g).test(interact.customID)) require('../modules/uno').comer(client, interact);
-            else if ((/uno_.{2}_.{9}/g).test(interact.customID)) require('../modules/uno').jugada(client, interact);
+            else if ((/uno_ju_.{9}/g).test(interact.customID)) require('../modules/uno').jugada(client, interact);
     }
 }

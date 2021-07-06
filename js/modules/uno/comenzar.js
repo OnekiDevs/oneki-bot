@@ -1,4 +1,5 @@
-const { MessageEmbed, MessageButton } = require('discord.js');
+const { MessageEmbed, MessageButton, MessageActionRow } = require('discord.js');
+const { main } = require('./gameloop.js')
 module.exports = async (client, interact) => {
     let partida = client.uno.get(interact.customID.slice(7))
     if (!partida) {
@@ -12,10 +13,13 @@ module.exports = async (client, interact) => {
             client.uno.set(interact.customID.slice(6), partida);
             interact.deferUpdate();
             const mostrar = new MessageButton().setLabel('Mostrar Cartas').setStyle('PRIMARY').setCustomID(`uno_mo_${partida.id}`)
-            const comer = new MessageButton().setLabel('comer').setStyle('SECONDARY').setCustomID(`uno_mo_${partida.id}`)
+            const comer = new MessageButton().setLabel('Comer').setStyle('SECONDARY').setCustomID(`uno_co_${partida.id}`).setDisabled(true);
+            const jugar = new MessageButton().setLabel('Jugar Carta').setStyle('SECONDARY').setCustomID(`uno_ju_${partida.id}`)
+            // const gameloop = require('./gameloop.js')(client, interact, partida, [mostrar, comer])
+            main(client, interact, partida, [mostrar, comer]);
             interact.message.edit({ 
                 embeds: [embed],
-                components: [[mostrar, comer]]
+                components: [[mostrar, comer, jugar]]
             });
         } else {
             interact.reply({
