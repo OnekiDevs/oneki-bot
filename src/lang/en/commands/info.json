@@ -2,13 +2,13 @@
     "embed" : {
         "title" : "Roles",
         "field_1" : {
-            "name" : "Activity"
+            "name" : "Activity:"
         },
         "field_2" : {
             "name" : "Account created:"
         },
         "field_3" : {
-            "name" : "Joined the server:"
+            "name" : "Joined:"
         },
         "field_4" : {
             "name" : "Color:"
