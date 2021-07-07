@@ -3,32 +3,15 @@ let currentColor = colors[Math.round(Math.random() * (1 - 4) + 4) - 1];
 let currentFlow = "right";
 let currentTurn;
 let canPlay;
+let playerCards;
 
 function main(client, interact, partida, buttons) {
     let starterPlayer = partida.jugadores[0];
-    let playerCards = partida[interact.user.id].cartas;
-    console.table(partida[interact.user.id].cartas);
+    playerCards = partida[interact.user.id].cartas
+    // console.table(partida[interact.user.id].cartas);
     console.log(currentColor);
 
-    switch (currentColor) {
-        case "yellow":
-            currentColor = "y"
-            break;
-
-        case "red":
-            currentColor = "r"
-            break;
-
-        case "blue":
-            currentColor = "b"
-            break;
-
-        case "green":
-            currentColor = "g"
-            break;
-        default:
-            break;
-    }
+    currentColor = currentColor.slice(0);
 
     currentTurn = starterPlayer;
 
@@ -37,15 +20,34 @@ function main(client, interact, partida, buttons) {
     if (play === currentColor) canPlay = true;
     console.assert(canPlay, "You can't play that card!")
     console.table(buttons);
-    if (currentTurn = starterPlayer) buttons[1].setDisabled(false);
-
-
+    // if (currentTurn != starterPlayer) { 
+    //     buttons[1].setDisabled(false);
+    // }
 }
-
-exports.main = main;
 
 function get() {
-    return { currentTurn: currentTurn, currentFlow: currentFlow, currentColor: currentColor, canPlay: canPlay }
+    return { currentTurn, currentFlow, currentColor, canPlay, playerCards }
 }
 
+function play(card, client, interact) {
+    let cardColor;
+    let cardNumber;
+    let isWildcard = false;
+
+    cardColor = colors.find(color => color.match(card.slice(1)));
+    console.log(cardColor);
+    console.log(/\d/.test(card));
+    if (/\d/.test(card) === false) isWildcard = true;
+    if (isWildcard == true) {
+        cardNumber = null;
+    } else {
+        cardNumber = card.match(/\d/)[0];
+    }
+    console.table({cardColor, cardNumber, isWildcard});
+}
+
+// Function Exports
+
+exports.play = play;
 exports.get = get;
+exports.main = main;

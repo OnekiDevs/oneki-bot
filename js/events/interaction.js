@@ -9,5 +9,6 @@ module.exports = {
             else if ((/uno_mo_.{9}/g).test(interact.customID)) require('../modules/uno').mostrar(client, interact);
             else if ((/uno_ea_.{9}/g).test(interact.customID)) require('../modules/uno').comer(client, interact);
             else if ((/uno_ju_.{9}/g).test(interact.customID)) require('../modules/uno').jugada(client, interact);
+            else if ((/uno_card_/g).test(interact.customID)) require('../modules/uno').card(client, interact);
     }
 }

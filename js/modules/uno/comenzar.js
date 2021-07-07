@@ -13,13 +13,16 @@ module.exports = async (client, interact) => {
             client.uno.set(interact.customID.slice(6), partida);
             interact.deferUpdate();
             const mostrar = new MessageButton().setLabel('Mostrar Cartas').setStyle('PRIMARY').setCustomID(`uno_mo_${partida.id}`)
-            const comer = new MessageButton().setLabel('Comer').setStyle('SECONDARY').setCustomID(`uno_co_${partida.id}`).setDisabled(true);
+            const comer = new MessageButton().setLabel('Comer').setStyle('SECONDARY').setCustomID(`uno_ea_${partida.id}`)
             const jugar = new MessageButton().setLabel('Jugar Carta').setStyle('SECONDARY').setCustomID(`uno_ju_${partida.id}`)
+            const test1 = new MessageButton().setLabel('Blue 2').setStyle('PRIMARY').setCustomID(`uno_card_2b`)
+            const test2 = new MessageButton().setLabel('Blue 8').setStyle('PRIMARY').setCustomID(`uno_card_8b`)
+            const test3 = new MessageButton().setLabel('Plus Two Blue').setStyle('PRIMARY').setCustomID(`uno_card_pb`)
             // const gameloop = require('./gameloop.js')(client, interact, partida, [mostrar, comer])
-            main(client, interact, partida, [mostrar, comer]);
-            interact.message.edit({ 
+            main(client, interact, partida, [mostrar, comer, jugar]);
+            interact.message.edit({
                 embeds: [embed],
-                components: [[mostrar, comer, jugar]]
+                components: [[mostrar, comer, jugar, test1, test2], [test3]]
             });
         } else {
             interact.reply({
