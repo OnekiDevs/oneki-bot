@@ -1,10 +1,3 @@
-const utiles = require('./util');
-(async ()=>{
-    const lang = await utiles.replace("{prefix}Texto de prueba", [
-        {
-            match: "{prefix}",
-            replace: prefix
-        }
-    ]); // retorna ">Texto de prueba"
-    console.log(lang);
-})();
+const UNO = require('../modules/class/uno');
+const partida = new UNO('5s4d86s45f', '56232142598653145');
+console.log(partida);
