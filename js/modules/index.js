@@ -1,3 +1,5 @@
+const { resolve } = require('path');
+
 module.exports = async (dev) => {
     //imports
     require('dotenv').config();
@@ -69,5 +71,13 @@ module.exports = async (dev) => {
 
     // client.on('interaction', interaction => {
     //     console.log(interaction);
+    // })
+    // client.on('message', message => {
+    //     const collector = message.createMessageComponentInteractionCollector((mci)=>mci.customID.startsWith('uno_i_')||mci.customID.startsWith('uno_c_'));
+    //     collector.on('collect', collect => {
+    //         collect.reply({
+    //             content: ''
+    //         })
+    //     })
     // })
 }
