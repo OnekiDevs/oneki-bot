@@ -13,6 +13,7 @@ import re
 
 #Modulos del proyecto
 from tools import db
+from tools import client
 from tools.defs import translations, get_user, is_empty, give_role, remove_role, give_list_roles
 from tools import exceptions
 
@@ -20,6 +21,7 @@ from tools import exceptions
 serv = {}
 mutes = {}
 bot = commands.Bot(command_prefix = ["!", ">"], description = "Bot oficial de La Resistencia", intents = discord.Intents.all())
+c = client.Client()
 
 def get_config(ctx):
     try: 
