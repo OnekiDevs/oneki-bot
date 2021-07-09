@@ -21,7 +21,7 @@ from tools import exceptions
 serv = {}
 mutes = {}
 bot = commands.Bot(command_prefix = ["!", ">"], description = "Bot oficial de La Resistencia", intents = discord.Intents.all())
-c = client.Client()
+# c = client.Client()
 
 def get_config(ctx):
     try: 
