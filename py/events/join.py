@@ -26,8 +26,8 @@ async def on_member_join(message):
     if(data == None): pass
     else:
         roles = collection.get("bienvenidas", "roles")
-        if(roles is not None and tools.is_empty(roles) == True):
-            await tools.give_list_roles(message.guild, message, roles)
+        if(roles is not None and tools.utils.is_empty(roles) == True):
+            await tools.utils.give_list_roles(message.guild, message, roles)
         try:
             channel = tools.bot.get_channel(int(data["channel"]))
             await img(message, data["message"])

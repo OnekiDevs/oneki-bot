@@ -3,7 +3,7 @@ import tools
 @tools.bot.event
 async def on_command_error(ctx, error):
     try: 
-        translations = tools.translations(tools.get_config(ctx), "events/error")
+        translations = tools.utils.translations(tools.get_config(ctx), "events/error")
     except(tools.exceptions.WrongPrefix): return
     if(type(error) == tools.commands.errors.MissingPermissions):
         msg = translations["MissingPermissions"]

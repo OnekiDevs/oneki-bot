@@ -1,15 +1,10 @@
-from dotenv import load_dotenv
 import tools
 
-load_dotenv()
+"""Comandos del bot"""
+import commands
+import commands.config
+import commands.moderation
+"""Eventos"""
+import events
 
-tools.bot.remove_command('help')
-
-#Comandos del bot
-from commands import avatar, info
-from commands.config import lang, welcome
-from commands.moderation import mute, unmute, warn
-#Eventos
-from events import error, join, messages, ready
-
-tools.bot.run(tools.getenv("TOKEN_DISCORD"))
+tools.bot.run(tools.env.TOKEN)

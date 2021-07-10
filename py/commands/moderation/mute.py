@@ -3,13 +3,13 @@ import tools
 @tools.bot.command()
 @tools.commands.has_permissions(kick_members = True)
 async def mute(ctx, member : tools.discord.Member, time = "", *, reason = "No se dio una razón"):
-    translations = tools.translations(tools.get_config(ctx), "commands/moderation/mute")
+    translations = tools.utils.translations(tools.get_config(ctx), "commands/moderation/mute")
     if(member == ctx.author): await ctx.channel.send(translations["msg_1"])
     else:
         async with ctx.typing():
             collection_serv = tools.db.ctx(f"{ctx.guild.id}")
             collection_times = tools.db.ctx("times")
-            user = tools.get_user(member)
+            user = tools.utils.get_user(member)
 
             embed = tools.discord.Embed(
                 description = translations["embed"]["description"].format(ctx.guild.name),
@@ -39,8 +39,8 @@ async def mute(ctx, member : tools.discord.Member, time = "", *, reason = "No se
             embed.set_image(url = tools.choice(translations["embed"]["gifs"]))
 
             roles = []
-            for i in await tools.remove_role(ctx.guild, member): roles.append(str(i))
-            await tools.give_role(ctx.guild, member, "Mute")
+            for i in await tools.utils.remove_role(ctx.guild, member): roles.append(str(i))
+            await tools.utils.give_role(ctx.guild, member, "Mute")
             if(collection_times.get(f"{ctx.guild.id}") == None): 
                 collection_times.set(f"{ctx.guild.id}", {"mute" : {f"{user.id}" : {"time" : tempo[0], "roles" : roles}}})
             else: collection_times.update(f"{ctx.guild.id}", f"mute.{user.id}", {"time" : tempo[0], "roles" : roles})
@@ -54,6 +54,6 @@ async def mute(ctx, member : tools.discord.Member, time = "", *, reason = "No se
             await member.send(embed = embed)
         except: pass
         await tools.sleep(tempo[1])
-        await tools.give_list_roles(ctx.guild, member, roles)
+        await tools.utils.give_list_roles(ctx.guild, member, roles)
         collection_times.delete(f"{ctx.guild.id}", f"mute.{user.id}")
         await member.send(translations["msg_3"])

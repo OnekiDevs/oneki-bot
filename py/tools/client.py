@@ -3,16 +3,13 @@ import threading
 import pickle
 
 class Client():
-	def __init__(self, name_event = None, dic = None, host = "localhost", port = 4000):
+	def __init__(self, host = "localhost", port = 4000):
 		self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		self.sock.connect((str(host), int(port)))
 
 		recv = threading.Thread(target = self.recv)
 		recv.daemon = True
 		recv.start()
-
-		if (name_event is not None and dic is not None):
-			self.send_data(name_event, dic)
 
 	def recv(self):
 		while True:

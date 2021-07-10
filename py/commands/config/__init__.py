@@ -1,0 +1,1 @@
+from commands.config import welcome, lang

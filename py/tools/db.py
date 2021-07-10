@@ -155,10 +155,3 @@ class ctx:
         if(compound_queries):
             return self.collection.where(f"{filter}", f"{operation}", f"{value}").where(f"{filter2}", f"{operation2}", f"{value2}").stream()
         else: return self.collection.where(f"{filter}", f"{operation}", f"{value}").stream()
-
-    def detect_change(self, documnt, metode):
-        """
-        a
-        """
-        a = threading.Event()
-        pass

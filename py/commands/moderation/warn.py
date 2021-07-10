@@ -3,12 +3,12 @@ import tools
 @tools.bot.command()
 @tools.commands.has_permissions(kick_members = True)
 async def warn(ctx, member: tools.discord.Member, *, reason : str = "No se dio una razón"):
-    translations = tools.translations(tools.get_config(ctx), "commands/moderation/warn")
+    translations = tools.utils.translations(tools.get_config(ctx), "commands/moderation/warn")
     if(member == ctx.author): await ctx.channel.send(translations["msg_1"])
     else:
         async with ctx.typing():
             collection_serv = tools.db.ctx(f"{ctx.guild.id}")
-            user = tools.get_user(member)
+            user = tools.utils.get_user(member)
             embed = tools.discord.Embed(
                 description = translations["embed"]["description"].format(ctx.guild.name),
                 colour = tools.discord.Colour.from_rgb(252, 207, 3),
