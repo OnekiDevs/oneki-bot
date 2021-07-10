@@ -1,33 +1,53 @@
 {
     "0r": {
-        "url": "https://i.postimg.cc/LsyfsdLk/0-red.png"
+        "url": "https://i.postimg.cc/LsyfsdLk/0-red.png", 
+        "color": "red",
+        "symbol": "0"
     },
     "1r": {
-        "url": "https://i.postimg.cc/8596hhyj/1-red.png"
+        "url": "https://i.postimg.cc/8596hhyj/1-red.png", 
+        "color": "red",
+        "symbol": "1"
     },
     "2r": {
-        "url": "https://i.postimg.cc/WzZJShKS/2-red.png"
+        "url": "https://i.postimg.cc/WzZJShKS/2-red.png", 
+        "color": "red",
+        "symbol": "2"
     },
     "3r": {
-        "url": "https://i.postimg.cc/gcLRGTJR/3-red.png"
+        "url": "https://i.postimg.cc/gcLRGTJR/3-red.png", 
+        "color": "red",
+        "symbol": "3"
     },
     "4r": {
-        "url": "https://i.postimg.cc/tC06JNZc/4-red.png"
+        "url": "https://i.postimg.cc/tC06JNZc/4-red.png", 
+        "color": "red",
+        "symbol": "4"
     },
     "5r": {
-        "url": "https://i.postimg.cc/jdz77nyS/5-red.png"
+        "url": "https://i.postimg.cc/jdz77nyS/5-red.png", 
+        "color": "red",
+        "symbol": "5"
     },
     "6r": {
-        "url": "https://i.postimg.cc/52bFq9mq/6-red.png"
+        "url": "https://i.postimg.cc/52bFq9mq/6-red.png", 
+        "color": "red",
+        "symbol": "6"
     },
     "7r": {
-        "url": "https://i.postimg.cc/2SGLHpcp/7-red.png"
+        "url": "https://i.postimg.cc/2SGLHpcp/7-red.png", 
+        "color": "red",
+        "symbol": "7"
     },
     "8r": {
-        "url": "https://i.postimg.cc/jjjwm8mD/8-red.png"
+        "url": "https://i.postimg.cc/jjjwm8mD/8-red.png", 
+        "color": "red",
+        "symbol": "8"
     },
     "9r": {
-        "url": "https://i.postimg.cc/d1k7thqv/9-red.png"
+        "url": "https://i.postimg.cc/d1k7thqv/9-red.png", 
+        "color": "red",
+        "symbol": "9"
     },
     "0g": {
         "url": "https://i.postimg.cc/4NWRxBnv/0-green.png"
