@@ -1,1 +1,1 @@
-from commands import avatar, info
+from commands import notes, avatar, info
