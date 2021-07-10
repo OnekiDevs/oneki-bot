@@ -16,7 +16,7 @@ async def warn(ctx, member: tools.discord.Member, *, reason : str = "No se dio u
             )
             embed.set_author(name = translations["embed"]["author"], icon_url = user.avatar_url)
             if(tools.re.search("-c", reason) is not None):
-                reason = reason.split("-c")[1]
+                reason = reason.split("-c ")[1]
                 embed.add_field(name = translations["embed"]["field_2"]["name"], value = f"```\n{ctx.author.name}\n```", inline = False)
             embed.add_field(name = translations["embed"]["field_1"]["name"], value = f"```\n{reason}\n```")
             embed.set_image(url = "https://media1.tenor.com/images/47b2b2d362a19102033a7535488d1440/tenor.gif?itemid=18361254")

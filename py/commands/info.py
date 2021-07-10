@@ -7,7 +7,7 @@ async def info(ctx, member : tools.discord.Member = None):
     roles = ""
     for role in member.roles: roles = "{0} {1.mention}".format(roles, role)
 
-    user = tools.get_user(member)
+    user = tools.utils.get_user(member)
     embed = tools.discord.Embed(
         title = translations["embed"]["title"], 
         description = f"{roles}", 

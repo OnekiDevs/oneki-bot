@@ -17,8 +17,8 @@ async def mute(ctx, member : tools.discord.Member, time = "", *, reason = "No se
                 timestamp = tools.datetime.utcnow()
             )
             embed.set_author(name = translations["embed"]["author"], icon_url = user.avatar_url)
-            if(tools.re.search(r"ˆ(-c)", reason) is not None):
-                reason = reason.split("-c")[1]
+            if(tools.re.search("-c", reason) is not None):
+                reason = reason.split("-c ")[1]
                 embed.add_field(name = translations["embed"]["field_2"]["name"], value = f"```\n{ctx.author.name}\n```", inline = False)
             embed.add_field(name = translations["embed"]["field_1"]["name"], value = f"```\n{reason}\n```")
 
