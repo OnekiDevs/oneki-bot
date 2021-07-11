@@ -80,6 +80,13 @@ class ctx:
                     else: return None
         except(KeyError): return None
 
+    def get_subcollection(self, documnt, subcollection, batch_size):
+        docs = self.collection.document(documnt).collection(subcollection).limit(batch_size).stream()
+        lista = []
+        for doc in docs:
+            lista.append(doc.id)
+        return lista
+
     def update(self, documnt, camp, value, subcollection = None, subdocumnt = None, array = False): 
         """
         Metodo para actualizar capos de un documento o subdocumento
