@@ -17,5 +17,5 @@ async def notes(ctx):
                 embed.description = "No tienes notebooks"
             else:
                 for key in notebooks:
-                    embed.add_field(name = f"{key}", value = f"```{notebooks[key]}```", inline = False)
+                    embed.add_field(name = f"{key}", value = f"```" + notebooks[key]["description"] + "```", inline = False)
         await ctx.send(embed = embed)
