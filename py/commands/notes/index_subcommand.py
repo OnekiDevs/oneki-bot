@@ -13,9 +13,9 @@ async def notes(ctx):
             embed.set_author(name = f"Notebooks", icon_url = ctx.author.avatar_url)
             embed.set_thumbnail(url = "https://media.discordapp.net/attachments/725140299873124372/863238505109913630/depositphotos_325926388-stock-illustration-blue-notebook-with-spiral-vector.png")
             notebooks = collection.get(f"{ctx.author.id}")
-            if (notebooks is not None):
+            if (notebooks is None or tools.utils.is_empty(notebooks) == False):
+                embed.description = "No tienes notebooks"
+            else:
                 for key in notebooks:
                     embed.add_field(name = f"{key}", value = f"```{notebooks[key]}```", inline = False)
-            else:
-                embed.description = "No tienes notebooks"
         await ctx.send(embed = embed)
