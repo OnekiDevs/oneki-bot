@@ -144,6 +144,15 @@ class ctx:
         elif(camp != None): doc.update({f'{camp}': firestore.firestore.DELETE_FIELD})
         else: doc.delete()
 
+    def delete_subcollection(self, documnt, subcollection, batch_size):
+        docs = self.collection.document(documnt).collection(subcollection).limit(batch_size).stream()
+        deleted = 0
+        for doc in docs:
+            doc.reference.delete()
+            deleted = deleted + 1
+        if deleted >= batch_size:
+            return self.delete_subcollection(batch_size)
+
     def where(self, filter, operation, value, compound_queries = False, filter2 = None, operation2 = None, value2 = None):
         """
         Metodo para hacer consultas en la colección
