@@ -25,4 +25,5 @@ def run(host = "localhost", port = 4000):
 	while True:
 		pass
 
-run(port = env.PORT)
+if __name__ == '__main__':
+	run(port = env.PORT)
