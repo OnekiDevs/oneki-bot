@@ -1,2 +1,2 @@
-# NeoBot
-Bot not yet official N E O | Army 
+# Oneki 
+Version publica del bot resistance
