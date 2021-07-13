@@ -9,7 +9,6 @@ def translations(language, path) -> dict:
         with open(f"src/lang/en/{path}.json", "r") as f:
             return json.loads(f.read()) 
 
-
 def get_user(user : User) -> User: 
     return user
 

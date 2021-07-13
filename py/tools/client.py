@@ -3,7 +3,7 @@ import threading
 import pickle
 
 class Client():
-	def __init__(self, servers : dict, host = "localhost", port = 5000):
+	def __init__(self, servers : dict, host = "localhost", port = 4000):
 		self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		self.sock.connect((str(host), int(port)))
 
@@ -34,4 +34,4 @@ class Client():
 	def send_data(self, name_event, server, data):
 		self.sock.send(pickle.dumps({"event" : name_event, "data" : {"server" : server, "value" : data}}))
 
-c = Client(port = 4000)
+#c = Client(port = 4000)
