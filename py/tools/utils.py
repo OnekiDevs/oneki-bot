@@ -4,7 +4,7 @@ import json
 def dict_servers(bot, collection) -> dict:
     servers = {}
     for guild in bot.guilds:
-        doc = collection.get(f"{guild.id}")
+        doc : dict = collection.get(f"{guild.id}")
         if(doc == None or is_empty(doc) == False): continue
         else: 
             if(doc.get("lang") == None): doc["lang"] = "en"
