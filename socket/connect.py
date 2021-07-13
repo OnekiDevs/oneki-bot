@@ -1,6 +1,6 @@
-import tools
+clients = []
 
-def Connect(sock : tools.socket.socket, clients : list):
+def Connect(sock):
     while True:
         try:
             conn, addr = sock.accept()
