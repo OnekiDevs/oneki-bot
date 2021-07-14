@@ -4,5 +4,6 @@ module.exports = {
     sleep,
     joinVoice: require('./joinVoice'),
     lang: require('./langs'), 
-    replace: require('./replace')
+    replace: require('./replace'),
+    errorEmbed: require('./errorEmbed')
 }
