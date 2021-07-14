@@ -1,4 +1,6 @@
 from discord import User, Member, PermissionOverwrite, utils, Colour
+import socket
+import pickle
 import json
 
 def translations(language, path) -> dict:
@@ -11,6 +13,12 @@ def translations(language, path) -> dict:
 
 def get_user(user : User) -> User: 
     return user
+
+def socket_send(name_event, server, data):
+	sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	sock.connect(("localhost", 4000))
+	sock.send(pickle.dumps({"event" : name_event, "data" : {"server" : server, "value" : data}}))
+	sock.close()
 
 def dict_servers(bot, collection) -> dict:
     servers = {}

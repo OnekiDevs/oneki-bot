@@ -16,12 +16,12 @@ def data_to_all(clients : list, data, client):
 def Process(clients : list):
     while True:
         if (len(clients) > 0):
-            print(clients)
             for c in clients:
                 try:
                     data = c.recv(1024)
                     if data:
                         d = pickle.loads(data)
+                        print(d)
                         if isinstance(d, dict):
                             if d["event"] in name_events: 
                                 data_to_all(clients, data, c)

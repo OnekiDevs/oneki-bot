@@ -1,6 +1,6 @@
 """Libreria discord.py"""
 import discord
-from discord.ext import commands
+from discord.ext import commands, tasks
 
 """Otras librerias relevantes"""
 from PIL import Image, ImageDraw, ImageFont, ImageOps
@@ -22,7 +22,7 @@ from tools import exceptions
 servers = {}
 #mutes = {}
 bot = commands.Bot(command_prefix = ["!", ">"], description = "Bot oficial de La Resistencia", intents = discord.Intents.all())
-#c = client.Client(servers, port = 4000)
+c = None
 
 def get_config(ctx):
     try: 
