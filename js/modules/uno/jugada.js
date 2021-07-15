@@ -1,10 +1,5 @@
 const { MessageButton } = require('discord.js');
-const utiles = require('../util.js')
-let colors = ["red", "blue", "yellow", "green"];
 module.exports = (client, interact) => {
-
-    // console.log(interact);
-    // console.log(interact.customID);
     const gameloop = require("./gameloop.js").get();
     console.log(interact.user.id)
     if (!gameloop.partidaLocal.jugadores.includes(interact.user.id)) {
@@ -14,16 +9,12 @@ module.exports = (client, interact) => {
     let playerCards3;
     let playerCards4;
     let playerCards5;
-    // console.table(gameloop.playerCards);
-    // console.log(gameloop.playerCards.length);
     if (gameloop.playerCards.length > 5) {
         playerCards2 = gameloop.playerCards.slice(5 - gameloop.playerCards.length);
-        // console.table(playerCards2);
         gameloop.playerCards.length = 5;
     }
 
 
-    // console.table(gameloop.playerCards);
     let components = [];
     let components2 = [];
     let components3 = [];
@@ -43,9 +34,6 @@ module.exports = (client, interact) => {
 
     if (playerCards2 && playerCards2.length > 5) {
         playerCards3 = playerCards2.slice(5 - playerCards2.length);
-        // console.table(playerCards2);
-
-
     }
     if (playerCards3 && playerCards3.length > 5) {
         playerCards4 = playerCards3.slice(5 - playerCards3.length);
