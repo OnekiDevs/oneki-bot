@@ -11,5 +11,6 @@ module.exports = {
         partida.maxPlayers = 4;
         partida.message = await message.reply(partida.embed);
         await partida.awaitPlayers();
+        partida.play();
     }
 };

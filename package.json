@@ -5,7 +5,7 @@
     "canvas": "^2.8.0",
     "cross-env": "^7.0.3",
     "discord-slash-commands-client": "^1.1.1",
-    "discord.js": "^13.0.0-dev.6d3d00b44577a70e840f0187d6894043677c5329",
+    "discord.js": "^13.0.0-dev.4206e35.1626393827",
     "dotenv": "^8.2.0",
     "fetch-node": "0.0.1",
     "ffmpeg": "0.0.4",

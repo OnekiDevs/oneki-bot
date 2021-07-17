@@ -1,5 +1,5 @@
 module.exports = {
-    name: 'message',
+    name: 'messageCreate',
     run: async (client, message) => {
         try {
             if (message.author.bot) return;

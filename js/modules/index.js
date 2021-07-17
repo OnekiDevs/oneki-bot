@@ -72,15 +72,19 @@ module.exports = async (dev) => {
     // client.on('interaction', interaction => {
     //     console.log(interaction);
     // })
-    // client.on('message', message => {
-    //     const collector = message.createMessageComponentInteractionCollector((mci)=>mci.customID.startsWith('uno_i_')||mci.customID.startsWith('uno_c_'));
-    //     collector.on('collect', collect => {
-    //         collect.deferUpdate({
-    //             ephemeral: true
-    //         })
-    //         collect.reply({
-    //             content: ''
-    //         })
-    //     })
-    // })
+    client.on('messageCreate', message => {
+        //              createMessageComponentCollector
+        // message.channel.createMessageComponentCollector
+    //     const collector = message.createMessageComponentInteractionCollector((mci)=>mci.customID.startsWith('uno_i_')||mci.customID.startsWith('uno_c_'), {
+    //         max: 
+    //     });
+    //     // collector.on('collect', collect => {
+    //     //     collect.deferUpdate({
+    //     //         ephemeral: true
+    //     //     })
+    //     //     collect.reply({
+    //     //         content: ''
+    //     //     })
+    //     // })
+    })
 }
