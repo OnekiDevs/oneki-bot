@@ -2,7 +2,10 @@ import socket
 import pickle
 import threading
 
-def recv(sock, servers):
+def send(sock, name_event, server : str, data : str):
+	sock.send(pickle.dumps({"event" : name_event, "data" : {"server" : str(server), "value" : str(data)}}))
+
+def __recv(sock, servers):
 	while True:
 			data = sock.recv(1024)
 			if data:
@@ -10,18 +13,12 @@ def recv(sock, servers):
 				event = d["event"]
 				servers[d["data"]["server"]][event] = d["data"]["value"] 
 
-def socket_send(name_event, server, data):
-	sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-	sock.connect(("localhost", 4000))
-	sock.send(pickle.dumps({"event" : name_event, "data" : {"server" : str(server), "value" : str(data)}}))
-	sock.close()
-
-def connect(servers, host = "localhost", port = 4000):
+def connect(servers, host: str = "localhost", port: int = 4000) -> socket.socket:
 	sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	sock.connect((str(host), int(port)))
 
-	_recv = threading.Thread(target = lambda : recv(sock, servers))
-	_recv.daemon = True
-	_recv.start()
+	recv = threading.Thread(target = lambda : __recv(sock, servers))
+	recv.daemon = True
+	recv.start()
 
-# socket_send("lang", 123456, input())
+	return sock
