@@ -144,35 +144,33 @@ class Document(_DataBase):
 		return self._document.id
 
 
-	def set(self, **kwargs): 
-		if self._subdocument is not None: 
-			self._subdocument.set(kwargs)
-		else: 
-			self._document.set(kwargs)
-
-
-	def content(self, camp = None) -> dict: 
+	@property
+	def content(self) -> dict: 
 		if self._subdocument is not None:
 			doc = self._subdocument.get()
 		else: doc = self._document.get()
 
 		if doc.exists:
-			_dict: dict = doc.to_dict()
-			if camp is not None: 
-				return _dict.get(camp)
-			else: return _dict
+			return doc.to_dict()
 		else: return None
 
 
-	def subcollections(self) -> list:
+	def subcollections(self, limit = None) -> list:
 		_list = []
-		for subcollection in self._document.collections():
+		for subcollection in self._document.collections(limit):
 			_list.append(Collection(
 				collection = self._collection.id, 
 				document = self._document.id, 
 				subcollection = subcollection.id
 			))
 		return _list
+
+
+	def set(self, **kwargs): 
+		if self._subdocument is not None: 
+			self._subdocument.set(kwargs)
+		else: 
+			self._document.set(kwargs)
 
 
 	def update(self, camp, value, array = False):
@@ -205,21 +203,21 @@ class Document(_DataBase):
 
 
 
-def get(collection, document = None, subcollection = None, subdocument = None) -> Document or Collection: 
-	if subcollection is not None:
-		if subdocument is not None:
-			return Document(
-				collection = collection, 
-				document = document, 
-				subcollection = subcollection, 
-				subdocument = subdocument
-			)
-		else: 
-			return Collection(collection = collection, document = document, subcollection = subcollection)
-	else: 
-		if document is not None:
-			return Document(collection = collection, document = document)
-		else: return Collection(collection = collection)
+# def get(collection, document = None, subcollection = None, subdocument = None) -> Document or Collection: 
+# 	if subcollection is not None:
+# 		if subdocument is not None:
+# 			return Document(
+# 				collection = collection, 
+# 				document = document, 
+# 				subcollection = subcollection, 
+# 				subdocument = subdocument
+# 			)
+# 		else: 
+# 			return Collection(collection = collection, document = document, subcollection = subcollection)
+# 	else: 
+# 		if document is not None:
+# 			return Document(collection = collection, document = document)
+# 		else: return Collection(collection = collection)
 
 
 
