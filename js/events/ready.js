@@ -1,7 +1,10 @@
 const db = require('firebase-admin').firestore();
+const fs = require('fs');
+
 module.exports = {
     name: 'ready',
     run: async (client) => {
+        //load configs
         db.collection('config').onSnapshot(snap => {
             snap.docChanges().forEach(change => {
                 client.servers.set(change.doc.id, {
@@ -17,6 +20,18 @@ module.exports = {
                 lang: 'en'
             });
         });
+        //load slash commands
+        for (const file of fs.readdirSync("./js/slash").filter((f) => f.endsWith(".js"))) {
+            const slash = require("../slash/" + file);
+            if (slash.servers == 'all') {
+                client.guilds.cache.forEach(async g => {
+                    const command = await g.commands.create(slash.data);
+                    console.log(command.name, '|', g.name);
+                })
+            } else {
+                // console.log(slash);
+            }
+        }
         console.log('\x1b[31m%s\x1b[0m', `${client.user.username} ${require('../../package.json').version} Listo y Atento!!!`);
     }
 }

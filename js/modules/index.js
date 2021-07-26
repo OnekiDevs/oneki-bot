@@ -70,9 +70,13 @@ module.exports = async (dev) => {
     client.login(dev?process.env.TOKEN_DISCORD_DEV:process.env.TOKEN_DISCORD);
 
     // client.on('interaction', interaction => {
-    //     console.log(interaction);
+    //     interaction.
+
     // })
-    client.on('messageCreate', message => {
+    // client.on('messageCreate', message => {
+        // client.guilds.cache.forEach(g => {
+
+        // })
         //              createMessageComponentCollector
         // message.channel.createMessageComponentCollector
     //     const collector = message.createMessageComponentInteractionCollector((mci)=>mci.customID.startsWith('uno_i_')||mci.customID.startsWith('uno_c_'), {
@@ -86,5 +90,5 @@ module.exports = async (dev) => {
     //     //         content: ''
     //     //     })
     //     // })
-    })
+    // })
 }
