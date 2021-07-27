@@ -7,7 +7,7 @@ module.exports = {
             interact.reply({
                 content: 'El prefix no puede contener espacios',
                 ephemeral: true
-            }); 
+            });
             return;
         }
         const member = await client.guilds.cache.get(interact.guildId)?.members.fetch(interact.member.user.id);
@@ -38,6 +38,16 @@ module.exports = {
         });
     },
     reset: (client, interact, options) => {
-        
+        db.collection('config').doc(interact.guildId).update({
+            prefix: '>'
+        }).catch((err) => {
+            console.log(err);
+            if (err.details.startsWith("No document to update")) db.collection('config').doc(interact.guildId).set({
+                prefix: '>'
+            });
+        });
+        interact.reply({
+            content: `Prefix reestablecido a "**>**"`
+        });
     }
 }
