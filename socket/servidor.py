@@ -12,12 +12,6 @@ def run(host = "localhost", port = 4000):
 	sock.bind((str(host), int(port)))
 	sock.listen(10)
 	sock.setblocking(False)
-	# Host & IP
-	s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-	s.connect(("8.8.8.8", 80))
-	print(s.getsockname()[0])
-	s.close()
-	print(port)
 
 	accept = threading.Thread(target = lambda : connect.Connect(sock))
 	accept.daemon = True
