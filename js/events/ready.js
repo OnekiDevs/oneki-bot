@@ -1,6 +1,6 @@
 const db = require('firebase-admin').firestore();
 const fs = require('fs');
-
+const { Permissions } = require('discord.js')
 module.exports = {
     name: 'ready',
     run: async (client) => {

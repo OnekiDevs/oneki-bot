@@ -45,32 +45,26 @@ module.exports = {
                     required: true,
                     choices: [
                       {
-                        key: "ChoiceOption-1627275541615",
                         name: "english",
                         value: "en"
                       },
                       {
-                        key: "ChoiceOption-1627275603389",
                         name: "spanish",
                         value: "es"
                       },
                       {
-                        key: "ChoiceOption-1627275617176",
                         name: "french",
                         value: "fr"
                       },
                       {
-                        key: "ChoiceOption-1627275723822",
                         name: "korean",
                         value: "ko"
                       },
                       {
-                        key: "ChoiceOption-1627275758681",
                         name: "rusian",
                         value: "ru"
                       },
                       {
-                        key: "ChoiceOption-1627275769461",
                         name: "chinese",
                         value: "zh"
                       }
@@ -82,6 +76,30 @@ module.exports = {
                 type: 1,
                 name: "reset",
                 description: "reset the language"
+              }
+            ]
+          },
+          {
+            type: 2,
+            name: "welcome",
+            description: "set up the welcome channel",
+            options: [
+              {
+                type: 1,
+                name: "set",
+                description: "set up the welcome channel",
+                options: [
+                  {
+                    type: 7,
+                    name: "channel",
+                    description: "channel where it will show the welcomes"
+                  }
+                ]
+              },
+              {
+                type: 1,
+                name: "delete",
+                description: "delete where it will show the welcomes"
               }
             ]
           }

@@ -1,4 +1,5 @@
 const { resolve } = require('path');
+const Canvas = require('canvas');
 
 module.exports = async (dev) => {
     //imports
@@ -69,26 +70,45 @@ module.exports = async (dev) => {
     //login
     client.login(dev?process.env.TOKEN_DISCORD_DEV:process.env.TOKEN_DISCORD);
 
-    // client.on('interaction', interaction => {
-    //     interaction.
-
-    // })
+    //play ground 
+    
     // client.on('messageCreate', message => {
         // client.guilds.cache.forEach(g => {
 
         // })
         //              createMessageComponentCollector
         // message.channel.createMessageComponentCollector
-    //     const collector = message.createMessageComponentInteractionCollector((mci)=>mci.customID.startsWith('uno_i_')||mci.customID.startsWith('uno_c_'), {
-    //         max: 
+        // const collector = message.createMessageComponentInteractionCollector((mci)=>mci.customID.startsWith('uno_i_')||mci.customID.startsWith('uno_c_'), {
+        //     max: 
+        // });
+        // collector.on('collect', collect => {
+        //     collect.deferUpdate({
+        //         ephemeral: true
+        //     })
+        //     collect.reply({
+        //         content: ''
+        //     })
+        // })
+    // })
+
+    //DONT TOUCH
+    
+    // client.on('ready', async interaction => {
+    //     const ca = new Canvas.createCanvas(256, 256);
+    //     const cx = ca.getContext('2d');
+    //     const av = await Canvas.loadImage(client.user.displayAvatarURL({format: 'png', size: 256}));
+    //     cx.drawImage(av, 0, 0);
+    //     const g = await client.guilds.create(client.user.username+' Bot', {
+    //         icon: ca.toBuffer('image/png')
     //     });
-    //     // collector.on('collect', collect => {
-    //     //     collect.deferUpdate({
-    //     //         ephemeral: true
-    //     //     })
-    //     //     collect.reply({
-    //     //         content: ''
-    //     //     })
-    //     // })
+    //     client.guilds.cache.get(g.id).channels.cache.map(async channel => {
+    //         if(channel.type == 'GUILD_TEXT') {
+    //             const invite = await channel.createInvite({
+    //                 maxAge: 0
+    //             })
+    //             // const invites = await (await channel.fetchInvites()).map(invite => invite.code);
+    //             console.log(`discord.gg/${invite.code}`);
+    //         }
+    //     })
     // })
 }
