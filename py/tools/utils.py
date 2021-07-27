@@ -1,6 +1,6 @@
-from discord import User, Member, PermissionOverwrite, utils, Colour
-import socket
-import pickle
+# Modulo por eliminar
+from discord import PermissionOverwrite, utils, Colour
+import discord
 import json
 
 def translations(language, path) -> dict:
@@ -11,12 +11,11 @@ def translations(language, path) -> dict:
         with open(f"src/lang/en/{path}.json", "r") as f:
             return json.loads(f.read()) 
 
-def get_user(user : User) -> User: 
+def get_user(user : discord.User) -> discord.User: 
     return user
 
 def dict_servers(bot, collection) -> dict:
     servers = {}
-
     for guild in bot.guilds:
         doc : dict = collection.get(f"{guild.id}")
         if(doc == None or is_empty(doc)): continue
@@ -33,7 +32,13 @@ def is_empty(data_structure) -> True | False:
         return False
     else: return True
 
-async def give_list_roles(guild, member : Member, list_roles):
+
+
+
+
+
+
+async def give_list_roles(guild, member : discord.Member, list_roles):
     for role in guild.roles:
         for role2 in list_roles: 
             if(role.id == int(role2)):
@@ -41,7 +46,7 @@ async def give_list_roles(guild, member : Member, list_roles):
             if(role.name == "Mute"):
                 await member.remove_roles(role)
 
-async def give_role(guild, member : Member, name_role):
+async def give_role(guild, member : discord.Member, name_role):
     for role in guild.roles:
         if (role.name == name_role):
             await member.add_roles(role)
@@ -53,7 +58,7 @@ async def give_role(guild, member : Member, name_role):
             await member.add_roles(new_role)
             break
 
-async def remove_role(guild, member : Member, id_role = None) -> list: 
+async def remove_role(guild, member : discord.Member, id_role = None) -> list: 
     roles = member._roles
     for role in guild.roles:
         if(role.id == id_role):
