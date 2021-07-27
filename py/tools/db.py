@@ -50,11 +50,20 @@ class Collection(_DataBase):
 		return self._collection.id
 
 
-	def set(self, id: str, **kwargs): 
+	def documents(self, limit = None) -> tuple:
+		_list = []
 		if self._subcollection is not None: 
-			self._subcollection.add(kwargs, id)
+			for doc in self._subcollection.list_documents(limit):
+				_list.append(Document(
+					collection = self._collection.id, 
+					document = self._document.id, 
+					subcollection = self._subcollection.id, 
+					subdocument = doc.id
+				))
 		else: 
-			self._collection.add(kwargs, id)
+			for doc in self._collection.list_documents():
+				_list.append(Document(collection = self._collection.id, document = doc.id))
+		return tuple(_list)
 
 
 	def document(self, document): 
@@ -69,20 +78,11 @@ class Collection(_DataBase):
 			return Document(collection = self._collection.id, document = document)
 
 
-	def documents(self) -> list:
-		_list = []
+	def set(self, id: str, **kwargs): 
 		if self._subcollection is not None: 
-			for doc in self._subcollection.list_documents():
-				_list.append(Document(
-					collection = self._collection.id, 
-					document = self._document.id, 
-					subcollection = self._subcollection.id, 
-					subdocument = doc.id
-				))
+			self._subcollection.add(kwargs, id)
 		else: 
-			for doc in self._subcollection.list_documents():
-				_list.append(Document(collection = self._collection.id, document = doc.id))
-		return _list
+			self._collection.add(kwargs, id)
 
 
 	def delete(self):
@@ -103,7 +103,6 @@ class Collection(_DataBase):
 
 
 	def where(self, filter, operation, value):
-		print("hi")
 		_list = []
 		if self._subcollection is not None: 
 			for document in self._subcollection.where(str(filter), str(operation), value).stream():
@@ -145,6 +144,13 @@ class Document(_DataBase):
 
 
 	@property
+	def exists(self):
+		if self._subdocument is not None:
+			return self._subdocument.get().exists
+		else: return self._document.get().exists
+
+
+	@property
 	def content(self) -> dict: 
 		if self._subdocument is not None:
 			doc = self._subdocument.get()
@@ -155,7 +161,7 @@ class Document(_DataBase):
 		else: return None
 
 
-	def subcollections(self, limit = None) -> list:
+	def subcollections(self, limit = None) -> tuple:
 		_list = []
 		for subcollection in self._document.collections(limit):
 			_list.append(Collection(
@@ -163,7 +169,7 @@ class Document(_DataBase):
 				document = self._document.id, 
 				subcollection = subcollection.id
 			))
-		return _list
+		return tuple(_list)
 
 
 	def set(self, **kwargs): 
