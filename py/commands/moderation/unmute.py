@@ -24,7 +24,7 @@ async def unmute(ctx, member : tools.discord.Member):
                 embed.set_image(url = "https://cdn.discordapp.com/attachments/725140299873124372/857454565091835934/unmute.gif")
 
                 roles = server_mutes.pop(f"{user.id}") # nos da el valor y a la vez lo borra
-                await tools.utils.roles.give_list_roles(ctx.guild, member, roles)
+                await utils.roles.give_list_roles(ctx.guild, member, roles)
 
                 await ctx.send(translations["msg"].format(member.mention))
                 await member.send(embed = embed)

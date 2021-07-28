@@ -1,4 +1,6 @@
 import tools
+from tools.utils import roles
+
 
 def embed(ctx, translations, member: tools.discord.Member, value) -> tools.discord.Embed:
     user = tools.utils.get_user(member)
