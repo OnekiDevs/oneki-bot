@@ -2,8 +2,6 @@ from tools import db
 import discord
 import json
 
-from tools.utils import roles
-
 
 def translations(language, path) -> dict:
     try:
@@ -20,9 +18,11 @@ def get_user(user: discord.User) -> discord.User:
 
 def dict_servers() -> dict:
     servers = {}
+
     collection = db.Collection(collection = "config")
     for document in collection.documents():
         content: dict = document.content
+
         if is_empty(content): continue # documento vacio
         elif document.id == "bot": continue # ignorando el documento bot
         else: # documento del servidor con datos
@@ -31,6 +31,7 @@ def dict_servers() -> dict:
             elif(content.get("prefix") == None): 
                 content["prefix"] = ">"
             servers[f"{document.id}"] = content
+
     return servers
 
 
