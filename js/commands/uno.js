@@ -7,6 +7,7 @@ module.exports = {
     userPermissions: [],
     alias: [],
     run: async (client, message, args) => {
+        return;
         const partida = new UNO(shortid.generate(), message.author.id);
         partida.maxPlayers = 4;
         partida.message = await message.reply(partida.embed);
