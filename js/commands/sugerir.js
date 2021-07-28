@@ -9,7 +9,7 @@ module.exports = {
     userPermissions: [],
     run: async (client, message, args, data) => {
         const server = client.servers.get(message.guild.id);
-        const lang = client.util.lang({lang:server.lang, route:'commands/fun/ss'});
+        const lang = client.util.lang({lang:server.lang, route:'commands/sugerir'});
         const snapshot = await db.collection(message.guild.id).doc("suggest").get();
         if (!snapshot.exists) return;
         const prefix = await client.servers.get(message.guild.id).prefix;
