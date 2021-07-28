@@ -1,2 +1,2 @@
 # NeoBot
-Bot not yet official N E O | Army 
+Bot official of the La Resistencia
