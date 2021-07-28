@@ -9,7 +9,7 @@ esto puede ir cambiando con el tiempo
 
 **Estructura:**
 ```markdown
-id_servidor -> coleccion
+{id_servidor} -> coleccion
 ├── bienvenidas -> documento
 │   ├── canal : id
 │   ├── mensaje : string
@@ -17,14 +17,17 @@ id_servidor -> coleccion
 ├── moderacion -> documento
 │   ├── warns : int
 │   └── message : boolean
-├── suggestions -> documento
-│   ├── 0 : dic
-│   │   ├── sugerencia : string
-│   │   ├── msg_link : string
-│   │   └── user : id
-│   └── num_suggest : int
+├── suggest -> documento / subcoleccion
+│   ├── suggestions -> coleccion
+│   │   └── id : documento
+│   │       ├── channel: id
+│   │       ├── author : id
+│   │       └── suggest: string
+│   ├── {channel_name} : id
+│   ├── lastId : int
+│   └── predetermined : id
 ├── users -> documento / subcoleccion
-│   └── id_usuario -> coleccion
+│   └── {id_usuario} -> coleccion
 │       ├── sanctions -> documento
 │       │   ├── warn (lista que contiene mapas con los datos de cada warn) : list
 │       │   ├── mute (lista que contiene mapas con los datos de cada mute) : list
@@ -33,16 +36,16 @@ id_servidor -> coleccion
 │           ├── report1 (datos del reporte) : map 
 │           └── report2 : map
 config -> coleccion
-├── id_servidor -> documento
+├── {id_servidor} -> documento
 │   ├── prefix : str
 │   └── lang : str
 ├── bot -> documento
 │   ├── prefixes (lista que contiene todos los prefijos) : list
 │   └── mutes (mapa con todos los mutes) : map
-notes -> coleccopm
-└── id_usuario -> documento / subcoleccion
-    ├── {cuaderno} -> coleccion
-    │   └── {page} -> documento
-    │       └── {part} (la parte de una pagina) : str 
-    └── {cuaderno} (configuraciones del cuaderno) : map
+users
+└── {id_usuario} -> documento / subcoleccion
+    └── notes -> coleccion 
+        └── {cuaderno} -> document
+            └── {page} : map
+                └── contenido
 ```
