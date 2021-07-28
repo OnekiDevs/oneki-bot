@@ -56,7 +56,7 @@ module.exports = async (dev) => {
     //load slash
     for (const file of fs.readdirSync("./js/slash").filter((f) => f.endsWith(".js"))) {
         const slash = require("../slash/" + file);
-        client.slash.set(slash.data.name, slash);
+        client.slash.set(slash.name, slash);
         console.log("\x1b[32m%s\x1b[0m", file, "fue cargado correctamente");
     }
 

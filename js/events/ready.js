@@ -25,7 +25,7 @@ module.exports = {
             const slash = require("../slash/" + file);
             if (slash.servers == 'all') {
                 client.guilds.cache.forEach(async g => {
-                    const command = await g.commands.create(slash.data);
+                    const command = await g.commands.create(await slash.data({guild: g.id}));
                     console.log(command.name, '|', g.name);
                 })
             } else {
