@@ -1,8 +1,12 @@
 module.exports = {
-    data: {
-        name: "ping",
-        description: "ping pong"
+    name: 'ping',
+    data: () => {
+        return {
+            name: "ping",
+            description: "ping pong"
+        }
     },
+    servers: 'all',
     run: async (client, interact) => {
         client.api.interactions(interact.id, interact.token).callback.post({
             data: {
