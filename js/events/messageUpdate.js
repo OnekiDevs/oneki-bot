@@ -6,6 +6,7 @@ module.exports = {
     name: "messageUpdate",
     run: async (client, oldMessage, newMessage) => {
         try {
+            console.log(oldMessage.createdTimestamp);
             if (!oldMessage.author || oldMessage.author?.bot) return;
             if (oldMessage.content === newMessage.content) return;
             const snapshot = await db.collection(oldMessage.guild.id).doc("edited").get();
@@ -13,23 +14,24 @@ module.exports = {
             if (!canal) return;
             const embed = new MessageEmbed()
             embed.setTitle("Mensaje eliminado");
+            embed.setURL(oldMessage.url);
             embed.setColor("RANDOM");
-            embed.addField("Autor del mensaje:", oldMessage.author, true);
+            embed.addField("Autor del mensaje:", oldMessage.author.username, true);
             embed.addField("Eliminado En:", `<#${oldMessage.channel.id}>`, true);
-            embed.addField("Contexto", `[ir alcontexto](${oldMessage.url})`, true);
             embed.setTimestamp();
             embed.setThumbnail(oldMessage.author.displayAvatarURL({dynamic: true}));
-            embed.addField("Escrito el:", oldMessage.createdAt);
+            embed.addField("Escrito el:", `${new Date(oldMessage.createdTimestamp).toDateString()}`, true);
+            embed.addField("Editado el:", `${new Date(newMessage.editedTimestamp).toDateString()}`, true);
             if (oldMessage.content) {
-                embed.addField("Antes", oldMessage.content);
+                embed.addField("Antes", oldMessage.content, true);
             }
             if (newMessage.content) {
-                embed.addField("Despues", newMessage.content);
+                embed.addField("Despues", newMessage.content, true);
             }
             embed.setFooter(`Kone Bot ${package.version}`, client.user.avatarURL());
             canal.send({
                 content: oldMessage.author.id,
-                embed: embed
+                embeds: [embed]
             });
         } catch (error) {
             console.log(error);

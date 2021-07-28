@@ -13,18 +13,19 @@ module.exports = {
             if (!canal) return;
             const embed = new MessageEmbed()
                 .setTitle("Mensaje eliminado")
+                .setURL(message.url)
                 .setColor("RANDOM")
-                .addField("Autor del mensaje:", message.author, true)
+                .addField("Autor del mensaje:", message.author.username, true)
                 .addField("Eliminado En:", message.channel, true)
                 .setTimestamp()
                 .setThumbnail(message.author.displayAvatarURL({dynamic: true}))
-                .addField("Escrito el:", message.createdTimestamp, true)
+                .addField("Escrito el:", `${new Date(message.createdTimestamp).toDateString()}`, true)
                 .addField("Contexto", `[ir alcontexto](${message.url})`, true)
                 .addField("Contenido:", message.content)
                 .setFooter(`Kone Bot ${package.version}`, client.user.avatarURL());
             canal.send({
                 content: message.author.id,
-                embed: embed
+                embeds: [embed]
             })
         } catch (error) {
             console.log(error);
