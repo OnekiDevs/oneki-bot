@@ -106,6 +106,30 @@ module.exports = {
         ]
       },
     servers: 'all',
+                    {
+                        type: 2,
+                        name: "deleted",
+                        description: "configure deleted messages",
+                        options: [
+                            {
+                                type: 1,
+                                name: "channel",
+                                description: "set the channel where you will see the deleted messages", 
+                                options: [
+                                    {
+                                        type: 7,
+                                        name: "channel",
+                                        description: "channel to establish",
+                                        required: true
+                                    }
+                                ]
+                            },
+                            {
+                                type: 1,
+                                name: "reset",
+                                description: "disable view deleted messages",
+                            }
+                        ]
     run: async (client, interact) => {
         require(`./config/${interact.options.first().name}`)[interact.options.first().options.first().name](client, interact, interact.options.first().options.first().options);
     }
