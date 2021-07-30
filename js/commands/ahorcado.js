@@ -8,7 +8,7 @@ module.exports = {
     alias: [],
     run: async (client, message, args) => {
         const server = client.servers.get(message.guild.id);
-        const lang = client.util.lang({lang:server.lang, route:'commands/fun/ahorcado'});
+        const lang = client.util.lang({lang:server.lang, route:'commands/ahorcado'});
         const word = require('../../src/words.json')[Math.floor(Math.random() * require('../../src/words.json').length)].split('');
         let life = {
             i:6,

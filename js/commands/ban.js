@@ -9,7 +9,7 @@ module.exports = {
     alias: [],
     run: async (client, message, args) => {
         const server = client.servers.get(message.guild.id);
-        const lang = client.util.lang({lang:server.lang, route:'commands/moderation/ban'});
+        const lang = client.util.lang({lang:server.lang, route:'commands/ban'});
         const db = admin.firestore();
         if (!message.member.permissions.has(Permissions.FLAGS.BAN_MEMBERS)) {
             message.reply(lang.missing_permissions_user);

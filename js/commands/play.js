@@ -10,6 +10,7 @@ module.exports = {
     use: ".play [name]",
     example: ".Ping",
     run: async (client, message, args) => {
+        return;
         if (!args[0]) return message.reply('Nesesita ingresar una busqueda o link de youtube');
         const Query = (await search(args.join(" "), {
             maxResults: 1,

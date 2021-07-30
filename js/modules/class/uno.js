@@ -1,7 +1,8 @@
 const { MessageEmbed, MessageButton, MessageAttachment, MessageActionRow } = require('discord.js');
+const shortid = require('shortid');
 module.exports = class UNO {
     host = null;
-    id = null;
+    id = shortid.generate();
     players = [];
     message = null;
     maxPlayers = 4;
@@ -14,8 +15,7 @@ module.exports = class UNO {
         url:null
     };
     flow = 'r';
-    constructor(id, host){
-        this.id = id;
+    constructor(host){
         this.host = host;
         this.players.push({
             id: host
@@ -50,35 +50,35 @@ module.exports = class UNO {
         }
         
     }
-    #buttons = () => {
-        const collector = this.message.createMessageComponentCollector((mci)=>mci.customId == `uno_m_${this.id}`);
-        collector.on('collect', async collect => {
-            console.log(collect.customId);
-            if (this.players.map(p=>p.id).includes(collect.member.id)) {
-                collect.defer({ 
-                    ephemeral: true 
-                });
-                const player = this.players.find(p=>p.id==collect.member.id);
-                const maso = await require('../uno/cartas')(player.cartas);
-                const attachment = new MessageAttachment(maso, 'cartas.png');
-                const msg = await this.message.guild.channels.cache.get('857846193852907530').send({
-                    files: [attachment]
-                });
-                const jugar = new MessageButton().setLabel('Jugar').setCustomId(`uno_j_${this.id}`).setStyle('PRIMARY')
-                const comer = new MessageButton().setLabel('Comer').setCustomId(`uno_e_${this.id}`).setStyle('SECONDARY');
-                const buttons = new MessageActionRow().addComponents([jugar, comer]);
-                collect.editReply({
-                    content: msg.attachments.first().url,
-                    components: [buttons],
-                    ephemeral: true
-                });
-                this.players.map(p=>{
-                    if (p.id==collect.member.id) p.interact = collect;
-                    return p
-                })
-            }
-        });
-    }
+    // #buttons = () => {
+    //     const collector = this.message.createMessageComponentCollector((mci)=>mci.customId == `uno_m_${this.id}`);
+    //     collector.on('collect', async collect => {
+    //         console.log(collect.customId);
+    //         if (this.players.map(p=>p.id).includes(collect.member.id)) {
+    //             collect.defer({ 
+    //                 ephemeral: true 
+    //             });
+    //             const player = this.players.find(p=>p.id==collect.member.id);
+    //             const maso = await require('../uno/cartas')(player.cartas);
+    //             const attachment = new MessageAttachment(maso, 'cartas.png');
+    //             const msg = await this.message.guild.channels.cache.get('857846193852907530').send({
+    //                 files: [attachment]
+    //             });
+    //             const jugar = new MessageButton().setLabel('Jugar').setCustomId(`uno_j_${this.id}`).setStyle('PRIMARY')
+    //             const comer = new MessageButton().setLabel('Comer').setCustomId(`uno_e_${this.id}`).setStyle('SECONDARY');
+    //             const buttons = new MessageActionRow().addComponents([jugar, comer]);
+    //             collect.editReply({
+    //                 content: msg.attachments.first().url,
+    //                 components: [buttons],
+    //                 ephemeral: true
+    //             });
+    //             this.players.map(p=>{
+    //                 if (p.id==collect.member.id) p.interact = collect;
+    //                 return p
+    //             })
+    //         }
+    //     });
+    // }
     #repartir = (n=7) => {
         return new Promise(async (resolve, reject) => {
             const cartas = Object.keys(require('../../../src/unoCards.json'))
@@ -108,7 +108,7 @@ module.exports = class UNO {
                     }
                     if (this.players.length == this.maxPlayers) {
                         await this.#repartir();
-                        this.#buttons();
+                        // this.#buttons();
                         this.status = 'curso'
                         this.message.edit(this.embed);
                         collector.stop();
@@ -121,7 +121,7 @@ module.exports = class UNO {
                         await this.#repartir();
                         collect.deferUpdate();
                         this.message.edit(this.embed);
-                        this.#buttons();
+                        // this.#buttons();
                         collector.stop();
                         resolve(this.players);
                     } else {
@@ -138,7 +138,7 @@ module.exports = class UNO {
         console.log('Play');
         //#TODO flujo de juego 
         // console.log(this.turn);
-        const collector = this.message.channel.createMessageComponentCollector(mci=>(mci.customId == `uno_j_${this.id}` || mci.customId == `uno_e_${this.id}`) && mci.user.id == this.turn.id)
+        const collector = this.message.channel.createMessageComponentCollector(mci=>mci.customId == `uno_m_${this.id}` || mci.customId == `uno_j_${this.id}` || mci.customId == `uno_e_${this.id}`)
         collector.on('collect', async collect => {
             console.log(collect.customId);
             if (collect.customId.startsWith('uno_j_')) {
@@ -167,6 +167,30 @@ module.exports = class UNO {
                         components: [buttons],
                         ephemeral: true
                     });
+                }
+            } else if(collect.customId.startsWith('uno_m_')) {
+                if (this.players.map(p=>p.id).includes(collect.member.id)) {
+                    collect.defer({ 
+                        ephemeral: true 
+                    });
+                    const player = this.players.find(p=>p.id==collect.member.id);
+                    const maso = await require('../uno/cartas')(player.cartas);
+                    const attachment = new MessageAttachment(maso, 'cartas.png');
+                    const msg = await this.message.guild.channels.cache.get('857846193852907530').send({
+                        files: [attachment]
+                    });
+                    const jugar = new MessageButton().setLabel('Jugar').setCustomId(`uno_j_${this.id}`).setStyle('PRIMARY')
+                    const comer = new MessageButton().setLabel('Comer').setCustomId(`uno_e_${this.id}`).setStyle('SECONDARY');
+                    const buttons = new MessageActionRow().addComponents([jugar, comer]);
+                    collect.editReply({
+                        content: msg.attachments.first().url,
+                        components: [buttons],
+                        ephemeral: true
+                    });
+                    this.players.map(p=>{
+                        if (p.id==collect.member.id) p.interact = collect;
+                        return p
+                    })
                 }
             }
             collect.defer({ 

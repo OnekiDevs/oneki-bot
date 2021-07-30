@@ -6,7 +6,7 @@ module.exports = {
     alias: [],
     run: async (client, message, args) => {
         const server = client.servers.get(message.guild.id);
-        const lang = client.util.lang({lang:server.lang, route:'commands/moderation/clear'});
+        const lang = client.util.lang({lang:server.lang, route:'commands/clear'});
         const yes = new MessageButton().setLabel(lang.buttons.yes).setStyle('PRIMARY').setCustomId('clear_yes');
         const no = new MessageButton().setLabel(lang.buttons.no).setStyle('DANGER').setCustomId('clear_no');
         const buttons = new MessageActionRow().addComponents([yes, no])

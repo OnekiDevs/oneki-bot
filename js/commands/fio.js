@@ -7,7 +7,7 @@ module.exports = {
     alias: ['fishing.io'],
     run: async (client, message, args) => {
         const server = client.servers.get(message.guild.id);
-        const lang = client.util.lang({lang:server.lang, route:'commands/fun/fio'});
+        const lang = client.util.lang({lang:server.lang, route:'commands/fio'});
         const channel = message.mentions.channels.find(m => m.type == 'voice');
         if (!channel) return message.reply(lang.mention);
         fetch(`https://discord.com/api/v8/channels/${channel.id}/invites`, {

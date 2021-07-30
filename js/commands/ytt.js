@@ -7,7 +7,7 @@ module.exports = {
     alias: ["youtubetogether", "youtube-together"],
     run: async (client, message, args) => {
         const server = client.servers.get(message.guild.id);
-        const lang = client.util.lang({lang:server.lang, route:'commands/fun/ytt'});
+        const lang = client.util.lang({lang:server.lang, route:'commands/ytt'});
         const channel = message.mentions.channels.find(m => m.type == 'voice');
         if (!channel) return message.inlineReply("Menciona un canal de voz");
         fetch(`https://discord.com/api/v8/channels/${channel.id}/invites`, {

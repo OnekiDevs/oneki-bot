@@ -8,7 +8,7 @@ module.exports = {
     alias: ["betrayal.io"],
     run: async (client, message, args) => {
         const server = client.servers.get(message.guild.id);
-        const lang = client.util.lang({lang:server.lang, route:'commands/fun/bio'});
+        const lang = client.util.lang({lang:server.lang, route:'commands/bio'});
         const channel = message.mentions.channels.find(m => m.type == 'voice');
         if (!channel) return message.reply(lang.mention);
         fetch(`https://discord.com/api/v8/channels/${channel.id}/invites`, {

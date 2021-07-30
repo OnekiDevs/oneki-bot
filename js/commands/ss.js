@@ -8,7 +8,7 @@ module.exports = {
     run: async (client, message, args) => {
         message.channel.startTyping();
         const server = client.servers.get(message.guild.id);
-        const lang = client.util.lang({lang:server.lang, route:'commands/fun/ss'});
+        const lang = client.util.lang({lang:server.lang, route:'commands/ss'});
         message.delete();
         if (!args[0]) return message.channel.send(lang.fail);
         const browser = await puppeteer.launch({
