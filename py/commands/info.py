@@ -1,9 +1,9 @@
 import tools
-
+from tools.utils import commands
 
 @tools.bot.command()
 async def info(ctx, member : tools.discord.Member = None):
-    translations = tools.utils.translations(tools.get_config(ctx), "commands/info")
+    translations = tools.utils.translations(commands.get_config(ctx), "commands/info")
     if(member == None): member = ctx.author
 
     try: roles = "".join(member.roles)

@@ -1,8 +1,9 @@
 import tools
+from tools.utils import commands
 
 @tools.bot.command()
 async def avatar (ctx, member : tools.discord.Member = None):
-    translations = tools.utils.translations(tools.get_config(ctx), "commands/avatar")
+    translations = tools.utils.translations(commands.get_config(ctx), "commands/avatar")
 
     if member == None: 
         mem = ctx.author

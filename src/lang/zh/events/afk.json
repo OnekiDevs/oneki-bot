@@ -1,0 +1,5 @@
+{
+    "embed": "{} 是 afk，原因：{}",
+    "no_longer_afk": "{} 不再是 afk",
+    "no_permissions": "我没有足够的权限来执行此操作。"
+} 

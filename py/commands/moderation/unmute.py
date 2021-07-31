@@ -1,11 +1,12 @@
 import tools
 from commands.moderation import utils
+from tools.utils import commands
 
 
 @tools.bot.command()
 @tools.commands.has_permissions(kick_members = True)
 async def unmute(ctx, member : tools.discord.Member):
-    translations = tools.utils.translations(tools.get_config(ctx), "commands/moderation/unmute")
+    translations = tools.utils.translations(commands.get_config(ctx), "commands/moderation/unmute")
     async with ctx.typing():
         user = tools.utils.get_user(member)
         server_mutes = tools.mutes.get(f"{ctx.guild.id}")

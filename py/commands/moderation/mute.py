@@ -1,11 +1,11 @@
 import tools
 from commands.moderation import utils
-
+from tools.utils import commands
 
 @tools.bot.command()
 @tools.commands.has_permissions(kick_members = True)
 async def mute(ctx, member : tools.discord.Member, time = "", *, reason = "No se dio una razón"):
-    translations = tools.utils.translations(tools.get_config(ctx), "commands/moderation/mute")
+    translations = tools.utils.translations(commands.get_config(ctx), "commands/moderation/mute")
 
     if(member == ctx.author): await ctx.send(translations["msg_1"])
     else:
