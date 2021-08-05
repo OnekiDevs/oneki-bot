@@ -1,0 +1,4 @@
+{
+    "userPermissions" : "No tienes permisos suficiente, necesito: {permissions}",
+    "botPermissions" : "No tengo permisos suficientes, necesito: {permissions}"
+}

@@ -1,0 +1,18 @@
+{
+    "missing_permissions_user": "Hé, tu n'as pas la permission de faire ça", 
+    "missing_permissions_bot" : "je n'ai pas la permission de faire ça", 
+    "banself": "Tu ne peux pas t'interdire",
+    "mention_lose": "Merci de mentionner quelqu'un",
+    "without_reason": "Aucune raison n'a été donnée",
+    "embed": {
+        "title": "Vous avez été banni de",
+        "resopnsable": "Modérateur responsable",
+        "description": "Il semble que vous ayez été banni"
+    },
+    "hierarchy": "Vous ne pouvez pas interdire cet utilisateur!\nvérifiez la hiérarchie des rôles!", 
+    "ready": "L'utilisateur a été banni avec succès",
+    "erasing": "suppression de {deleteDays} jours dans les messages.",
+    "fail": "Échec de l'interdiction de **{tag}**",
+    "by": "pour",
+    "reason": "raison"
+}

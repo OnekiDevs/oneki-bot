@@ -4,3 +4,9 @@
     "accept": "Accept",
     "invitation": "invitation"
 }
+{
+    "message": "{user} te esta invitando a ver YouTube juntos",
+    "fail": "Desafortunadamente no puedo usar ytt",
+    "accept": "Aceptar la invitación",
+    "invitation": "Ver la Invitación"
+}
