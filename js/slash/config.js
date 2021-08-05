@@ -243,7 +243,7 @@ module.exports = {
             })
         });
     },
-    servers: "all",
+    servers: ['825936007449935903'],
     run: async (client, interact) => {
         require(`./config/${interact.options.first().name}`)[interact.options.first().options.first().name](
             client,

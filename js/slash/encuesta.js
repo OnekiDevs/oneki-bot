@@ -120,7 +120,7 @@ module.exports = {
             ]
         }
     },
-    servers: 'all',
+    servers: [],
     run: async (client, interact) => {
         let opciones = [];
         const channelid = interact.data.options.find(i => i.name=='channel')?.value;

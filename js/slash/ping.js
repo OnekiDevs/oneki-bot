@@ -6,7 +6,7 @@ module.exports = {
             description: "ping pong"
         }
     },
-    servers: 'all',
+    servers: [],
     run: async (client, interact) => {
         client.api.interactions(interact.id, interact.token).callback.post({
             data: {
