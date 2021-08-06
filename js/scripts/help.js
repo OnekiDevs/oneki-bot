@@ -10,7 +10,6 @@ module.exports = (client, commands, type, guildId) => {
         embed.setDescription(`${await client.util.replace(lang.embed.description, [{match:"{type}",replace:type}])}`);
         for (const command in commands) {
             let cmd = commands[command][server.lang]??commands[command]['en'];
-            // console.log(cmd);
             let ctype = commands[command].type;
             embed.addField(command, `*${cmd.description}*${cmd.alias?.length>0?`\n${lang.alias}: \`${cmd.alias.join('` `')}\``:""}\n${lang.use}: \`${ctype=='slash'?'/':client.servers.get(guildId).prefix}${cmd.use}\``, true);
         }

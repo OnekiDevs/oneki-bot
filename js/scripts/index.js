@@ -66,47 +66,50 @@ for (const file of fs.readdirSync("./js/buttons").filter((f) => f.endsWith(".js"
 //login
 client.login(process.env.NODE_ENV!='production'?process.env.TOKEN_DISCORD_DEV:process.env.TOKEN_DISCORD);
 
-    //play ground 
-    
-    // client.on('messageCreate', message => {
-        
-        
-        // client.guilds.cache.forEach(g => {
+//play ground
 
-        // })
-        //              createMessageComponentCollector
-        // message.channel.createMessageComponentCollector
-        // const collector = message.createMessageComponentInteractionCollector((mci)=>mci.customID.startsWith('uno_i_')||mci.customID.startsWith('uno_c_'), {
-        //     max: 
-        // });
-        // collector.on('collect', collect => {
-        //     collect.deferUpdate({
-        //         ephemeral: true
-        //     })
-        //     collect.reply({
-        //         content: ''
-        //     })
-        // })
-    // })
-
-    //DONT TOUCH
+// client.on('messageCreate', message => {
     
-    // client.on('ready', async interaction => {
-        // const ca = new Canvas.createCanvas(256, 256);
-        // const cx = ca.getContext('2d');
-        // const av = await Canvas.loadImage(client.user.displayAvatarURL({format: 'png', size: 256}));
-        // cx.drawImage(av, 0, 0);
-        // const g = await client.guilds.create(client.user.username+' Bot', {
-        //     icon: ca.toBuffer('image/png')
-        // });
-        // client.guilds.cache.get(g.id).channels.cache.map(async channel => {
-        //     if(channel.type == 'GUILD_TEXT') {
-        //         const invite = await channel.createInvite({
-        //             maxAge: 0
-        //         })
-        //         // const invites = await (await channel.fetchInvites()).map(invite => invite.code);
-        //         console.log(`discord.gg/${invite.code}`);
-        //     }
-        // })
-        // client.guilds.cache.forEach(guild => guild.commands.cache.forEach(command => command.delete()))
+    
+    // client.guilds.cache.forEach(g => {
+
     // })
+    //              createMessageComponentCollector
+    // message.channel.createMessageComponentCollector
+    // const collector = message.createMessageComponentInteractionCollector((mci)=>mci.customID.startsWith('uno_i_')||mci.customID.startsWith('uno_c_'), {
+    //     max: 
+    // });
+    // collector.on('collect', collect => {
+    //     collect.deferUpdate({
+    //         ephemeral: true
+    //     })
+    //     collect.reply({
+    //         content: ''
+    //     })
+    // })
+// })
+
+//DONT TOUCH
+
+// client.on('ready', async interaction => {
+    // const ca = new Canvas.createCanvas(256, 256);
+    // const cx = ca.getContext('2d');
+    // const av = await Canvas.loadImage(client.user.displayAvatarURL({format: 'png', size: 256}));
+    // cx.drawImage(av, 0, 0);
+    // const g = await client.guilds.create(client.user.username+' Bot', {
+    //     icon: ca.toBuffer('image/png')
+    // });
+    // client.guilds.cache.get(g.id).channels.cache.map(async channel => {
+    //     if(channel.type == 'GUILD_TEXT') {
+    //         const invite = await channel.createInvite({
+    //             maxAge: 0
+    //         })
+    //         // const invites = await (await channel.fetchInvites()).map(invite => invite.code);
+    //         console.log(`discord.gg/${invite.code}`);
+    //     }
+    // })
+    // client.guilds.cache.forEach(guild => guild.commands.cache.forEach(command => command.delete()))
+    // client.guilds.cache.last().roles.cache.filter(role => {
+    //     if(role.tags?.botId) return false;
+    // } ).map(role => console.log(role.name))
+// })
