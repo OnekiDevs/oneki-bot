@@ -1,5 +1,5 @@
 {
-    "embed": "{} se encuentra AFK actualmente, razón: {}",
+    "embed": "{} se encuentra AFK actualmente, Razón:",
     "no_longer_afk": "{} ya no se encuentra AFK!",
     "no_permissions": "¡Me faltan permisos para realizar esto!"
 }
