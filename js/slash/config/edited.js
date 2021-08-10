@@ -1,6 +1,7 @@
 const db = require('firebase-admin').firestore();
 module.exports = {
     channel: async (client, interact, options) => {
+        const lang = client.util.lang({ lang: client.servers.get(interact.guildId).lang, route: 'slash/config' }).edited.reset;
         const channel = options.get('channel');
         db.collection(channel.channel.guild.id).doc("edited").update({ 
             channel: channel.value
@@ -10,14 +11,15 @@ module.exports = {
             })
         })
         interact.reply({
-            content: `Canal \`${channel.channel.name}\` establecido para ver los mensajes editados`,
+            content: `${await client.utiles.replace(lang.reply, [{ match: "channel", replace: `\`${channel.channel.name}\`` }])}`,
             ephemeral: true
         })
     }, 
     reset: async (client, interact, options) => {
+        const lang = client.util.lang({ lang: client.servers.get(interact.guildId).lang, route: 'slash/config' }).edited.reset;
         db.collection(interact.guildId).doc("edited").delete()
         interact.reply({
-            content: `Ver los mensajes editados desactivado`,
+            content: lang.reply,
             ephemeral: true
         })
     }

@@ -1,11 +1,11 @@
 const db = require('firebase-admin').firestore();
 module.exports = {
     set: async (client, interact, options) => {
-        console.log(interact);
+        const lang = client.util.lang({ lang: client.servers.get(interact.guildId).lang, route: 'slash/config' }).prefix.set;
         const np = options.get('prefix').value;
         if (np.split(/ +/g)[1]) {
             interact.reply({
-                content: 'El prefix no puede contener espacios',
+                content: lang.serverError,
                 ephemeral: true
             });
             return;
@@ -13,20 +13,20 @@ module.exports = {
         const member = await client.guilds.cache.get(interact.guildId)?.members.fetch(interact.member.user.id);
         if (!member) {
             interact.reply({
-                content: 'Nesesito estar en el server para ejecutar el comando',
+                content: lang.serverError,
                 ephemeral: true
             }); 
             return;
         }
         if (!member.permissions.has("MANAGE_GUILD")) {
             interact.reply({
-                content: 'No tienes los permisos para cambiar el prefix del bot',
+                content: lang.permissionsError,
                 ephemeral: true
             })
             return;
         }
         interact.reply({
-            content: `Prefix cambiado exitosamente a "**${np}**"`
+            content:  `${await client.utiles.replace(lang.reply, [{ match: "prefix", replace: np }])}`,
         });
         db.collection('config').doc(interact.guildId).update({
             prefix: np
@@ -38,6 +38,7 @@ module.exports = {
         });
     },
     reset: (client, interact, options) => {
+        const lang = client.util.lang({ lang: client.servers.get(interact.guildId).lang, route: 'slash/config' }).prefix.reset;
         db.collection('config').doc(interact.guildId).update({
             prefix: '>'
         }).catch((err) => {
@@ -47,7 +48,7 @@ module.exports = {
             });
         });
         interact.reply({
-            content: `Prefix reestablecido a "**>**"`
+            content: lang.reply
         });
     }
 }

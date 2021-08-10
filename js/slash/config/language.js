@@ -1,7 +1,7 @@
 const db = require('firebase-admin').firestore();
 module.exports = {
     set: async (client, interact, options) => {
-        console.log(options);
+        const lng = client.util.lang({ lang: client.servers.get(interact.guildId).lang, route: 'slash/config' }).language.set;
         const lang = options.get('language');
         db.collection('config').doc(interact.guildId).update({
             lang: lang.value
@@ -11,10 +11,11 @@ module.exports = {
             })
         });
         interact.reply({
-            content: `Idioma cambiado a \`${lang.name}\``
+            content: `${await client.utiles.replace(lng.reply, [{ match: "lang", replace: `\`${lang.name}\`` }])}`,
         })
     },
     reset: (client, interact, options) => {
+        const lang = client.util.lang({ lang: client.servers.get(interact.guildId).lang, route: 'slash/config' }).language.reset;
         db.collection('config').doc(interact.guildId).update({
             lang: 'en'
         }).catch((err) => {
@@ -23,7 +24,7 @@ module.exports = {
             })
         });
         interact.reply({
-            content: `Idioma cambiado a \`english\``
+            content: lang.reply
         })
     }
 }

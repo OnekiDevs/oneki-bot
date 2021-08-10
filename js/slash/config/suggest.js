@@ -1,34 +1,55 @@
-const db = require('firebase-admin').firestore();
-const FieldValue = require('firebase-admin').firestore.FieldValue;
+const db = require("firebase-admin").firestore();
+const FieldValue = require("firebase-admin").firestore.FieldValue;
 module.exports = {
     channel: async (client, interact, options) => {
-        const channel = options.get('channel');
-        const name = options.get('name');
-        let obj = {}
+        const lang = client.util.lang({ lang: client.servers.get(interact.guildId).lang, route: "slash/config" }).suggest.channel;
+        const channel = options.get("channel");
+        const name = options.get("name");
+        let obj = {};
         if (name) obj[name.value] = channel.value;
-        else obj['predetermined'] = channel.value;
-        db.collection(interact.guildId).doc('suggest').update(obj).catch(err => {
-            if (err.details.startsWith("No document to update")) db.collection(interact.guildId).doc('suggest').set(obj);
-        });
-        interact.reply({
-            content: `Canal \`${channel.channel.name}\` establecido como sugerencias${name?` de \`${name.value}\``:''}`,
-            ephemeral: true
-        });
-        channel.channel.send(`Este canal ha sido configurado como canal para las sugerencias${name?` de \`${name.value}\``:''}\nPara hacer una sugerencia escribe el comando \`${client.servers.get(interact.guildId)?.prefix}suggest ${name?`${name.value} `:''}[tu sugerencia]\``)
-    }, 
-    delete: async (client, interact, options) => {
-        const channel = options.get('channel');
-        if (channel) {
-            let obj = {}
-            obj[channel.value] = FieldValue.delete()
-            db.collection(interact.guildId).doc('suggest').update(obj).catch(err => {
-                if (err.details.startsWith("No document to update")) db.collection(interact.guildId).doc('suggest').set(obj);
+        else obj["predetermined"] = channel.value;
+        db.collection(interact.guildId)
+            .doc("suggest")
+            .update(obj)
+            .catch((err) => {
+                if (err.details.startsWith("No document to update"))
+                    db.collection(interact.guildId).doc("suggest").set(obj);
             });
+        interact.reply({
+            content: `${await client.utiles.replace(lang.reply, [
+                { match: "prefix", replace: client.servers.get(interact.guildId)?.prefix },
+                { match: "alias", replace: name.value },
+                { match: "displayAlias", replace: `${name ? `${name.value} ` : ""}` },
+            ])}`,
+            ephemeral: true,
+        });
+        channel.channel.send(
+            `${await client.utiles.replace(lang.send, [
+                { match: "channel", replace: channel.channel.name },
+                { match: "alias", replace: name.value },
+            ])}`
+        );
+    },
+    delete: async (client, interact, options) => {
+        const lang = client.util.lang({ lang: client.servers.get(interact.guildId).lang, route: "slash/config" }).suggest.delete;
+        const channel = options.get("channel");
+        if (channel) {
+            let obj = {};
+            obj[channel.value] = FieldValue.delete();
+            db.collection(interact.guildId)
+                .doc("suggest")
+                .update(obj)
+                .catch((err) => {
+                    if (err.details.startsWith("No document to update"))
+                        db.collection(interact.guildId).doc("suggest").set(obj);
+                });
             interact.reply({
-                content: `El canal de sugerencias \`${channel.value}\` ha sido desestablecido`
-            })
+                content: `${await client.utiles.replace(lang.reply, [
+                    { match: "channel", replace: channel.value },
+                ])}`
+            });
         } else {
             interact.deferUpdate();
         }
-    }
-}
+    },
+};

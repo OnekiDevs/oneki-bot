@@ -1,120 +1,120 @@
 const { MessageEmbed, Permissions } = require('discord.js');
 module.exports = {
     name: 'encuesta',
-    data: () => {
+    data: ({guild, client}) => {
         return {
-            name: "encuesta",
-            description: "Has una encuesta",
+            name: "poll",
+            description: "create a poll",
             options: [
                 {
                     name: 'context',
-                    description: 'Contexto de la encuesta',
+                    description: 'Survey context',
                     type: 3,
                     required: true,
                 },
                 {
                     name: 'channel',
-                    description:'Canal donde se lanzará la encuesta',
+                    description:'Channel where the survey will be launched',
                     type: 7
                 },
                 {
-                    name: 'opcion1',
-                    description: 'Opcion a elegir para los usuarios',
+                    name: 'option1',
+                    description: 'Option to choose for users',
                     type: 3,
                 },
                 {
-                    name: 'opcion2',
-                    description: 'Opcion a elegir para los usuarios',
+                    name: 'option2',
+                    description: 'Option to choose for users',
                     type: 3,
                 },
                 {
-                    name: 'opcion3',
-                    description: 'Opcion a elegir para los usuarios',
+                    name: 'option3',
+                    description: 'Option to choose for users',
                     type: 3,
                 },
                 {
-                    name: 'opcion4',
-                    description: 'Opcion a elegir para los usuarios',
+                    name: 'option4',
+                    description: 'Option to choose for users',
                     type: 3,
                 },
                 {
-                    name: 'opcion5',
-                    description: 'Opcion a elegir para los usuarios',
+                    name: 'option5',
+                    description: 'Option to choose for users',
                     type: 3,
                 },
                 {
-                    name: 'opcion6',
-                    description: 'Opcion a elegir para los usuarios',
+                    name: 'option6',
+                    description: 'Option to choose for users',
                     type: 3,
                 },
                 {
-                    name: 'opcion7',
-                    description: 'Opcion a elegir para los usuarios',
+                    name: 'option7',
+                    description: 'Option to choose for users',
                     type: 3,
                 },
                 {
-                    name: 'opcion8',
-                    description: 'Opcion a elegir para los usuarios',
+                    name: 'option8',
+                    description: 'Option to choose for users',
                     type: 3,
                 },
                 {
-                    name: 'opcion9',
-                    description: 'Opcion a elegir para los usuarios',
+                    name: 'option9',
+                    description: 'Option to choose for users',
                     type: 3,
                 },
                 {
-                    name: 'opcion10',
-                    description: 'Opcion a elegir para los usuarios',
+                    name: 'option10',
+                    description: 'Option to choose for users',
                     type: 3,
                 },
                 {
-                    name: 'opcion11',
-                    description: 'Opcion a elegir para los usuarios',
+                    name: 'option11',
+                    description: 'Option to choose for users',
                     type: 3,
                 },
                 {
-                    name: 'opcion12',
-                    description: 'Opcion a elegir para los usuarios',
+                    name: 'option12',
+                    description: 'Option to choose for users',
                     type: 3,
                 },
                 {
-                    name: 'opcion13',
-                    description: 'Opcion a elegir para los usuarios',
+                    name: 'option13',
+                    description: 'Option to choose for users',
                     type: 3,
                 },
                 {
-                    name: 'opcion14',
-                    description: 'Opcion a elegir para los usuarios',
+                    name: 'option14',
+                    description: 'Option to choose for users',
                     type: 3,
                 },
                 {
-                    name: 'opcion15',
-                    description: 'Opcion a elegir para los usuarios',
+                    name: 'option15',
+                    description: 'Option to choose for users',
                     type: 3,
                 },
                 {
-                    name: 'opcion16',
-                    description: 'Opcion a elegir para los usuarios',
+                    name: 'option16',
+                    description: 'Option to choose for users',
                     type: 3,
                 },
                 {
-                    name: 'opcion17',
-                    description: 'Opcion a elegir para los usuarios',
+                    name: 'option17',
+                    description: 'Option to choose for users',
                     type: 3,
                 },
                 {
-                    name: 'opcion18',
-                    description: 'Opcion a elegir para los usuarios',
+                    name: 'option18',
+                    description: 'Option to choose for users',
                     type: 3,
                 },
                 {
-                    name: 'opcion19',
-                    description: 'Opcion a elegir para los usuarios',
+                    name: 'option19',
+                    description: 'Option to choose for users',
                     type: 3,
                 },
                 {
-                    name: 'opcion20',
-                    description: 'Opcion a elegir para los usuarios',
+                    name: 'option20',
+                    description: 'Option to choose for users',
                     type: 3,
                 }
             ]
@@ -134,7 +134,7 @@ module.exports = {
                 data: {
                     type: 4, 
                     data: {
-                        content: 'No tienes permisos para enviar mensajes en ese canal',
+                        content: 'You do not have permissions to send messages on that channel',
                         flags: 1 << 6
                     }
                 }
@@ -149,13 +149,13 @@ module.exports = {
         embed.setDescription(context);
         embed.setFooter(`${client.user.username} BOT ${require('../../package.json').version}`, client.user.avatarURL());
         embed.setColor('RANDOM');
-        if (opciones.length == 0) opciones.push('Si/Yes', 'No');
-        for (const opcion of opciones.slice(0, 19)) embed.addField(`Opcion ${reacciones[opciones.indexOf(opcion)]}`, opcion);
+        if (opciones.length == 0) opciones.push('Yes', 'No');
+        for (const opcion of opciones.slice(0, 19)) embed.addField(`Option ${reacciones[opciones.indexOf(opcion)]}`, opcion);
         client.api.interactions(interact.id, interact.token).callback.post({
             data: {
                 type: 4, 
                 data: {
-                    content: 'Enviando encuesta',
+                    content: 'Sending poll',
                     flags: 1 << 6
                 }
             }

@@ -4,8 +4,9 @@
     "@discordjs/voice": "^0.5.0",
     "canvas": "^2.8.0",
     "cross-env": "^7.0.3",
-    "discord.js": "^13.0.0-dev.t1628121868.3eb4140",
+    "discord.js": "^13.0.1",
     "dotenv": "^8.2.0",
+    "express": "^4.17.1",
     "fetch-node": "0.0.1",
     "ffmpeg": "0.0.4",
     "firebase-admin": "^9.6.0",
@@ -35,5 +36,9 @@
   "bugs": {
     "url": "https://github.com/OnekiDevs/Oneki-bot/issues"
   },
-  "homepage": "https://github.com/OnekiDevs/Oneki-bot#readme"
+  "homepage": "https://github.com/OnekiDevs/Oneki-bot#readme",
+  "engines": {
+    "node": "16.6.1",
+    "npm": "7.20.5"
+  }
 }

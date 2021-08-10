@@ -69,24 +69,6 @@ client.login(process.env.NODE_ENV!='production'?process.env.TOKEN_DISCORD_DEV:pr
 //play ground
 
 // client.on('messageCreate', message => {
-    
-    
-    // client.guilds.cache.forEach(g => {
-
-    // })
-    //              createMessageComponentCollector
-    // message.channel.createMessageComponentCollector
-    // const collector = message.createMessageComponentInteractionCollector((mci)=>mci.customID.startsWith('uno_i_')||mci.customID.startsWith('uno_c_'), {
-    //     max: 
-    // });
-    // collector.on('collect', collect => {
-    //     collect.deferUpdate({
-    //         ephemeral: true
-    //     })
-    //     collect.reply({
-    //         content: ''
-    //     })
-    // })
 // })
 
 //DONT TOUCH

@@ -1,0 +1,58 @@
+{
+    "deleted": {
+        "channel": {
+            "reply": "{channel} channel set to view deleted messages"
+        },
+        "reset": {
+            "reply": "View deleted messages disabled"
+        }
+    },
+    "edited": {
+        "channel": {
+            "reply": "{channel} channel set to view edited messages"
+        },
+        "reset": {
+            "reply": "View edited messages disabled"
+        }
+    },
+    "language": {
+        "set": {
+            "reply": "Language set to {lang}"
+        },
+        "reset": {
+            "reply": "Language set to `english`"
+        }
+    },
+    "prefix": {
+        "set": {
+            "reply": "prefix set to \"**{prefix}**\"",
+            "permissionsError": "You do not have the permissions to change the bot prefix",
+            "serverError": "I need to be on the server to run the command",
+            "prefixError": "The prefix cannot contain spaces"
+        },
+        "reset": {
+            "reply": "Prefix reset to \"**>**\""
+        }
+    },
+    "suggest": {
+        "channel": {
+            "reply": "channel {channel} set as {alias} suggestions",
+            "send": "This channel has been configured as a channel for {alias} suggestions\nTo make a suggestion, type the command {displayAlias} [your suggestion]`"
+        },
+        "delete": {
+            "reply": "channel {channel} has been deconfigured"
+        }
+    },
+    "welcome": {
+        "channel": {
+            "reply": "Welcome established in {channel}"
+        },
+        "deactivate": {
+            "welcomes": "Welcome removed",
+            "roles": "Roles removed"
+        },
+        "rols": {
+            "reply": "added {role} role"
+        }
+    }
+}
