@@ -1,12 +1,13 @@
+from abc import ABC, abstractmethod, abstractproperty
+
 from google.cloud.firestore_v1.collection import CollectionReference 
 from google.cloud.firestore_v1.document import DocumentReference
-# from google.cloud.firestore_v1.base_document import DocumentSnapshot
 from firebase_admin import credentials, firestore
 import firebase_admin
 
 firebase_admin.initialize_app(credentials.Certificate("src/firebase-key.json"))
 
-class _DataBase:
+class _DataBase(ABC):
 	def __init__(self, **kwargs):
 		self._db = firestore.client()
 
@@ -26,9 +27,11 @@ class _DataBase:
 			self._subcollection: CollectionReference = self._document.collection(subcollection)
 		else: self._subcollection = None
 
-	@property
+	@abstractproperty
 	def id(self): ...
+	@abstractmethod
 	def set(self): ...
+	@abstractmethod
 	def delete(self): ...
 
 
