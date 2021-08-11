@@ -1,4 +1,5 @@
-const { MessageButton, MessageActionRow } = require('discord.js')
+const { MessageButton, MessageActionRow, MessageEmbed, MessageSelectMenu } = require('discord.js');
+const fetch = require('node-fetch');
 module.exports = {
     name: 'help',
     botPermissions: [],
@@ -6,15 +7,21 @@ module.exports = {
     alias: [],
     run: async (client, message, args) => {
         const server = client.servers.get(message.guild.id);
-        const lang = client.util.lang({lang:server.lang, route:'commands/help'}).buttons;
-        const embed = await require('../scripts/help')(client, require('../../src/commands.json').Entretenimiento, 'de Entretenimento', message.guild.id);
-        const entretenimiento = new MessageButton().setLabel(lang.entertainment).setStyle('PRIMARY').setCustomId('help_entretenimiento');
-        const ayuda = new MessageButton().setLabel(lang.help).setStyle('PRIMARY').setCustomId('help_ayuda');
-        const moderacion = new MessageButton().setLabel(lang.moderation).setStyle('PRIMARY').setCustomId('help_moderacion');
-        const extra = new MessageButton().setLabel(lang.extra).setStyle('PRIMARY').setCustomId('help_extra');
-        message.reply({
-            embeds: [embed],
-            components: [new MessageActionRow().addComponents([entretenimiento, ayuda, moderacion, extra])]
+        fetch(`https://oneki.herokuapp.com/api/${server.lang}/cmd/categories`).then((r) => r.json()).then((categories) => {
+            fetch(`https://oneki.herokuapp.com/api/${server.lang}/cmd/${categories[0]}`).then((r) => r.json()).then(async category=>{
+                const embed = new MessageEmbed().setTitle(`${await client.util.replace(lang.embed.title, [{match:"{bot}", replace:message.guild.me.displayName}])}`).setDescription(`${await client.util.replace(lang.embed.description, [{match:"{type}", replace:categories[0]}])}`), menu = new MessageSelectMenu().setCustomId('help').setPlaceholder(lang.menu.placeholder), lang = client.util.lang({lang:server.lang, route:'commands/help'})
+                for (const i of category) embed.addField(i.name, `${await client.util.replace(lang.command, [
+                        {match:"{alias}", replace:i.alias.length>0?`\`${i.alias.join('` `')}\``:lang.none},
+                        {match:"{description}", replace:i.description},
+                        {match:"{prefix}", replace:server.prefix},
+                        {match:"{use}", replace:i.use}
+                    ])}`, true);
+                for (const i of categories) menu.addOptions({label:`Category: ${i}`,value:i});
+                message.reply({
+                    embeds: [embed],
+                    components: [new MessageActionRow().addComponents([menu])]
+                });
+            });
         });
     }
 }

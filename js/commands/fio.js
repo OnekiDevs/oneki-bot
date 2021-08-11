@@ -33,7 +33,7 @@ module.exports = {
                 const accept = new MessageButton().setLabel(lang.accept).setStyle('LINK').setURL(`https://discord.com/invite/${invite.code}`);
                 const invite = new MessageButton().setLabel(lang.invite).setStyle('PRIMARY').setCustomID(ID);
                 message.reply({
-                    content: `${await client.utiles.replace(lang.message, [{match:"{user}", replace:message.member.displayName}])}`, 
+                    content: `${await client.util.replace(lang.message, [{match:"{user}", replace:message.member.displayName}])}`, 
                     components: [[accept, invite]]
                 });
                 client.buttons.set(ID, {

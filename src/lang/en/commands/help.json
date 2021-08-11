@@ -1,14 +1,12 @@
 {
-    "buttons": {
-        "entertainment": "Entertainment",
-        "help": "Help",
-        "moderation": "Moderation",
-        "extra": "Extra"
+    "menu": {
+        "option": "Category: {category}", 
+        "placeholder": "Select another category"
     },
     "embed": {
-        "description": "**Category {type}** \n`<> ` means optional \n`[] ` means mandatory",
+        "description": "**Category: {type}** \n`<>` means optional \n`[]` means mandatory",
         "title": "{bot} Bot command list"
     },
-    "use": "Use",
-    "alias": "Alias"
+    "command": "{description}\nAlias: {alias}\nUse: `{prefix}{use}`",
+    "none": "none"
 }
