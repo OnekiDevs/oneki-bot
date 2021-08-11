@@ -6,7 +6,7 @@ module.exports = {
     userPermissions: [],
     alias: [],
     run: async (client, message, args) => {
-        message.channel.startTyping();
+        message.channel.sendTyping();
         const server = client.servers.get(message.guild.id);
         const lang = client.util.lang({lang:server.lang, route:'commands/ss'});
         message.delete();
@@ -40,8 +40,10 @@ module.exports = {
         await page.goto(`http://koneweb.herokuapp.com/api/fakeDiscordMessage?${params}`);
         const ss = await page.screenshot();
         const attachment = new MessageAttachment(ss);
-        message.channel.send(attachment);
+        // console.log(attachment);
+        message.channel.send({
+            files: [attachment]
+        });
         await browser.close();
-        message.channel.stopTyping();
     }
 }
