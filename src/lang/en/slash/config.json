@@ -37,7 +37,7 @@
     "suggest": {
         "channel": {
             "reply": "channel {channel} set as {alias} suggestions",
-            "send": "This channel has been configured as a channel for {alias} suggestions\nTo make a suggestion, type the command {displayAlias} [your suggestion]`"
+            "send": "This channel has been configured as a channel for {alias} suggestions\nTo make a suggestion, type the command {prefix}suggest {displayAlias} [your suggestion]`"
         },
         "delete": {
             "reply": "channel {channel} has been deconfigured"

@@ -25,6 +25,7 @@ module.exports = {
         });
         channel.channel.send(
             `${await client.utiles.replace(lang.send, [
+                { match: "prefix", replace: client.servers.get(interact.guildId)?.prefix },
                 { match: "channel", replace: channel.channel.name },
                 { match: "alias", replace: name.value },
             ])}`
