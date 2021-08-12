@@ -41,6 +41,7 @@ async def on_command_error(ctx, error):
         # embed.set_image(url = "https://cdn.discordapp.com/attachments/725140299873124372/855196781632290846/error.gif")
 
         await channel.send(f"**Contexto:**\n```py\n{msg}\n```", embed = embed)
+        await ctx.send(error)
 
         print('Ignoring exception in command {}:'.format(ctx.command))
         traceback.print_exception(type(error), error, error.__traceback__)
