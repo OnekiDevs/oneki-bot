@@ -11,7 +11,7 @@ class _DataBase(ABC):
 	def __init__(self, **kwargs):
 		self._db = firestore.client()
 
-		collection = kwargs.pop("collection")
+		collection = kwargs["collection"]
 		document = kwargs.get("document")
 		subcollection = kwargs.get("subcollection")
 

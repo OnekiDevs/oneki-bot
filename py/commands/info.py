@@ -2,7 +2,7 @@ import tools
 from tools.utils import commands
 
 @tools.bot.command()
-async def info(ctx, member : tools.discord.Member = None):
+async def info(ctx, member: tools.discord.Member = None):
     translations = tools.utils.translations(commands.get_config(ctx), "commands/info")
     if(member == None): member = ctx.author
 
