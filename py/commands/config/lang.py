@@ -2,8 +2,8 @@ import tools
 
 idioms = ["en", "es", "fr", "zh", "ko", "ru"]
 
-@tools.commands.has_permissions(administrator = True)
 @tools.bot.command(name = "lang", aliases = ["language"])
+@tools.commands.has_permissions(administrator = True)
 async def lang(ctx, language):
     translations = tools.utils.translations(tools.get_config(ctx), "commands/config/lang")
     try: 
