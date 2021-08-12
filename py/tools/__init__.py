@@ -1,6 +1,6 @@
 # Libreria discord.py
 import discord
-from discord.ext import commands, tasks
+from discord.ext import commands
 
 # Otras librerias relevantes
 from PIL import Image, ImageDraw, ImageFont, ImageOps
