@@ -1,26 +1,32 @@
 {
     "deleted": {
         "channel": {
-            "reply": "{channel} channel set to view deleted messages"
+            "reply": "{channel} channel set to view deleted messages",
+            "permissions": "You don't have the necessary permissions"
         },
         "reset": {
-            "reply": "View deleted messages disabled"
+            "reply": "View deleted messages disabled",
+            "permissions": "You don't have the necessary permissions"
         }
     },
     "edited": {
         "channel": {
-            "reply": "{channel} channel set to view edited messages"
+            "reply": "{channel} channel set to view edited messages",
+            "permissions": "You don't have the necessary permissions"
         },
         "reset": {
-            "reply": "View edited messages disabled"
+            "reply": "View edited messages disabled",
+            "permissions": "You don't have the necessary permissions"
         }
     },
     "language": {
         "set": {
-            "reply": "Language set to {lang}"
+            "reply": "Language set to {lang}",
+            "permissions": "You don't have the necessary permissions"
         },
         "reset": {
-            "reply": "Language set to `english`"
+            "reply": "Language set to `english`",
+            "permissions": "You don't have the necessary permissions"
         }
     },
     "prefix": {
@@ -28,31 +34,38 @@
             "reply": "prefix set to \"**{prefix}**\"",
             "permissionsError": "You do not have the permissions to change the bot prefix",
             "serverError": "I need to be on the server to run the command",
-            "prefixError": "The prefix cannot contain spaces"
+            "prefixError": "The prefix cannot contain spaces",
+            "permissions": "You don't have the necessary permissions"
         },
         "reset": {
-            "reply": "Prefix reset to \"**>**\""
+            "reply": "Prefix reset to \"**>**\"",
+            "permissions": "You don't have the necessary permissions"
         }
     },
     "suggest": {
         "channel": {
             "reply": "channel {channel} set as {alias} suggestions",
-            "send": "This channel has been configured as a channel for {alias} suggestions\nTo make a suggestion, type the command {prefix}suggest {displayAlias} [your suggestion]`"
+            "send": "This channel has been configured as a channel for {alias} suggestions\nTo make a suggestion, type the command {prefix}suggest {displayAlias} [your suggestion]`",
+            "permissions": "You don't have the necessary permissions"
         },
         "delete": {
-            "reply": "channel {channel} has been deconfigured"
+            "reply": "channel {channel} has been deconfigured",
+            "permissions": "You don't have the necessary permissions"
         }
     },
     "welcome": {
         "channel": {
-            "reply": "Welcome established in {channel}"
+            "reply": "Welcome established in {channel}",
+            "permissions": "You don't have the necessary permissions"
         },
         "deactivate": {
             "welcomes": "Welcome removed",
-            "roles": "Roles removed"
+            "roles": "Roles removed",
+            "permissions": "You don't have the necessary permissions"
         },
         "rols": {
-            "reply": "added {role} role"
+            "reply": "added {role} role",
+            "permissions": "You don't have the necessary permissions"
         }
     }
 }

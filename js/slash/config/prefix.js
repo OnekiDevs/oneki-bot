@@ -1,7 +1,12 @@
 const db = require('firebase-admin').firestore();
+const { Permissions } = require('discord.js');
 module.exports = {
     set: async (client, interact, options) => {
         const lang = client.util.lang({ lang: client.servers.get(interact.guildId).lang, route: 'slash/config' }).prefix.set;
+        if(!interact.member.permissions.has([Permissions.FLAGS.MANAGE_GUILD])) return interact.reply({
+            content: lang.permissions,
+            ephemeral: true
+        });
         const np = options.get('prefix').value;
         if (np.split(/ +/g)[1]) {
             interact.reply({
@@ -39,6 +44,10 @@ module.exports = {
     },
     reset: (client, interact, options) => {
         const lang = client.util.lang({ lang: client.servers.get(interact.guildId).lang, route: 'slash/config' }).prefix.reset;
+        if(!interact.member.permissions.has([Permissions.FLAGS.MANAGE_GUILD])) return interact.reply({
+            content: lang.permissions,
+            ephemeral: true
+        });
         db.collection('config').doc(interact.guildId).update({
             prefix: '>'
         }).catch((err) => {

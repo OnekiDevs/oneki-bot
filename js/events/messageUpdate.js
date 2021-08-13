@@ -6,7 +6,6 @@ module.exports = {
     name: "messageUpdate",
     run: async (client, oldMessage, newMessage) => {
         try {
-            console.log(oldMessage.createdTimestamp);
             if (!oldMessage.author || oldMessage.author?.bot) return;
             if (oldMessage.content === newMessage.content) return;
             const snapshot = await db.collection(oldMessage.guild.id).doc("edited").get();

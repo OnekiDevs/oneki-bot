@@ -1,8 +1,13 @@
 const db = require("firebase-admin").firestore();
 const FieldValue = require("firebase-admin").firestore.FieldValue;
+const { Permissions } = require('discord.js');
 module.exports = {
     channel: async (client, interact, options) => {
         const lang = client.util.lang({ lang: client.servers.get(interact.guildId).lang, route: "slash/config" }).suggest.channel;
+        if(!interact.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS])) return interact.reply({
+            content: lang.permissions,
+            ephemeral: true
+        });
         const channel = options.get("channel");
         const name = options.get("name");
         let obj = {};
@@ -33,6 +38,10 @@ module.exports = {
     },
     delete: async (client, interact, options) => {
         const lang = client.util.lang({ lang: client.servers.get(interact.guildId).lang, route: "slash/config" }).suggest.delete;
+        if(!interact.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS])) return interact.reply({
+            content: lang.permissions,
+            ephemeral: true
+        });
         const channel = options.get("channel");
         if (channel) {
             let obj = {};

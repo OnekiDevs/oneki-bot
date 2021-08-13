@@ -4,7 +4,7 @@
     "@discordjs/voice": "^0.5.0",
     "canvas": "^2.8.0",
     "cross-env": "^7.0.3",
-    "discord.js": "^13.0.1",
+    "discord.js": "^13.1.0-dev.1628726724.cd40292",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "fetch-node": "0.0.1",
