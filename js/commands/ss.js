@@ -23,7 +23,7 @@ module.exports = {
         });
         // console.log(args[0], args[0].match(/<@!?(\d{17,19})>/))
         let params = "text="+(!args[0].match(/<@!?(\d{17,19})>/)?args.join(" "):args.slice(1).join(" "));
-        if (args[0].match(/<@!?(\d{17,19})>/)) {
+        if (args[0].match(/<@!?(\d{17,19})>/) && message.mentions.members.first()) {
             params += `&user=${message.mentions.members.first()?.displayName}`;
             params += `&avatar=${message.mentions.users.first()?.displayAvatarURL()}`;
             params += `&color=${message.mentions.members.first()?.displayHexColor.slice(1)}`
