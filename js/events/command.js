@@ -7,8 +7,8 @@ module.exports = {
         if (cmd) {
             const server = client.servers.get(message.guild.id);
             const lang = client.util.lang({lang:server.lang, route:'events/command'});
-            if (cmd.userPermissions?.length > 0 && !message.member.permissions.has(cmd.userPermissions)) return message.reply(await client.utiles.replace(lang.userPermissions, [{match:"{permissions}", replace:`\`${new Permissions(cmd.userPermissions).toArray().join('` `')}\``}]));
-            if (cmd.botPermissions?.length > 0 && !message.guild.me.permissions.has(cmd.botPermissions)) return message.reply(await client.utiles.replace(lang.botPermissions, [{match:"{permissions}", replace:`\`${new Permissions(cmd.botPermissions).toArray().join('` `')}\``}]));
+            if (cmd.userPermissions?.length > 0 && !message.member.permissions.has(cmd.userPermissions)) return message.reply(await client.util.replace(lang.userPermissions, [{match:"{permissions}", replace:`\`${new Permissions(cmd.userPermissions).toArray().join('` `')}\``}]));
+            if (cmd.botPermissions?.length > 0 && !message.guild.me.permissions.has(cmd.botPermissions)) return message.reply(await client.util.replace(lang.botPermissions, [{match:"{permissions}", replace:`\`${new Permissions(cmd.botPermissions).toArray().join('` `')}\``}]));
             cmd.run(client, message, args);
         }
     }
