@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod, abstractproperty
+from typing import Generator
 
 from google.cloud.firestore_v1.collection import CollectionReference 
 from google.cloud.firestore_v1.document import DocumentReference
@@ -27,6 +28,9 @@ class _DataBase(ABC):
 			self._subcollection: CollectionReference = self._document.collection(subcollection)
 		else: self._subcollection = None
 
+	def __str__(self):
+		return self.id
+
 	@abstractproperty
 	def id(self): ...
 	@abstractmethod
@@ -36,14 +40,18 @@ class _DataBase(ABC):
 
 
 
-
+class Document: ...
 class Collection(_DataBase):
 	def __init__(self, **kwargs):
 		super().__init__(
-			collection = kwargs.pop("collection"), 
+			collection = kwargs["collection"], 
 			document = kwargs.get("document"),
 			subcollection = kwargs.get("subcollection")
 		)
+
+
+	def __str__(self):
+		return super().__str__()
 
 
 	@property
@@ -53,20 +61,18 @@ class Collection(_DataBase):
 		return self._collection.id
 
 
-	def documents(self, limit = None) -> tuple:
-		_list = []
+	def documents(self, limit = None):
 		if self._subcollection is not None: 
 			for doc in self._subcollection.list_documents(limit):
-				_list.append(Document(
+				yield Document(
 					collection = self._collection.id, 
 					document = self._document.id, 
 					subcollection = self._subcollection.id, 
 					subdocument = doc.id
-				))
+				)
 		else: 
-			for doc in self._collection.list_documents():
-				_list.append(Document(collection = self._collection.id, document = doc.id))
-		return tuple(_list)
+			for doc in self._collection.list_documents(limit):
+				yield Document(collection = self._collection.id, document = doc.id)
 
 
 	def document(self, document): 
@@ -106,20 +112,17 @@ class Collection(_DataBase):
 
 
 	def where(self, filter, operation, value):
-		_list = []
 		if self._subcollection is not None: 
 			for document in self._subcollection.where(str(filter), str(operation), value).stream():
-				print(document)
-				_list.append(Document(
+				yield Document(
 					collection = self._collection.id, 
 					document = self._document.id,  
 					subcollection = self._subcollection.id, 
 					subdocument = document.id
-				))
+				)
 		else:
 			for doc in self._collection.where(str(filter), str(operation), value).stream():
-				_list.append(Document(collection = self._collection.id, document = doc.id))
-		return _list
+				yield Document(collection = self._collection.id, document = doc.id)
 
 
 
@@ -129,14 +132,18 @@ class Document(_DataBase):
 		subcollection = kwargs.get("subcollection")
 
 		super().__init__(
-			collection = kwargs.pop("collection"), 
-			document = kwargs.pop("document"),
+			collection = kwargs["collection"], 
+			document = kwargs["document"],
 			subcollection = subcollection
 		)
 
 		if subcollection is not None:
-			self._subdocument = self._subcollection.document(kwargs.pop("subdocument"))
+			self._subdocument = self._subcollection.document(kwargs["subdocument"])
 		else: self._subdocument = None
+
+
+	def __str__(self) -> str:
+		return super().__str__()
 
 
 	@property
@@ -150,29 +157,28 @@ class Document(_DataBase):
 	def exists(self):
 		if self._subdocument is not None:
 			return self._subdocument.get().exists
-		else: return self._document.get().exists
+		return self._document.get().exists
 
 
 	@property
 	def content(self) -> dict: 
 		if self._subdocument is not None:
 			doc = self._subdocument.get()
-		else: doc = self._document.get()
+		else: 
+			doc = self._document.get()
 
 		if doc.exists:
 			return doc.to_dict()
-		else: return None
+		return None
 
 
-	def subcollections(self, limit = None) -> tuple:
-		_list = []
+	def subcollections(self, limit = None):
 		for subcollection in self._document.collections(limit):
-			_list.append(Collection(
+			yield Collection(
 				collection = self._collection.id, 
 				document = self._document.id, 
 				subcollection = subcollection.id
-			))
-		return tuple(_list)
+			)
 
 
 	def set(self, **kwargs): 
@@ -209,24 +215,6 @@ class Document(_DataBase):
 					self._document.update({f'{camp}': firestore.firestore.DELETE_FIELD})
 			else: self._document.delete()
 
-
-
-
-# def get(collection, document = None, subcollection = None, subdocument = None) -> Document or Collection: 
-# 	if subcollection is not None:
-# 		if subdocument is not None:
-# 			return Document(
-# 				collection = collection, 
-# 				document = document, 
-# 				subcollection = subcollection, 
-# 				subdocument = subdocument
-# 			)
-# 		else: 
-# 			return Collection(collection = collection, document = document, subcollection = subcollection)
-# 	else: 
-# 		if document is not None:
-# 			return Document(collection = collection, document = document)
-# 		else: return Collection(collection = collection)
 
 
 
