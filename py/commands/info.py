@@ -14,8 +14,8 @@ async def info(ctx, member: tools.discord.Member = None):
     embed = tools.discord.Embed(
         title = translations["embed"]["title"], 
         description = f"{roles}", 
+        color = ctx.author.color,
         timestamp = tools.datetime.utcnow(), 
-        color = ctx.author.color
     )
     embed.set_author(name = f"{member}", url = member.avatar_url)
     embed.set_thumbnail(url = member.avatar_url)
