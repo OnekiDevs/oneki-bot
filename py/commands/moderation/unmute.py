@@ -4,7 +4,7 @@ from commands.moderation import utils
 
 
 @tools.bot.command()
-@tools.commands.has_permissions(kick_members = True)
+@tools.commands.has_permissions(manage_messages=True)
 async def unmute(ctx, member : tools.discord.Member):
     translations = tools.utils.translations(commands.get_config(ctx), "commands/moderation/unmute")
     async with ctx.typing():

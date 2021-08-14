@@ -3,7 +3,7 @@ from tools.utils import commands
 from commands.moderation import utils
 
 @tools.bot.command()
-@tools.commands.has_permissions(kick_members = True)
+@tools.commands.has_permissions(manage_messages=True)
 async def mute(ctx, member : tools.discord.Member, time = "", *, reason = "No se dio una razón"):
     translations = tools.utils.translations(commands.get_config(ctx), "commands/moderation/mute")
 
