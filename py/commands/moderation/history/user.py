@@ -2,7 +2,7 @@ import tools
 from commands.moderation.history import index_subcommand as index
 
 @index.history.command()
-@tools.commands.has_permissions(manage_messages=True)
+@tools.commands.has_permissions(manage_messages = True)
 async def user(ctx, user: tools.discord.User):
     # translations = tools.utils.translations(index.commands.get_config(ctx), "commands/history")
     subcollection = tools.db.Collection(collection = f"{ctx.guild.id}", document = "users", subcollection = f"{user.id}")
