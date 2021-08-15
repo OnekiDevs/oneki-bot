@@ -10,7 +10,7 @@ module.exports.run = async (client, interact, params) => {
             for (const i of category) embed.addField(i.name, `${await client.util.replace(lang.command, [
                     {match:"{alias}", replace:i.alias.length>0?`\`${i.alias.join('` `')}\``:lang.none},
                     {match:"{description}", replace:i.description},
-                    {match:"{prefix}", replace:server.prefix},
+                    {match:"{prefix}", replace:i.type=='slash'?'/':server.prefix},
                     {match:"{use}", replace:i.use}
                 ])}`, true);
             for (const i of categories) menu.addOptions({label:`${await client.util.replace(lang.menu.option, [{match:"{category}", replace:i}])}`,value:i});

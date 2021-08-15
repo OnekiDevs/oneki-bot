@@ -245,10 +245,10 @@ module.exports = {
     },
     servers: ['825936007449935903'],
     run: async (client, interact) => {
-        require(`./config/${interact.options.first().name}`)[interact.options.first().options.first().name](
+        require(`./config/${interact.options.getSubcommandGroup()}`)[interact.options.getSubcommand()](
             client,
             interact,
-            interact.options.first().options.first().options
+            interact.options
         );
     },
 };

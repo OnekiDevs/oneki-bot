@@ -1,7 +1,10 @@
 {
 	"folders": [
 		{
-			"path": "..\\slash"
+			"path": "..\\.."
+		},
+		{
+			"path": "..\\..\\..\\Oneki-web"
 		}
 	],
 	"settings": {}

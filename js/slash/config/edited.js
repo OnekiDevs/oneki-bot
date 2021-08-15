@@ -7,16 +7,16 @@ module.exports = {
             content: lang.permissions,
             ephemeral: true
         });
-        const channel = options.get('channel');
-        db.collection(channel.channel.guild.id).doc("edited").update({ 
-            channel: channel.value
+        const channel = options.getChannel('channel');
+        db.collection(channel.guild.id).doc("edited").update({ 
+            channel: channel.id
         }).catch(err => {
-            if (err.details.startsWith("No document to update")) db.collection(channel.channel.guild.id).doc("edited").set({ 
-                channel: channel.value
+            if (err.details.startsWith("No document to update")) db.collection(channel.guild.id).doc("edited").set({ 
+                channel: channel.id
             })
         })
         interact.reply({
-            content: `${await client.utiles.replace(lang.reply, [{ match: "channel", replace: `\`${channel.channel.name}\`` }])}`,
+            content: `${await client.util.replace(lang.reply, [{ match: "channel", replace: `\`${channel.name}\`` }])}`,
             ephemeral: true
         })
     }, 

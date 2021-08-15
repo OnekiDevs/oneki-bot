@@ -7,16 +7,16 @@ module.exports = {
             content: lng.permissions,
             ephemeral: true
         });
-        const lang = options.get('language');
+        const lang = options.getString('language');
         db.collection('config').doc(interact.guildId).update({
-            lang: lang.value
+            lang: lang
         }).catch((err) => {
             if(err.details.startsWith("No document to update")) db.collection('config').doc(interact.guildId).set({
-                lang: lang.value
+                lang: lang
             })
         });
         interact.reply({
-            content: `${await client.utiles.replace(lng.reply, [{ match: "lang", replace: `\`${lang.name}\`` }])}`,
+            content: `${await client.util.replace(lng.reply, [{ match: "lang", replace: `\`${lang}\`` }])}`,
         })
     },
     reset: (client, interact, options) => {

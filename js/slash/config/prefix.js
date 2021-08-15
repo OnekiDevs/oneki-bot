@@ -7,7 +7,7 @@ module.exports = {
             content: lang.permissions,
             ephemeral: true
         });
-        const np = options.get('prefix').value;
+        const np = options.getString('prefix');
         if (np.split(/ +/g)[1]) {
             interact.reply({
                 content: lang.serverError,
@@ -15,21 +15,14 @@ module.exports = {
             });
             return;
         }
-        const member = await client.guilds.cache.get(interact.guildId)?.members.fetch(interact.member.user.id);
-        if (!member) {
-            interact.reply({
-                content: lang.serverError,
-                ephemeral: true
-            }); 
-            return;
-        }
-        if (!member.permissions.has("MANAGE_GUILD")) {
-            interact.reply({
-                content: lang.permissionsError,
-                ephemeral: true
-            })
-            return;
-        }
+        if (!interact.member) return interact.reply({
+            content: lang.serverError,
+            ephemeral: true
+        }); 
+        if (!interact.member.permissions.has("MANAGE_GUILD")) return interact.reply({
+            content: lang.permissionsError,
+            ephemeral: true
+        });
         interact.reply({
             content:  `${await client.utiles.replace(lang.reply, [{ match: "prefix", replace: np }])}`,
         });
