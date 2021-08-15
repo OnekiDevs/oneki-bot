@@ -3,9 +3,11 @@ from tools.utils import commands
 
 def sanctions(subcollection: tools.db.Collection):
     sanctions = ""
-    if subcollection.document("sanctions").exists:
-        for key, value in subcollection.document("sanctions").content.items():
-            num = 1
+
+    document = subcollection.document("sanctions")
+    if document.exists and document.content:
+        for key, value in document.content.items():
+            num = 1 
             for sanction in value:
                 sanctions += f"{key} {num}:\n```{sanction['razon']}```\n"
                 num += 1
@@ -35,29 +37,18 @@ def reports(subcollection: tools.db.Collection):
 async def history(ctx: tools.commands.Context):
     # translations = tools.utils.translations(index.commands.get_config(ctx), "commands/history")
     if ctx.invoked_subcommand is None:
-        ...
-        # document = tools.db.Document(collection = f"{ctx.guild.id}", document = "users")
-        
-        # embed = tools.discord.Embed(
-        #     description = "El historial de los 3 primeros usuarios, si quiere el historial de un usuario en especifico use `history user @user`",
-        #     color = tools.discord.Colour.purple(),
-        #     timestamp = tools.datetime.utcnow()
-        # )
-        # embed.set_author(name = f"Historial")
+        async with ctx.typing():
+            document = tools.db.Document(collection = f"{ctx.guild.id}", document = "users")
+            
+            embed = tools.discord.Embed(
+                description = "El historial de los 3 primeros usuarios, si quiere el historial de un usuario en especifico use `history user @user`",
+                color = tools.discord.Colour.purple(),
+                timestamp = tools.datetime.utcnow()
+            )
+            embed.set_author(name = f"Historial")
+            
+            for subcollection in document.subcollections(limit = 3):
+                user = tools.bot.get_user(int(subcollection.id)) 
 
-        # for subcollection in document.subcollections(limit = 3):
-        #     user = tools.bot.get_user(int(subcollection.id))
-
-        #     sanctions = ""
-        #     if subcollection.document("sanctions").exists:
-        #         for key, value in subcollection.document("sanctions").content.items():
-        #             num = 1
-        #             for sanction in value:
-        #                 sanctions += f"{key} {num}:\n```{sanction['razon']}```\n"
-        #                 num += 1
-
-        #     else: sanctions = "No tiene sanciones hasta el momento"
-
-        #     embed.add_field(name = f"{user.name}", value = str(sanctions))
-
-        # await ctx.send(embed = embed)
+                embed.add_field(name = f"{user.name}", value = sanctions(subcollection)) #:nais:
+            await ctx.send(embed = embed)
