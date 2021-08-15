@@ -75,22 +75,22 @@ module.exports = {
                                                 name: "spanish",
                                                 value: "es",
                                             },
-                                            {
-                                                name: "french",
-                                                value: "fr",
-                                            },
-                                            {
-                                                name: "korean",
-                                                value: "ko",
-                                            },
-                                            {
-                                                name: "rusian",
-                                                value: "ru",
-                                            },
-                                            {
-                                                name: "chinese",
-                                                value: "zh",
-                                            },
+                                            // {
+                                            //     name: "french",
+                                            //     value: "fr",
+                                            // },
+                                            // {
+                                            //     name: "korean",
+                                            //     value: "ko",
+                                            // },
+                                            // {
+                                            //     name: "rusian",
+                                            //     value: "ru",
+                                            // },
+                                            // {
+                                            //     name: "chinese",
+                                            //     value: "zh",
+                                            // },
                                         ],
                                     },
                                 ],
@@ -176,7 +176,7 @@ module.exports = {
                                     },
                                     {
                                         type: 3,
-                                        name: "name",
+                                        name: "alias",
                                         description: "channel alias"
                                     }
                                 ]
@@ -184,7 +184,7 @@ module.exports = {
                             {
                                 type: 1,
                                 name: "delete",
-                                description: "set up suggestion channels",
+                                description: "delete suggestion channels",
                                 options: suggestChannels
                             }
                         ]

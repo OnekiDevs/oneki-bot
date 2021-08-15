@@ -4,7 +4,7 @@ module.exports = {
     name: 'help',
     botPermissions: [],
     userPermissions: [],
-    alias: [],
+    alias: ['commands'],
     run: async (client, message, args) => {
         const server = client.servers.get(message.guild.id);
         fetch(`https://oneki.herokuapp.com/api/${server.lang}/cmd/categories`).then((r) => r.json()).then((categories) => {

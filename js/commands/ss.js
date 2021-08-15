@@ -4,7 +4,7 @@ module.exports = {
     name: 'ss',
     botPermissions: [Permissions.FLAGS.MANAGE_MESSAGES],
     userPermissions: [],
-    alias: [],
+    alias: ['screenshot'],
     run: async (client, message, args) => {
         message.channel.sendTyping();
         const server = client.servers.get(message.guild.id);

@@ -11,6 +11,7 @@ module.exports = {
     use: ".battleship <@user>",
     example: ".battleship @usuario",
     run: async (client, message, args) => {
+        return;
         console.log(1)
         // obtengo usuario
         const usuario = message.mentions.users.first();
