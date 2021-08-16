@@ -16,7 +16,7 @@ module.exports = {
             })
         });
         interact.reply({
-            content: `${await client.util.replace(lng.reply, [{ match: "lang", replace: `\`${lang}\`` }])}`,
+            content: `${await client.util.replace(lng.reply, [{ match: "{lang}", replace: `\`${lang}\`` }])}`,
         })
     },
     reset: (client, interact, options) => {

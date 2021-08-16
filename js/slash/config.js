@@ -11,6 +11,7 @@ module.exports = {
                     description: "channel to establish",
                     required: true,
                     choices: Object.keys(suggestChannels.data()).filter(i => i != 'lastId').map(i => {
+                        console.log(i);
                         return { 
                             name: i,
                             value: i

@@ -28,7 +28,6 @@ module.exports = {
                         k++
                     } else j++
                 }
-                console.log(buttons);
                 message.reply({
                     embeds: [embed],
                     components: buttons

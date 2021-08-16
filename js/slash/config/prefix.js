@@ -24,7 +24,7 @@ module.exports = {
             ephemeral: true
         });
         interact.reply({
-            content:  `${await client.utiles.replace(lang.reply, [{ match: "prefix", replace: np }])}`,
+            content:  `${await client.util.replace(lang.reply, [{ match: "{prefix}", replace: np }])}`,
         });
         db.collection('config').doc(interact.guildId).update({
             prefix: np

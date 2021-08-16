@@ -16,7 +16,7 @@ module.exports = {
             });
         });
         interact.reply({
-            content: `${await client.util.replace(lang.reply, [{ match: "channel", replace: `\`${channel.name}\`` }])}`,
+            content: `${await client.util.replace(lang.reply, [{ match: "{channel}", replace: `\`${channel.name}\`` }])}`,
             ephemeral: true
         });
     },

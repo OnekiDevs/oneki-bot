@@ -10,7 +10,6 @@ module.exports = {
         });
         const channel = options.getChannel("channel");
         const name = options.getString("alias");
-        console.log(channel);
         let obj = {};
         if (name) obj[name.value] = channel.id;
         else obj["predetermined"] = channel.id;
@@ -23,17 +22,16 @@ module.exports = {
             });
         interact.reply({
             content: `${await client.util.replace(lang.reply, [
-                { match: "prefix", replace: client.servers.get(interact.guildId)?.prefix },
-                { match: "alias", replace: name?name.value:'' },
-                { match: "displayAlias", replace: `${name ? `${name.value} ` : ""}` },
+                { match: "{channel}", replace: channel.name },
+                { match: "{alias}", replace: name??'' }
             ])}`,
             ephemeral: true,
         });
         channel.send(
             `${await client.util.replace(lang.send, [
-                { match: "prefix", replace: client.servers.get(interact.guildId)?.prefix },
-                { match: "channel", replace: channel.name },
-                { match: "alias", replace: name.value },
+                { match: "{prefix}", replace: client.servers.get(interact.guildId)?.prefix },
+                { match: "{channel}", replace: channel.name },
+                { match: "{alias}", replace: name },
             ])}`
         );
     },
@@ -43,10 +41,10 @@ module.exports = {
             content: lang.permissions,
             ephemeral: true
         });
-        const channel = options.getChannel("channel");
+        const channel = options.getString("channel");
         if (channel) {
             let obj = {};
-            obj[channel.id] = FieldValue.delete();
+            obj[channel] = FieldValue.delete();
             db.collection(interact.guildId)
                 .doc("suggest")
                 .update(obj)
@@ -56,9 +54,10 @@ module.exports = {
                 });
             interact.reply({
                 content: `${await client.util.replace(lang.reply, [
-                    { match: "channel", replace: channel.id },
+                    { match: "{channel}", replace: channel },
                 ])}`
             });
+            interact.guild.commands.create(await client.slash.get('config').data({guild: interact.guildId}));
         } else {
             interact.deferUpdate();
         }
