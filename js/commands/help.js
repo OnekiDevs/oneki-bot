@@ -20,7 +20,7 @@ module.exports = {
                         {match:"{use}", replace:i.use}
                     ])}`, true);
                 for (const i of categories) {
-                    const btn = new MessageButton().setStyle(i==categories[0]?'PRIMARY':'SECONDARY').setLabel(i).setCustomId(`help_${server.lang}_${i}`)
+                    const btn = new MessageButton().setStyle(i==categories[0]?'SUCCESS':'PRIMARY').setLabel(i).setCustomId(`help_${server.lang}_${i}`)
                     if(j==0) buttons.push(new MessageActionRow().addComponents([btn])) 
                     else buttons[k].addComponents([btn])
                     if (j==4) {

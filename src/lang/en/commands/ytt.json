@@ -1,12 +1,7 @@
 {
     "message": "{user} invites you to watch YouTube Together",
-    "fail": "Unfortunately I can't use pkn",
-    "accept": "Accept",
-    "invitation": "invitation"
-}
-{
-    "message": "{user} te esta invitando a ver YouTube juntos",
-    "fail": "Desafortunadamente no puedo usar ytt",
-    "accept": "Aceptar la invitación",
-    "invitation": "Ver la Invitación"
+    "fail": "Unfortunately I can't use ytt",
+    "accept": "Accept invitation",
+    "invitation": "Show invitation",
+    "mention": "you need to mention a voice channel"
 }
