@@ -14,16 +14,6 @@ async def mute(ctx, member : tools.discord.Member, time = "", *, reason = "No se
             user = tools.utils.get_user(member)
 
             embed = utils.embed(ctx, translations, member, reason)
-            # embed = tools.discord.Embed(
-            #     description = translations["embed"]["description"].format(ctx.guild.name),
-            #     colour = tools.discord.Colour.from_rgb(178, 34, 34),
-            #     timestamp = tools.datetime.utcnow()
-            # )
-            # embed.set_author(name = translations["embed"]["author"], icon_url = user.avatar_url)
-            # if(tools.re.search("-c", reason) is not None):
-            #     reason = reason.split("-c ")[1]
-            #     embed.add_field(name = translations["embed"]["field_2"]["name"], value = f"```\n{ctx.author.name}\n```", inline = False)
-            # embed.add_field(name = translations["embed"]["field_1"]["name"], value = f"```\n{reason}\n```")
 
             search = tools.re.search(r"[0-9]+[dhms]", time)
             if(search is not None):
@@ -31,12 +21,16 @@ async def mute(ctx, member : tools.discord.Member, time = "", *, reason = "No se
                 num = int(tools.re.split(r"[dhms]", time)[0])
                 if(_time == "d"): 
                     _times = ( tools.datetime.utcnow() + tools.timedelta(days = num), float(86400 * num) )
+
                 elif(_time == "h"): 
                     _times = ( tools.datetime.utcnow() + tools.timedelta(hours = num), float(3600 * num) )
+
                 elif(_time == "m"): 
                     _times = ( tools.datetime.utcnow() + tools.timedelta(minutes = num), float(60 * num) )
+
                 elif(_time == "s"): 
                     _times = ( tools.datetime.utcnow() + tools.timedelta(seconds = num), float(num) )
+
             else: _times = tools.datetime.utcnow() + tools.timedelta(minutes = 5), float(3600 * 5)
 
             embed.add_field(name = translations["embed"]["field_3"]["name"], value = f"```\n{_times[0]}\n```")
@@ -56,6 +50,7 @@ async def mute(ctx, member : tools.discord.Member, time = "", *, reason = "No se
             dict_roles = {f"{user.id}": roles}
             if server_mutes is not None:
                 server_mutes.update(dict_roles)
+
             else: 
                 tools.mutes[f"{ctx.guild.id}"] = dict_roles
 
@@ -63,6 +58,7 @@ async def mute(ctx, member : tools.discord.Member, time = "", *, reason = "No se
             document = tools.db.Document(collection = f"{ctx.guild.id}", document = "users", subcollection = f"{user.id}", subdocument = "sanctions")
             if document.exists: 
                 document.update("mute", info_mute, array = True)
+
             else: 
                 document.set(mute = [info_mute])
 
@@ -70,6 +66,7 @@ async def mute(ctx, member : tools.discord.Member, time = "", *, reason = "No se
 
         try:
             await member.send(embed = embed)
+
         except: pass
 
         await tools.sleep(_times[1])

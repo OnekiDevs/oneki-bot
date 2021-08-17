@@ -36,6 +36,6 @@ def dict_servers() -> dict:
 
 
 def is_empty(data_structure) -> True | False: 
-    if(data_structure): 
+    if data_structure: 
         return False
     else: return True
