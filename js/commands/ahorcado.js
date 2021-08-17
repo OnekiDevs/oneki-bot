@@ -33,7 +33,6 @@ module.exports = {
                 toString:()=>wordShow.a.join(' ')
             }
             msg.edit(`${lang.used}: ${usedLetters}\n\`${wordShow}\`\n${life}`);
-            msg.get('')
             if (life.i == 0) return msg.reply(`${message.author} ${lang.lose} **${word.join('')}**`);
             if (!wordShow.a.includes("_")) return msg.reply(`${message.author} ${lang.win}`);
             try { 
