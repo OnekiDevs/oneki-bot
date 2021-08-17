@@ -1,1 +1,1 @@
-from commands.moderation.history import user, filter
+from commands.moderation.history import delete, filter, user
