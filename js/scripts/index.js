@@ -67,13 +67,13 @@ for (const file of fs.readdirSync("./js/buttons").filter((f) => f.endsWith(".js"
 client.login(process.env.NODE_ENV!='production'?process.env.TOKEN_DISCORD_DEV:process.env.TOKEN_DISCORD);
 
 //play ground
-
 // client.on('messageCreate', message => {
 // })
 
 //DONT TOUCH
 
 // client.on('ready', async interaction => {
+
     // const ca = new Canvas.createCanvas(256, 256);
     // const cx = ca.getContext('2d');
     // const av = await Canvas.loadImage(client.user.displayAvatarURL({format: 'png', size: 256}));
