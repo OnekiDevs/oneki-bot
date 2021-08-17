@@ -5,6 +5,7 @@ const { MessageEmbed } = require('discord.js');
 module.exports = {
     name: "messageDelete",
     run: async (client, message) => {
+        return;
         try {
             if (!message.author || message.author?.bot) return;
             if (!message.content) return;

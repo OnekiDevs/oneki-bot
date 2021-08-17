@@ -5,6 +5,7 @@ const { MessageEmbed } = require('discord.js');
 module.exports = {
     name: "messageUpdate",
     run: async (client, oldMessage, newMessage) => {
+        return;
         try {
             if (!oldMessage.author || oldMessage.author?.bot) return;
             if (oldMessage.content === newMessage.content) return;
