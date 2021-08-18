@@ -51,6 +51,9 @@ users -> coleccion
 └── {id_usuario} -> documento / subcoleccion
     └── notes -> coleccion 
         └── {cuaderno} -> document
-            └── {page} : map
+            ├── config: map 
+            │   ├── description: str
+            │   └── color: hex
+            └── {page}: map
                 └── contenido
 ```
