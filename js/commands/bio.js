@@ -9,9 +9,9 @@ module.exports = {
     run: async (client, message, args) => {
         const server = client.servers.get(message.guild.id);
         const lang = client.util.lang({ lang: server.lang, route: "commands/bio" });
-        const channel = message.mentions.channels.find((m) => m.type == "GUILD_VOICE");
-        if (!channel) return message.reply(lang.mention);
-        const invite = await channel.createInvite({
+        console.log(message.member.voice.channel);
+        if (!message.member.voice.channel) return message.reply(lang.voice);
+        const invite = await message.member.voice.channel.createInvite({
             targetApplication: "773336526917861400",
             targetType: 2,
         });
