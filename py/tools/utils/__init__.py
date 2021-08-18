@@ -39,3 +39,10 @@ def is_empty(data_structure) -> True | False:
     if data_structure: 
         return False
     else: return True
+
+
+def color_hex(hex: str): 
+    sixteenIntegerHex = int(hex.replace("#", ""), 16)
+    readableHex = int(hex(sixteenIntegerHex), 0)
+
+    return readableHex
