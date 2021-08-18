@@ -11,7 +11,7 @@ module.exports = {
                 })
             } else {
                 let cmd = client.buttons.get(interact.customId);
-                if (cmd) cmd.run(client, interact)
+                if (cmd) cmd.run(client, interact, cmd.params)
             }
         } else if (interact.isCommand()){
             let cmd = client.slash.get(interact.commandName)
