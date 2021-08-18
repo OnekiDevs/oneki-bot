@@ -11,7 +11,7 @@ module.exports = {
         const channel = options.getChannel("channel");
         const name = options.getString("alias");
         let obj = {};
-        if (name) obj[name.value] = channel.id;
+        if (name) obj[name] = channel.id;
         else obj["predetermined"] = channel.id;
         db.collection(interact.guildId)
             .doc("suggest")
@@ -32,6 +32,7 @@ module.exports = {
                 { match: "{prefix}", replace: client.servers.get(interact.guildId)?.prefix },
                 { match: "{channel}", replace: channel.name },
                 { match: "{alias}", replace: name },
+                { match: "{displayAlias}", replace:name??''}
             ])}`
         );
     },
