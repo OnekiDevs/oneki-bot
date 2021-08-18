@@ -1,1 +1,1 @@
-from commands import notes, report, afk, avatar, info
+from commands import notes, afk, avatar, info, report
