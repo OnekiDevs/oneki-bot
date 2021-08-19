@@ -30,7 +30,6 @@ async def afk(ctx, *, reason = "..."):
         if len(reason) > 50: return await ctx.send(translations["too_long"])
         
         results = tools.utils.check_links(reason)
-        print(results)
         if results: return await ctx.send(translations["no_links"])
 
     tools.afks[member.id] = (reason, tools.datetime.utcnow())
