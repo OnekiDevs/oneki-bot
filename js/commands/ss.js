@@ -6,6 +6,7 @@ module.exports = {
     userPermissions: [],
     alias: [],
     run: async (client, message, args) => {
+return message.reply('Lo sentimos, comando deshabilitado temporalmente');
         const channel = message.channel;
         channel.startTyping();
         const server = client.servers.get(message.guild.id);
