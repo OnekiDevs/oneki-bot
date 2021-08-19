@@ -1,8 +1,8 @@
-"""Libreria discord.py"""
+# Libreria discord.py
 import discord
-from discord.ext import commands, tasks
+from discord.ext import commands
 
-"""Otras librerias relevantes"""
+# Otras librerias relevantes
 from PIL import Image, ImageDraw, ImageFont, ImageOps
 from datetime import datetime, timedelta
 from asyncio import sleep
@@ -11,14 +11,14 @@ from io import BytesIO
 from os import remove
 import re
 
-"""Modulos del proyecto"""
+# Modulos del proyecto
 from tools import db
 from tools import env
 from tools import utils
 from tools import client
 from tools import exceptions
 
-"""Funciones y variables"""
+# Funciones y variables
 servers = {}
 mutes = {}
 afks = {}

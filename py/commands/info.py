@@ -2,7 +2,7 @@ import tools
 from tools.utils import commands
 
 @tools.bot.command()
-async def info(ctx, member : tools.discord.Member = None):
+async def info(ctx, member: tools.discord.Member = None):
     translations = tools.utils.translations(commands.get_config(ctx), "commands/info")
     if(member == None): member = ctx.author
 
@@ -14,8 +14,8 @@ async def info(ctx, member : tools.discord.Member = None):
     embed = tools.discord.Embed(
         title = translations["embed"]["title"], 
         description = f"{roles}", 
+        color = ctx.author.color,
         timestamp = tools.datetime.utcnow(), 
-        color = ctx.author.color
     )
     embed.set_author(name = f"{member}", url = member.avatar_url)
     embed.set_thumbnail(url = member.avatar_url)

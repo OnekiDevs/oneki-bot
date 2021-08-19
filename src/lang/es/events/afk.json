@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
     "embed": "{} se encuentra AFK desde hace {}, razón: {}",
+=======
+    "embed": "{} se encuentra AFK actualmente, Razón:",
+>>>>>>> ba6bed47a66023b927b72e6b24c1586f549caa82
     "no_longer_afk": "{} ya no se encuentra AFK!",
     "no_permissions": "¡Me faltan permisos para realizar esto!"
 }

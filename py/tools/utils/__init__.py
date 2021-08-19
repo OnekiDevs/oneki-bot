@@ -36,10 +36,19 @@ def dict_servers() -> dict:
 
 
 def is_empty(data_structure) -> True | False: 
-    if(data_structure): 
+    if data_structure: 
         return False
     else: return True
 
+<<<<<<< HEAD
 def check_links(string):
     regex = r"(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'\".,<>?«»“”‘’]))"
     return re.findall(regex, string)
+=======
+
+def color_hex(hex: str): 
+    sixteenIntegerHex = int(hex.replace("#", ""), 16)
+    readableHex = int(hex(sixteenIntegerHex), 0)
+
+    return readableHex
+>>>>>>> ba6bed47a66023b927b72e6b24c1586f549caa82

@@ -1,33 +1,31 @@
 import pickle
 
-name_events = [
-	"lang",
-	"prefix"
-]
-
-def data_to_all(clients : list, data, client):
-    for c in clients:
+def data_to_all(clients: list, data, client):
+    for _client in clients:
         try:
-            if c != client:
-                c.send(data)
+            if _client != client:
+                _client.send(data)
         except:
-            clients.remove(c)
+            clients.remove(_client)
 
-def Process(clients : list):
+def process(name_events: list, clients : list):
     while True:
-        if (len(clients) > 0):
+        if len(clients) > 0:
             for client in clients:
                 try:
                     data = client.recv(1024)
                     if data:
-                        d = pickle.loads(data)
-                        print(d)
-                        if isinstance(d, dict):
-                            if d["event"] in name_events: 
+                        data = pickle.loads(data)
+                        print(data)
+                        if isinstance(data, dict):
+                            if data["event"] in name_events: 
                                 data_to_all(clients, data, client)
+
                             else: 
                                 client.send(pickle.dumps("Invalid event"))
+
                         else: 
                             client.send(pickle.dumps("Invalid data type"))
+
                 except:
                     pass

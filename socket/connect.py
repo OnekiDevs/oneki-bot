@@ -1,6 +1,4 @@
-clients = []
-
-def Connect(sock):
+def connect(sock, clients: list):
     while True:
         try:
             conn, addr = sock.accept()

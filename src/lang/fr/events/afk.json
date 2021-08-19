@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
     "embed": "{} est afk depuis {}, raison : {}",
+=======
+    "embed": "{} est afk, Raison:",
+>>>>>>> ba6bed47a66023b927b72e6b24c1586f549caa82
     "no_longer_afk": "{} n'est plus afk",
     "no_permissions": "Je n'ai pas assez d'autorisations pour le faire."
 } 

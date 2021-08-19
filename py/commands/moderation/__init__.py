@@ -1,1 +1,1 @@
-from commands.moderation import mute, unmute, warn
+from commands.moderation import history, mute, unmute, warn

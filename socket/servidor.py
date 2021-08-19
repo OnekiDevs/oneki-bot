@@ -6,21 +6,28 @@ import connect
 import env
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+clients = []
+name_events = [
+	"lang",
+	"prefix"
+]
 
 def run(host = "localhost", port = 4000):
-	"""Configuracion del socket"""
+	# Configuracion del socket
 	sock.bind((str(host), int(port)))
 	sock.listen(10)
 	sock.setblocking(False)
 
-	accept = threading.Thread(target = lambda : connect.Connect(sock))
-	accept.daemon = True
-	accept.start()
+	# Hilos
+	_accept = threading.Thread(target = lambda: connect.connect(sock, clients))
+	_accept.daemon = True
+	_accept.start()
 
-	proces = threading.Thread(target = lambda : process.Process(connect.clients))
-	proces.daemon = True
-	proces.start()
+	_process = threading.Thread(target = lambda: process.process(name_events, clients))
+	_process.daemon = True
+	_process.start()
 
+	# Servidor establecido
 	print("[+] Servidor establecido")
 	while True:
 		pass
