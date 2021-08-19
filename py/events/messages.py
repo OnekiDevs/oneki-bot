@@ -35,4 +35,4 @@ async def on_message(message):
         prefix, translations = events.get_config(message.guild, "afk")
         for user in message.mentions:
             if user.id in tools.afks:
-                await message.channel.send(embed=tools.discord.Embed(title=translations["embed"].format(user.display_name, tools.afks[user.id]), color=0xFCE64C))
+                await message.channel.send(embed=tools.discord.Embed(title=translations["embed"].format(user.display_name, tools.afks[user.id][1],tools.afks[user.id][0]), color=0xFCE64C))

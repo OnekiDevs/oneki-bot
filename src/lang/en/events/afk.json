@@ -1,5 +1,5 @@
 {
-    "embed": "{} is afk, reason: {}",
+    "embed": "{} is afk since {}, reason: {}",
     "no_longer_afk": "{} is no longer afk",
     "no_permissions": "I don't have enough permissions to do this."
 }

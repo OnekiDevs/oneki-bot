@@ -1,5 +1,7 @@
 {
     "afk_title": "{} is now AFK!",
     "no_permissions": "I don't have enough permissions to do this.",
-    "max_name_length": "{} your name is too long!"
+    "max_name_length": "{} your name is too long!",
+    "too_long": "The reason is too long! (It must be < 50)",
+    "no_links": "You can't add links to the reason..."
 }

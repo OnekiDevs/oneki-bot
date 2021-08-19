@@ -1,4 +1,4 @@
-from tools import db
+from tools import db, re
 import discord
 import json
 
@@ -39,3 +39,7 @@ def is_empty(data_structure) -> True | False:
     if(data_structure): 
         return False
     else: return True
+
+def check_links(string):
+    regex = r"(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'\".,<>?«»“”‘’]))"
+    return re.findall(regex, string)

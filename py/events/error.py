@@ -22,7 +22,7 @@ async def on_command_error(ctx, error):
     elif(isinstance(error, tools.commands.errors.CommandNotFound)): pass
     elif(isinstance(error, tools.exceptions.WrongPrefix)): pass
     else: 
-        channel = tools.bot.get_channel(833780614712131616)
+        channel = tools.bot.get_channel(812870134699786270)
         msg = "".join(traceback.format_exception(type(error), error, error.__traceback__))
         embed = tools.discord.Embed(description = "Más datos del error", color = tools.discord.Colour.blue())
         embed.set_author(name = "Error", url = f"{ctx.message.jump_url}")
