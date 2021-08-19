@@ -11,7 +11,8 @@ async def on_message(message):
     server = tools.servers.get(f"{message.guild.id}")
 
     # Si pingearon al bot
-    if tools.bot.user.mentioned_in(message):
+    if message.content == f"<@!{tools.bot.user.id}>" or message.content == f"<@{tools.bot.user}>":
+    # if tools.bot.user.mentioned_in(message):
         prefix, translations = events.get_config(message.guild, "message")
         await message.channel.send(translations["ping"].format(prefix))
 
