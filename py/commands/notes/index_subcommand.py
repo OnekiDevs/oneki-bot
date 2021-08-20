@@ -1,5 +1,16 @@
 import tools
 
+img = "https://media.discordapp.net/attachments/725140299873124372/863238505109913630/depositphotos_325926388-stock-illustration-blue-notebook-with-spiral-vector.png"
+
+def not_found(ctx, notebook):
+    embed = tools.discord.Embed(
+        description = f"No se encontro ningun cuaderno con el nombre **{notebook}**",
+        colour = tools.utils.color_hex("#4260b6")
+    )
+    embed.set_author(name = "Cuaderno inexistente", icon_url = ctx.author.avatar_url)
+
+    return embed
+
 @tools.bot.group()
 async def notes(ctx):
     #translations = tools.utils.translations(tools.get_config(ctx), "commands/notes")
@@ -9,10 +20,10 @@ async def notes(ctx):
             
             embed = tools.discord.Embed(
                 description = "Aqui un listado de tus cuadernos", 
-                colour = ctx.author.color
+                colour = tools.utils.color_hex("#4260b6")
             )
             embed.set_author(name = f"Notebooks", icon_url = ctx.author.avatar_url)
-            embed.set_thumbnail(url = "https://media.discordapp.net/attachments/725140299873124372/863238505109913630/depositphotos_325926388-stock-illustration-blue-notebook-with-spiral-vector.png")
+            embed.set_thumbnail(url = img)
 
             for document in collection.documents(5):
                 value = ""

@@ -1,1 +1,1 @@
-from commands.notes import view # create, delete, edit, view
+from commands.notes import create, delete, edit, view 

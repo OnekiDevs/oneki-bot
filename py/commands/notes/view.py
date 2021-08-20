@@ -28,13 +28,9 @@ async def view(ctx, notebook: str, page = None):
                     else:
                         embed.add_field(name = f"{_page}", value = f"```{_content}```", inline = False)
                 
-            embed.set_thumbnail(url = "https://media.discordapp.net/attachments/725140299873124372/863238505109913630/depositphotos_325926388-stock-illustration-blue-notebook-with-spiral-vector.png")
+            embed.set_thumbnail(url = index.img)
 
         else: 
-            embed = tools.discord.Embed(
-                description = f"No se encontro ningun cuaderno con el nombre \"{notebook}\"",
-                colour = tools.discord.Colour.greyple()
-            )
-            embed.set_author(name = "Cuaderno inexistente", icon_url = ctx.author.avatar_url)
+            embed = index.not_found(ctx, notebook)
 
     await ctx.send(embed = embed)
