@@ -1,41 +1,26 @@
-# import tools
-# from discord.ext import tasks
-# from commands.moderation import utils
+import tools
+from discord.ext import tasks
+from commands.moderation import utils
 
-# @tasks.loop(seconds = 1)
-# async def update():
-#     for server, mutes in tools.mutes.items():
-#         guild = tools.bot.get_guild(int(server))
-#         for user_id, info in mutes.items():
-#             author = tools.bot.get_user(int(user_id))
-#             try:
-#                 server_mutes = tools.mutes[server]
-                
-#                 roles = server_mutes.pop(f"{user.id}") # nos da el valor y a la vez lo borra
-#                 await utils.roles.give_list_roles(guild, member, roles)
+async def _unmute():
+    for server, mutes in tools.mutes.items():
+        guild: tools.discord.Guild = tools.bot.get_guild(int(server))
+        for user_id, info in mutes.items():
+            member: tools.discord.Member = guild.get_member(int(user_id))
+            
+            if info['time'] <= tools.datetime.utcnow():
+                mutes.pop(user_id) 
+                await utils.roles.give_list_roles(guild, member, info['roles'])
+                await utils.roles.remove_role(guild, member, "Mute")
 
-#                 await ctx.send(translations["msg"].format(member.mention))
-#                 await member.send(embed = embed)
+                try:
+                    await member.send("Haz sido desmuteado")
+                except: pass
 
-#             except: pass
+@tasks.loop(seconds = 3)
+async def mute():
+    try: 
+        await _unmute()
+    except RuntimeError: ...
 
-# @update.before_loop
-# async def before_printer():
-#     content = tools.db.Document(collection = "config", document = "bot").content
-#     if (content.get("mutes") is None) or (content.get("afks") is None):
-#         raise ValueError("mutes/afks tiene el valor de None")
-
-#     else: 
-#         tools.mutes = content.get("mutes")
-#         tools.afks = content.get("afks")
-
-# @update.after_loop
-# async def after_update():
-#     document = tools.db.Document(collection = "config", document = "bot")
-
-#     document.update("mutes", tools.mutes)
-#     document.update("afks", tools.afks)
-
-#     print('done!')
-
-# update.start()
+mute.start()

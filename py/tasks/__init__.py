@@ -1,1 +1,1 @@
-from tasks import update
+from tasks import update, mute
