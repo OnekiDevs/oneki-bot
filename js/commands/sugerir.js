@@ -29,7 +29,8 @@ module.exports = {
         embed.setTitle(`Sugerencia # ${snapshot.data().lastId?+snapshot.data().lastId+1:1}`);
         embed.setColor(16313844);
         embed.setDescription(channelid ? args.slice(1).join(' ') : args.join(' '));
-        embed.setFooter(`${client.user.name} Bot ${package.version}`, client.user.avatarURL());
+        // console.log(client.user.username);
+        embed.setFooter(`${client.user.username} Bot ${package.version}`, client.user.avatarURL());
         // embed.setFooter(`${client.user.name} Bot ${package.version} | ${lang.pending} | ID ${snapshot.data().lastId?+snapshot.data().lastId+1:1}`, client.user.avatarURL());
         embed.setTimestamp();
         const m = await channel.send({
