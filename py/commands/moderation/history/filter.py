@@ -26,17 +26,17 @@ def reports(document, filter):
 @index.history.command()
 @tools.commands.has_permissions(view_audit_log = True)
 async def filter(ctx, user: tools.discord.User, filter):
-    # translations = tools.utils.translations(index.commands.get_config(ctx), "commands/history")
+    translations = tools.utils.translations(index.commands.get_config(ctx), "commands/moderation/history")
     async with ctx.typing():
         collection = tools.db.Collection(collection = f"{ctx.guild.id}", document = "users", subcollection = f"{user.id}")
 
         embed = tools.discord.Embed(
-            description = f"No se encontraron coincidencias con \"{filter}\"",
+            description = translations['embed_filter_no_coicidences'].format(filter),
             color = tools.discord.Colour.purple(),
             timestamp = tools.datetime.utcnow()
         )
-        embed.set_author(name = "Coincidencias")
-        description = "Si quieres optener todas las sanciones de este usuario considera usar el comando `history user @user`"
+        embed.set_author(name = translations['embed_filter']['author'])
+        description = translations['embed_filter']['description']
 
         for sanction in sanctions(collection.document("sanctions"), filter):
             if sanction is not None:
@@ -45,7 +45,7 @@ async def filter(ctx, user: tools.discord.User, filter):
 
         for report in reports(collection.document("reports"), filter):
             if report is not None:
-                embed.add_field(name = f"report {report[0]}", value = "Autor del reporte: `{}`\nContenido:\n{}".format(report[1], report[2]))
+                embed.add_field(name = translations['embed_filter']['field']['name'].format(report[0]), value = translations['embed_filter']['field']['value'].format(report[1], report[2]))
                 embed.description = description
 
     await ctx.send(embed = embed)

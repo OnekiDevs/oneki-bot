@@ -1,25 +1,25 @@
 import tools
 from tools.utils import commands
+from commands.moderation.history import index_subcommand as index
 
-def sanctions(document: tools.db.Document):
+def sanctions(document: tools.db.Document, translations):
     _sanctions = ""
 
     if document.exists and document.content:
         for type, sanctions in document.content.items():
             if sanctions:
-                print("a")
                 num = 0
                 for sanction in sanctions:
                     _sanctions += f"{type} {num}:\n```{sanction['razon']}```\n"
                     num += 1
 
-            else: _sanctions = "No tiene sanciones hasta el momento"
+            else: _sanctions = translations['no_infractions']
 
-    else: _sanctions = "No tiene sanciones hasta el momento"
+    else: _sanctions = translations['no_infractions']
 
     return _sanctions
 
-def reports(document: tools.db.Document):
+def reports(document: tools.db.Document, translations):
     reports = ""
 
     if document.exists and document.content:
@@ -31,30 +31,30 @@ def reports(document: tools.db.Document):
                 _author = str(value['author'])
                 _report = value['report']
 
-                reports += f"{key}:\nID: `{_id}`\nAutor: `{_author}`\Contenido:\n```{_report}```\n"
+                reports += translations['report_content'].format(key, _id, _author, _report)
 
-    else: reports = "No tiene reportes hasta el momento"
+    else: reports = translations['no_reports']
 
     return reports
 
 @tools.bot.group()
 @tools.commands.has_permissions(view_audit_log = True)
 async def history(ctx: tools.commands.Context):
-    # translations = tools.utils.translations(index.commands.get_config(ctx), "commands/history")
+    translations = tools.utils.translations(index.commands.get_config(ctx), "commands/moderation/history")
     if ctx.invoked_subcommand is None:
         async with ctx.typing():
             document = tools.db.Document(collection = f"{ctx.guild.id}", document = "users")
             
             embed = tools.discord.Embed(
-                description = "El historial de los 3 primeros usuarios, si quiere el historial de un usuario en especifico use `history user @user`",
+                description = translations['embed_history']['description'],
                 color = tools.discord.Colour.purple(),
                 timestamp = tools.datetime.utcnow()
             )
-            embed.set_author(name = f"Historial")
+            embed.set_author(name = translations['embed_history']['author'])
             
             for subcollection in document.subcollections(limit = 3):
                 user = tools.bot.get_user(int(subcollection.id)) 
 
-                embed.add_field(name = f"{user.name}", value = sanctions(subcollection.document("sanctions"))) #:nais:
+                embed.add_field(name = f"{user.name}", value = sanctions(subcollection.document("sanctions"), translations)) #:nais:
 
             await ctx.send(embed = embed)

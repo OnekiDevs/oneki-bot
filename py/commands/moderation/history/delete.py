@@ -4,7 +4,7 @@ from commands.moderation.history import index_subcommand as index
 @index.history.command()
 @tools.commands.has_permissions(view_audit_log = True)
 async def delete(ctx, user: tools.discord.User, type_sanction: str, number: int):
-    # translations = tools.utils.translations(index.commands.get_config(ctx), "commands/history")
+    translations = tools.utils.translations(index.commands.get_config(ctx), "commands/moderation/history")
     async with ctx.typing():
         collection = tools.db.Collection(collection = f"{ctx.guild.id}", document = "users", subcollection = f"{user.id}")
 
@@ -15,10 +15,10 @@ async def delete(ctx, user: tools.discord.User, type_sanction: str, number: int)
             content_sanctions = document.content.get(type_sanction)
             if content_sanctions is not None:
                 document.delete(type_sanction, content_sanctions[int(number)], array = True)
-                msg = "Sancion eliminada"
+                msg = translations["delete_infraction"]
 
             else:
-                msg = "El usuario no contiene ese tipo de sancion"
+                msg = translations["delete_infraction_error"]
 
         elif type_sanction == "report":
             document = collection.document("reports")
@@ -31,12 +31,12 @@ async def delete(ctx, user: tools.discord.User, type_sanction: str, number: int)
                 if document.content.get("report_id") == 0:
                     document.delete()
 
-                msg = "Reporte eliminado"
+                msg = translations["delete_report"]
 
             else:
-                msg = "Reporte inexistente"
+                msg = translations["no_report"]
 
         else:
-            msg = "Tipo de sancion incorrecta, intente con `warn`, `mute`, `ban` o `report`"
+            msg = translations["incorrect_infraction"]
 
     await ctx.send(msg)

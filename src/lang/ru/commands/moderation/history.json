@@ -1,0 +1,32 @@
+{
+    "delete_infraction": "Нарушение успешно удалено",
+    "delete_infraction_error": "Этот пользователь не допускает нарушений такого типа",
+    "delete_report": "Отчет удален",
+    "no_report": "Этот отчет не существует ...",
+    "invalid_infraction": "Такого типа нарушения не существует, попробуйте:` warn`, `mute`,` ban` или `report`",
+
+    "embed_filter_no_coicidences": "Не найдено совпадений с \"{}\"",
+    "embed_filter": {
+        "author": "Матч",
+        "description": "Если вы хотите получить все нарушения от этого пользователя, вы должны использовать` history user @user` ",
+        "field": {
+            "name": "Пожаловаться {}",
+            "value": "Автор отчета:` {} `\n Содержание: \n {}"
+        }
+    },
+
+    "no_infractions": "У пользователя нет нарушений",
+    "report_content": "{}: \nID:` {} `\nАвтор: {} \nСодержание: \n {} \n",
+    "no_reports": "У пользователя сейчас нет отчетов",
+    "embed_history": {
+        "description": "История от первых 3 пользователей, если вы хотите, чтобы история от определенного пользователя использовала` history user @user` ",
+        "author": "История"
+    },
+
+    "embed_user": {
+        "description": "Если вы хотите использовать фильтр, подумайте о` history filter @user [фильтр] `",
+        "author": "История из {}",
+        "report_field_name": "Отчеты:",
+        "sanction_field_name": "Санкции:"
+    }
+}
