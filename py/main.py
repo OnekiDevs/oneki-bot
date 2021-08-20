@@ -9,6 +9,6 @@ import commands.moderation
 import events
 
 # Tasks
-import tasks # sin algun uso 
+import tasks
 
 tools.bot.run(tools.env.TOKEN)
