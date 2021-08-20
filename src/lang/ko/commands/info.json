@@ -1,4 +1,5 @@
 {
+    "no_roles": "아무도",
     "embed" : {
         "title" : "역할",
         "field_1" : {
