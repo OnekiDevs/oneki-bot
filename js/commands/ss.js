@@ -54,7 +54,7 @@ module.exports = {
             params += `&verified=${message.author.flags.has('VERIFIED_BOT')?'1':'0'}`
         }
         const page = await browser.newPage()
-        await page.goto(`http://localhost:3000/api/fakeDiscordMessage?${params}`);
+        await page.goto(`http://oneki.herokuapp.com/api/fakeDiscordMessage?${params}`);
         message.channel.send({
             files: [new MessageAttachment(await page.screenshot())]
         });
