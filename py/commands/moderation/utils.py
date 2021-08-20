@@ -22,6 +22,7 @@ def time(time):
 
     else: return (float(3600 * 5), hoy, hoy + tools.timedelta(minutes = 5))
 
+
 def embed(guild, author, translations, member: tools.discord.Member, value) -> tools.discord.Embed:
     user = tools.utils.get_user(member)
 
