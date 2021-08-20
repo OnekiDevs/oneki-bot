@@ -26,7 +26,7 @@ def reports(document, filter):
 @index.history.command()
 @tools.commands.has_permissions(view_audit_log = True)
 async def filter(ctx, user: tools.discord.User, filter):
-    translations = tools.utils.translations(index.commands.get_config(ctx), "commands/moderation/history")
+    translations = tools.utils.commands.get_config(ctx, "commands/moderation/history")
     async with ctx.typing():
         collection = tools.db.Collection(collection = f"{ctx.guild.id}", document = "users", subcollection = f"{user.id}")
 

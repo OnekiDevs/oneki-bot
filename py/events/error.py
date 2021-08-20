@@ -5,7 +5,7 @@ from tools.utils import commands
 @tools.bot.event
 async def on_command_error(ctx, error):
     try: 
-        translations = tools.utils.translations(commands.get_config(ctx), "events/error")
+        translations = tools.utils.commands.get_config(ctx, "events/error")
 
     except(tools.exceptions.WrongPrefix): return
 

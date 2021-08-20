@@ -5,8 +5,8 @@ from commands.moderation import utils
 
 @tools.bot.command()
 @tools.commands.has_permissions(manage_messages=True)
-async def warn(ctx, member: tools.discord.Member, *, reason : str = "No se dio una razón"):
-    translations = tools.utils.translations(commands.get_config(ctx), "commands/moderation/warn")
+async def warn(ctx, member: tools.discord.Member, *, reason : str = "No reason provided"):
+    translations = tools.utils.commands.get_config(ctx, "commands/moderation/warn")
     if(member == ctx.author): 
         await ctx.channel.send(translations["msg_1"])
 

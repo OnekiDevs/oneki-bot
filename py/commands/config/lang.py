@@ -5,7 +5,7 @@ idioms = ["en", "es", "fr", "zh", "ko", "ru"]
 @tools.bot.command(name = "lang", aliases = ["language"])
 @tools.commands.has_permissions(administrator = True)
 async def lang(ctx, language):
-    translations = tools.utils.translations(tools.get_config(ctx), "commands/config/lang")
+    translations = tools.utils.commands.get_config(ctx, "commands/config/lang")
     try: 
         idioms.index(language)
         async with ctx.typing():

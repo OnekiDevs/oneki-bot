@@ -23,7 +23,7 @@ async def afk(ctx, *, reason = "..."):
             color = 0xFCE64C
         ))
 
-    translations = tools.utils.translations(commands.get_config(ctx), "commands/afk")
+    translations = tools.utils.commands.get_config(ctx, "commands/afk")
     reason = " ".join(reason) if reason else None
 
     if reason != None:

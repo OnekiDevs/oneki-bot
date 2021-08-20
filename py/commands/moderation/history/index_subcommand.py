@@ -40,7 +40,7 @@ def reports(document: tools.db.Document, translations):
 @tools.bot.group()
 @tools.commands.has_permissions(view_audit_log = True)
 async def history(ctx: tools.commands.Context):
-    translations = tools.utils.translations(index.commands.get_config(ctx), "commands/moderation/history")
+    translations = tools.utils.commands.get_config(ctx, "commands/moderation/history")
     if ctx.invoked_subcommand is None:
         async with ctx.typing():
             document = tools.db.Document(collection = f"{ctx.guild.id}", document = "users")
