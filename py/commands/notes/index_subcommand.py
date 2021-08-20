@@ -5,7 +5,6 @@ async def notes(ctx):
     #translations = tools.utils.translations(tools.get_config(ctx), "commands/notes")
     if ctx.invoked_subcommand is None:
         async with ctx.typing():
-            # collection = tools.db.ctx("notes")
             collection = tools.db.Collection(collection = "users", document = f"{ctx.author.id}", subcollection = "notes")
             
             embed = tools.discord.Embed(
@@ -18,7 +17,9 @@ async def notes(ctx):
             for document in collection.documents(5):
                 value = ""
                 for page, content in document.content.items():
-                    value += f"{page}:\n```{content}```\n"
+                    if page == "config": continue
+                    else: 
+                        value += f"{page}:\n```{content}```\n"
 
                 embed.add_field(name = document, value = value, inline = False)
 
