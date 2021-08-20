@@ -11,7 +11,8 @@ async def on_message(message):
     server = tools.servers.get(f"{message.guild.id}")
 
     # Si pingearon al bot
-    if tools.bot.user.mentioned_in(message):
+    if message.content == f"<@!{tools.bot.user.id}>" or message.content == f"<@{tools.bot.user}>":
+    # if tools.bot.user.mentioned_in(message):
         prefix, translations = events.get_config(message.guild, "message")
         await message.channel.send(translations["ping"].format(prefix))
 
@@ -43,8 +44,7 @@ async def on_message(message):
         prefix, translations = events.get_config(message.guild, "afk")
         for user in message.mentions:
             if user.id in tools.afks:
-                await message.channel.send(embed = tools.discord.Embed(
-                    title = translations["embed"].format(user.display_name), 
-                    description = tools.afks[user.id],
-                    color = 0xFCE64C
-                ))
+                await message.channel.send(embed=tools.discord.Embed(
+                    title=translations["embed"].format(user.display_name, tools.afks[user.id][1],tools.afks[user.id][0]),
+                    color=0xFCE64C)
+                    )

@@ -24,7 +24,15 @@ async def afk(ctx, *, reason = "..."):
         ))
 
     translations = tools.utils.translations(commands.get_config(ctx), "commands/afk")
-    tools.afks[member.id] = "".join(reason) if reason else None
+    reason = " ".join(reason) if reason else None
+
+    if reason != None:
+        if len(reason) > 50: return await ctx.send(translations["too_long"])
+        
+        results = tools.utils.check_links(reason)
+        if results: return await ctx.send(translations["no_links"])
+
+    tools.afks[member.id] = (reason, tools.datetime.utcnow())
 
     embed = tools.discord.Embed(title = translations["afk_title"].format(member.display_name), color = 0x383FFF)
     try:
