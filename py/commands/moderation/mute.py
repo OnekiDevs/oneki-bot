@@ -13,7 +13,7 @@ async def mute(ctx, member : tools.discord.Member, time = "", *, reason = "No se
 
             user = tools.utils.get_user(member)
 
-            embed = utils.embed(ctx, translations, member, reason)
+            embed = utils.embed(ctx.guild, ctx.author, translations, member, reason)
 
             search = tools.re.search(r"[0-9]+[dhms]", time)
             if(search is not None):
@@ -47,7 +47,7 @@ async def mute(ctx, member : tools.discord.Member, time = "", *, reason = "No se
             #     collection_times.set(f"{ctx.guild.id}", {"mute" : {f"{user.id}" : {"time" : _times[0], "roles" : roles}}})
             # else: collection_times.update(f"{ctx.guild.id}", f"mute.{user.id}", {"time" : _times[0], "roles" : roles})
             server_mutes = tools.mutes.get(f"{ctx.guild.id}")
-            dict_roles = {f"{user.id}": roles}
+            dict_roles = {f"{user.id}": {"roles": roles, "time": _times[0]}}
             if server_mutes is not None:
                 server_mutes.update(dict_roles)
 

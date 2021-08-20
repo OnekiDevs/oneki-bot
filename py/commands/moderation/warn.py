@@ -16,7 +16,7 @@ async def warn(ctx, member: tools.discord.Member, *, reason : str = "No se dio u
 
             document = tools.db.Document(collection = f"{ctx.guild.id}", document = "users", subcollection = f"{user.id}", subdocument = "sanctions")
 
-            embed = utils.embed(ctx, translations, member, reason)
+            embed = utils.embed(ctx.guild, ctx.author, translations, member, reason)
             embed.set_image(url = "https://media1.tenor.com/images/47b2b2d362a19102033a7535488d1440/tenor.gif?itemid=18361254")
 
             info_warn = {"razon" : reason, "time" : tools.datetime.utcnow()}

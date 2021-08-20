@@ -15,7 +15,7 @@ async def unmute(ctx, member : tools.discord.Member):
 
         else:
             try:
-                embed = utils.embed(ctx, translations, member, ctx.author.name)
+                embed = utils.embed(ctx.guild, ctx.author, translations, member, ctx.author.name)
 
                 embed.set_image(url = "https://cdn.discordapp.com/attachments/725140299873124372/857454565091835934/unmute.gif")
 
