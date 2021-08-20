@@ -23,11 +23,14 @@ const admin = require('firebase-admin');
 //declarations
 const client = new Client({
     intents: [
-        // 'DIRECT_MESSAGES',
+        'DIRECT_MESSAGES',
         'GUILD_MESSAGES',
         'GUILDS',
-        // 'GUILD_WEBHOOKS',
+        'GUILD_WEBHOOKS',
         'GUILD_BANS'
+    ],
+    partials: [
+        'CHANNEL'
     ]
 });
 client.commands = new Collection();
