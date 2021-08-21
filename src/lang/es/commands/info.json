@@ -2,24 +2,14 @@
     "no_roles": "Ninguno",
     "embed" : {
         "title" : "Roles",
-        "field_1" : {
-            "name" : "Actividad:"
-        },
-        "field_2" : {
-            "name" : "Cuenta creada:"
-        },
-        "field_3" : {
-            "name" : "Se unio al servidor:"
-        },
-        "field_4" : {
-            "name" : "Color:"
-        },
-        "field_5" : {
-            "name" : "ID:"
-        },
-        "field_6" : {
-            "name" : "Estado:"
-        },
+
+        "field_1" : "Actividad:",
+        "field_2" : "Cuenta creada:",
+        "field_3" : "Se unio al servidor:",
+        "field_4" : "Color:",
+        "field_5" : "ID:",
+        "field_6" : "Estado:",
+
         "footer" : "Solicitado por {}"
     }
 }
