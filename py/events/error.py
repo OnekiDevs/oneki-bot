@@ -1,32 +1,30 @@
 import tools 
 import traceback
-from tools.utils import commands
+from tools.utils import events
 
 @tools.bot.event
 async def on_command_error(ctx, error):
-    try: 
-        translations = tools.utils.commands.get_config(ctx, "events/error")
+    prefix, translations = events.get_config(ctx, "error")
+    if not (prefix == ctx.prefix):
+        return
 
-    except(tools.exceptions.WrongPrefix): return
-
-    if(isinstance(error, tools.commands.errors.MissingPermissions)):
+    if isinstance(error, tools.commands.errors.MissingPermissions):
         msg = translations["MissingPermissions"]
         for i in error.missing_perms:
             msg = msg + f"`{i}`\n"
         await ctx.send(msg)
 
-    elif(isinstance(error, tools.commands.errors.BotMissingPermissions)):
+    elif isinstance(error, tools.commands.errors.BotMissingPermissions):
         msg = translations["BotMissingPermissions"]
         for i in error.missing_perms:
             msg = msg + f"`{i}`\n"
         await ctx.send(msg)
 
-    elif(isinstance(error, tools.commands.errors.MissingRequiredArgument)): 
+    elif isinstance(error, tools.commands.errors.MissingRequiredArgument): 
         await ctx.send(translations["MissingRequiredArgument"].format(error.param.name))
 
-    elif(isinstance(error, tools.commands.errors.CommandNotFound)): pass
-
-    elif(isinstance(error, tools.exceptions.WrongPrefix)): pass
+    elif isinstance(error, tools.commands.errors.CommandNotFound): pass
+    elif isinstance(error, tools.exceptions.WrongPrefix): pass
 
     else: 
         channel = tools.bot.get_channel(833780614712131616)
@@ -38,7 +36,6 @@ async def on_command_error(ctx, error):
         embed.add_field(name = "Tipo:", value = f"```{type(error)}```", inline = False)
         embed.add_field(name = "Mensaje:", value = f"```{ctx.message.content}```")
         embed.add_field(name = "Detalle:", value = f"```{error}```", inline = False)
-        # embed.set_image(url = "https://cdn.discordapp.com/attachments/725140299873124372/855196781632290846/error.gif")
 
         await channel.send(f"**Contexto:**\n```py\n{msg}\n```", embed = embed)
         await ctx.send(error)

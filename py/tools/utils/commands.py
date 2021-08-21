@@ -12,7 +12,7 @@ def get_config(ctx, path):
         lang = "en"
 
     if ctx.prefix == prefix:
-        return translations(lang, path)
+        return translations(lang, f"commands/{path}")
 
     else: 
         raise exceptions.WrongPrefix("Prefijo equivocado")

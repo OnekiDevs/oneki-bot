@@ -4,7 +4,7 @@ from commands.moderation.history import index_subcommand as index
 @index.history.command()
 @tools.commands.has_permissions(view_audit_log = True)
 async def user(ctx, user: tools.discord.User):
-    translations = tools.utils.commands.get_config(ctx, "commands/moderation/history")
+    translations = index.commands.get_config(ctx, "moderation/history")
     async with ctx.typing():
         subcollection = tools.db.Collection(collection = f"{ctx.guild.id}", document = "users", subcollection = f"{user.id}")
             

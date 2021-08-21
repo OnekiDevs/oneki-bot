@@ -3,7 +3,7 @@ from tools.utils import commands
 
 @tools.bot.command()
 async def info(ctx, member: tools.discord.Member = None):
-    translations = tools.utils.commands.get_config(ctx, "commands/info")
+    translations = commands.get_config(ctx, "info")
     if(member == None): member = ctx.author
 
     roles = translations['no_roles']

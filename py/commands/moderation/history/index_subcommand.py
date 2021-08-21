@@ -2,6 +2,7 @@ import tools
 from tools.utils import commands
 from commands.moderation.history import index_subcommand as index
 
+
 def sanctions(document: tools.db.Document, translations):
     _sanctions = ""
 
@@ -18,6 +19,7 @@ def sanctions(document: tools.db.Document, translations):
     else: _sanctions = translations['no_infractions']
 
     return _sanctions
+
 
 def reports(document: tools.db.Document, translations):
     reports = ""
@@ -37,10 +39,11 @@ def reports(document: tools.db.Document, translations):
 
     return reports
 
+
 @tools.bot.group()
 @tools.commands.has_permissions(view_audit_log = True)
 async def history(ctx: tools.commands.Context):
-    translations = tools.utils.commands.get_config(ctx, "commands/moderation/history")
+    translations = commands.get_config(ctx, "moderation/history")
     if ctx.invoked_subcommand is None:
         async with ctx.typing():
             document = tools.db.Document(collection = f"{ctx.guild.id}", document = "users")
