@@ -1,0 +1,43 @@
+{
+    "embed_index": {
+        "author": "Cuadernos",
+        "description": "Aqui un listado de tus cuadernos"
+    },
+
+    "embed_page": {
+        "author": "{} en {}",
+        "description": "pagina inexistente",
+        "field": "Contenido:"
+    },
+
+    "embed_edit": {
+        "description": "Edición del cuaderno **{}**", 
+        "fields_description": {
+            "old": "Descripción antigua:",
+            "new": "Descripción nueva:"
+        },
+        "fields_color": {
+            "old": "Color antiguo:",
+            "new": "Color nuevo:"
+        },
+        "field_changes": "Contenido nuevo:"
+    },
+
+    "embed_del_page": {
+        "author": "Página eliminada",
+        "description": "La página **{}** del cuaderno **{}** fue eliminada"
+    },
+
+    "embed_del_note": {
+        "author": "Cuaderno eliminado",
+        "description": "El cuaderno **{}** fue eliminado"
+    },
+
+    "create": "Se creo el cuaderno **{}** correctamente!",
+
+    "not_found": {
+        "author": "Cuaderno inexistente",
+        "description": "No se encontro ningun cuaderno con el nombre **{}**"
+    },
+    "error": "Por motivos de moderación no esta permitido poner links dentro de las notas..."
+}
