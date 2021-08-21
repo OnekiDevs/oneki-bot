@@ -1,12 +1,12 @@
 {
     "embed_index": {
         "author": "Cuadernos",
-        "description": "Aqui un listado de tus cuadernos"
+        "description": "Aquí un listado de tus cuadernos"
     },
 
     "embed_page": {
         "author": "{} en {}",
-        "description": "pagina inexistente",
+        "description": "Página inexistente",
         "field": "Contenido:"
     },
 
@@ -33,11 +33,11 @@
         "description": "El cuaderno **{}** fue eliminado"
     },
 
-    "create": "Se creo el cuaderno **{}** correctamente!",
+    "create": "Se creó el cuaderno **{}** correctamente!",
 
     "not_found": {
         "author": "Cuaderno inexistente",
-        "description": "No se encontro ningun cuaderno con el nombre **{}**"
+        "description": "No se encontro ningún cuaderno con el nombre **{}**"
     },
     "error": "Por motivos de moderación no esta permitido poner links dentro de las notas..."
 }

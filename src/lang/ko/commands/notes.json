@@ -1,0 +1,43 @@
+{
+    "embed_index": {
+        "author": "노트북",
+        "description": "여기에 현재 노트북 목록이 있습니다."
+    },
+
+    "embed_page": {
+        "author": "{} at {}",
+        "description": "페이지가 존재하지 않습니다",
+        "field": "내용:"
+    },
+
+    "embed_edit": {
+        "description": "노트북 **{}** 에디션",
+        "fields_description": {
+            "old": "이전 설명:",
+            "new": "새 설명:"
+        },
+        "fields_color": {
+            "old": "이전 색상:",
+            "new": "새 색상:"
+        },
+        "field_changes": "새 콘텐츠:"
+    },
+
+    "embed_del_page": {
+        "author": "페이지 삭제됨",
+        "description": "노트북 **{}**에서 **{}** 페이지가 삭제되었습니다."
+    },
+
+    "embed_del_note": {
+        "author": "노트북 삭제됨",
+        "description": "노트북 **{}**이 삭제되었습니다."
+    },
+
+    "create": "노트북 **{}**이 성공적으로 생성되었습니다!",
+
+    "not_found": {
+        "author": "존재하지 않는 노트북",
+        "description": "**{}**이라는 노트북을 찾지 못했습니다."
+    },
+    "error": "검토를 위해 메모 내부에 링크를 허용하지 않습니다..."
+}
