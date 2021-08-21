@@ -1,0 +1,12 @@
+{
+    "embed": {
+        "author": "Nouveau rapport de {}",
+        "field_author": "Informations de l'utilisateur:",
+        "field": {
+            "name": "Utilisateur mentionne:",
+            "value": "**Nom:** `{}`\n**Il a rejoint:** `{}`\n**ID:** `{}`"
+        }
+    },
+    "correct": "Rapport envoyé avec succès!",
+    "error": "Les rapports sont désactivés sur ce serveur"
+}

@@ -1,12 +1,10 @@
 import tools 
 from tools.utils import commands
 
-def fiel_info(embed, user: tools.discord.User, name = "Información del usuario:"):
-    embed.add_field(name = name, value = f"**Name:** `{user}`\n**Se unio:** `{user.joined_at}`\n**ID:** `{user.id}`", inline = True)
 
 @tools.bot.command()
 async def report(ctx, *, report_message):
-    #translations = tools.translations(commands.get_config(ctx), "commands/report")
+    translations = commands.get_config(ctx, "report")
     document = tools.db.Document(collection = f"{ctx.guild.id}", document = "report")
     if document.exists:
         channel = tools.bot.get_channel(int(document.content.get("channel")))
@@ -17,20 +15,14 @@ async def report(ctx, *, report_message):
             timestamp = tools.datetime.utcnow()
         )
 
-        embed.set_author(name = f"Nuevo reporte de {ctx.author}", icon_url = f"{ctx.author.avatar_url}", url = f"{ctx.message.jump_url}")
+        embed.set_author(name = translations["embed"]["author"].format(ctx.author), icon_url = f"{ctx.author.avatar_url}", url = f"{ctx.message.jump_url}")
         await ctx.message.delete()
-        fiel_info(embed, ctx.author)
+        embed.add_fiel(name = translations["embed"]["field_author"], value = translations["embed"]["field"]["value"].format(ctx.author, ctx.author.joined_at, ctx.author.id))
 
         if ctx.message.mentions:
             for user in ctx.message.mentions:
-                fiel_info(embed, user, "Usuario mencionado:")
-
-                document_report = tools.db.Document(
-                    collection = f"{ctx.guild.id}", 
-                    document = "users", 
-                    subcollection = f"{user.id}", 
-                    subdocument = "reports"
-                )
+                embed.add_fiel(name = translations["embed"]["field"]["name"], value = translations["embed"]["field"]["value"].format(ctx.author, ctx.author.joined_at, ctx.author.id))
+                document_report = tools.db.Document(collection = f"{ctx.guild.id}", document = "users", subcollection = f"{user.id}", subdocument = "reports")
 
                 map = {"id": 0, "report": report_message, "author": f"{ctx.author} / {ctx.author.id}"}
                 if document_report.exists:
@@ -45,7 +37,7 @@ async def report(ctx, *, report_message):
                     document_report.update(f"report0", map)          
 
         await channel.send(embed = embed)
-        await ctx.author.send("Reporte enviendo correctamente!")
+        await ctx.author.send(translations["correct"])
 
     else:
-        await ctx.send("Los reportes estan desactivados en este servidor")
+        await ctx.send(translations["error"])

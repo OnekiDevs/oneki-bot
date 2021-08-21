@@ -1,0 +1,12 @@
+{
+    "embed": {
+        "author": "New report of {}",
+        "field_author": "User information:",
+        "field": {
+            "name": "Mentioned user:",
+            "value": "**Name:** `{}`\n**He joined:** `{}`\n**ID:** `{}`"
+        }
+    },
+    "correct": "Report sent successfully!",
+    "error": "Reports are disabled on this server"
+}
