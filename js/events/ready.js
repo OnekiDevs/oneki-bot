@@ -9,14 +9,20 @@ module.exports = {
             snap.docChanges().forEach(change => {
                 client.servers.set(change.doc.id, {
                     prefix: change.doc.data()?.prefix ?? '>',
-                    lang: change.doc.data()?.lang ?? 'en'
+                    lang: change.doc.data()?.lang ?? 'en',
+                    blacklist: {
+                        channels: change.doc.data()?.blacklistChannels ?? []
+                    }
                 });
             })
         })
         client.guilds.cache.map(async guild => {
             if (!client.servers.get(guild.id)) client.servers.set(guild.id, {
                 prefix: '>',
-                lang: 'en'
+                lang: 'en',
+                blacklist: {
+                    channels: []
+                }
             });
         });
         //load slash commands
@@ -24,12 +30,17 @@ module.exports = {
             const slash = require("../slash/" + file);
             if (slash.servers[0]) {
                 for (const guildID of slash.servers) {
-                    const guild = await client.guilds.fetch(guildID);
+                    const guild = await client.guilds.cache.get(guildID);
                     if (guild) {
-                        const command = await guild.commands.create(await slash.data({guild: guild.id}));
+                        const command = await guild.commands.create(await slash.data({guild: guild.id}))
                         console.log(command.name, '|', guild.name);
                     }
                 }
+            } else {
+                client.guilds.cache.forEach(async guild => {
+                    const command = await guild.commands.create(await slash.data({guild: guild.id}))
+                    console.log(command.name, '|', guild.name);
+                })
             }
         }
         //load user menu

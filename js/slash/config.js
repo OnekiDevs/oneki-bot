@@ -1,8 +1,8 @@
 const db = require('firebase-admin').firestore();
 module.exports = {
     name: 'config',
-    data: async ({guild}) => {
-        let suggestChannels = await db.collection(guild??"").doc('suggest').get('suggest');
+    data: async ({guild, client}) => {
+        let suggestChannels = await db.collection(guild??"").doc('suggest').get();
         if (suggestChannels.exists) {
             suggestChannels = [
                 {
@@ -20,6 +20,35 @@ module.exports = {
             ]
         } else {
             suggestChannels = []
+        }
+        let removeChannels = await db.collection('config').doc(guild??"").get();
+        if (removeChannels.exists && removeChannels.data().blacklistChannels) {
+            removeChannels = [
+                { 
+                    type: 'CHANNEL',
+                    name: 'add',
+                    description: 'add the channel to the blacklist'
+                },
+                {
+                    type: 'STRING',
+                    name: "remove",
+                    description: "remove the channel to the blacklist",
+                    required: true,
+                    choices: removeChannels.data().blacklistChannels.map(i => {
+                        const channel = client.channels.cache.get(i)
+                        if (channel) return { name: channel.name, value: i }
+                        else return false
+                    }).filter(i=>i)
+                }
+            ]
+        } else {
+            removeChannels = [
+                { 
+                    type: 'CHANNEL',
+                    name: 'add',
+                    description: 'add the channel to the blacklist'
+                }
+            ]
         }
         return new Promise((resolve, reject) => {
             resolve({
@@ -50,6 +79,19 @@ module.exports = {
                                 description: "reset the prefix",
                             },
                         ],
+                    },
+                    {
+                        type: 2,
+                        name: "blacklist",
+                        description: "config blacklists",
+                        options: [
+                            { 
+                                type: 1,
+                                name: "channels",
+                                description: "config channels blacklists",
+                                options: removeChannels
+                            }
+                        ]
                     },
                     {
                         type: 2,
