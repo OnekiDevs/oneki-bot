@@ -7,12 +7,7 @@ module.exports = {
     userPermissions: [],
     alias: ['screenshot'],
     run: async (client, message, args) => {
-<<<<<<< HEAD
-        const channel = message.channel;
-        channel.startTyping();
-=======
         message.channel.sendTyping();
->>>>>>> 47d6f8f2c7f57848d2b154824336c90549c3148a
         const server = client.servers.get(message.guild.id);
         const lang = client.util.lang({lang:server.lang, route:'commands/ss'});
         message.delete();
@@ -58,24 +53,11 @@ module.exports = {
             params += `&bot=${message.author.bot?'1':'0'}`
             params += `&verified=${message.author.flags.has('VERIFIED_BOT')?'1':'0'}`
         }
-<<<<<<< HEAD
-        const page = await browser.newPage();
-        await page.goto(`http://koneweb.herokuapp.com/api/fakeDiscordMessage?${params}`);
-        const ss = await page.screenshot();
-        const attachment = new MessageAttachment(ss);
-        console.log(attachment);
-        channel.send({files:[attachment]}).catch(err => {
-            console.log("ERROR", err);
-        })
-        await browser.close();
-        channel.stopTyping();
-=======
         const page = await browser.newPage()
         await page.goto(`http://oneki.herokuapp.com/api/fakeDiscordMessage?${params}`);
         message.channel.send({
             files: [new MessageAttachment(await page.screenshot())]
         });
         await browser.close();
->>>>>>> 47d6f8f2c7f57848d2b154824336c90549c3148a
     }
 }
