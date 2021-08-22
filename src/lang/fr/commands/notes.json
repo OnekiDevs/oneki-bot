@@ -39,5 +39,5 @@
         "author": "Cahier inexistant",
         "description": "Nous n'avons trouvé aucun carnet nommé **{}**"
     },
-    "error": "Pour des raisons de modération, nous n'autorisons pas les liens dans les notes..."
+    "error": "Pour des raisons de modération, les liens ou messages de plus de 400 caractères ne sont pas autorisés"
 }

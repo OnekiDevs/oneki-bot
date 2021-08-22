@@ -28,12 +28,7 @@ async def notes(ctx):
             embed.set_thumbnail(url = img)
 
             for document in collection.documents(5):
-                value = ""
-                for page, content in document.content.items():
-                    if page == "config": continue
-                    else: 
-                        value += f"{page}:\n```{content}```\n"
+                embed.add_field(name = document, value = f"```{document.content['config']['description']}```", inline = False)
 
-                embed.add_field(name = document, value = value, inline = False)
-
+        print(embed.to_dict())
         await ctx.send(embed = embed)

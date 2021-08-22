@@ -39,5 +39,5 @@
         "author": "Cuaderno inexistente",
         "description": "No se encontro ningún cuaderno con el nombre **{}**"
     },
-    "error": "Por motivos de moderación no esta permitido poner links dentro de las notas..."
+    "error": "Por motivos de moderación no se permiten links o mensajes con mas de 400 caracteres"
 }

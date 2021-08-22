@@ -39,5 +39,5 @@
         "author": "Non-existent notebook",
         "description": "We didn't found any notebook named **{}**"
     },
-    "error": "For moderation purposes we don't allow links inside the notes..."
+    "error": "For reasons of moderation, links or messages with more than 400 characters are not allowed"
 }
