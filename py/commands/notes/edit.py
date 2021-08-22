@@ -25,13 +25,12 @@ async def edit(ctx, notebook, page, *, content):
                 embed.add_field(name = translations["embed_edit"]["fields_color"]["new"], value = f'```{content}```')
 
             else:
-                if tools.utils.check_links(content):
+                if tools.utils.is_empty(tools.utils.check_links(content)) and len(content) < 400:
                     document.update(page, content)
                     embed.add_field(name = translations["embed_edit"]["field_changes"], value = f"```{content}```")
 
                 else:
-                    await ctx.send(translations["error"])
-                    return
+                    return await ctx.send(translations["error"])
 
         else:
             embed = index.not_found(ctx, notebook, translations["not_found"])
