@@ -9,8 +9,23 @@ module.exports = {
     run: async (client, message, args) => {
         const server = client.servers.get(message.guild.id);
         const lang = client.util.lang({lang:server.lang, route:'commands/chess'});
-        if (!message.member.voice.channel) return message.reply(lang.voice);
-        const invite = await message.member.voice.channel.createInvite({
+        const messageMention = message.mentions.channels.first()
+        let messageVoiceChannel;
+        if (!message.member.voice.channel) {
+            if (messageMention == undefined) {
+                return message.reply(lang.voice);
+            } else {
+                if (messageMention.type === "GUILD_VOICE") {
+                    messageVoiceChannel = messageMention;
+                } else {
+                    return messsage.reply(lang.voice)
+                }
+            }
+        } else {
+            messageVoiceChannel = message.member.voice.channel;
+        }
+        
+        const invite = await messageVoiceChannel.createInvite({
             targetApplication: "832012774040141894",
             targetType: 2,
         });
