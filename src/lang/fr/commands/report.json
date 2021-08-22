@@ -8,5 +8,8 @@
         }
     },
     "correct": "Rapport envoyé avec succès!",
-    "error": "Les rapports sont désactivés sur ce serveur"
+    "error": "Les rapports sont désactivés sur ce serveur",
+
+    "invalid_subcommand": "Sous-commande invalide",
+    "channel_config": "Le canal de rapports a été ajouté avec succès"
 }
