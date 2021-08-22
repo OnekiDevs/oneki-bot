@@ -15,7 +15,7 @@ import re
 from tools import db
 from tools import env
 from tools import utils
-from tools import client
+# from tools import client
 from tools import exceptions
 
 # Funciones y variables
