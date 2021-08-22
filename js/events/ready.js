@@ -1,22 +1,55 @@
 const db = require('firebase-admin').firestore();
+const fs = require('fs');
+// const { Permissions } = require('discord.js')
 module.exports = {
     name: 'ready',
     run: async (client) => {
+        //load configs
         db.collection('config').onSnapshot(snap => {
             snap.docChanges().forEach(change => {
                 client.servers.set(change.doc.id, {
                     prefix: change.doc.data()?.prefix ?? '>',
-                    lang: change.doc.data()?.lang ?? 'en'
+                    lang: change.doc.data()?.lang ?? 'en',
+                    blacklist: {
+                        channels: change.doc.data()?.blacklistChannels ?? []
+                    }
                 });
-                // console.log(change.doc.id, change.doc.data());
             })
         })
         client.guilds.cache.map(async guild => {
             if (!client.servers.get(guild.id)) client.servers.set(guild.id, {
                 prefix: '>',
-                lang: 'en'
+                lang: 'en',
+                blacklist: {
+                    channels: []
+                }
             });
         });
+        //load slash commands
+        for (const file of fs.readdirSync("./js/slash").filter((f) => f.endsWith(".js"))) {
+            const slash = require("../slash/" + file);
+            if (slash.servers[0]) {
+                for (const guildID of slash.servers) {
+                    const guild = await client.guilds.cache.get(guildID);
+                    if (guild) {
+                        const command = await guild.commands.create(await slash.data({guild: guild.id}))
+                        console.log(command.name, '|', guild.name);
+                    }
+                }
+            } else {
+                client.guilds.cache.forEach(async guild => {
+                    const command = await guild.commands.create(await slash.data({guild: guild.id}))
+                    console.log(command.name, '|', guild.name);
+                })
+            }
+        }
+        //load user menu
+        // for (const file of fs.readdirSync("./js/user").filter((f) => f.endsWith(".js"))) {
+        //     const user = require("../user/" + file);
+        //     const guild = await client.guilds.cache.map(async g=>{
+        //         g.commands.create(await user.data({guild:g.id}))
+        //     })
+        // }
         console.log('\x1b[31m%s\x1b[0m', `${client.user.username} ${require('../../package.json').version} Listo y Atento!!!`);
     }
 }

@@ -1,164 +1,270 @@
 {
     "0r": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/LsyfsdLk/0-red.png", 
+        "color": "red",
+        "symbol": "0"
     },
     "1r": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/8596hhyj/1-red.png", 
+        "color": "red",
+        "symbol": "1"
     },
     "2r": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/WzZJShKS/2-red.png", 
+        "color": "red",
+        "symbol": "2"
     },
     "3r": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/gcLRGTJR/3-red.png", 
+        "color": "red",
+        "symbol": "3"
     },
     "4r": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/tC06JNZc/4-red.png", 
+        "color": "red",
+        "symbol": "4"
     },
     "5r": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/jdz77nyS/5-red.png", 
+        "color": "red",
+        "symbol": "5"
     },
     "6r": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/52bFq9mq/6-red.png", 
+        "color": "red",
+        "symbol": "6"
     },
     "7r": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/2SGLHpcp/7-red.png", 
+        "color": "red",
+        "symbol": "7"
     },
     "8r": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/jjjwm8mD/8-red.png", 
+        "color": "red",
+        "symbol": "8"
     },
     "9r": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/d1k7thqv/9-red.png", 
+        "color": "red",
+        "symbol": "9"
     },
     "0g": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/4NWRxBnv/0-green.png",
+        "color": "green",
+        "symbol": "0"
     },
     "1g": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/RZq56Knk/1-green.png",
+        "color": "green",
+        "symbol": "1"
     },
     "2g": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/x17rK8vc/2-green.png",
+        "color": "green",
+        "symbol": "2"
     },
     "3g": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/ryCLv8kP/3-green.png",
+        "color": "green",
+        "symbol": "3"
     },
     "4g": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/PrXkHBfr/4-green.png",
+        "color": "green",
+        "symbol": "4"
     },
     "5g": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/KzSdHWsb/5-green.png",
+        "color": "green",
+        "symbol": "5"
     },
     "6g": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/j2X0Nhcb/6-green.png",
+        "color": "green",
+        "symbol": "6"
     },
     "7g": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/0NJTZvnZ/7-green.png",
+        "color": "green",
+        "symbol": "7"
     },
     "8g": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/3N3zKvTb/8-green.png",
+        "color": "green",
+        "symbol": "8"
     },
     "9g": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/dQ9z54RM/9-green.png",
+        "color": "green",
+        "symbol": "9"
     },
     "0y": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/HWPfGjN3/0-yellow.png",
+        "color": "yellow",
+        "symbol": "0"
     },
     "1y": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/jSy9JcSk/1-yellow.png",
+        "color": "yellow",
+        "symbol": "1"
     },
     "2y": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/02Mh9PRv/2-yellow.png",
+        "color": "yellow",
+        "symbol": "2"
     },
     "3y": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/jdpm5mt7/3-yellow.png",
+        "color": "yellow",
+        "symbol": "3"
     },
     "4y": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/C1r6V6cd/4-yellow.png",
+        "color": "yellow",
+        "symbol": "4"
     },
     "5y": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/q70FcKtB/5-yellow.png",
+        "color": "yellow",
+        "symbol": "5"
     },
     "6y": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/502kTMqZ/6-yellow.png",
+        "color": "yellow",
+        "symbol": "6"
     },
     "7y": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/mrw5mrMY/7-yellow.png",
+        "color": "yellow",
+        "symbol": "7"
     },
     "8y": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/xj7Fxhk4/8-yellow.png",
+        "color": "yellow",
+        "symbol": "8"
     },
     "9y": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/4N92rPVN/9-yellow.png",
+        "color": "yellow",
+        "symbol": "9"
     },
     "0b": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/150WMtDv/0-Blue.png",
+        "color": "blue",
+        "symbol": "0"
     },
     "1b": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/nzQ2mcHY/1-Blue.png",
+        "color": "blue",
+        "symbol": "1"
     },
     "2b": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/C5TNsT5y/2-Blue.png",
+        "color": "blue",
+        "symbol": "2"
     },
     "3b": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/9FgknjV6/3-Blue.png",
+        "color": "blue",
+        "symbol": "3"
     },
     "4b": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/CK2JdfVx/4-Blue.png",
+        "color": "blue",
+        "symbol": "4"
     },
     "5b": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/cLsFzSm0/5-Blue.png",
+        "color": "blue",
+        "symbol": "5"
     },
     "6b": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/Z5VwtM73/6-Blue.png",
+        "color": "blue",
+        "symbol": "6"
     },
     "7b": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/25y2z7Mt/7-Blue.png",
+        "color": "blue",
+        "symbol": "7"
     },
     "8b": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/J0NQT6Hs/8-Blue.png",
+        "color": "blue",
+        "symbol": "8"
     },
     "9b": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/bYkLNJVq/9-Blue.png",
+        "color": "blue",
+        "symbol": "9"
     },
     "p4": {
         "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
     },
     "py": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/FzfCFg6p/Plus2-Yellow.png",
+        "color": "yellow",
+        "symbol": "+2"
     },
     "pr": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/g0c8dcXk/Plus2-Red.png",
+        "color": "red",
+        "symbol": "+2"
     },
     "pg": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/MKKgNVtn/Plus2-green.png",
+        "color": "green",
+        "symbol": "+2"
     },
     "pb": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/MKJPyRfc/2-Blue.png",
+        "color": "blue",
+        "symbol": "+2"
     },
     "cc": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg",
+        "color": "comodin",
+        "symbol": "comodin"
     },
     "ry": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/qqYY2ZKW/Reverse-Yellow.png",
+        "color": "yellow",
+        "symbol": "reverse"
     },
     "rb": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/wxm4yFM8/Reverse-Blue.png",
+        "color": "blue",
+        "symbol" : "reverse"
     },
     "rg": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/wMHY7rh2/Reverse-green.png",
+        "color": "green",
+        "symbol" : "reverse"
     },
     "rr": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/xCcmJs3w/Reverse-Red.png",
+        "color": "red",
+        "symbol" : "reverse"
     },
     "cr": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/CK6BgGpm/Block-Red.png",
+        "color": "red",
+        "symbol": "cancell"
     },
     "cb": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/9F2b4hsZ/Block-Blue.png",
+        "color": "blue",
+        "symbol": "cancell"
     },
     "cy": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/MHhPnf2S/Block-Yellow.png",
+        "color": "yellow",
+        "symbol": "cancell"
     },
     "cg": {
-        "url": "https://cdn.discordapp.com/attachments/775746031458975824/854521694436589588/New_Project.jpg"
+        "url": "https://i.postimg.cc/L5vwh844/Block-Green.png",
+        "color": "green",
+        "symbol": "cancell"
     }
 }
