@@ -8,5 +8,8 @@
         }
     },
     "correct": "报告发送成功!",
-    "error": "此服务器上已禁用报告"
+    "error": "此服务器上已禁用报告",
+
+    "invalid_subcommand": "无效的子命令",
+    "channel_config": "报告频道添加成功"
 }
