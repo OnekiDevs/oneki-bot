@@ -4,7 +4,7 @@ from tools.utils import events
 
 @tools.bot.event
 async def on_command_error(ctx, error):
-    prefix, translations = events.get_config(ctx, "error")
+    prefix, translations = events.get_config(ctx.guild, "error")
     if not (prefix == ctx.prefix):
         return
 

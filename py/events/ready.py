@@ -8,7 +8,7 @@ async def on_ready():
     tools.bot.command_prefix = collection.document("bot").content.pop("prefixes")
     tools.servers = tools.utils.dict_servers()
 
-    tools.client.connect(tools.servers)
+    # tools.client.connect(tools.servers)
 
     activity = tools.discord.Activity(type = tools.discord.ActivityType.watching, name = f"{len(tools.bot.guilds)} servidores")
     await tools.bot.change_presence(status = tools.discord.Status.idle, activity = activity)
