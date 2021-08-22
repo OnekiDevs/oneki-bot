@@ -9,7 +9,7 @@ from tools import env
 from json import loads
 
 
-firebase_admin.initialize_app(credentials.Certificate(loads(env.TOKEN_DB)))
+firebase_admin.initialize_app(credentials.Certificate(loads(env.TOKEN_FIREBASE)))
 
 
 
