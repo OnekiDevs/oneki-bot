@@ -1,0 +1,43 @@
+{
+    "embed_index": {
+        "author": "笔记本",
+        "description": "这是您当前的笔记本列表"
+    },
+
+    "embed_page":{
+        "author": "{} 在 {}",
+        "description": "页面不存在",
+        "field":"内容:"
+    },
+
+    "embed_edit":{
+        "description": "笔记本 **{}** 的版本",
+        "fields_description":{
+            "old": "旧描述:",
+            "new": "新描述:"
+        },
+        "fields_color":{
+            "old": "旧颜色:",
+            "new": "新颜色:"
+        },
+        "field_changes": "新内容:"
+    },
+
+    "embed_del_page":{
+        "author": "页面已删除",
+        "description": "笔记本 **{}** 中的页面 **{}** 已删除"
+    },
+
+    "embed_del_note":{
+        "author": "笔记本已删除",
+        "description": "笔记本 **{}** 已删除"
+    },
+
+    "create": "Notebook **{}** 已成功创建！",
+
+    "not_found":{
+        "author": "不存在的笔记本",
+        "description": "我们没有找到任何名为 **{}** 的笔记本"
+    },
+    "error": "出于审核目的，我们不允许在笔记中添加链接......"
+}
