@@ -1,4 +1,3 @@
-const fetch = require("node-fetch");
 const shortid = require("shortid");
 const { MessageButton, MessageActionRow } = require("discord.js");
 module.exports = {
@@ -9,9 +8,23 @@ module.exports = {
     run: async (client, message, args) => {
         const server = client.servers.get(message.guild.id);
         const lang = client.util.lang({ lang: server.lang, route: "commands/bio" });
-        console.log(message.member.voice.channel);
-        if (!message.member.voice.channel) return message.reply(lang.voice);
-        const invite = await message.member.voice.channel.createInvite({
+        const messageMention = message.mentions.channels.first()
+        let messageVoiceChannel;
+        if (!message.member.voice.channel) {
+            if (messageMention == undefined) {
+                return message.reply(lang.voice);
+            } else {
+                if (messageMention.type === "GUILD_VOICE") {
+                    messageVoiceChannel = messageMention;
+                } else {
+                    return messsage.reply(lang.voice)
+                }
+            }
+        } else {
+            messageVoiceChannel = message.member.voice.channel;
+        }
+        
+        const invite = await messageVoiceChannel.createInvite({
             targetApplication: "773336526917861400",
             targetType: 2,
         });
