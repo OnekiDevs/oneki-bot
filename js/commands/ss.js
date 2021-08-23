@@ -11,7 +11,7 @@ module.exports = {
         message.channel.sendTyping();
         const server = client.servers.get(message.guild.id);
         const lang = client.util.lang({lang:server.lang, route:'commands/ss'});
-        message.delete();
+        // message.delete();
         if (!args[0]) return message.channel.send(lang.fail);
         const browser = await puppeteer.launch({
             args: [
@@ -26,7 +26,7 @@ module.exports = {
         // console.log(args[0], args[0].match(/<@!?(\d{17,19})>/))
         let params = "text="+(!!args[0].match(/<@!?(\d{17,19})>/) && !!args[1]?args.slice(1).join(" "):args.join(" ")), mentions = {}
         // const params = new URLSearchParams().set('text',(!args[0].match(/<@!?(\d{17,19})>/)?args.join(" "):args.slice(1).join(" ")))
-        console.log(params);
+        // console.log(params);
         if (args[0].match(/<@!?(\d{17,19})>/) && message.mentions.members.first() && !!args[1]) {
             // params.set('user', message.mentions.members.first()?.displayName)
             // params.set('avatar', message.mentions.members.first()?.displayAvatarURL())
