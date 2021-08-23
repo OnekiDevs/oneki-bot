@@ -24,7 +24,7 @@ async def afk(ctx, *, reason = "..."):
         ))
 
     translations = commands.get_config(ctx, "afk")
-    reason = " ".join(reason) if reason else None
+    reason = "".join(reason) if reason else None
 
     if reason != None:
         if len(reason) > 50: return await ctx.send(translations["too_long"])
