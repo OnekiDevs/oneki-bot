@@ -11,4 +11,5 @@ import events
 # Tasks
 import tasks
 
+tools.bot.remove_command("help")
 tools.bot.run(tools.env.TOKEN)
