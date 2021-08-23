@@ -23,7 +23,7 @@
   },
   "name": "onekibot",
   "description": "Bot official La Resistencia",
-  "version": "0.13.0-dev",
+  "version": "0.13.0",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
