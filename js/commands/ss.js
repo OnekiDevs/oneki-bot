@@ -7,7 +7,7 @@ module.exports = {
     userPermissions: [],
     alias: ['screenshot'],
     run: async (client, message, args) => {
-        return message.reply('comando temporalmente desactivado por mantenimmiento\nDisculpe las molestias')
+        // return message.reply('comando temporalmente desactivado por mantenimmiento\nDisculpe las molestias')
         message.channel.sendTyping();
         const server = client.servers.get(message.guild.id);
         const lang = client.util.lang({lang:server.lang, route:'commands/ss'});
@@ -24,14 +24,10 @@ module.exports = {
             }
         });
         // console.log(args[0], args[0].match(/<@!?(\d{17,19})>/))
-        let params = "text="+(!args[0].match(/<@!?(\d{17,19})>/)?args.join(" "):args.slice(1).join(" ")), mentions = {}
+        let params = "text="+(!!args[0].match(/<@!?(\d{17,19})>/) && !!args[1]?args.slice(1).join(" "):args.join(" ")), mentions = {}
         // const params = new URLSearchParams().set('text',(!args[0].match(/<@!?(\d{17,19})>/)?args.join(" "):args.slice(1).join(" ")))
-        message.mentions.members.map(m=>{
-            // params.set(m.id, m.displayName)
-            mentions[m.id] = m.displayName
-        })
-        if(Object.keys(mentions).length > 0) params += "&mentions=" + JSON.stringify(mentions)
-        if (args[0].match(/<@!?(\d{17,19})>/) && message.mentions.members.first()) {
+        console.log(params);
+        if (args[0].match(/<@!?(\d{17,19})>/) && message.mentions.members.first() && !!args[1]) {
             // params.set('user', message.mentions.members.first()?.displayName)
             // params.set('avatar', message.mentions.members.first()?.displayAvatarURL())
             // params.set('color', message.mentions.members.first()?.displayHexColor.slice(1))
@@ -54,6 +50,11 @@ module.exports = {
             params += `&bot=${message.author.bot?'1':'0'}`
             params += `&verified=${message.author.flags.has('VERIFIED_BOT')?'1':'0'}`
         }
+        message.mentions.members.map(m=>{
+            // params.set(m.id, m.displayName)
+            mentions[m.id] = m.displayName
+        })
+        if(Object.keys(mentions).length > 0) params += "&mentions=" + JSON.stringify(mentions)
         const page = await browser.newPage()
         await page.goto(`http://oneki.herokuapp.com/api/fakeDiscordMessage?${params}`);
         message.channel.send({
