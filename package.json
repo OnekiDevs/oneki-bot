@@ -6,7 +6,7 @@
     "canvas": "^2.8.0",
     "connect": "^3.7.0",
     "cross-env": "^7.0.3",
-    "discord.js": "^13.1.1",
+    "discord.js": "^13.1.0",
     "dotenv": "^8.2.0",
     "fetch-node": "0.0.1",
     "ffmpeg": "0.0.4",
@@ -23,7 +23,7 @@
   },
   "name": "onekibot",
   "description": "Bot official La Resistencia",
-  "version": "0.13.0",
+  "version": "0.13.1",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
