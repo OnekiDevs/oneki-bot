@@ -53,6 +53,7 @@ module.exports = {
             params += `&bot=${message.author.bot?'1':'0'}`
             params += `&verified=${message.author.flags.has('VERIFIED_BOT')?'1':'0'}`
         }
+        console.table(params);
         const page = await browser.newPage()
         await page.goto(`http://oneki.herokuapp.com/api/fakeDiscordMessage?${params}`);
         message.channel.send({

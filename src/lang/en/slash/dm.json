@@ -1,10 +1,10 @@
 {
     "channel": {
-        "permissions": "You do not have the permissions to interact",
+        "permissions": "You do not have the permissions to interact!",
         "reply": "DM's established in {channel}"
     },
     "deactivate": {
-        "permissions": "You do not have the permissions to interact",
-        "reply": "DM's deactivate"
+        "permissions": "You do not have the permissions to interact!",
+        "reply": "DM's disabled."
     }
 }

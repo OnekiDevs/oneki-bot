@@ -4,7 +4,7 @@
         "placeholder": "Select another category"
     },
     "embed": {
-        "description": "**Category: {type}** \n`<>` means optional \n`[]` means mandatory",
+        "description": "**Category: {type}** \n`<>` Means optional \n`[]` Means mandatory",
         "title": "{bot} Bot command list"
     },
     "command": "{description}\nAlias: {alias}\nUse: `{prefix}{use}`",
