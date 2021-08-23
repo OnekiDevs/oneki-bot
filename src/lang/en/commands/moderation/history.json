@@ -1,0 +1,32 @@
+{
+    "delete_infraction": "Infraction deleted successfully",
+    "delete_infraction_error": "This user doesn't contain that type of infraction",
+    "delete_report": "Report deleted",
+    "no_report": "That report doesn't exist...",
+    "incorrect_infraction": "This type of infraction doesn't exist, try: `warn`, `mute`, `ban` or `report`",
+
+    "embed_filter_no_coicidences": "No coincidences found with \"{}\"",
+    "embed_filter": {
+        "author": "Match",
+        "description": "If you want to obtain all the infractions from this user you should use `history user @user`",
+        "field": {
+            "name" : "Report {}",
+            "value": "Report's author: `{}`\nContent:\n{}"
+        }
+    },
+
+    "no_infractions": "The user doesn't have any infractions",
+    "report_content": "{}:\nID: `{}`\nAuthor: {}\nContent:\n{}\n",
+    "no_reports": "The user doesn't have any reports right now",
+    "embed_history": {
+        "description": "The history from the first 3 users, if you wish the history from certain user use `history user @user`",
+        "author": "History"
+    },
+
+    "embed_user": {
+        "description": "If you want to use a filter consider `history filter @user [filter]`",
+        "author": "History from {}",
+        "report_field_name": "Reports:",
+        "sanction_field_name": "Sanctions:"
+    }
+}

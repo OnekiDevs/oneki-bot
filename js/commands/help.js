@@ -1,20 +1,38 @@
-const { MessageButton } = require('discord.js')
+const { MessageButton, MessageActionRow, MessageEmbed, MessageSelectMenu } = require('discord.js');
+const fetch = require('node-fetch');
 module.exports = {
     name: 'help',
     botPermissions: [],
     userPermissions: [],
-    alias: [],
+    alias: ['commands'],
     run: async (client, message, args) => {
+        message.channel.sendTyping();
         const server = client.servers.get(message.guild.id);
-        const lang = client.util.lang({lang:server.lang, route:'commands/help/help'}).buttons;
-        const embed = await require('../modules/help')(client, require('../../src/commands.json').Entretenimiento, 'de Entretenimento', message.guild.id);
-        const entretenimiento = new MessageButton().setLabel(lang.entertainment).setStyle('PRIMARY').setCustomID('help_entretenimiento');
-        const ayuda = new MessageButton().setLabel(lang.help).setStyle('PRIMARY').setCustomID('help_ayuda');
-        const moderacion = new MessageButton().setLabel(lang.moderation).setStyle('PRIMARY').setCustomID('help_moderacion');
-        const extra = new MessageButton().setLabel(lang.extra).setStyle('PRIMARY').setCustomID('help_extra');
-        message.reply({
-            embeds: [embed],
-            components: [[entretenimiento, ayuda, moderacion, extra]]
+        fetch(`https://oneki.herokuapp.com/api/${server.lang}/cmd/categories`).then((r) => r.json()).then((categories) => {
+            fetch(`https://oneki.herokuapp.com/api/${server.lang}/cmd/${categories[0]}`).then((r) => r.json()).then(async category=>{
+                const lang = client.util.lang({lang:server.lang, route:'commands/help'}), 
+                    embed = new MessageEmbed().setTitle(`${await client.util.replace(lang.embed.title, [{match:"{bot}", replace:message.guild.me.displayName}])}`).setDescription(`${await client.util.replace(lang.embed.description, [{match:"{type}", replace:categories[0]}])}`).setColor('#f89dfa');
+                    let j = 0, k = 0, buttons = [];
+                for (const i of category) embed.addField(i.name, `${await client.util.replace(lang.command, [
+                        {match:"{alias}", replace:i.alias.length>0?`\`${i.alias.join('` `')}\``:lang.none},
+                        {match:"{description}", replace:i.description},
+                        {match:"{prefix}", replace:i.type=='slash'?'/':server.prefix},
+                        {match:"{use}", replace:i.use}
+                    ])}`, true);
+                for (const i of categories) {
+                    const btn = new MessageButton().setStyle(i==categories[0]?'SUCCESS':'PRIMARY').setLabel(i).setCustomId(`help_${server.lang}_${i}`)
+                    if(j==0) buttons.push(new MessageActionRow().addComponents([btn])) 
+                    else buttons[k].addComponents([btn])
+                    if (j==4) {
+                        j=0
+                        k++
+                    } else j++
+                }
+                message.reply({
+                    embeds: [embed],
+                    components: buttons
+                });
+            });
         });
     }
 }

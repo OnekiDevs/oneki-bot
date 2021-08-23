@@ -1,24 +1,15 @@
 {
+    "no_roles": "Aucun rôle",
     "embed" : {
         "title" : "Les roles",
-        "field_1" : {
-            "name" : "Activite:"
-        },
-        "field_2" : {
-            "name" : "Compte cree:"
-        },
-        "field_3" : {
-            "name" : "A rejoint le serveur:"
-        },
-        "field_4" : {
-            "name" : "Couleur:"
-        },
-        "field_5" : {
-            "name" : "ID:"
-        },
-        "field_6" : {
-            "name" : "Etat:"
-        },
+
+        "field_1" : "Activite:",
+        "field_2" : "Compte cree:",
+        "field_3" : "A rejoint le serveur:",
+        "field_4" : "Couleur:",
+        "field_5" : "ID:",
+        "field_6" : "Etat:",
+
         "footer" : "Requested by {}"
     }
 }

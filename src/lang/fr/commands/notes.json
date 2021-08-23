@@ -1,0 +1,43 @@
+{
+    "embed_index": {
+        "author": "Cahiers",
+        "description": "Voici une liste de vos cahiers actuels"
+    },
+
+    "embed_page": {
+        "author": "{} à {}",
+        "description": "La page n'existe pas",
+        "field": "Contenu :"
+    },
+
+    "embed_edit": {
+        "description": "Édition du cahier **{}**",
+        "fields_description": {
+            "old": "Ancienne description :",
+            "new": "Nouvelle description :"
+        },
+        "fields_color": {
+            "old": "Ancienne couleur :",
+            "new": "Nouvelle couleur :"
+        },
+        "field_changes": "Nouveau contenu :"
+    },
+
+    "embed_del_page": {
+        "author": "Page supprimée",
+        "description": "La page **{}** du bloc-notes **{}** a été supprimée"
+    },
+
+    "embed_del_note": {
+        "author": "Cahier supprimé",
+        "description": "Le bloc-notes **{}** a été supprimé"
+    },
+
+    "create": "Le bloc-notes **{}** a été créé avec succès !",
+
+    "not_found": {
+        "author": "Cahier inexistant",
+        "description": "Nous n'avons trouvé aucun carnet nommé **{}**"
+    },
+    "error": "Pour des raisons de modération, les liens ou messages de plus de 400 caractères ne sont pas autorisés"
+}

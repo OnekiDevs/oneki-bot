@@ -1,2 +1,2 @@
-# NeoBot
-Bot official of the La Resistencia
+# Oneki 
+Version publica del bot resistance

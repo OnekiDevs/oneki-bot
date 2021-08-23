@@ -1,29 +1,29 @@
 import tools
+from tools.utils import commands
+from commands.moderation import utils
+
 
 @tools.bot.command()
-@tools.commands.has_permissions(kick_members = True)
+@tools.commands.has_permissions(manage_messages=True)
 async def unmute(ctx, member : tools.discord.Member):
-    translations = tools.utils.translations(tools.get_config(ctx), "commands/moderation/unmute")
+    translations = commands.get_config(ctx, "moderation/unmute")
     async with ctx.typing():
-        collection_times = tools.db.ctx("times")
-        dic = collection_times.get(f"{ctx.guild.id}", "mute")
-        if(dic == None): await ctx.send(translations["msg_error"].format(member.nick))
+        user = tools.utils.get_user(member)
+        server_mutes = tools.mutes.get(f"{ctx.guild.id}")
+        if(server_mutes.get(f"{user.id}") == None): 
+            await ctx.send(translations["msg_error"].format(member.nick))
+
         else:
             try:
-                embed = tools.discord.Embed(
-                    description = translations["embed"]["description"],
-                    colour = tools.discord.Colour.from_rgb(178, 34, 34),
-                    timestamp = tools.datetime.utcnow()
-                )
-                embed.set_author(name = translations["embed"]["author"], icon_url = member.avatar_url)
-                embed.add_field(name = translations["embed"]["field_1"]["name"], value = f"```\n{ctx.author.name}\n```")
+                embed = utils.embed(ctx.guild, ctx.author, translations, member, ctx.author.name)
+
                 embed.set_image(url = "https://cdn.discordapp.com/attachments/725140299873124372/857454565091835934/unmute.gif")
 
-                user_id = tools.utils.get_user(member).id
-                await tools.utils.give_list_roles(ctx.guild, member, dic[f"{user_id}"]["roles"])
-                collection_times.delete(f"{ctx.guild.id}", f"mute.{user_id}")
+                info = server_mutes.pop(f"{user.id}") # nos da el valor y a la vez lo borra
+                await utils.roles.give_list_roles(ctx.guild, member, info['roles'])
+                await utils.roles.remove_role(ctx.guild, member, "Mute")
 
                 await ctx.send(translations["msg"].format(member.mention))
                 await member.send(embed = embed)
-            except(KeyError): await ctx.send(f"Al parecer {member.nick} no esta muteado")
+
             except: pass

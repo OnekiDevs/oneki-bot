@@ -8,7 +8,7 @@ module.exports = {
     alias: [],
     run: async (client, message, args) => {
         const server = client.servers.get(message.guild.id);
-        const lang = client.util.lang({lang:server.lang, route:'commands/fun/ahorcado'});
+        const lang = client.util.lang({lang:server.lang, route:'commands/ahorcado'});
         const word = require('../../src/words.json')[Math.floor(Math.random() * require('../../src/words.json').length)].split('');
         let life = {
             i:6,
@@ -24,7 +24,6 @@ module.exports = {
         const msg = await message.reply(lang.loading);
         participants.push(message.author.id);
         message.mentions.users.map(u=>u.id).forEach(u=>participants.push(u));
-        // console.log(participants);
         while (true) {
             wordShow = {
                 a: word.map(i=>{
@@ -36,9 +35,8 @@ module.exports = {
             msg.edit(`${lang.used}: ${usedLetters}\n\`${wordShow}\`\n${life}`);
             if (life.i == 0) return msg.reply(`${message.author} ${lang.lose} **${word.join('')}**`);
             if (!wordShow.a.includes("_")) return msg.reply(`${message.author} ${lang.win}`);
-            const filter = m => participants.includes(m.author.id) && validLetters.includes(m.content.toLowerCase());
             try { 
-                m = (await msg.channel.awaitMessages(filter, {max:1, time: 30000, errors: ['time']})).first()
+                m = (await msg.channel.awaitMessages({filter: f => participants.includes(f.author.id) && validLetters.includes(f.content.toLowerCase()), max:1, time: 30000, errors: ['time']})).first()
             } catch (e) {
                 return msg.reply(`${message.author} ${lang.timeout}`);
             }

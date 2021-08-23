@@ -1,0 +1,11 @@
+{
+    "embed": {
+        "title": "Mensaje Eliminado",
+        "fields": {
+            "author" : "Escrito por",
+            "deletedIn": "Eliminado en",
+            "write": "Escrito el",
+            "content": "Contenido:"
+        } 
+    }
+}

@@ -1,0 +1,15 @@
+{
+    "embed": {
+        "author": "Nuevo reporte de {}",
+        "field_author": "Información del usuario:",
+        "field": {
+            "name": "Usuario mencionado:",
+            "value": "**Nombre:** `{}`\n**Se unio:** `{}`\n**ID:** `{}`"
+        }
+    },
+    "correct": "Reporte enviado correctamente!",
+    "error": "Los reportes estan desactivados en este servidor",
+
+    "invalid_subcommand": "Subcomando invalido",
+    "channel_config": "Canal de reportes configurado correctamente"
+}

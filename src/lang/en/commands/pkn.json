@@ -1,0 +1,8 @@
+{
+    "message": "{user} is inviting you to play Poker Night together",
+    "fail": "Unfortunately I can't use pkn",
+    "accept": "Accept invitation",
+    "invitation": "Show invitation",
+    "mention": "you need to mention a voice channel",
+    "voice": "you need to be on a voice channel or mention a voice channel"
+}

@@ -1,0 +1,32 @@
+{
+    "delete_infraction": "违规删除成功",
+    "delete_infraction_error": "此用户不包含该类型的违规",
+    "delete_report": "报告已删除",
+    "no_report": "该报告不存在...",
+    "incorrect_infraction": "此类违规行为不存在，请尝试：`warn`、`mute`、`ban` 或 `report`",
+
+    "embed_filter_no_coicidences": "没有发现与 \"{}\" 的巧合",
+    "embed_filter": {
+        "author": "匹配",
+        "description": "如果你想获得这个用户的所有违规信息，你应该使用`history user @user`",
+        "field": {
+            "name": "报告{}",
+            "value": "报告作者：`{}`\n内容：\n{}"
+        }
+    },
+
+    "no_infractions": "用户没有任何违规行为",
+    "report_content": "{}:\nID: `{}`\n作者：{}\n内容:\n{}\n",
+    "no_reports": "用户现在没有任何报告",
+    "embed_history": {
+        "description": "前 3 个用户的历史记录，如果您希望某个用户的历史记录使用 `history user @user`",
+        "author": "历史"
+    },
+
+    "embed_user": {
+        "description": "如果你想使用过滤器，请考虑`history filter @user [filter]`",
+        "author": "来自 {} 的历史",
+        "report_field_name": "报告：",
+        "sanction_field_name": "制裁："
+    }
+}

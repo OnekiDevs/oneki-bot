@@ -1,24 +1,15 @@
 {
+    "no_roles": "没有人",
     "embed" : {
         "title" : "角色",
-        "field_1" : {
-            "name" : "活动:"
-        },
-        "field_2" : {
-            "name" : "帐户已创建:"
-        },
-        "field_3" : {
-            "name" : "加入服务器:"
-        },
-        "field_4" : {
-            "name" : "颜色:"
-        },
-        "field_5" : {
-            "name" : "ID:"
-        },
-        "field_6" : {
-            "name" : "状况:"
-        },
+
+        "field_1" : "活动:",
+        "field_2" : "帐户已创建:",
+        "field_3" : "加入服务器:",
+        "field_4" : "颜色:",
+        "field_5" : "ID:",
+        "field_6" : "状况:",
+
         "footer" : "被要求 {}"
     }
 }

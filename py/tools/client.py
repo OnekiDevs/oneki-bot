@@ -1,24 +1,39 @@
-import socket
-import threading
-import pickle
+import aiohttp
+import asyncio
 
-class Client():
-	def __init__(self, host = "localhost", port = 4000):
-		self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-		self.sock.connect((str(host), int(port)))
+async def main():
+    async with aiohttp.ClientSession() as session:
+        async with session.ws_connect('wss://oneki.herokuapp.com/', ) as response:
+            
+            print(response.ping())
 
-		recv = threading.Thread(target = self.recv)
-		recv.daemon = True
-		recv.start()
+loop = asyncio.get_event_loop()
+loop.run_until_complete(main())
 
-	def recv(self):
-		while True:
-			try:
-				data = self.sock.recv(1024)
-				if data:
-					print(pickle.loads(data))
-			except:
-				pass
+# import socket
+# import pickle
+# import threading
 
-	def send_data(self, name_event, data):
-		self.sock.send(pickle.dumps([name_event, data]))
+# def send(sock, **kwargs):
+# 	sock.send(pickle.dumps({
+# 		"event" : kwargs.get("event"), 
+# 		"server" : kwargs.get("server"),  
+# 		"new_v" : kwargs.get("value"), 
+# 	}))
+
+# def _recv(sock, servers):
+# 	while True:
+# 		data = sock.recv(1024)
+# 		if data:
+# 			data = pickle.loads(data)
+# 			servers[ data[ "server" ] ][ data["event"] ] = data[ "new_v" ] 
+
+# def connect(servers, host: str = "localhost", port: int = 4000) -> socket.socket:
+# 	sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# 	sock.connect((str(host), int(port)))
+
+# 	recv = threading.Thread(target = lambda: _recv(sock, servers))
+# 	recv.daemon = True
+# 	recv.start()
+
+# 	return sock

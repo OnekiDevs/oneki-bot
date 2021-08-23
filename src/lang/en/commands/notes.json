@@ -1,0 +1,43 @@
+{
+    "embed_index": {
+        "author": "Notebooks",
+        "description": "Here is a list of your current notebooks"
+    },
+
+    "embed_page": {
+        "author": "{} at {}",
+        "description": "The page doesn't exist",
+        "field": "Content:"
+    },
+
+    "embed_edit": {
+        "description": "Edition of notebook **{}**", 
+        "fields_description": {
+            "old": "Old description:",
+            "new": "New description:"
+        },
+        "fields_color": {
+            "old": "Old color:",
+            "new": "New color:"
+        },
+        "field_changes": "New content:"
+    },
+
+    "embed_del_page": {
+        "author": "Page deleted",
+        "description": "The page **{}** from the notebook **{}** was deleted"
+    },
+
+    "embed_del_note": {
+        "author": "Notebook deleted",
+        "description": "The notebook **{}** was deleted"
+    },
+
+    "create": "Notebook **{}** was created successfully!",
+
+    "not_found": {
+        "author": "Non-existent notebook",
+        "description": "We didn't found any notebook named **{}**"
+    },
+    "error": "For reasons of moderation, links or messages with more than 400 characters are not allowed"
+}

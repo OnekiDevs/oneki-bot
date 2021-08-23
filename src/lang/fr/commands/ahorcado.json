@@ -1,0 +1,8 @@
+{
+    "loading": "Chargement...",
+    "used": "Utilisé",
+    "lose": "Bonne chance la prochaine fois, le mot était",
+    "win": "GG tu as gagné!!",
+    "timeout": "Le temps est écoulé",
+    "repeat": "Vous avez déjà utilisé cette lettre"
+}
