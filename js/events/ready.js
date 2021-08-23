@@ -38,8 +38,7 @@ module.exports = {
                 }
             } else {
                 client.guilds.cache.forEach(async guild => {
-                    const command = await guild.commands.create(await slash.data({guild: guild.id}))
-                    console.log(command.name, '|', guild.name);
+                    guild.commands.create(await slash.data({guild: guild.id})).then((command) => console.log(command.name, '|', guild.name)).catch(err => {})
                 })
             }
         }
