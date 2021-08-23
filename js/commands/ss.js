@@ -7,6 +7,7 @@ module.exports = {
     userPermissions: [],
     alias: ['screenshot'],
     run: async (client, message, args) => {
+        return message.reply('comando temporalmente desactivado por mantenimmiento\nDisculpe las molestias')
         message.channel.sendTyping();
         const server = client.servers.get(message.guild.id);
         const lang = client.util.lang({lang:server.lang, route:'commands/ss'});
