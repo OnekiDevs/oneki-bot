@@ -24,9 +24,9 @@ module.exports = {
             }
         });
         // console.log(args[0], args[0].match(/<@!?(\d{17,19})>/))
-        let params = "text="+(!!args[0].match(/<@!?(\d{17,19})>/) && !!args[1]?args.slice(1).join(" "):args.join(" ")).remplace(/&/gi,'&#38;').remplace(/</gi,'&#60;').remplace(/>/gi,'&#62;').remplace(/=/gi,'&#61;'), mentions = {}
+        let params = "text="+(!!args[0].match(/<@!?(\d{17,19})>/) && !!args[1]?args.slice(1).join(" "):args.join(" ")).replace(/&/gi,'&#38;').replace(/</gi,'&#60;').replace(/>/gi,'&#62;').replace(/=/gi,'&#61;'), mentions = {}
         // const params = new URLSearchParams().set('text',(!args[0].match(/<@!?(\d{17,19})>/)?args.join(" "):args.slice(1).join(" ")))
-        // console.log(params);
+        // console.log((!!args[0].match(/<@!?(\d{17,19})>/) && !!args[1]?args.slice(1).join(" "):args.join(" ")));
         if (args[0].match(/<@!?(\d{17,19})>/) && message.mentions.members.first() && !!args[1]) {
             // params.set('user', message.mentions.members.first()?.displayName)
             // params.set('avatar', message.mentions.members.first()?.displayAvatarURL())
