@@ -285,7 +285,7 @@ module.exports = {
             })
         });
     },
-    servers: ['825936007449935903'],
+    servers: [],
     run: async (client, interact) => {
         require(`./config/${interact.options.getSubcommandGroup()}`)[interact.options.getSubcommand()](
             client,
