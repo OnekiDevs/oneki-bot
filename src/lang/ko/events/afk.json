@@ -1,5 +1,8 @@
 {
-    "embed": "{}는 {} 이후 afk입니다. 이유: {}",
+    "embed": {
+        "title": "{}은 afk입니다",
+        "reason":  "이유: {}"
+    },
     "no_longer_afk": "{} 는 더 이상 afk가 아닙니다.",
     "no_permissions": "이 작업을 수행할 권한이 없습니다."
 } 

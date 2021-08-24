@@ -29,22 +29,25 @@ async def on_message(message):
         try:
             await member.edit(nick = member.display_name.replace("[AFK] ", ""))
 
-        except tools.discord.errors.Forbidden or tools.discord.errors.HTTPException:
-            if tools.discord.errors.Forbidden: 
-                return await ctx.send(translations["no_permissions"])
-            return ctx.send(translations["max_name_length"].format(member.mention))
-
-        await message.channel.send(embed = tools.discord.Embed(
+        except tools.discord.errors.Forbidden: 
+            await ctx.send(translations["no_permissions"])
+        message_sent = await message.channel.send(embed = tools.discord.Embed(
             title = translations["no_longer_afk"].format(member.display_name), 
             color = 0xFCE64C,
         ))
+        await tools.sleep(10)
+        await message_sent.delete()
 
     # Comprobación para ver si tagearon a user afk
     if message.mentions:
         prefix, translations = events.get_config(message.guild, "afk")
         for user in message.mentions:
             if user.id in tools.afks:
-                await message.channel.send(embed=tools.discord.Embed(
-                    title=translations["embed"].format(user.display_name, tools.afks[user.id][1],tools.afks[user.id][0]),
+                message_sent = await message.channel.send(embed=tools.discord.Embed(
+                    title=translations["embed"]["title"].format(user.display_name),
+                    description=translations["embed"]["reason"].format(tools.afks[user.id][0]),
+                    timestamp = tools.afks[user.id][1],
                     color=0xFCE64C)
                     )
+                await tools.sleep(10)
+                return await message_sent.delete()
