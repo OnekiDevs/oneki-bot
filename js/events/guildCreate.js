@@ -17,6 +17,8 @@ module.exports = {
             .setColor("RANDOM")
             .setFooter(`${client.user.username} Bot ${require('../../package.json').version}`)
             .setImage(guild.bannerURL());
-        canal.send(embed);
+        canal.send({
+            embeds: [embed]
+        });
     }
 }
