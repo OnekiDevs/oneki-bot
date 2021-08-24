@@ -31,23 +31,19 @@ async def on_message(message):
 
         except tools.discord.errors.Forbidden: 
             await ctx.send(translations["no_permissions"])
-        message_sent = await message.channel.send(embed = tools.discord.Embed(
+        await message.channel.send(embed = tools.discord.Embed(
             title = translations["no_longer_afk"].format(member.display_name), 
             color = 0xFCE64C,
-        ))
-        await tools.sleep(10)
-        await message_sent.delete()
+        ), delete_after = 10.0)
 
     # Comprobación para ver si tagearon a user afk
     if message.mentions:
         prefix, translations = events.get_config(message.guild, "afk")
         for user in message.mentions:
             if user.id in tools.afks:
-                message_sent = await message.channel.send(embed=tools.discord.Embed(
-                    title=translations["embed"]["title"].format(user.display_name),
-                    description=translations["embed"]["reason"].format(tools.afks[user.id][0]),
+                await message.channel.send(embed=tools.discord.Embed(
+                    title = translations["embed"]["title"].format(user.display_name),
+                    description = translations["embed"]["reason"].format(tools.afks[user.id][0]),
                     timestamp = tools.afks[user.id][1],
-                    color=0xFCE64C)
-                    )
-                await tools.sleep(10)
-                return await message_sent.delete()
+                    color = 0xFCE64C
+                ), delete_after = 10.0)
