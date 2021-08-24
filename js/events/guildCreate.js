@@ -20,5 +20,10 @@ module.exports = {
         canal.send({
             embeds: [embed]
         });
+        
+        for (const file of fs.readdirSync("./js/slash").filter((f) => f.endsWith(".js"))) {
+            const slash = require("../slash/" + file);
+            if ((slash.servers[0] && slash.servers.includes(guild.id)) || !slash.servers[0]) guild.commands.create(await slash.data({guild: guild.id})).then((command) => console.log(command.name, '|', guild.name)).catch(err => console.log(guild.name, 'error',));
+        }
     }
 }
