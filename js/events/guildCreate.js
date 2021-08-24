@@ -1,4 +1,5 @@
 const { MessageEmbed } = require("discord.js");
+const fs = require("fs");
 module.exports = {
     name: "guildCreate",
     run: async (client, guild) => {
@@ -7,11 +8,11 @@ module.exports = {
             .setThumbnail(guild.iconURL())
             .setTitle("Me añadieron en un Nuevo Servidor")
             .setDescription(`ahora estoy en ${client.guilds.cache.size} servidores`)
-            .addField("Servidor", guild.name, true)
-            .addField("ID", guild.id, true)
+            .addField("Servidor", `${guild.name}`, true)
+            .addField("ID", `${guild.id}`, true)
             // .addField("Region", guild.region, true)
-            .addField("Roles", guild.roles.cache.size, true)
-            .addField("Miembros", guild.memberCount, true)
+            .addField("Roles", `${guild.roles.cache.size}`, true)
+            .addField("Miembros", `${guild.memberCount}`, true)
             .addField("Dueño", `${(await client.users.fetch(guild.ownerId)).username}#${(await client.users.fetch(guild.ownerId)).discriminator}`, true)
             .setTimestamp()
             .setColor("RANDOM")
