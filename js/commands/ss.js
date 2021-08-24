@@ -47,10 +47,11 @@ module.exports = {
         })
         // if(Object.keys(mentions).length > 0) params += "&mentions=" + JSON.stringify(mentions)
         const params = new URLSearchParams({
-            text: (!!args[0].match(/<@!?(\d{17,19})>/) && !!args[1]?args.slice(1).join(" "):args.join(" ")), 
+            text: (!!args[0].match(/<@!?(\d{17,19})>/) && !!args[1]?args.slice(1).join(" "):args.join(" ")).replace(/</gi, '&#60;').replace(/>/gi, '&#62;'), 
             user, avatar, color, bot, verified, mentions: JSON.stringify(mentions)
           })
-        // console.log(params, `\n${params}`);
+        console.log(params);
+        // console.log(`\n${params}`);
         const page = await browser.newPage()
         await page.goto(`http://oneki.herokuapp.com/api/fakeDiscordMessage?${params}`);
         message.channel.send({
