@@ -9,7 +9,7 @@ module.exports = {
     alias: [],
     run: async (client, message, args) => {
         const server = client.servers.get(message.guild.id);
-        const lang = client.util.lang({lang:server.lang, route:'commands/fun/ss'});
+        const lang = client.util.lang({lang:server.lang, route:'commands/unban'});
         if (!message.member.permissions.has(['BAN_MEMBERS'])) {
             message.reply(lang.permissions);
             return;

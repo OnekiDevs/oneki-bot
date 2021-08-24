@@ -1,22 +1,36 @@
+const db = require('firebase-admin').firestore()
+const { WebhookClient } = require('discord.js')
 module.exports = {
     name: 'directMessage',
     run: async (client, message) => {
-        try {
-            const guild = await client.guilds.cache.get(client.guild);
-            const channel = await guild.channels.cache.get(client.dmChannel);
+        const servers = {
+            "832137212266283049": "850338969135611924",
+            "849854224938696725": "825936007449935903"
+        }
+        if (!servers[client.user.id]) return;
+        db.collection(servers[client.user.id]).doc('config').get().then(async (config) => {
+            if (!config.exists) return;
+            // console.log(config.data());
+            if (!config.data().channelDM) return;
+            const channel = client.channels.cache.get(config.data().channelDM);
             if (!channel) return;
-            const webhookClient = (await channel.fetchWebhooks()).first() ?? await channel.createWebhook(client.user.username, {
+            const webhook = (await channel.fetchWebhooks()).first() ?? await channel.createWebhook(client.user.username, {
                 avatar: client.user.avatarURL(),
                 reason: "Para funciones del bot"
             }).catch(e=>{
                 console.log("ERROR!!!", e.toString())
             });
-            webhookClient.send(message.content, {
-                username: `${message.author.username}`,
-                avatarURL: message.author.avatarURL()
-            });   
-        } catch (error) {
-            client.emit('error', client, error, `Channel: <#${message.channel.id}>\nServer: ${message.guild.name} / ${message.guild.id}\nMessage: ${message.content}`)
-        }
+            if (!webhook) return;
+            const webhookClient = new WebhookClient({
+                id: webhook.id,
+                token: webhook.token
+            }).send({
+                content: message.content,
+                username: message.author.username,
+                avatarURL: message.author.avatarURL(), 
+                files: [message.attachments],
+                embeds: [message.embeds]
+            })
+        })
     }
 }

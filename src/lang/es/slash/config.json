@@ -1,0 +1,58 @@
+{
+    "deleted": {
+        "channel": {
+            "reply": "Canal {channel} configurado para ver los mensajes eliminados"
+        },
+        "reset": {
+            "reply": "Ver mensajes eliminados inhabilitados"
+        }
+    },
+    "edited": {
+        "channel": {
+            "reply": "Canal {channel} configurado para ver mensajes editados "
+        },
+        "reset": {
+            "reply": "Ver mensajes editados inhabilitados"
+        }
+    },
+    "language": {
+        "set": {
+            "reply": "Idioma establecido a {lang}"
+        },
+        "reset": {
+            "reply": "Idioma configurado en `inglés`"
+        }
+    },
+    "prefix": {
+        "set": {
+            "reply": "Prefijo establecido a \"**{prefix}**\"",
+            "permissionsError": "No tienes los permisos para cambiar el prefijo del bot",
+            "serverError": "Necesito estar en el servidor para ejecutar el comando",
+            "prefixError": "El prefijo no puede contener espacios"
+        },
+        "reset": {
+            "reply": "Prefijo reseteado a \"**>**\""
+        }
+    },
+    "suggest": {
+        "channel": {
+            "reply": "Canal {channel} configurado como {alias} sugerencias",
+            "send": "Este canal se ha configurado como canal para sugerencias {alias}\nTo make a suggestion, Para hacer una sugerencia, use el comando {prefix}suggest {displayAlias} [your suggestion]`"
+        },
+        "delete": {
+            "reply": "El canal {channel} se ha desconfigurado"
+        }
+    },
+    "welcome": {
+        "channel": {
+            "reply": "Bienvenidas establecidas en {channel}"
+        },
+        "deactivate": {
+            "welcomes": "Bienvenidas eliminadas",
+            "roles": "Roles eliminados"
+        },
+        "rols": {
+            "reply": "Se agregó el rol de {role}"
+        }
+    }
+}

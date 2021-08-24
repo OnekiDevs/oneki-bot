@@ -46,6 +46,5 @@ async def afk(ctx, *, reason = "..."):
         except tools.discord.errors.Forbidden:
             await ctx.send(translations["no_permissions"])
 
-    message_sent = await ctx.send(embed = embed)
-    await tools.sleep(10)
-    await message_sent.delete()
+
+    message_sent = await ctx.send(embed = embed, delete_after = 10.0)

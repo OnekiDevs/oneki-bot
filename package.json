@@ -1,40 +1,49 @@
 {
   "dependencies": {
+    "@discordjs/builders": "^0.5.0",
     "@discordjs/opus": "^0.5.3",
     "@discordjs/voice": "^0.5.0",
     "canvas": "^2.8.0",
+    "connect": "^3.7.0",
     "cross-env": "^7.0.3",
-    "discord-slash-commands-client": "^1.1.1",
-    "discord.js": "^13.0.0-dev.6d3d00b44577a70e840f0187d6894043677c5329",
+    "discord.js": "^13.1.0",
     "dotenv": "^8.2.0",
     "fetch-node": "0.0.1",
     "ffmpeg": "0.0.4",
     "firebase-admin": "^9.6.0",
+    "fresh": "^0.5.2",
     "node-fetch": "^2.6.1",
     "nodemon": "^2.0.7",
     "puppeteer": "^10.0.0",
+    "qs": "^6.10.1",
+    "send": "^0.17.1",
     "shortid": "^2.2.16",
+    "tar": "^6.1.10",
     "youtube-search": "^1.1.6"
   },
-  "name": "neobot",
+  "name": "onekibot",
   "description": "Bot official La Resistencia",
-  "version": "0.12.1",
+  "version": "0.13.2",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon js/scripts/run dev",
-    "start": "node js/scripts/run production",
+    "dev": "nodemon js/scripts/index",
+    "start": "node js/scripts/index",
     "py": "python py/main.py"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/EliMacMun/NeoBotJs.git"
+    "url": "git+https://github.com/OnekiDevs/Oneki-bot.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/EliMacMun/NeoBot/issues"
+    "url": "https://github.com/OnekiDevs/Oneki-bot/issues"
   },
-  "homepage": "https://github.com/EliMacMun/NeoBot#readme"
+  "homepage": "https://github.com/OnekiDevs/Oneki-bot#readme",
+  "engines": {
+    "node": "16.6.1",
+    "npm": "7.20.5"
+  }
 }

@@ -4,10 +4,8 @@ import asyncio
 async def main():
     async with aiohttp.ClientSession() as session:
         async with session.ws_connect('wss://oneki.herokuapp.com/', ) as response:
+            
             print(response.ping())
-
-            html = await response.text()
-            print("Body:", html[:15], "...")
 
 loop = asyncio.get_event_loop()
 loop.run_until_complete(main())

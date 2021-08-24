@@ -4,7 +4,7 @@ module.exports = {
     name: "buscaminas",
     botPermissions: [],
     usersPermissions: [],
-    alias: ['minesearch'],
+    alias: ['minesweeper'],
     run: async (client, message, args) => {
         //se definen las filas, columnas y bombas
         let filas = 9, columnas = 9, bombas = 15;

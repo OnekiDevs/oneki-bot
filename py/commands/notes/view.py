@@ -7,27 +7,27 @@ async def view(ctx, notebook: str, page = None):
     async with ctx.typing():
         document = tools.db.Document(collection = "users", document = f"{ctx.author.id}", subcollection = "notes", subdocument = notebook)
         if document.exists:  
-            content = document.content
+            config = document.content.get("config")
             embed = tools.discord.Embed(
-                description = content["config"]["description"], 
-                colour = tools.utils.color_hex(content["config"]["color"])
+                description = config["description"], 
+                colour = tools.utils.color_hex(config["color"])
             )
 
             if page is not None:
-                embed.set_author(name = translations["embed_view"]["author"].format(notebook.capitalize(), page), icon_url = ctx.author.avatar_url)
-                content_page = content.get(page)
-                if content_page is not None:
-                    embed.add_field(name = translations["embed_view"]["field"], value = f"```{content_page}```")
+                embed.set_author(name = translations["embed_page"]["author"].format(notebook.capitalize(), page), icon_url = ctx.author.avatar_url)
+                content = document.content.get(page)
+                if content is not None:
+                    embed.add_field(name = translations["embed_page"]["field"], value = f"```{content}```")
 
                 else: 
-                    embed.description = translations["embed_view"]["description"]
+                    embed.description = translations["embed_page"]["description"]
 
             else: 
                 embed.set_author(name = f"{notebook.capitalize()}", icon_url = ctx.author.avatar_url)
-                for _page, _content in content.items():
+                for _page, content in document.content.items():
                     if _page == "config": continue
                     else:
-                        embed.add_field(name = f"{_page}", value = f"```{_content}```", inline = False)
+                        embed.add_field(name = f"{_page}", value = f"```{content}```", inline = False)
                 
             embed.set_thumbnail(url = index.img)
 

@@ -1,0 +1,14 @@
+{
+    "buttons": {
+        "entertainment": "Divertissement",
+        "help": "Aider",
+        "moderation": "Modération",
+        "extra": "Extraordinaire"
+    },
+    "embed": {
+        "description": "**Catégorie {type}** \n`<> ` signifie facultatif \n`[] ` signifie obligatoire",
+        "title": "liste de commandes {bot} Bot"
+    },
+    "use": "Utilisation",
+    "alias": "Alias"
+}
