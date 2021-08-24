@@ -54,6 +54,7 @@ module.exports = {
             resolve({
                 name: "config",
                 description: "bot settings",
+                type: 1,
                 options: [
                     {
                         type: 2,

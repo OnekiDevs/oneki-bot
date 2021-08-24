@@ -28,19 +28,8 @@ module.exports = {
         //load slash commands
         for (const file of fs.readdirSync("./js/slash").filter((f) => f.endsWith(".js"))) {
             const slash = require("../slash/" + file);
-            if (slash.servers[0]) {
-                for (const guildID of slash.servers) {
-                    const guild = await client.guilds.cache.get(guildID);
-                    if (guild) {
-                        const command = await guild.commands.create(await slash.data({guild: guild.id}))
-                        console.log(command.name, '|', guild.name);
-                    }
-                }
-            } else {
-                client.guilds.cache.forEach(async guild => {
-                    guild.commands.create(await slash.data({guild: guild.id})).then((command) => console.log(command.name, '|', guild.name)).catch(err => {})
-                })
-            }
+            if (slash.servers[0])  for (const guildID of slash.servers) client.guilds.cache.get(guildID)?.commands.create(await slash.data({guild: guild.id})).then((command) => console.log(command.name, '|', guild.name)).catch(err => console.log(guild.name, 'error',))
+            else client.guilds.cache.forEach(async guild => guild.commands.create(await slash.data({guild: guild.id})).then((command) => console.log(command.name, '|', guild.name)).catch(err => console.log(guild.name, 'error',)))
         }
         //load user menu
         // for (const file of fs.readdirSync("./js/user").filter((f) => f.endsWith(".js"))) {
