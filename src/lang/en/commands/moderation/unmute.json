@@ -1,5 +1,5 @@
 {
-    "msg_error" : "Apparently {} is not muted",
+    "msg_error" : "Apparently, {} is not muted",
     "embed" : {
         "description" : "You have been unmuted :D",
         "author" : "Unmuted",

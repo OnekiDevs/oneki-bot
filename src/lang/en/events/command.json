@@ -1,4 +1,4 @@
 {
-    "userPermissions" : "you do not have sufficient permissions, you need: {permissions}",
+    "userPermissions" : "You do not have sufficient permissions, you need: {permissions}",
     "botPermissions" : "I don't have enough permissions, I need: {permissions}"
 }

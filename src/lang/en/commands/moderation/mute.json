@@ -1,5 +1,5 @@
 {
-    "msg_1": "Unfortunately you cannot mute yourself",
+    "msg_1": "Unfortunately you cannot mute yourself!",
     "embed" : {
         "description" : "Oh no, you've been muted in {}",
         "author" : "Mute",
