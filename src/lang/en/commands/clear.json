@@ -1,5 +1,5 @@
 {
-    "sure": "Are you sure to delete **all** messages from this channel?\nThis action cannot be undone",
+    "sure": "Are you sure you want to delete **all** messages from this channel?\n**This action is not reversible!**",
     "buttons": {
         "yes": "Yes",
         "no": "No"

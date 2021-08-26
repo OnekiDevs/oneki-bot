@@ -5,11 +5,11 @@ from tools.utils import events
 @tools.bot.command()
 async def afk(ctx, *, reason = "..."):
     member = ctx.message.author
-    if member.id in tools.afks: 
+    if f"{member.id}" in tools.afks: 
         _, translations = events.get_config(ctx.guild, "afk")
         
         member = ctx.author
-        tools.afks.pop(member.id)
+        tools.afks.pop(f"{member.id}")
         try:
             await member.edit(nick = member.display_name.replace("[AFK] ", ""))
 
@@ -18,12 +18,10 @@ async def afk(ctx, *, reason = "..."):
                 return await ctx.send(translations["no_permissions"])
             return ctx.send(translations["max_name_length"].format(member.mention))
 
-        message_sent = await ctx.send(embed = tools.discord.Embed(
+        return await ctx.send(embed = tools.discord.Embed(
             title = translations["no_longer_afk"].format(member.display_name), 
             color = 0xFCE64C
-        ))
-        await tools.sleep(10)
-        return await message_sent.delete()
+        ), delete_after = 10.0)
 
     translations = commands.get_config(ctx, "afk")
     reason = "".join(reason) if reason else None
@@ -34,7 +32,7 @@ async def afk(ctx, *, reason = "..."):
         results = tools.utils.check_links(reason)
         if results: return await ctx.send(translations["no_links"])
 
-    tools.afks[member.id] = (reason, tools.datetime.utcnow())
+    tools.afks[f"{member.id}"] = {"reason": reason, "time": tools.datetime.utcnow()}
 
     embed = tools.discord.Embed(title = translations["afk_title"].format(member.display_name), color = 0x383FFF)
 
@@ -46,5 +44,4 @@ async def afk(ctx, *, reason = "..."):
         except tools.discord.errors.Forbidden:
             await ctx.send(translations["no_permissions"])
 
-
-    message_sent = await ctx.send(embed = embed, delete_after = 10.0)
+    await ctx.send(embed = embed, delete_after = 10.0)

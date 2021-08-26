@@ -8,8 +8,8 @@
         }
     },
     "correct": "Report sent successfully!",
-    "error": "Reports are disabled on this server",
+    "error": "Reports are disabled on this server!",
 
     "invalid_subcommand": "Invalid subcommand",
-    "channel_config": "Reports channel was added successfully"
+    "channel_config": "Reports channel was added successfully!"
 }
