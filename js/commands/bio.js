@@ -17,7 +17,7 @@ module.exports = {
                 if (messageMention.type === "GUILD_VOICE") {
                     messageVoiceChannel = messageMention;
                 } else {
-                    return messsage.reply(lang.voice)
+                    return message.reply(lang.voice)
                 }
             }
         } else {

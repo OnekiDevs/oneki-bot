@@ -1,5 +1,8 @@
 {
-    "embed": "{} est afk depuis {}, raison : {}",
+    "embed": {
+        "title": "{} est afk",
+        "reason": "Raison: {}"
+    },
     "no_longer_afk": "{} n'est plus afk",
     "no_permissions": "Je n'ai pas assez d'autorisations pour le faire."
 } 

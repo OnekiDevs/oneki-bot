@@ -1,0 +1,18 @@
+{
+    "missing_permissions_user": "¡No tienes suficientes permisos para hacer esto!", 
+    "missing_permissions_bot" : "¡No tengo permisos para hacer esto!", 
+    "banself": "No te puedes banear a ti mismo",
+    "mention_lose": "Menciona a alguien",
+    "without_reason": "No se ha dado ninguna razón",
+    "embed": {
+        "title": "Ha sido expulsado de",
+        "resopnsable": "Moderador Responsable",
+        "description": "Parece que te han baneado"
+    },
+    "hierarchy": "¡No puedes banear a este usuario!\nConsulta la jerarquía de funciones", 
+    "ready": "El usuario ha sido baneado con éxito",
+    "erasing": "Eliminando {deleteDays} días de mensajes de usuario",
+    "fail": "No se pudo banear a **{tag}**",
+    "by": "por",
+    "reason": "razón"
+}

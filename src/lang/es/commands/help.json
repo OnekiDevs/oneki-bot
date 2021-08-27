@@ -1,0 +1,12 @@
+{
+    "menu": {
+        "option": "Categoria: {category}", 
+        "placeholder": "Selecciona otra categoria"
+    },
+    "embed": {
+        "description": "**Categoria: {type}** \n`<>` significa opcional \n`[]` significa obligatorio",
+        "title": "Lista de comandos de {bot} Bot"
+    },
+    "command": "{description}\nAlias: {alias}\nUso: `{prefix}{use}`",
+    "none": "ninguno"
+}

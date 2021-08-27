@@ -54,6 +54,7 @@ module.exports = {
             resolve({
                 name: "config",
                 description: "bot settings",
+                type: 1,
                 options: [
                     {
                         type: 2,
@@ -285,7 +286,7 @@ module.exports = {
             })
         });
     },
-    servers: ['825936007449935903'],
+    servers: [],
     run: async (client, interact) => {
         require(`./config/${interact.options.getSubcommandGroup()}`)[interact.options.getSubcommand()](
             client,
