@@ -1,5 +1,5 @@
-const { MessageEmbed } = require('discord.js')
-module.exports = (cmdUsage, usageError) => {
+const {MessageEmbed} = require('discord.js')
+module.exports = (cmdUsage, usageError, errorDesc) => {
     cmdUsage.indexOf(usageError)
     let errorEmbed = new MessageEmbed()
         .setColor('#ff0000')
@@ -21,5 +21,8 @@ module.exports = (cmdUsage, usageError) => {
     }
     errorStr += '```'
     errorEmbed.addField('Error en:', errorStr)
+    if (errorDesc) {
+        errorEmbed.addField("Descripcion", errorDesc)
+    }
     return errorEmbed;
 }
