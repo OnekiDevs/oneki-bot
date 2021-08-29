@@ -21,35 +21,9 @@ module.exports = class UNO {
             id: host
         });
     }
-    get embed(){
-        const embed = new MessageEmbed();
-        embed.title = "UNO Beta (class)";
-        embed.addField(`Jugadores ${this.players.length}/${this.maxPlayers}`, `<@${this.players.map(p=>p.id).join('> <@')}>`);
-        embed.addField('Host', `<@${this.host}>`);
-        const ingresar = new MessageButton().setLabel('Ingresar').setCustomId(`uno_i_${this.id}`).setStyle('PRIMARY')
-        const comenzar = new MessageButton().setLabel('Comenzar').setCustomId(`uno_c_${this.id}`).setStyle('SUCCESS');
-        const buttons = new MessageActionRow();
-        // if (this.players.length == 1) comenzar.setDisabled(true);
-        const mostrar = new MessageButton().setLabel('Mostrar Cartas').setCustomId(`uno_m_${this.id}`).setStyle('SECONDARY');
-        if(this.status == 'esperando') {
-            buttons.addComponents([ingresar, comenzar]);
-            embed.description = "Esperando jugadores (se requieren minimo 2)";
-            embed.setThumbnail(require('../../../src/unoCards.json')['1r'].url); 
-            return {
-                embeds: [embed],
-                components: [buttons]
-            };
-        } else {
-            embed.description = 'Partida en curso, turno de: <@' + this.turn.id + '>';
-            buttons.addComponents([mostrar]);
-            embed.setImage(require('../../../src/unoCards.json')[this.actualCard.id].url);
-            return {
-                embeds: [embed],
-                components: [buttons]
-            };
-        }
-        
-    }
+
+
+    
     // #buttons = () => {
     //     const collector = this.message.createMessageComponentCollector((mci)=>mci.customId == `uno_m_${this.id}`);
     //     collector.on('collect', async collect => {
@@ -79,6 +53,12 @@ module.exports = class UNO {
     //         }
     //     });
     // }
+
+
+
+
+
+    //REPARTIR CARTAS (PRIVADO)
     #repartir = (n=7) => {
         return new Promise(async (resolve, reject) => {
             const cartas = Object.keys(require('../../../src/unoCards.json'))
@@ -96,6 +76,11 @@ module.exports = class UNO {
             resolve();
         })
     }
+
+
+
+
+    //ESPERA DE JUGADORES
     awaitPlayers(){
         return new Promise(resolve => {
             const collector = this.message.createMessageComponentCollector((mci)=>mci.customId == `uno_i_${this.id}`||mci.customId == `uno_c_${this.id}`);
@@ -134,18 +119,29 @@ module.exports = class UNO {
             });
         });
     }
+
+
+
+
+
+    //FLUJO DE JUEGO
     play(){
         console.log('Play');
-        //#TODO flujo de juego 
-        // console.log(this.turn);
+        //escucha los botones mostrar _m_ | comer _e_ | jugar _j_
         const collector = this.message.channel.createMessageComponentCollector(mci=>mci.customId == `uno_m_${this.id}` || mci.customId == `uno_j_${this.id}` || mci.customId == `uno_e_${this.id}`)
         collector.on('collect', async collect => {
             console.log(collect.customId);
+
+
+            //BOTON JUGAR _j_
             if (collect.customId.startsWith('uno_j_')) {
                 //mostrarle las posibles cartas validas para que lanze
                 //quitarla de su mazo y colocarla en actualCard
                 //actualizar el embed
                 //rotar a jugador actual
+
+
+            //BOTON COMER _e_
             } else if (collect.customId.startsWith('uno_e_')) {
                 collect.deferUpdate();
                 const cartas = Object.keys(require('../../../src/unoCards.json'));
@@ -168,6 +164,10 @@ module.exports = class UNO {
                         ephemeral: true
                     });
                 }
+
+
+
+            //BOTON MOSTRAR _m_
             } else if(collect.customId.startsWith('uno_m_')) {
                 if (this.players.map(p=>p.id).includes(collect.member.id)) {
                     collect.defer({ 
@@ -193,16 +193,51 @@ module.exports = class UNO {
                     })
                 }
             }
-            collect.defer({ 
-                ephemeral: true 
-            });
+
+
+
+            // collect.defer({ 
+            //     ephemeral: true 
+            // });
             //repetir hasta que halla ganador
         }) 
     }
+
+
+    //SETTERS Y GETTERS
     set message(message){this.message = message}
     get message(){return this.message}
     get players(){return this.players}
     get maxPlayers(){return this.players}
     set maxPlayers(max){this.maxPlayers = max}
     get turn(){return this.players[0]}
+    get embed(){
+        const embed = new MessageEmbed();
+        embed.title = "UNO Beta (class)";
+        embed.addField(`Jugadores ${this.players.length}/${this.maxPlayers}`, `<@${this.players.map(p=>p.id).join('> <@')}>`);
+        embed.addField('Host', `<@${this.host}>`);
+        const ingresar = new MessageButton().setLabel('Ingresar').setCustomId(`uno_i_${this.id}`).setStyle('PRIMARY')
+        const comenzar = new MessageButton().setLabel('Comenzar').setCustomId(`uno_c_${this.id}`).setStyle('SUCCESS');
+        const buttons = new MessageActionRow();
+        // if (this.players.length == 1) comenzar.setDisabled(true);
+        const mostrar = new MessageButton().setLabel('Mostrar Cartas').setCustomId(`uno_m_${this.id}`).setStyle('SECONDARY');
+        if(this.status == 'esperando') {
+            buttons.addComponents([ingresar, comenzar]);
+            embed.description = "Esperando jugadores (se requieren minimo 2)";
+            embed.setThumbnail(require('../../../src/unoCards.json')['1r'].url); 
+            return {
+                embeds: [embed],
+                components: [buttons]
+            };
+        } else {
+            embed.description = 'Partida en curso, turno de: <@' + this.turn.id + '>';
+            buttons.addComponents([mostrar]);
+            embed.setImage(require('../../../src/unoCards.json')[this.actualCard.id].url);
+            return {
+                embeds: [embed],
+                components: [buttons]
+            };
+        }
+        
+    }
 }
