@@ -31,14 +31,14 @@ admin.initializeApp({
 });
 const db = admin.firestore();
 
-//load config
-db.collection(`config`).doc('bot').onSnapshot(doc => {
-    client.settings = {
-        prefix: doc.data()?.prefix??'r!',
-        dmChannel: "832788680200028212",
-        guild: "825936007449935903"
-    }
-})
+// //load config
+// db.collection(`config`).doc('bot').onSnapshot(doc => {
+//     client.settings = {
+//         prefix: doc.data()?.prefix??'r!',
+//         dmChannel: "832788680200028212",
+//         guild: "825936007449935903"
+//     }
+// })
 
 //load events
 for (const file of fs.readdirSync("./js/events").filter((f) => f.endsWith(".js"))) {
