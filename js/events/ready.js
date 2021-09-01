@@ -29,8 +29,14 @@ module.exports = {
             //load slash commands
             for (const file of fs.readdirSync("./js/slash").filter((f) => f.endsWith(".js"))) {
                 const slash = require("../slash/" + file);
-                if (slash.servers[0])  for (const guildID of slash.servers) client.guilds.fetch(guildID).then(async guild => guild.commands.create(await slash.data({guild: guildID})).then((command) => console.log(command.name, '|', guild.name)).catch(err => console.log(guild.name, 'error',))).catch((err) => {})
-                else client.guilds.cache.forEach(async guild => guild.commands.create(await slash.data({guild: guild.id})).then((command) => console.log(command.name, '|', guild.name)).catch(err => console.log(guild.name, 'error',)))
+                if (slash.servers[0])  for (const guildID of slash.servers) client.guilds.fetch(guildID).then(async guild => guild.commands.create(await slash.data({guild: guildID})).then((command) => console.log(command.name, '|', guild.name)).catch(err => {
+                    if (!err.toString().endsWith('Missing Access')) console.log(err)
+                })).catch((err) => {
+                    if (!err.toString().endsWith('Missing Access')) console.log(err)
+                })
+                else client.guilds.cache.forEach(async guild => guild.commands.create(await slash.data({guild: guild.id})).then((command) => console.log(command.name, '|', guild.name)).catch(err => {
+                    if (!err.toString().endsWith('Missing Access')) console.log(err)
+                }))
             }
             //load user menu
             // for (const file of fs.readdirSync("./js/user").filter((f) => f.endsWith(".js"))) {

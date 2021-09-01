@@ -72,5 +72,9 @@ for (const file of fs.readdirSync("./js/buttons").filter((f) => f.endsWith(".js"
 client.login(process.env.NODE_ENV!='production'?process.env.TOKEN_DISCORD_DEV:process.env.TOKEN_DISCORD);
 
 //play ground
-// client.on('messageCreate', message => {
-// })
+if (process.env.NODE_ENV == 'development') client.on('ready', message => {
+//     console.log(process.env.stateBot)
+//     process.env.stateBot = "sd"
+//     console.log(process.env.stateBot)
+//     client.channels.cache.get('860715234574729216')?.send('<a:kannasip:857080764461482026>')
+})

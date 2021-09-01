@@ -122,7 +122,9 @@ module.exports = class UNO {
 
 
 
-    //FLUJO DE JUEGO
+    /*
+    * Inicia y controla el flujo de juego
+    */
     play(){
         console.log('Play');
         //escucha los botones mostrar _m_ | comer _e_ | jugar _j_
@@ -174,12 +176,19 @@ module.exports = class UNO {
                     const jugar = new MessageButton().setLabel('Jugar').setCustomId(`uno_j_${this.id}`).setStyle('PRIMARY')
                     const comer = new MessageButton().setLabel('Comer').setCustomId(`uno_e_${this.id}`).setStyle('SECONDARY');
                     const buttons = new MessageActionRow().addComponents([jugar, comer]);
+                    console.log('aqui')
                     collect.editReply({
                         content: msg.attachments.first().url,
                         components: [buttons],
                         ephemeral: true
                     });
+                    console.log('y awui')
                     this.players.get(collect.member.id).interact = collect;
+                } else {
+                    collect.reply({
+                        content: 'no estas en la partida',
+                        ephemeral: true
+                    })
                 }
             }
 
@@ -203,7 +212,7 @@ module.exports = class UNO {
     get embed(){
         const embed = new MessageEmbed();
         embed.title = "UNO Beta (class)";
-        embed.addField(`Jugadores ${this.players.size}/${this.maxPlayers}`, `${this.players.map(p=>`${p}`).join(', ')}`);
+        embed.addField(`Jugadores ${this.players.size}/${this.maxPlayers}`, `${this.players}`);
         embed.addField('Host', `<@${this.host}>`);
         const ingresar = new MessageButton().setLabel('Ingresar').setCustomId(`uno_i_${this.id}`).setStyle('PRIMARY')
         const comenzar = new MessageButton().setLabel('Comenzar').setCustomId(`uno_c_${this.id}`).setStyle('SUCCESS');
@@ -213,20 +222,15 @@ module.exports = class UNO {
         if(this.status == 'waiting') {
             buttons.addComponents([ingresar, comenzar]);
             embed.description = "Esperando jugadores (se requieren minimo 2)";
-            embed.setThumbnail(require('../../../src/unoCards.json')['1r'].url); 
-            return {
-                embeds: [embed],
-                components: [buttons]
-            };
+            embed.setThumbnail(require('../../../src/unoCards.json')['1r'].url);
         } else {
             embed.description = 'Partida en curso, turno de: <@' + this.turn.id + '>';
             buttons.addComponents([mostrar]);
             embed.setImage(require('../../../src/unoCards.json')[this.actualCard.id].url);
-            return {
-                embeds: [embed],
-                components: [buttons]
-            };
         }
-        
+        return {
+            embeds: [embed],
+            components: [buttons]
+        };
     }
 }
