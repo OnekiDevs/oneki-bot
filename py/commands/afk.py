@@ -21,7 +21,7 @@ async def afk(ctx, *, reason = "..."):
         return await ctx.send(embed = tools.discord.Embed(
             title = translations["no_longer_afk"].format(member.display_name), 
             color = 0xFCE64C
-        ), delete_after = 10.0)
+        ), delete_after = 5.0)
 
     translations = commands.get_config(ctx, "afk")
     reason = "".join(reason) if reason else None
