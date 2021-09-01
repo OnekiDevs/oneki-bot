@@ -106,3 +106,7 @@ dist
 # pycache
 *.pyc
 __pycache__/
+
+# JetBrains IDE's
+
+.idea
