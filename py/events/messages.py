@@ -33,7 +33,7 @@ async def on_message(message):
         await message.channel.send(embed = tools.discord.Embed(
             title = translations["no_longer_afk"].format(member.display_name), 
             color = 0xFCE64C,
-        ), delete_after = 10.0)
+        ), delete_after = 5.0)
 
     # Comprobación para ver si tagearon a user afk
     if message.mentions:
