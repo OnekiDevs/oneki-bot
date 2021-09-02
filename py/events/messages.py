@@ -29,7 +29,7 @@ async def on_message(message):
             await member.edit(nick = member.display_name.replace("[AFK] ", ""))
 
         except tools.discord.errors.Forbidden: 
-            await ctx.send(translations["no_permissions"])
+            await ctx.send(translations["no_permissions"], delete_after = 5.0)
         await message.channel.send(embed = tools.discord.Embed(
             title = translations["no_longer_afk"].format(member.display_name), 
             color = 0xFCE64C,
