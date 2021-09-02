@@ -15,8 +15,8 @@ async def afk(ctx, *, reason = "..."):
 
         except tools.discord.errors.Forbidden or tools.discord.errors.HTTPException:
             if tools.discord.errors.Forbidden: 
-                return await ctx.send(translations["no_permissions"])
-            return ctx.send(translations["max_name_length"].format(member.mention))
+                return await ctx.send(translations["no_permissions"], , delete_after = 5.0)
+            return ctx.send(translations["max_name_length"].format(member.mention), delete_after = 5.0)
 
         return await ctx.send(embed = tools.discord.Embed(
             title = translations["no_longer_afk"].format(member.display_name), 
@@ -44,4 +44,4 @@ async def afk(ctx, *, reason = "..."):
         except tools.discord.errors.Forbidden:
             await ctx.send(translations["no_permissions"])
 
-    await ctx.send(embed = embed, delete_after = 10.0)
+    await ctx.send(embed = embed)
