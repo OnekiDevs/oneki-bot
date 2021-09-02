@@ -2,24 +2,12 @@
     "no_roles": "No one",
     "embed" : {
         "title" : "Roles",
-        "field_1" : {
-            "name" : "Activity:"
-        },
-        "field_2" : {
-            "name" : "Account created:"
-        },
-        "field_3" : {
-            "name" : "Joined:"
-        },
-        "field_4" : {
-            "name" : "Color:"
-        },
-        "field_5" : {
-            "name" : "ID:"
-        },
-        "field_6" : {
-            "name" : "Status:"
-        },
+        "field_1" : "Activity:",
+        "field_2" : "Account created:",
+        "field_3" : "name" : "Joined:",
+        "field_4" : "Color:",
+        "field_5" : "ID:",
+        "field_6" : "Status:",
         "footer" : "Requested by {}"
     }
 }
