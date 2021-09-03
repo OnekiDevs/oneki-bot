@@ -19,7 +19,7 @@ module.exports = {
                     })
                 } else message.reply({ embeds: [new MessageEmbed().setColor("#ffffff").setImage(a.url).addField("Enlace", `[GIF](${a.url})`)] })
             })
-        } else message.reply('error de argumentos');
+        } else message.reply('necesitas mencionar un emoji o id');
 
 
 
