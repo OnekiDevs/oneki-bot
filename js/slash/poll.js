@@ -1,10 +1,15 @@
-const { MessageEmbed, Permissions } = require('discord.js');
+// noinspection JSCheckFunctionSignatures
+
+'use strict';
+const { MessageEmbed, MessageButton, MessageActionRow} = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const {create} = require("tar");
+const {generate} = require('shortid');
+
+class Option{constructor({name,type,value,pollId}){this.name=name;this.type=type;this.value=value;this.pollId=pollId}toString(){return this.value}toField(){return{name:`${this.name.replace('_',' ')}: ${this}`,value:`\`                         \` 0%`}}toButton(){return new MessageButton().setCustomId(`poll_${this.pollId}_${this.name}`).setLabel(`${this.name.replace('_',' ')}`).setStyle('PRIMARY')}}
 
 module.exports = {
     name: 'poll',
-    data: ({guild, client}) => {
+    data: () => {
         return new Promise(resolve => {
             resolve((new SlashCommandBuilder()
                 .setName('poll')
@@ -12,9 +17,20 @@ module.exports = {
                 .addSubcommand(subcommand => subcommand
                     .setName('create')
                     .setDescription('create a poll')
-                    .addChannelOption(option => option
-                        .setName('channel')
-                        .setDescription('channel where it will be posted'))))
+                    .addStringOption(option => option
+                        .setName('context')
+                        .setDescription('context of the poll')
+                        .setRequired(true))
+                    .addStringOption(option => option
+                        .setName('title')
+                        .setDescription('title of the poll'))
+                    .addStringOption(option => option.setName('option_1').setDescription('option 1'))
+                    .addStringOption(option => option.setName('option_2').setDescription('option 2'))
+                    .addStringOption(option => option.setName('option_3').setDescription('option 3'))
+                    .addStringOption(option => option.setName('option_4').setDescription('option 4'))
+                    .addStringOption(option => option.setName('option_5').setDescription('option 5'))
+                    .addStringOption(option => option.setName('option_6').setDescription('option 6'))
+                    .addChannelOption(option => option.setName('channel').setDescription('channel where it will be posted'))))
                 .toJSON())
         })
     },
@@ -26,54 +42,63 @@ module.exports = {
      * @returns {Promise<void>}
      */
     run: async (client, interact) => {
-        // console.log(interact)
-        console.log(interact.options)
-        
-        if(interact.options.getSubcommand() == 'create') {
-            console.log(interact.options.getChannel('channel'))
+        interact.deferReply()
+        if(interact.options.getSubcommand() === 'create') {
+            const id = generate()
+            const options = interact.options._hoistedOptions.filter(o=>(/option_\d{1,2}/).test(o.name)).map(o=>new Option({...o,pollId:id}))
+            const channel = interact.options.getChannel('channel')
+            let buttons = []
+            const embed = new MessageEmbed()
+                .setAuthor(interact.member.displayName, interact.user.displayAvatarURL())
+                .setTitle(interact.options.getString('title')??'New Poll')
+                .setDescription(interact.options.getString('context'))
+            // console.log(options)
+            if(options.length>1) {
+                embed.addFields(options.map(o=>o.toField()))
+                let i = 1, j = 0;
+                buttons.push(new MessageActionRow())
+                for (const option of options) {
+                    console.log(i, option, j)
+                    if(i%5===0){
+                        buttons.push(new MessageActionRow())
+                        buttons[j++].addComponents([option.toButton()])
+                    } else {
+                        buttons[j].addComponents([option.toButton()])
+                    }
+                    i++
+                }
+                console.log(buttons)
+            } else {
+
+            }
+            await client.util.sleep(3000)
+            await interact.editReply({
+                content: 'sending poll...'
+            })
+            const m = await (channel??interact.channel).send({
+                embeds: [embed],
+                components: buttons
+            });
+            console.log({
+                id,
+                options: options,
+                message: m.id,
+                channel: m.channel.id,
+                guild: m.guild.id
+            })
+            await fetch('http://localhost:3000/api/poll',{
+                method: 'POST',
+                body: JSON.stringify({
+                    id,
+                    options: options,
+                    message: m.id,
+                    channel: m.channel.id,
+                    guild: m.guild.id
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
         }
-        // let opciones = [];
-        // const channelid = interact.data.options.find(i => i.name=='channel')?.value;
-        // const context = interact.data.options.find(i => i.name=='context')?.value;
-        // const guild = await client.guilds.cache.get(interact.guild_id);
-        // const member = await guild.members.fetch(interact.member.user.id);
-        // const channel = client.channels.cache.get(channelid??interact.channel_id);
-        // const permissions = new Permissions(channel.permissionsFor(member));
-        // if(!permissions.has('SEND_MESSAGES')) {
-        //     return client.api.interactions(interact.id, interact.token).callback.post({
-        //         data: {
-        //             type: 4,
-        //             data: {
-        //                 content: 'You do not have permissions to send messages on that channel',
-        //                 flags: 1 << 6
-        //             }
-        //         }
-        //     });
-        // }
-        // for (const opcion of interact.data.options) {
-        //     if ((/opcion\d{1,2}/g).test(opcion.name)) opciones.push(opcion.value);
-        // }
-        // const reacciones = ['🇦', '🇧', '🇨', '🇩', '🇪', '🇫', '🇬', '🇭', '🇮', '🇯', '🇰', '🇱', '🇲', '🇳', '🇴', '🇵', '🇶', '🇷', '🇸', '🇹'];
-        // const embed = new MessageEmbed();
-        // embed.setAuthor(member.displayName, member.user.displayAvatarURL());
-        // embed.setDescription(context);
-        // embed.setFooter(`${client.user.username} BOT ${require('../../package.json').version}`, client.user.avatarURL());
-        // embed.setColor('RANDOM');
-        // if (opciones.length == 0) opciones.push('Yes', 'No');
-        // for (const opcion of opciones.slice(0, 19)) embed.addField(`Option ${reacciones[opciones.indexOf(opcion)]}`, opcion);
-        // client.api.interactions(interact.id, interact.token).callback.post({
-        //     data: {
-        //         type: 4,
-        //         data: {
-        //             content: 'Sending poll',
-        //             flags: 1 << 6
-        //         }
-        //     }
-        // });
-        // const msg = await channel.send(embed);
-        // for (const opcion of opciones.slice(0, 19)) {
-        //     msg.react(`${reacciones[opciones.indexOf(opcion)]}`);
-        //     await client.util.sleep(500);
-        // }
     }
 }

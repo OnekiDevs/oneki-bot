@@ -2,7 +2,8 @@
 require('dotenv').config();
 const { Client, Collection } = require('discord.js');
 const fs = require('fs');
-const admin = require('firebase-admin');   
+const admin = require('firebase-admin');
+global.fetch = require('node-fetch')
 
 // return;
 

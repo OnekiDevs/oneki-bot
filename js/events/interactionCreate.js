@@ -10,6 +10,11 @@ module.exports = {
                         category: interact.customId.split('_')[2],
                         lang: interact.customId.split('_')[1]
                     })
+                } else if(interact.customId.startsWith('poll_')) {
+                    client.buttons.get('poll').run(client, interact, {
+                        pollId: interact.customId.split('_')[1],
+                        option: interact.customId.split('_')[2]
+                    })
                 } else {
                     let cmd = client.buttons.get(interact.customId);
                     if (cmd) cmd.run(client, interact, cmd.params)

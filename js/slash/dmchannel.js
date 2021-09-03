@@ -1,6 +1,7 @@
 const db = require('firebase-admin').firestore();
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { Permissions } = require('discord.js');
+const fetch = require('node-fetch');
 module.exports = {
     name: 'dm',
     data: async ({guild}) => {
