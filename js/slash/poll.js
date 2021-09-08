@@ -45,7 +45,7 @@ module.exports = {
         interact.deferReply()
         if(interact.options.getSubcommand() === 'create') {
             const id = generate()
-            const options = interact.options._hoistedOptions.filter(o=>(/option_\d{1,2}/).test(o.name)).map(o=>new Option({...o,pollId:id}))
+            let options = interact.options._hoistedOptions.filter(o=>(/option_\d{1,2}/).test(o.name)).map(o=>new Option({...o,pollId:id}))
             const channel = interact.options.getChannel('channel')
             let buttons = []
             const embed = new MessageEmbed()
@@ -58,7 +58,6 @@ module.exports = {
                 let i = 1, j = 0;
                 buttons.push(new MessageActionRow())
                 for (const option of options) {
-                    console.log(i, option, j)
                     if(i%5===0){
                         buttons.push(new MessageActionRow())
                         buttons[j++].addComponents([option.toButton()])
@@ -67,10 +66,24 @@ module.exports = {
                     }
                     i++
                 }
-                console.log(buttons)
             } else {
-
+                embed.addField(`option 1: yes`, `\`                         \` 0%`)
+                embed.addField(`option 2: no`, `\`                         \` 0%`)
+                buttons.push(new MessageActionRow().addComponents([new MessageButton().setCustomId(`poll_${id}_option_1`).setLabel(`option 1`).setStyle('PRIMARY'), new MessageButton().setCustomId(`poll_${id}_option_2`).setLabel(`option 2`).setStyle('PRIMARY')]))
+                options = [{
+                    name: 'option_1',
+                    type: 'STRING',
+                    value: 'yes',
+                    pollId: id
+                },
+                {
+                    name: 'option_2',
+                    type: 'STRING',
+                    value: 'no',
+                    pollId: id
+                }]
             }
+            embed.setFooter(`Total votes: 0 | ${client.user.username} ${require('../../package.json').version}`, client.user.displayAvatarURL())
             await client.util.sleep(3000)
             await interact.editReply({
                 content: 'sending poll...'
@@ -81,16 +94,16 @@ module.exports = {
             });
             console.log({
                 id,
-                options: options,
+                options,
                 message: m.id,
                 channel: m.channel.id,
                 guild: m.guild.id
             })
-            await fetch('http://localhost:3000/api/poll',{
+            await fetch('http://oneki.herokuapp.com/api/poll',{
                 method: 'POST',
                 body: JSON.stringify({
                     id,
-                    options: options,
+                    options,
                     message: m.id,
                     channel: m.channel.id,
                     guild: m.guild.id

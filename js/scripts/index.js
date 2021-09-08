@@ -30,7 +30,7 @@ client.uno = new Collection();
 admin.initializeApp({
     credential: admin.credential.cert(JSON.parse(process.env.TOKEN_FIREBASE))
 });
-const db = admin.firestore();
+global.db = admin.firestore();
 
 // //load config
 // db.collection(`config`).doc('bot').onSnapshot(doc => {
@@ -79,3 +79,7 @@ if (process.env.NODE_ENV == 'development') client.on('ready', message => {
 //     console.log(process.env.stateBot)
 //     client.channels.cache.get('860715234574729216')?.send('<a:kannasip:857080764461482026>')
 })
+// fetch('http://localhost:3000', {
+//     method: 'POST',
+//     body:
+// })
