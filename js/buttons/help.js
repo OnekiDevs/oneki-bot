@@ -2,8 +2,8 @@ const { MessageActionRow, MessageEmbed, MessageSelectMenu, MessageButton } = req
 const fetch = require('node-fetch');
 module.exports.run = async (client, interact, { category:c, lang:lng }) => {
     const server = client.servers.get(interact.guildId);
-    fetch(`https://oneki.herokuapp.com/api/${server.lang}/cmd/categories`).then((r) => r.json()).then((categories) => {
-        fetch(`https://oneki.herokuapp.com/api/${lng}/cmd/${c}`).then((r) => r.json()).then(async category=>{
+    fetch(`https://oneki.herokuapp.com/api/lang/${server.lang}/cmd/categories`).then((r) => r.json()).then((categories) => {
+        fetch(`https://oneki.herokuapp.com/api/lang/${lng}/cmd/${c}`).then((r) => r.json()).then(async category=>{
             const lang = client.util.lang({lang:server.lang, route:'commands/help'}), 
                 embed = new MessageEmbed().setTitle(`${await client.util.replace(lang.embed.title, [{match:"{bot}", replace:interact.guild.me.displayName}])}`).setDescription(`${await client.util.replace(lang.embed.description, [{match:"{type}", replace:c}])}`).setColor('#f89dfa');
                 let j = 0, k = 0, buttons = [];
