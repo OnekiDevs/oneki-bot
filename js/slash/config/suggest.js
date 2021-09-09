@@ -58,7 +58,7 @@ module.exports = {
                     { match: "{channel}", replace: channel },
                 ])}`
             });
-            interact.guild.commands.create(await client.slash.get('config').data({guild: interact.guildId}));
+            interact.guild.commands.create(await client.slash.get('config').data({guild: interact.guildId, client}));
         } else {
             interact.deferUpdate();
         }
