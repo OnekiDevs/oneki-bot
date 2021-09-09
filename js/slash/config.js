@@ -1,3 +1,4 @@
+'use strict';
 const db = require('firebase-admin').firestore();
 module.exports = {
     name: 'config',
@@ -35,6 +36,7 @@ module.exports = {
                     description: "remove the channel to the blacklist",
                     required: true,
                     choices: removeChannels.data().blacklistChannels.map(i => {
+                        console.log(i)
                         const channel = client.channels.cache.get(i)
                         if (channel) return { name: channel.name, value: i }
                         else return false
