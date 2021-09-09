@@ -56,7 +56,7 @@
         }
     },
     "blacklist": {
-        "channel": {
+        "channels": {
             "permissions": "No tienes los permisos nesesarios",
             "replyAdd": "{channel} agregado a la lista negra",
             "replyRemove": "{channel} removido de la lista negra"

@@ -69,7 +69,7 @@
         }
     },
     "blacklist": {
-        "channel": {
+        "channels": {
             "permissions": "You don't have the necessary permissions",
             "replyAdd": "added {channel} to blacklist",
             "replyRemove": "removed {channel} to the blacklist"
