@@ -40,6 +40,8 @@ module.exports = {
         if (!add && !remove) {
             //get the config
             interact.deferUpdate();
+        } else {
+            interact.guild.commands.create(await client.slash.get('config').data({guild: interact.guildId, client}));
         }
     }
 }
