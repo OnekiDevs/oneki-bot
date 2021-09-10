@@ -6,7 +6,7 @@ module.exports = {
     botPermissions: [Permissions.FLAGS.MANAGE_MESSAGES],
     userPermissions: [],
     alias: ['screenshot'],
-    run: async (client, message, args) => {
+    run: async (message, args) => {
         // return message.reply('comando temporalmente desactivado por mantenimmiento\nDisculpe las molestias')
         message.channel.sendTyping();
         const server = client.servers.get(message.guild.id);

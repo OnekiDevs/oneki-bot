@@ -1,7 +1,7 @@
 const fetch = require("node-fetch");
 module.exports = {
     name: 'guildBanRemove',
-    run: async (client, guild, user) => {
+    run: async (guild, user) => {
         // fetch('https://koneweb.herokuapp.com/api/unban', {
         //     method: 'POST',
         //     headers: {

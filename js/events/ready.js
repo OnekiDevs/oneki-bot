@@ -3,7 +3,7 @@ const fs = require('fs');
 // const { Permissions } = require('discord.js')
 module.exports = {
     name: 'ready',
-    run: async (client) => {
+    run: async () => {
         try {
             //load configs
             db.collection('config').onSnapshot(snap => {

@@ -1,7 +1,7 @@
 const { Permissions, MessageEmbed } = require("discord.js");
 module.exports = {
     name: "command",
-    run: async (client, command, message, args) => {
+    run: async (command, message, args) => {
         if (!message.guild.me.permissions.has(Permissions.FLAGS.SEND_MESSAGES)) return;
         if (client.servers.get(message.guild.id).blacklist.channels.includes(message.channel.id)) return;   
         const cmd = client.commands.find((c) => c.name.toLowerCase() == command || c.alias.includes(command));
@@ -19,7 +19,7 @@ module.exports = {
                         },
                     ])
                 );
-            cmd.run(client, message, args).catch(async (error) => {
+            cmd.run(message, args).catch(async (error) => {
                 console.log(
                     "\x1b[31m%s\x1b[0m",
                     "**********************************************************************"

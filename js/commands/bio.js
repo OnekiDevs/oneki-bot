@@ -5,7 +5,7 @@ module.exports = {
     botPermissions: [],
     userPermissions: [],
     alias: ["betrayal.io"],
-    run: async (client, message, args) => {
+    run: async (message, args) => {
         const server = client.servers.get(message.guild.id);
         const lang = client.util.lang({ lang: server.lang, route: "commands/bio" });
         const messageMention = message.mentions.channels.first()

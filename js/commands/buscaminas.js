@@ -5,7 +5,7 @@ module.exports = {
     botPermissions: [],
     usersPermissions: [],
     alias: ['minesweeper'],
-    run: async (client, message, args) => {
+    run: async (message, args) => {
         //se definen las filas, columnas y bombas
         let filas = 9, columnas = 9, bombas = 15;
         //se crea una matriz de 9x9

@@ -5,7 +5,7 @@ module.exports = {
     botPermissions: [Permissions.FLAGS.MANAGE_MESSAGES],
     userPermissions: [],
     alias: ['di'],
-    run: async (client, message, args) => {
+    run: async (message, args) => {
         //eliminamos el mensaje
         message.delete();
         // comprobamos que halla escrito texto

@@ -4,7 +4,7 @@ const package = require('../../package.json');
 const { MessageEmbed } = require('discord.js');
 module.exports = {
     name: "messageDelete",
-    run: async (client, message) => {
+    run: async (message) => {
         return;
         if (!message.author || message.author?.bot) return;
         if (!message.content) return;

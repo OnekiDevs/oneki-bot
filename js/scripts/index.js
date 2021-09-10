@@ -8,7 +8,7 @@ global.fetch = require('node-fetch')
 // return;
 
 //declarations
-const client = new Client({
+global.client = new Client({
     intents: [
         'DIRECT_MESSAGES',
         'GUILD_MESSAGES',
@@ -22,6 +22,7 @@ const client = new Client({
 });
 client.commands = new Collection();
 client.util = require('./util');
+global.util = require('./util');
 client.buttons = new Collection();
 client.servers = new Collection();
 client.slash = new Collection();
@@ -44,7 +45,7 @@ global.db = admin.firestore();
 //load events
 for (const file of fs.readdirSync("./js/events").filter((f) => f.endsWith(".js"))) {
     const event = require(`../events/${file}`);
-    client.on(event.name, event.run.bind(null, client));
+    client.on(event.name, event.run.bind());
     console.log("\x1b[33m%s\x1b[0m", file, "fue cargado correctamente");
 }
 
@@ -71,15 +72,3 @@ for (const file of fs.readdirSync("./js/buttons").filter((f) => f.endsWith(".js"
 
 //login
 client.login(process.env.NODE_ENV!='production'?process.env.TOKEN_DISCORD_DEV:process.env.TOKEN_DISCORD);
-
-//play ground
-if (process.env.NODE_ENV == 'development') client.on('ready', message => {
-//     console.log(process.env.stateBot)
-//     process.env.stateBot = "sd"
-//     console.log(process.env.stateBot)
-//     client.channels.cache.get('860715234574729216')?.send('<a:kannasip:857080764461482026>')
-})
-// fetch('http://localhost:3000', {
-//     method: 'POST',
-//     body:
-// })

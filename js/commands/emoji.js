@@ -7,7 +7,7 @@ module.exports = {
     alias: [],
     userPermissions: [],
     botPermissions: [],
-    run: async (client, message, args) => {
+    run: async (message, args) => {
         const emojiString = (message.content.match(/<a?:(.+):\d{18}>/)??args)[0]
         const emojiId = (emojiString??'').replace(/<a?:(.+):/, '').replace(/>/, '');
         if (args[0] && (/\d{18}/).test(emojiId)) {

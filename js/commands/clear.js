@@ -4,7 +4,7 @@ module.exports = {
     botPermissions: [Permissions.FLAGS.MANAGE_MESSAGES, Permissions.FLAGS.MANAGE_CHANNELS],
     userPermissions: [Permissions.FLAGS.MANAGE_MESSAGES, Permissions.FLAGS.MANAGE_CHANNELS],
     alias: [],
-    run: async (client, message, args) => {
+    run: async (message, args) => {
         const server = client.servers.get(message.guild.id);
         const lang = client.util.lang({lang:server.lang, route:'commands/clear'});
         const yes = new MessageButton().setLabel(lang.buttons.yes).setStyle('PRIMARY').setCustomId('clear_yes');

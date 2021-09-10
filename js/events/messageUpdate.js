@@ -4,7 +4,7 @@ const package = require('../../package.json');
 const { MessageEmbed } = require('discord.js');
 module.exports = {
     name: "messageUpdate",
-    run: async (client, oldMessage, newMessage) => {
+    run: async (oldMessage, newMessage) => {
         return;
         try {
             if (!oldMessage.author || oldMessage.author?.bot) return;

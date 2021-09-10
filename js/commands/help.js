@@ -5,7 +5,7 @@ module.exports = {
     botPermissions: [],
     userPermissions: [],
     alias: ['commands'],
-    run: async (client, message, args) => {
+    run: async (message, args) => {
         message.channel.sendTyping();
         const server = client.servers.get(message.guild.id);
         fetch(`https://oneki.herokuapp.com/api/lang/${server.lang}/cmd/categories`).then((r) => r.json()).then((categories) => {

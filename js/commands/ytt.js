@@ -6,7 +6,7 @@ module.exports = {
     botPermissions: [],
     userPermissions: [],
     alias: ["youtubetogether", "youtube-together"],
-    run: async (client, message, args) => {
+    run: async (message, args) => {
         const server = client.servers.get(message.guild.id);
         const lang = client.util.lang({lang:server.lang, route:'commands/ytt'});
         const messageMention = message.mentions.channels.first()

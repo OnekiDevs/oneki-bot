@@ -1,6 +1,6 @@
 module.exports = {
     name: "play",
-    run: async (client, guild) => {
+    run: async (guild) => {
         try {
             const ytdl = require('ytdl-core');
             const queue = await client.queue.get(guild.id);

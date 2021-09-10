@@ -1,27 +1,27 @@
 module.exports = {
     name: 'interactionCreate',
-    run: async (client, interact) => {
+    run: async (interact) => {
         try {
             // console.log(interact);
             if(interact.isButton()) {
                 if (interact.customId.startsWith('help_')) {
                     let cmd = client.buttons.get('help');
-                    cmd.run(client, interact, {
+                    cmd.run(interact, {
                         category: interact.customId.split('_')[2],
                         lang: interact.customId.split('_')[1]
                     })
                 } else if(interact.customId.startsWith('poll_')) {
-                    client.buttons.get('poll').run(client, interact, {
+                    client.buttons.get('poll').run(interact, {
                         id: interact.customId.split('_')[1],
                         option: interact.customId.replace(/poll_.{9}_/,'')
                     })
                 } else {
                     let cmd = client.buttons.get(interact.customId);
-                    if (cmd) cmd.run(client, interact, cmd.params)
+                    if (cmd) cmd.run(interact, cmd.params)
                 }
             } else if (interact.isCommand()){
                 let cmd = client.slash.get(interact.commandName)
-                if (cmd) cmd.run(client, interact)
+                if (cmd) cmd.run(interact)
             }
         } catch (error) {
             console.log(

@@ -9,7 +9,7 @@ module.exports = {
     description: "Reproduce musica en un canal de voz",
     use: ".play [name]",
     example: ".Ping",
-    run: async (client, message, args) => {
+    run: async (message, args) => {
         return;
         if (!args[0]) return message.reply('Nesesita ingresar una busqueda o link de youtube');
         const Query = (await search(args.join(" "), {

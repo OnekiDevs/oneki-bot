@@ -5,7 +5,7 @@ module.exports = {
     botPermissions: [],
     userPermissions: [],
     alias: [],
-    run: async (client, message, args) => {
+    run: async (message, args) => {
         // return;
         const partida = new UNO(message.author.id);
         partida.maxPlayers = 4;

@@ -1,6 +1,6 @@
 const { MessageActionRow, MessageEmbed, MessageSelectMenu, MessageButton } = require('discord.js');
 const fetch = require('node-fetch');
-module.exports.run = async (client, interact, { category:c, lang:lng }) => {
+module.exports.run = async (interact, { category:c, lang:lng }) => {
     const server = client.servers.get(interact.guildId);
     fetch(`https://oneki.herokuapp.com/api/lang/${server.lang}/cmd/categories`).then((r) => r.json()).then((categories) => {
         fetch(`https://oneki.herokuapp.com/api/lang/${lng}/cmd/${c}`).then((r) => r.json()).then(async category=>{

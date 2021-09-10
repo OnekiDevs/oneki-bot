@@ -7,7 +7,7 @@ module.exports = {
     alias: ["sugerencia", "suggestion", "suggest"],
     botPermissions: [Permissions.FLAGS.MANAGE_MESSAGES],
     userPermissions: [],
-    run: async (client, message, args, data) => {
+    run: async (message, args, data) => {
         const server = client.servers.get(message.guild.id);
         const lang = client.util.lang({lang:server.lang, route:'commands/sugerir'});
         const snapshot = await db.collection(message.guild.id).doc("suggest").get();

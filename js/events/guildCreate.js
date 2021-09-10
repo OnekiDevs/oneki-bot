@@ -2,7 +2,7 @@ const { MessageEmbed } = require("discord.js");
 const fs = require("fs");
 module.exports = {
     name: "guildCreate",
-    run: async (client, guild) => {
+    run: async (guild) => {
         let canal = client.channels.cache.get("867248825777127445");
         const embed = new MessageEmbed()
             .setThumbnail(guild.iconURL())

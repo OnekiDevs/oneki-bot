@@ -1,7 +1,42 @@
-const db = require('firebase-admin').firestore();
+const { SlashCommandBuilder } = require('@discordjs/builders');
 module.exports = {
     name: 'config',
-    data: async ({guild, client}) => {
+    async data({guild, client}) {
+        return new Promise(async resolve => {
+            let guildConfig = await db.collection('config').doc(guild??"").get();
+            resolve((new SlashCommandBuilder().setName('config').setDescription('bot settings').addSubcommandGroup(subcommandGroup => {
+                subcommandGroup.setName('prefix').setDescription('set bot prefix').addSubcommand(subcommand => {
+                    subcommand.setName('set').setDescription('set the new bot prefix').addStringOption(option => {
+                        option.setName('prefix').setDescription('new prefix').setRequired(true)
+                    })
+                }).addSubcommand(subcommand => {
+                    subcommand.setName('reset').setDescription('reset the prefix')
+                })
+            }).addSubcommandGroup(subcommandGroup => {
+                subcommandGroup.setName('blacklist').setDescription('config blacklists').addSubcommand(subcommand => {
+                    subcommand.setName('channels').setDescription('config channels blacklists').addChannelOption(option => {
+                        option.setName('add').setDescription('add the channel to the blacklist')
+                    })
+                    if (guildConfig.exists && guildConfig.data().blacklistChannels.length > 0) {
+                        subcommand.addStringOption(option => {
+                            option.setName('remove').setDescription('remove the channel to the blacklist')
+                            for (const channelId of guildConfig.data().blacklistChannels) {
+                                const channelName = client.channels.cache.get(channelId)?.name
+                                if (channelName) option.addChoice(channelName, channelId)
+                            }
+                        })
+                    }
+                })
+            }).addSubcommandGroup(subcommandGroup => {
+                subcommandGroup.setName('language').setDescription('set the server language').addSubcommand(subcommand => {
+                    subcommand.setName('set').setDescription('set the server language').addStringOption(option => {
+                        option.setName('language').setDescription('new server language').addChoice('english', 'en').addChoice('spanish', 'es')
+                    })
+                }).addSubcommand(subcommand => {
+                    subcommand.setName('reset').setDescription('reset the language')
+                })
+            })).toJSON())
+        })
         let suggestChannels = await db.collection(guild??"").doc('suggest').get();
         if (suggestChannels.exists) {
             suggestChannels = [

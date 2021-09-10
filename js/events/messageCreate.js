@@ -1,6 +1,6 @@
 module.exports = {
     name: 'messageCreate',
-    run: async (client, message) => {
+    run: async (message) => {
         // console.log(message.channel.type);
         if (message.author.bot) return;
         if (message.channel.type == 'DM') return client.emit('directMessage', message);

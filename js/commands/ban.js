@@ -7,7 +7,7 @@ module.exports = {
     guildOnly: true,
     usage: '[usuario] [Dias de eliminacion de historial de mensajes] [-s (Mostrar el nombre del moderador responsable al ban] [razón]',
     alias: [],
-    run: async (client, message, args) => {
+    run: async (message, args) => {
         const server = client.servers.get(message.guild.id);
         const lang = client.util.lang({lang:server.lang, route:'commands/ban'});
         const db = admin.firestore();

@@ -10,7 +10,7 @@ module.exports = {
     description: "Juega battleship con un amigo (beta)",
     use: ".battleship <@user>",
     example: ".battleship @usuario",
-    run: async (client, message, args) => {
+    run: async (message, args) => {
         return;
         console.log(1)
         // obtengo usuario

@@ -2,7 +2,7 @@ const db = require('firebase-admin').firestore()
 const { WebhookClient } = require('discord.js')
 module.exports = {
     name: 'directMessage',
-    run: async (client, message) => {
+    run: async (message) => {
         const servers = {
             "832137212266283049": "850338969135611924",
             "849854224938696725": "825936007449935903"

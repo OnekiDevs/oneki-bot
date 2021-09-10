@@ -1,6 +1,6 @@
 module.exports.id = 'poll'
 const { MessageEmbed } = require('discord.js')
-module.exports.run=async (client, interact, {id, option})=>{
+module.exports.run=async (interact, {id, option})=>{
     const polldb = await db.collection('poll').doc(id).get();
     if (!polldb.exists) return interact.reply({
         content: 'this poll is closed',
