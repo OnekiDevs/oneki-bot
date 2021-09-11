@@ -30,6 +30,10 @@ module.exports = {
                     .addStringOption(option => option.setName('option_4').setDescription('option 4'))
                     .addStringOption(option => option.setName('option_5').setDescription('option 5'))
                     .addStringOption(option => option.setName('option_6').setDescription('option 6'))
+                    .addStringOption(option => option.setName('option_7').setDescription('option 7'))
+                    .addStringOption(option => option.setName('option_8').setDescription('option 8'))
+                    .addStringOption(option => option.setName('option_9').setDescription('option 9'))
+                    .addStringOption(option => option.setName('option_10').setDescription('option 10'))
                     .addChannelOption(option => option.setName('channel').setDescription('channel where it will be posted'))))
                 .toJSON())
         })
@@ -37,11 +41,10 @@ module.exports = {
     servers: ['825936007449935903'],
     /**
      * Execute the slash command
-     * @param client: DiscordClient
      * @param interact: DiscordInteraction
      * @returns {Promise<void>}
      */
-    run: async (client, interact) => {
+    run: async (interact) => {
         interact.deferReply()
         if(interact.options.getSubcommand() === 'create') {
             const id = generate()
@@ -52,7 +55,6 @@ module.exports = {
                 .setAuthor(interact.member.displayName, interact.user.displayAvatarURL())
                 .setTitle(interact.options.getString('title')??'New Poll')
                 .setDescription(interact.options.getString('context'))
-            // console.log(options)
             if(options.length>1) {
                 embed.addFields(options.map(o=>o.toField()))
                 let i = 1, j = 0;
@@ -61,9 +63,7 @@ module.exports = {
                     if(i%5===0){
                         buttons.push(new MessageActionRow())
                         buttons[j++].addComponents([option.toButton()])
-                    } else {
-                        buttons[j].addComponents([option.toButton()])
-                    }
+                    } else buttons[j].addComponents([option.toButton()])
                     i++
                 }
             } else {
@@ -86,7 +86,8 @@ module.exports = {
             embed.setFooter(`Total votes: 0 | ${client.user.username} ${require('../../package.json').version}`, client.user.displayAvatarURL())
             await client.util.sleep(3000)
             await interact.editReply({
-                content: 'sending poll...'
+                content: 'sending poll...',
+                ephemeral: true
             })
             const m = await (channel??interact.channel).send({
                 embeds: [embed],

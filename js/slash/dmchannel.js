@@ -21,7 +21,7 @@ module.exports = {
         })
     },
     servers: ['825936007449935903', '850338969135611924'],
-    run: async (client, interact) => {
+    run: async (interact) => {
         if (interact.options.getSubcommand() == 'channel') {
             const lang = client.util.lang({ lang: client.servers.get(interact.guildId).lang, route: "slash/dm" }).channel;
             if(!interact.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS])) return interact.reply({

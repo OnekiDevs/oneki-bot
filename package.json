@@ -45,5 +45,8 @@
   "engines": {
     "node": "16.6.1",
     "npm": "7.20.5"
+  },
+  "devDependencies": {
+    "ws": "^8.2.2"
   }
 }

@@ -41,7 +41,7 @@ module.exports = {
             //get the config
             interact.deferUpdate();
         } else {
-            interact.guild.commands.create(await client.slash.get('config').data({guild: interact.guildId, client}));
+            interact.guild.commands.create(await client.slash.get('config').data({guild: interact.guildId}));
         }
     }
 }

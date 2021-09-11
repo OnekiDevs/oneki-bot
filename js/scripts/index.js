@@ -71,4 +71,23 @@ for (const file of fs.readdirSync("./js/buttons").filter((f) => f.endsWith(".js"
 }
 
 //login
-client.login(process.env.NODE_ENV!='production'?process.env.TOKEN_DISCORD_DEV:process.env.TOKEN_DISCORD);
+client.login(process.env.NODE_ENV!=='production'?process.env.TOKEN_DISCORD_DEV:process.env.TOKEN_DISCORD);
+
+const WebSocket = require('ws');
+global.ws = new WebSocket('ws://localhost:3000/path');
+
+
+ws.on('open', function open() {
+    // ws.send(JSON.stringify({
+    //     event: 'xd',
+    //     server: '584215654565661563',
+    //     data: {
+    //         in: ['f']
+    //     }
+    // }))
+});
+
+ws.on('message', function incoming(message) {
+    console.log('ws received: %s', message);
+});
+
