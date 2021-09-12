@@ -5,7 +5,7 @@ async def on_ready():
     collection = tools.db.Collection(collection = "config") 
     print("[*] Cargando...")
 
-    tools.bot.command_prefix = collection.document("bot").content.pop("prefixes")
+    tools.bot.command_prefix = collection.document("bot").content["prefixes"]
     tools.servers = tools.utils.dict_servers()
 
     # tools.client.connect(tools.servers)

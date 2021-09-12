@@ -6,9 +6,10 @@ async def info(ctx, member: tools.discord.Member = None):
     translations = commands.get_config(ctx, "info")
     if(member == None): member = ctx.author
 
-    roles = translations['no_roles']
-    try: roles = "".join(member.roles)
-    except: pass
+    try: 
+        roles = "".join(member.roles)
+    except: 
+        roles = translations['no_roles']
 
     user = tools.utils.get_user(member)
 

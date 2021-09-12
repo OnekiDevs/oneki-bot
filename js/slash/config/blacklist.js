@@ -11,23 +11,23 @@ module.exports = {
         const add = options.getChannel('add');
         const remove = options.getString('remove');
         if (add) {
-            db.collection('config').doc(channel.guild.id).update({ 
-                blacklistChannels: FieldValue.arrayUnion(channel.id)
+            db.collection('config').doc(interact.guildId).update({
+                blacklistChannels: FieldValue.arrayUnion(add.id)
             }).catch(err => {
-                if (err.details.startsWith("No document to update")) db.collection(channel.guild.id).doc('blacklist').set({
-                    blacklistChannels: [channel.id]
+                if (err.details.startsWith("No document to update")) db.collection(interact.guildId).doc('blacklist').set({
+                    blacklistChannels: [add.id]
                 })
             })
             interact.reply({
-            content: `${await client.util.replace(lang.replyAdd, [
-                { match: "{channel}", replace: channel.name }
-            ])}`,
-            ephemeral: true
-        })
+                content: `${await client.util.replace(lang.replyAdd, [
+                    { match: "{channel}", replace: add.name }
+                ])}`,
+                ephemeral: true
+            })
         } 
         if (remove) {
             const channel = client.channels.cache.get(remove)
-            db.collection('config').doc(channel.guild.id).update({
+            db.collection('config').doc(interact.guildId).update({
                 blacklistChannels: FieldValue.arrayRemove(channel.id)
             }).catch(err => {})
             interact.reply({
@@ -38,8 +38,10 @@ module.exports = {
             })
         } 
         if (!add && !remove) {
-            //get the
+            //get the config
             interact.deferUpdate();
+        } else {
+            interact.guild.commands.create(await client.slash.get('config').data({guild: interact.guildId, client}));
         }
     }
 }

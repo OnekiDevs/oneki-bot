@@ -54,5 +54,12 @@
         "rols": {
             "reply": "Se agregó el rol de {role}"
         }
+    },
+    "blacklist": {
+        "channels": {
+            "permissions": "No tienes los permisos nesesarios",
+            "replyAdd": "{channel} agregado a la lista negra",
+            "replyRemove": "{channel} removido de la lista negra"
+        }
     }
 }

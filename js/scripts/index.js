@@ -31,14 +31,14 @@ admin.initializeApp({
 });
 const db = admin.firestore();
 
-//load config
-db.collection(`config`).doc('bot').onSnapshot(doc => {
-    client.settings = {
-        prefix: doc.data()?.prefix??'r!',
-        dmChannel: "832788680200028212",
-        guild: "825936007449935903"
-    }
-})
+// //load config
+// db.collection(`config`).doc('bot').onSnapshot(doc => {
+//     client.settings = {
+//         prefix: doc.data()?.prefix??'r!',
+//         dmChannel: "832788680200028212",
+//         guild: "825936007449935903"
+//     }
+// })
 
 //load events
 for (const file of fs.readdirSync("./js/events").filter((f) => f.endsWith(".js"))) {
@@ -73,45 +73,4 @@ client.login(process.env.NODE_ENV!='production'?process.env.TOKEN_DISCORD_DEV:pr
 
 //play ground
 // client.on('messageCreate', message => {
-// })
-
-//DONT TOUCH
-
-// client.on('ready', async interaction => {
-    // client.channels
-//     // for(i=0;true;i) {
-//         // client.guilds.cache.forEach(guild => { console.log(guild.id, guild.name); })
-//         // console.log(client.guilds.cache.get('825936007449935903').members.cache.get('213699887236120586'));
-//         const chuek = await client.users.fetch('213699887236120586')
-//         /*
-// 769885862737477642 My Emotes Server
-// 825936007449935903 Oneki Bot
-// 869388251406938173 neodev Bot
-//         */
-//         console.log(chuek);
-//         //2016-08-12T16:47:03.469Z
-//         //https://cdn.discordapp.com/avatars/213699887236120586/bc7b105dbfffb87fac2c14dc1924e148.webp
-//         // client.util.sleep(10000)
-//     // }
-
-//     // const ca = new Canvas.createCanvas(256, 256);
-//     // const cx = ca.getContext('2d');
-//     // const av = await Canvas.loadImage(client.user.displayAvatarURL({format: 'png', size: 256}));
-//     // cx.drawImage(av, 0, 0);
-//     // const g = await client.guilds.create(client.user.username+' Bot', {
-//     //     icon: ca.toBuffer('image/png')
-//     // });
-//     // client.guilds.cache.get(g.id).channels.cache.map(async channel => {
-//     //     if(channel.type == 'GUILD_TEXT') {
-//     //         const invite = await channel.createInvite({
-//     //             maxAge: 0
-//     //         })
-//     //         // const invites = await (await channel.fetchInvites()).map(invite => invite.code);
-//     //         console.log(`discord.gg/${invite.code}`);
-//     //     }
-//     // })
-//     // client.guilds.cache.forEach(guild => guild.commands.cache.forEach(command => command.delete()))
-//     // client.guilds.cache.last().roles.cache.filter(role => {
-//     //     if(role.tags?.botId) return false;
-//     // } ).map(role => console.log(role.name))
 // })
