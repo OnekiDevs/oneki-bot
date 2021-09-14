@@ -105,7 +105,6 @@ function imprimir(matriz, filas, columnas) {
             fila += ` ${matriz[x][y]} `
         }
     }
-    console.log("")
 }
 
 function enviar(matriz, filas, columnas, message) {
@@ -128,5 +127,5 @@ function enviar(matriz, filas, columnas, message) {
         buscaminas += "\n";
     }
     //terminando el ciclo entero se envia el mensaje
-    message.channel.send(buscaminas);
+    message.channel.reply(buscaminas);
 }

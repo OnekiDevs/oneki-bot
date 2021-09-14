@@ -1,8 +1,7 @@
-const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+const sleep = (ms=1000) => new Promise(resolve => setTimeout(resolve, ms));
 
 module.exports = {
     sleep,
-    joinVoice: require('./joinVoice'),
     lang: require('./langs'), 
     replace: require('./replace'),
     errorEmbed: require('./errorEmbed')
