@@ -46,31 +46,8 @@ module.exports = {
             //     })
             // }
             console.log('\x1b[31m%s\x1b[0m', `${client.user.username} ${require('../../package.json').version} Listo y Atento!!!`);
-        } catch (error) {
-            console.log(
-                "\x1b[31m%s\x1b[0m",
-                "**********************************************************************"
-            );
-            console.log(error);
-            console.log(
-                "\x1b[31m%s\x1b[0m",
-                "**********************************************************************"
-            );
-            (await client.channels.fetch("833780614712131616")).send({
-                content: process.env.NODE_ENV!='production'?process.env.DEVELOPER_ID?`<@${process.env.DEVELOPER_ID}>`:null:'<@&832657759081463848>',
-                embeds: [
-                    new MessageEmbed()
-                        .setColor("YELLOW")
-                        .setTitle("New Error Detected")
-                        .addField("Error Type", "```cmd\n" + error.name + "\n```", true)
-                        .addField("Error Message", "```cmd\n" + error.message + "\n```", true)
-                        .addField("Error In", `\`\`\`cmd\nevent ready\n\`\`\``, true),
-                    new MessageEmbed()
-                        .setColor("YELLOW")
-                        .setTitle("Error Stack")
-                        .setDescription(`\`\`\`cmd\n${error.stack}\n\`\`\``),
-                ],
-            });
+        }  catch (e) {
+            util.error(e, __dirname)
         }
     }
 }

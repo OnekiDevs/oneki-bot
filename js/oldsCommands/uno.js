@@ -1,5 +1,5 @@
 const { MessageEmbed, MessageButton } = require('discord.js');
-const UNO = require('../scripts/class/uno');
+const UNO = require('../classes/uno');
 module.exports = {
     name: "uno",
     botPermissions: [],

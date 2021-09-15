@@ -5,7 +5,6 @@ const { MessageEmbed } = require('discord.js');
 module.exports = {
     name: "messageUpdate",
     run: async (oldMessage, newMessage) => {
-        return;
         try {
             if (!oldMessage.author || oldMessage.author?.bot) return;
             if (oldMessage.content === newMessage.content) return;
@@ -33,10 +32,8 @@ module.exports = {
                 content: oldMessage.author.id,
                 embeds: [embed]
             });
-        } catch (error) {
-            console.log(error);
-            const channelError = await client.channels.cache.get('833780614712131616');
-            channelError.send(`Error en **events/messageUpdate.js**\n${error} <@&832657759081463848>\nChannel: <#${oldMessage.channel.id}>\nServer: ${oldMessage.guild.name} / ${oldMessage.guild.id}${oldMessage.content}`);
+        } catch (e) {
+            util.error(e, __dirname)
         }
     }
 }

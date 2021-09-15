@@ -1,4 +1,4 @@
-const UNO = require("../scripts/class/uno");
+const UNO = require("../classes/uno");
 module.exports = class Ping extends require('../classes/Command'){
 
     constructor() {

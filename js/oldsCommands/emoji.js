@@ -1,7 +1,7 @@
 const {MessageEmbed} = require('discord.js')
 const fetch = require('node-fetch')
 const puppeteer = require('puppeteer');
-const errorEmbed = require('../scripts/errorEmbed')
+const errorEmbed = require('../scripts/error')
 module.exports = {
     name: 'emoji',
     alias: [],

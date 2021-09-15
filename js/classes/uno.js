@@ -63,14 +63,14 @@ module.exports = class UNO {
     //REPARTIR CARTAS (PRIVADO)
     #repartir = (n=7) => {
         return new Promise(async (resolve, reject) => {
-            const cartas = Object.keys(require('../../../src/unoCards.json'))
+            const cartas = Object.keys(require('../../src/unoCards.json'))
             this.players.forEach(player => {
                 for (let i=n;i;i--) player.addCard(cartas[Math.floor(Math.random() * cartas.length)]);
             })
             console.log(this.players);
             const randomCard = cartas[Math.floor(Math.random() * cartas.length)];
             this.actualCard = {
-                ...require('../../../src/unoCards.json')[randomCard],
+                ...require('../../src/unoCards.json')[randomCard],
                 id: randomCard
             };
             resolve();
@@ -144,10 +144,10 @@ module.exports = class UNO {
                     content: 'actualizando mazo...',
                     components: []
                 })
-                const cartas = Object.keys(require('../../../src/unoCards.json'));
+                const cartas = Object.keys(require('../../src/unoCards.json'));
                 this.players.get(collect.member.id).addCard(cartas[Math.floor(Math.random() * cartas.length)]);
                 if (this.players.get(collect.member.id)?.interact) {
-                    const maso = await require('../uno/cartas')(this.players.find(p=>p.id==collect.member.id).cards);
+                    const maso = await require('../scripts/uno/cartas')(this.players.find(p=>p.id==collect.member.id).cards);
                     const attachment = new MessageAttachment(maso, 'cartas.png');
                     const msg = await this.message.guild.channels.cache.get('857846193852907530').send({
                         files: [attachment]
@@ -168,21 +168,18 @@ module.exports = class UNO {
                         ephemeral: true 
                     });
                     const player = this.players.find(p=>p.id==collect.member.id);
-                    const maso = await require('../uno/cartas')(player.cards);
+                    const maso = await require('../scripts/uno/cartas')(player.cards);
                     const attachment = new MessageAttachment(maso, 'cartas.png');
-                    const msg = await this.message.guild.channels.cache.get('857846193852907530').send({
+                    const msg = await this.message.guild.channels.cache.get('887515559628009473').send({
                         files: [attachment]
                     });
                     const jugar = new MessageButton().setLabel('Jugar').setCustomId(`uno_j_${this.id}`).setStyle('PRIMARY')
                     const comer = new MessageButton().setLabel('Comer').setCustomId(`uno_e_${this.id}`).setStyle('SECONDARY');
-                    const buttons = new MessageActionRow().addComponents([jugar, comer]);
-                    console.log('aqui')
                     collect.editReply({
                         content: msg.attachments.first().url,
-                        components: [buttons],
+                        components: [new MessageActionRow().addComponents([jugar, comer])],
                         ephemeral: true
                     });
-                    console.log('y awui')
                     this.players.get(collect.member.id).interact = collect;
                 } else {
                     collect.reply({
@@ -222,11 +219,11 @@ module.exports = class UNO {
         if(this.status == 'waiting') {
             buttons.addComponents([ingresar, comenzar]);
             embed.description = "Esperando jugadores (se requieren minimo 2)";
-            embed.setThumbnail(require('../../../src/unoCards.json')['1r'].url);
+            embed.setThumbnail(require('../../src/unoCards.json')['1r'].url);
         } else {
             embed.description = 'Partida en curso, turno de: <@' + this.turn.id + '>';
             buttons.addComponents([mostrar]);
-            embed.setImage(require('../../../src/unoCards.json')[this.actualCard.id].url);
+            embed.setImage(require('../../src/unoCards.json')[this.actualCard.id].url);
         }
         return {
             embeds: [embed],

@@ -4,5 +4,5 @@ module.exports = {
     sleep,
     lang: require('./langs'), 
     replace: require('./replace'),
-    errorEmbed: require('./errorEmbed')
+    error: require('./error')
 }
