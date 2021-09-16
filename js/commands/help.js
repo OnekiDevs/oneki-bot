@@ -10,6 +10,7 @@ module.exports = {
         const server = client.servers.get(message.guild.id);
         fetch(`https://oneki.herokuapp.com/api/lang/${server.lang}/cmd/categories`).then(async r => {
             const body = await r.text();
+            console.log(body)
             try {
                 return JSON.parse(body);
             } catch (err) {
@@ -23,7 +24,18 @@ module.exports = {
         }).then((categories) => {
             categories = categories.categories;
             console.log(categories)
-            fetch(`https://oneki.herokuapp.com/api/lang/${server.lang}/cmd/${categories[0]}`).then((r) => r.json()).then(async category=>{
+            fetch(`https://oneki.herokuapp.com/api/lang/${server.lang}/cmd/${categories[0]}`).then(async (r) => {
+                const body = await r.text();
+                console.log(body)
+                try {
+                    return JSON.parse(body);
+                } catch (err) {
+                    console.error("Error:", err);
+                    console.error("Response body:", body);
+                    // throw err;
+                    return []
+                }
+            }).then(async category=>{
                 console.log(category)
                 const lang = client.util.lang({lang:server.lang, route:'commands/help'}),
                     embed = new MessageEmbed().setTitle(`${await client.util.replace(lang.embed.title, [{match:"{bot}", replace:message.guild.me.displayName}])}`).setDescription(`${await client.util.replace(lang.embed.description, [{match:"{type}", replace:categories[0]}])}`).setColor('#f89dfa');
