@@ -8,7 +8,19 @@ module.exports = {
     run: async (client, message, args) => {
         message.channel.sendTyping();
         const server = client.servers.get(message.guild.id);
-        fetch(`https://oneki.herokuapp.com/api/lang/${server.lang}/cmd/categories`).then(r => r.json()).then((categories) => {
+        fetch(`https://oneki.herokuapp.com/api/lang/${server.lang}/cmd/categories`).then(async r => {
+            const body = await r.text();
+            try {
+                return JSON.parse(body);
+            } catch (err) {
+                console.error("Error:", err);
+                console.error("Response body:", body);
+                // throw err;
+                return {
+                    categories: []
+                }
+            }
+        }).then((categories) => {
             categories = categories.categories;
             console.log(categories)
             fetch(`https://oneki.herokuapp.com/api/lang/${server.lang}/cmd/${categories[0]}`).then((r) => r.json()).then(async category=>{
