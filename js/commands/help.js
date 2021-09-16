@@ -8,15 +8,11 @@ module.exports = {
     run: async (client, message, args) => {
         message.channel.sendTyping();
         const server = client.servers.get(message.guild.id);
-        fetch(`https://oneki.herokuapp.com/api/lang/${server.lang}/cmd/categories`).then((r) => {
-            try {
-                return r.json()
-            } catch (e) {
-                console.log(`${e}`)
-                return {}
-            }
-        }).then((categories) => {
+        fetch(`https://oneki.herokuapp.com/api/lang/${server.lang}/cmd/categories`).then(r => r.json()).then((categories) => {
+            categories = categories.categories;
+            console.log(categories)
             fetch(`https://oneki.herokuapp.com/api/lang/${server.lang}/cmd/${categories[0]}`).then((r) => r.json()).then(async category=>{
+                console.log(category)
                 const lang = client.util.lang({lang:server.lang, route:'commands/help'}),
                     embed = new MessageEmbed().setTitle(`${await client.util.replace(lang.embed.title, [{match:"{bot}", replace:message.guild.me.displayName}])}`).setDescription(`${await client.util.replace(lang.embed.description, [{match:"{type}", replace:categories[0]}])}`).setColor('#f89dfa');
                 let j = 0, k = 0, buttons = [];
