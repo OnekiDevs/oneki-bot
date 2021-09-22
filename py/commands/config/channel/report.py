@@ -14,9 +14,4 @@ async def report(ctx, channel: tools.discord.TextChannel):
         else:
             document.set(channel = f"{channel.id}")
 
-        if document.exist:
-            document.update("channel", f"{channel.id}") 
-        else: 
-            document.set(channel = f"{channel.id}") 
-
     await ctx.send(translations['channel_config'])
