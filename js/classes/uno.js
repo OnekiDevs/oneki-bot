@@ -18,44 +18,13 @@ module.exports = class UNO {
         url:null
     };
     flow = true;
+    winner = null
 
     constructor(host){
         this.host = host;
-        this.players.set(host, new Player(host));
+        this.turn = host;
+        this.players.add(new Player(host));
     }
-
-
-    
-    // #buttons = () => {
-    //     const collector = this.message.createMessageComponentCollector((mci)=>mci.customId == `uno_m_${this.id}`);
-    //     collector.on('collect', async collect => {
-    //         console.log(collect.customId);
-    //         if (this.players.map(p=>p.id).includes(collect.member.id)) {
-    //             collect.defer({ 
-    //                 ephemeral: true 
-    //             });
-    //             const player = this.players.find(p=>p.id==collect.member.id);
-    //             const maso = await require('../uno/cartas')(player.cartas);
-    //             const attachment = new MessageAttachment(maso, 'cartas.png');
-    //             const msg = await this.message.guild.channels.cache.get('857846193852907530').send({
-    //                 files: [attachment]
-    //             });
-    //             const jugar = new MessageButton().setLabel('Jugar').setCustomId(`uno_j_${this.id}`).setStyle('PRIMARY')
-    //             const comer = new MessageButton().setLabel('Comer').setCustomId(`uno_e_${this.id}`).setStyle('SECONDARY');
-    //             const buttons = new MessageActionRow().addComponents([jugar, comer]);
-    //             collect.editReply({
-    //                 content: msg.attachments.first().url,
-    //                 components: [buttons],
-    //                 ephemeral: true
-    //             });
-    //             this.players.map(p=>{
-    //                 if (p.id==collect.member.id) p.interact = collect;
-    //                 return p
-    //             })
-    //         }
-    //     });
-    // }
-
 
 
 
@@ -63,38 +32,181 @@ module.exports = class UNO {
     //REPARTIR CARTAS (PRIVADO)
     #repartir = (n=7) => {
         return new Promise(async (resolve, reject) => {
-            const cartas = Object.keys(require('../../src/unoCards.json'))
+            const cartas = Object.keys(require('../../src/unoCards.json'));
             this.players.forEach(player => {
                 for (let i=n;i;i--) player.addCard(cartas[Math.floor(Math.random() * cartas.length)]);
-            })
-            console.log(this.players);
+            });
             const randomCard = cartas[Math.floor(Math.random() * cartas.length)];
             this.actualCard = {
                 ...require('../../src/unoCards.json')[randomCard],
                 id: randomCard
             };
             resolve();
+        });
+    }
+
+
+
+    async #jugada(){
+        return new Promise((resolve, reject) => {
+            const collector = this.message.channel.createMessageComponentCollector({
+                filter: mci=>mci.customId.endsWith(this.id),
+                // time: 30000
+            })
+            collector.on('collect', async collect => {
+                console.log(collect.customId);
+                //BOTON COMER _e_
+                if (collect.customId.startsWith('uno_e_')) {
+                    collect.deferUpdate();
+                    this.players.get(collect.member.id)?.interact.editReply({
+                        content: 'actualizando mazo...',
+                        components: []
+                    });
+                    const cartas = Object.keys(require('../../src/unoCards.json'));
+                    this.players.get(collect.member.id).addCard(cartas[Math.floor(Math.random() * cartas.length)]);
+
+                    if (this.players.get(collect.member.id)?.interact) {
+                        const response = await this.#updatePlayerCard(collect)
+                        this.players.find(p=>p.id==collect.member.id).interact.editReply(response);
+                    }
+
+
+
+                    //BOTON MOSTRAR _m_
+                } else if(collect.customId.startsWith('uno_m_')) {
+                    if (this.players.has(collect.member.id)) {
+                        collect.deferReply({
+                            ephemeral: true
+                        });
+                        const response = await this.#updatePlayerCard(collect)
+                        collect.editReply(response);
+                        this.players.get(collect.member.id).interact = collect;
+                    } else {
+                        collect.reply({
+                            content: 'no estas en la partida',
+                            ephemeral: true
+                        })
+                    }
+
+
+
+                    //BOTON JUGAR _j_
+                } else if (collect.customId.startsWith('uno_t_')) {
+                    if (collect.user.id == this.turn.id) {
+                        collector.stop('collect')
+                        resolve(collect)
+                    } else {
+                        collect.deferUpdate()
+                    }
+                }
+
+
+                // collect.defer({
+                //     ephemeral: true
+                // });
+                //repetir hasta que halla ganador
+            })
+            collector.on('end', async (collect, reazon) => {
+                console.log('cerro',reazon)
+                if(reazon=='time') reject(reazon)
+                else if(reazon != 'collect'){
+                    const r = await this.#jugada()
+                    resolve(r);
+                }
+            })
+        })
+    }
+
+    #updatePlayerCard(collect){
+        return new Promise(async resolve => {
+            const player = this.players.find(p=>p.id==collect.member.id);
+            const maso = await require('../scripts/uno/cartas')(player.cards);
+            const attachment = new MessageAttachment(maso, 'cartas.png');
+            const msg = await client.channels.cache.get('887515559628009473').send({
+                files: [attachment]
+            });
+            let j = 0, k = 0, buttons = [];
+            if(collect.member.id == this.turn.id) {
+                const cards = player.cards.map(c=>{
+                    return {
+                        id: c,
+                        ...require('../../src/unoCards.json')[c]
+                    }
+                })
+                const dis = cards.filter(c => c.symbol==this.actualCard.symbol || c.color == this.actualCard.color)
+                for (const i of dis) {
+                    const btn = new MessageButton().setStyle('SUCCESS').setLabel(`${i.symbol} ${i.color}`).setCustomId(`uno_t_${i.id}_${shortid.generate().slice(2)}_${this.id}`)
+                    if(j==0) buttons.push(new MessageActionRow().addComponents([btn]))
+                    else buttons[k].addComponents([btn])
+                    if (j==4) {
+                        j=0
+                        k++
+                    } else j++
+                }
+            }
+            buttons.push(new MessageActionRow().addComponents([new MessageButton().setLabel('Comer').setCustomId(`uno_e_${this.id}`).setStyle('SECONDARY')]))
+            const response = {
+                content: msg.attachments.first().url,
+                components: buttons,
+                ephemeral: true
+            }
+            resolve(response)
         })
     }
 
 
 
+    #cicle() {
+        this.#jugada().then(async jugada => {
+            this.players.get(jugada.member.id).interact.editReply({
+                content: 'Actualizando Mazo ...',
+                components: []
+            });
+            const cartaJugada = {
+                id: jugada.customId.split('_')[2],
+                ...require('../../src/unoCards.json')[jugada.customId.split('_')[2]]
+            }
+            this.actualCard = cartaJugada;
+            jugada.deferUpdate();
+            const index = this.players.get(jugada.member.id).cards.indexOf(cartaJugada.id);
+            this.players.get(jugada.member.id).cards.splice(index, 1);
+            this.players.rotate(this.flow);
+            this.turn = this.players.first();
+            this.message.edit(this.embed);
+            const res = await this.#updatePlayerCard(this.turn.interact);
+            this.turn.interact.editReply(res)
+            this.#cicle();
+            const response = await this.#updatePlayerCard(jugada);
+            this.players.get(jugada.member.id).interact.editReply(response);
+        }).catch(async reason => {
+            if (reason != 'time') console.log(reason);
+            const inter = this.turn.interact;
+            this.players.rotate(this.flow);
+            this.turn = this.players.first();
+            this.message.edit(this.embed);
+            const res = await this.#updatePlayerCard(this.turn.interact);
+            this.turn.interact.editReply(res)
+            this.#cicle();
+            const response = await this.#updatePlayerCard(inter);
+            this.players.get(jugada.member.id).interact.editReply(response);
+            this.#cicle()
+        })
+    }
 
     //ESPERA DE JUGADORES
     awaitPlayers(){
         return new Promise(resolve => {
             const collector = this.message.createMessageComponentCollector((mci)=>mci.customId == `uno_i_${this.id}`||mci.customId == `uno_c_${this.id}`);
             collector.on('collect', async collect => {
-                console.log(collect.customId);
                 if (collect.customId.startsWith('uno_i_')) {
                     if (!this.players.has(collect.member.id)) {
-                        this.players.set(collect.member.id, new Player(collect.member.id));
+                        this.players.add(new Player(collect.member.id));
                         this.message.edit(this.embed);
-                    } else collect.deferUpdate()
+                    }
+                    collect.deferUpdate()
                     if (this.players.size == this.maxPlayers) {
                         await this.#repartir();
-                        // this.#buttons();
-                        this.status = 'curso'
+                        this.status = 'progress'
                         this.message.edit(this.embed);
                         collector.stop();
                         resolve(this.players);
@@ -121,81 +233,12 @@ module.exports = class UNO {
 
 
 
-
     /*
     * Inicia y controla el flujo de juego
     */
-    play(){
-        console.log('Play');
-        //escucha los botones mostrar _m_ | comer _e_ | jugar _j_
-        const collector = this.message.channel.createMessageComponentCollector(mci=>mci.customId == `uno_m_${this.id}` || mci.customId == `uno_j_${this.id}` || mci.customId == `uno_e_${this.id}`)
-        collector.on('collect', async collect => {
-            console.log(collect.customId);
-
-
-            //BOTON JUGAR _j_
-            if (collect.customId.startsWith('uno_j_')) {
-
-
-            //BOTON COMER _e_
-            } else if (collect.customId.startsWith('uno_e_')) {
-                collect.deferUpdate();
-                this.players.get(collect.member.id)?.interact.editReply({
-                    content: 'actualizando mazo...',
-                    components: []
-                })
-                const cartas = Object.keys(require('../../src/unoCards.json'));
-                this.players.get(collect.member.id).addCard(cartas[Math.floor(Math.random() * cartas.length)]);
-                if (this.players.get(collect.member.id)?.interact) {
-                    const maso = await require('../scripts/uno/cartas')(this.players.find(p=>p.id==collect.member.id).cards);
-                    const attachment = new MessageAttachment(maso, 'cartas.png');
-                    const msg = await this.message.guild.channels.cache.get('857846193852907530').send({
-                        files: [attachment]
-                    });
-                    this.players.find(p=>p.id==collect.member.id).interact.editReply({
-                        content: msg.attachments.first().url,
-                        components: [new MessageActionRow().addComponents([new MessageButton().setLabel('Jugar').setCustomId(`uno_j_${this.id}`).setStyle('PRIMARY'), new MessageButton().setLabel('Comer').setCustomId(`uno_e_${this.id}`).setStyle('SECONDARY')])],
-                        ephemeral: true
-                    });
-                }
-
-
-
-            //BOTON MOSTRAR _m_
-            } else if(collect.customId.startsWith('uno_m_')) {
-                if (this.players.has(collect.member.id)) {
-                    collect.deferReply({ 
-                        ephemeral: true 
-                    });
-                    const player = this.players.find(p=>p.id==collect.member.id);
-                    const maso = await require('../scripts/uno/cartas')(player.cards);
-                    const attachment = new MessageAttachment(maso, 'cartas.png');
-                    const msg = await this.message.guild.channels.cache.get('887515559628009473').send({
-                        files: [attachment]
-                    });
-                    const jugar = new MessageButton().setLabel('Jugar').setCustomId(`uno_j_${this.id}`).setStyle('PRIMARY')
-                    const comer = new MessageButton().setLabel('Comer').setCustomId(`uno_e_${this.id}`).setStyle('SECONDARY');
-                    collect.editReply({
-                        content: msg.attachments.first().url,
-                        components: [new MessageActionRow().addComponents([jugar, comer])],
-                        ephemeral: true
-                    });
-                    this.players.get(collect.member.id).interact = collect;
-                } else {
-                    collect.reply({
-                        content: 'no estas en la partida',
-                        ephemeral: true
-                    })
-                }
-            }
-
-
-
-            // collect.defer({ 
-            //     ephemeral: true 
-            // });
-            //repetir hasta que halla ganador
-        }) 
+    async play(){
+        this.#cicle()
+        //TODO hacer que las cartas especiales tengan funcion
     }
 
 
@@ -214,16 +257,16 @@ module.exports = class UNO {
         const ingresar = new MessageButton().setLabel('Ingresar').setCustomId(`uno_i_${this.id}`).setStyle('PRIMARY')
         const comenzar = new MessageButton().setLabel('Comenzar').setCustomId(`uno_c_${this.id}`).setStyle('SUCCESS');
         const buttons = new MessageActionRow();
-        // if (this.players.length == 1) comenzar.setDisabled(true);
+        if (this.players.length == 1) comenzar.setDisabled(true);
         const mostrar = new MessageButton().setLabel('Mostrar Cartas').setCustomId(`uno_m_${this.id}`).setStyle('SECONDARY');
         if(this.status == 'waiting') {
             buttons.addComponents([ingresar, comenzar]);
             embed.description = "Esperando jugadores (se requieren minimo 2)";
             embed.setThumbnail(require('../../src/unoCards.json')['1r'].url);
         } else {
-            embed.description = 'Partida en curso, turno de: <@' + this.turn.id + '>';
+            embed.description = `Partida en curso, turno de: <@${this.turn.id}>`;
             buttons.addComponents([mostrar]);
-            embed.setImage(require('../../src/unoCards.json')[this.actualCard.id].url);
+            embed.setImage(this.actualCard.url);
         }
         return {
             embeds: [embed],

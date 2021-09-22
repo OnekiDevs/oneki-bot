@@ -20,7 +20,7 @@ module.exports = {
                 .setDescription('deactivate dm messages')).toJSON()))
         })
     },
-    servers: ['825936007449935903', '850338969135611924'],
+    servers: ['885674114310881362', '850338969135611924'],
     run: async (interact) => {
         if (interact.options.getSubcommand() == 'channel') {
             const lang = client.util.lang({ lang: client.servers.get(interact.guildId).lang, route: "slash/dm" }).channel;

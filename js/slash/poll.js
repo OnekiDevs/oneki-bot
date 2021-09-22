@@ -38,14 +38,16 @@ module.exports = {
                 .toJSON())
         })
     },
-    servers: ['825936007449935903'],
+    servers: ['885674114310881362'],
     /**
      * Execute the slash command
      * @param interact: DiscordInteraction
      * @returns {Promise<void>}
      */
     run: async (interact) => {
-        interact.deferReply()
+        interact.deferReply({
+            ephemeral: true
+        })
         if(interact.options.getSubcommand() === 'create') {
             const id = generate()
             let options = interact.options._hoistedOptions.filter(o=>(/option_\d{1,2}/).test(o.name)).map(o=>new Option({...o,pollId:id}))
@@ -84,7 +86,7 @@ module.exports = {
                 }]
             }
             embed.setFooter(`Total votes: 0 | ${client.user.username} ${require('../../package.json').version}`, client.user.displayAvatarURL())
-            await client.util.sleep(3000)
+            await util.sleep(3000)
             await interact.editReply({
                 content: 'sending poll...',
                 ephemeral: true

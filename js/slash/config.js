@@ -18,7 +18,7 @@ module.exports = {
                     subcommand.setName('channels').setDescription('config channels blacklists').addChannelOption(option => {
                         return option.setName('add').setDescription('add the channel to the blacklist')
                     })
-                    if (guildConfig.exists && guildConfig.data().blacklistChannels.length > 0) subcommand.addStringOption(option => {
+                    if (guildConfig.exists && guildConfig.data().blacklistChannels && guildConfig.data().blacklistChannels.length > 0) subcommand.addStringOption(option => {
                         option.setName('remove').setDescription('remove the channel to the blacklist')
                         for (const channelId of guildConfig.data().blacklistChannels) {
                             const channelName = client.channels.cache.get(channelId)?.name
