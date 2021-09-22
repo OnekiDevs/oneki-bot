@@ -1,12 +1,22 @@
-const fetch = require("node-fetch");
-const { MessageButton, MessageActionRow } = require("discord.js");
 const shortid = require("shortid");
-module.exports = {
-    name: "fio",
-    botPermissions: [],
-    userPermissions: [],
-    alias: ['fishing.io'],
-    run: async (client, message, args) => {
+const {MessageActionRow, MessageButton} = require("discord.js");
+module.exports = class Ping extends require('../classes/Command'){
+
+    constructor() {
+        super({
+            name: 'fio',
+            aliases: ['fishing.io'],
+            permissions: {
+                bot: [],
+                member: []
+            },
+            cooldown: 0,
+            args: []
+        })
+
+    }
+
+    async run(message, args) {
         const server = client.servers.get(message.guild.id);
         const lang = client.util.lang({lang:server.lang, route:'commands/fio'});
         const messageMention = message.mentions.channels.first()
@@ -54,5 +64,6 @@ module.exports = {
                 });
             },
         });
-    },
-};
+    }
+
+}

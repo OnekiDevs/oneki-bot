@@ -56,7 +56,8 @@ module.exports = {
             interact.reply({
                 content: `${await client.util.replace(lang.reply, [
                     { match: "{channel}", replace: channel },
-                ])}`
+                ])}`,
+                ephemeral: true
             });
             interact.guild.commands.create(await client.slash.get('config').data({guild: interact.guildId, client}));
         } else {

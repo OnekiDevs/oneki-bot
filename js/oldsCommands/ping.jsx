@@ -3,7 +3,7 @@ module.exports = {
     alias: [],
     userPermissions: [],
     botPermissions: [],
-    run: async (client, message, args) => {
+    run: async (message) => {
         return message.reply('pong');
     }
 }

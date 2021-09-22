@@ -5,7 +5,7 @@ module.exports = {
     botPermissions: [],
     usersPermissions: [],
     alias: ['minesweeper'],
-    run: async (client, message, args) => {
+    run: async (message, args) => {
         //se definen las filas, columnas y bombas
         let filas = 9, columnas = 9, bombas = 15;
         //se crea una matriz de 9x9
@@ -105,7 +105,6 @@ function imprimir(matriz, filas, columnas) {
             fila += ` ${matriz[x][y]} `
         }
     }
-    console.log("")
 }
 
 function enviar(matriz, filas, columnas, message) {
@@ -128,5 +127,5 @@ function enviar(matriz, filas, columnas, message) {
         buscaminas += "\n";
     }
     //terminando el ciclo entero se envia el mensaje
-    message.channel.send(buscaminas);
+    message.channel.reply(buscaminas);
 }

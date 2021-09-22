@@ -1,29 +1,26 @@
-const { MessageButton, MessageActionRow, MessageEmbed, MessageSelectMenu } = require('discord.js');
-const fetch = require('node-fetch');
-module.exports = {
-    name: 'help',
-    botPermissions: [],
-    userPermissions: [],
-    alias: ['commands'],
-    run: async (client, message, args) => {
+const fetch = require("node-fetch");
+const {MessageEmbed, MessageButton, MessageActionRow} = require("discord.js");
+module.exports = class Ping extends require('../classes/Command'){
+
+    constructor() {
+        super({
+            name: 'help',
+            aliases: ['ayuda', 'comandos', 'commands'],
+            permissions: {
+                bot: [],
+                member: []
+            },
+            cooldown: 0,
+            args: []
+        })
+
+    }
+
+    run(message, args) {
         message.channel.sendTyping();
         const server = client.servers.get(message.guild.id);
-        fetch(`https://oneki.herokuapp.com/api/lang/${server.lang}/cmd/categories`).then(async r => {
-            try {
-                return JSON.parse(await r.text());
-            } catch (_) {
-                return {
-                    categories: []
-                }
-            }
-        }).then((categories) => {
-            fetch(`https://oneki.herokuapp.com/api/lang/${server.lang}/cmd/${categories[0]}`).then(async (r) => {
-                try {
-                    return JSON.parse(await r.text());
-                } catch (_) {
-                    return []
-                }
-            }).then(async category=>{
+        fetch(`https://oneki.herokuapp.com/api/lang/${server.lang}/cmd/categories`).then((r) => r.json()).then((categories) => {
+            fetch(`https://oneki.herokuapp.com/api/lang/${server.lang}/cmd/${categories[0]}`).then((r) => r.json()).then(async category=>{
                 const lang = client.util.lang({lang:server.lang, route:'commands/help'}),
                     embed = new MessageEmbed().setTitle(`${await client.util.replace(lang.embed.title, [{match:"{bot}", replace:message.guild.me.displayName}])}`).setDescription(`${await client.util.replace(lang.embed.description, [{match:"{type}", replace:categories[0]}])}`).setColor('#f89dfa');
                 let j = 0, k = 0, buttons = [];
@@ -49,4 +46,5 @@ module.exports = {
             })
         })
     }
+
 }

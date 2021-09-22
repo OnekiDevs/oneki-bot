@@ -1,12 +1,23 @@
-const puppeteer = require('puppeteer');
-const  { MessageAttachment, Permissions } = require('discord.js')
-// const {URLSearchParams} = require('url')
-module.exports = {
-    name: 'ss',
-    botPermissions: [Permissions.FLAGS.MANAGE_MESSAGES],
-    userPermissions: [],
-    alias: ['screenshot'],
-    run: async (client, message, args) => {
+const shortid = require("shortid");
+const {MessageActionRow, MessageButton, MessageAttachment} = require("discord.js");
+const puppeteer = require("puppeteer");
+module.exports = class Ping extends require('../classes/Command'){
+
+    constructor() {
+        super({
+            name: 'ss',
+            aliases: ['screenshot'],
+            permissions: {
+                bot: [],
+                member: []
+            },
+            cooldown: 0,
+            args: []
+        })
+
+    }
+
+    async run(message, args) {
         // return message.reply('comando temporalmente desactivado por mantenimmiento\nDisculpe las molestias')
         message.channel.sendTyping();
         const server = client.servers.get(message.guild.id);
@@ -15,11 +26,11 @@ module.exports = {
         if (!args[0]) return message.channel.send(lang.fail);
         const browser = await puppeteer.launch({
             args: [
-                "--no-sandbox", 
+                "--no-sandbox",
                 "--disable-setuid-sandbox"
             ],
             defaultViewport: {
-                width: 400, 
+                width: 400,
                 height: 100
             }
         });
@@ -27,7 +38,7 @@ module.exports = {
         let user, avatar, color, bot, verified, mentions = {}
         // const params = new URLSearchParams().set('text',(!args[0].match(/<@!?(\d{17,19})>/)?args.join(" "):args.slice(1).join(" ")))
         // console.log((!!args[0].match(/<@!?(\d{17,19})>/) && !!args[1]?args.slice(1).join(" "):args.join(" ")));
-        
+
         if (args[0].match(/<@!?(\d{17,19})>/) && message.mentions.members.first() && !!args[1]) {
             user = message.mentions.members.first()?.displayName;
             avatar = message.mentions.users.first()?.displayAvatarURL();
@@ -47,9 +58,9 @@ module.exports = {
         })
         // if(Object.keys(mentions).length > 0) params += "&mentions=" + JSON.stringify(mentions)
         const params = new URLSearchParams({
-            text: (!!args[0].match(/<@!?(\d{17,19})>/) && !!args[1]?args.slice(1).join(" "):args.join(" ")).replace(/</gi, '&#60;').replace(/>/gi, '&#62;'), 
+            text: (!!args[0].match(/<@!?(\d{17,19})>/) && !!args[1]?args.slice(1).join(" "):args.join(" ")).replace(/</gi, '&#60;').replace(/>/gi, '&#62;'),
             user, avatar, color, bot, verified, mentions: JSON.stringify(mentions)
-          })
+        })
         console.log(params);
         // console.log(`\n${params}`);
         const page = await browser.newPage()
@@ -59,4 +70,5 @@ module.exports = {
         });
         await browser.close();
     }
+
 }

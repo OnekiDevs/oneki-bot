@@ -1,13 +1,21 @@
-const { MessageEmbed, Permissions } = require("discord.js");
-const db = require('firebase-admin').firestore();
-const FieldValue = require('firebase-admin').firestore.FieldValue;
-const package = require('../../package.json');
-module.exports = {
-    name: "Sugerir",
-    alias: ["sugerencia", "suggestion", "suggest"],
-    botPermissions: [Permissions.FLAGS.MANAGE_MESSAGES],
-    userPermissions: [],
-    run: async (client, message, args, data) => {
+module.exports = class Ping extends require('../classes/Command'){
+
+    constructor() {
+        super({
+            name: 'suggest',
+            aliases: ['sugerencia', 'suggestion', 'sugerir'],
+            permissions: {
+                bot: [],
+                member: []
+            },
+            cooldown: 0,
+            args: []
+        })
+
+    }
+
+    async run(message, args) {
+        const pkg = require("../../package.json");
         const server = client.servers.get(message.guild.id);
         const lang = client.util.lang({lang:server.lang, route:'commands/sugerir'});
         const snapshot = await db.collection(message.guild.id).doc("suggest").get();
@@ -30,7 +38,7 @@ module.exports = {
         embed.setColor(16313844);
         embed.setDescription(channelid ? args.slice(1).join(' ') : args.join(' '));
         // console.log(client.user.username);
-        embed.setFooter(`${client.user.username} Bot ${package.version}`, client.user.avatarURL());
+        embed.setFooter(`${client.user.username} Bot ${pkg.version}`, client.user.avatarURL());
         // embed.setFooter(`${client.user.name} Bot ${package.version} | ${lang.pending} | ID ${snapshot.data().lastId?+snapshot.data().lastId+1:1}`, client.user.avatarURL());
         embed.setTimestamp();
         const m = await channel.send({
@@ -51,5 +59,6 @@ module.exports = {
             author: message.author.id,
             suggest: channelid ? args.slice(1).join(' ') : args.join(' ')
         });
-    }   
+    }
+
 }

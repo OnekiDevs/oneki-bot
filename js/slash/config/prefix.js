@@ -35,7 +35,7 @@ module.exports = {
             });
         });
     },
-    reset: (client, interact, options) => {
+    reset: (client, interact) => {
         const lang = client.util.lang({ lang: client.servers.get(interact.guildId).lang, route: 'slash/config' }).prefix.reset;
         if(!interact.member.permissions.has([Permissions.FLAGS.MANAGE_GUILD])) return interact.reply({
             content: lang.permissions,
@@ -44,10 +44,10 @@ module.exports = {
         db.collection('config').doc(interact.guildId).update({
             prefix: '>'
         }).catch((err) => {
-            console.log(err);
             if (err.details.startsWith("No document to update")) db.collection('config').doc(interact.guildId).set({
                 prefix: '>'
             });
+            else console.log(err);
         });
         interact.reply({
             content: lang.reply

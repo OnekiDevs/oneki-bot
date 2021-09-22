@@ -5,7 +5,7 @@ module.exports = {
     botPermissions: [Permissions.FLAGS.MANAGE_MESSAGES],
     userPermissions: [],
     alias: ['di'],
-    run: async (client, message, args) => {
+    run: async (message, args) => {
         //eliminamos el mensaje
         message.delete();
         // comprobamos que halla escrito texto
@@ -49,7 +49,7 @@ module.exports = {
             //si no existe
             if (!canal) return 
             //message.channel.send("Canal no encontrado").then(m => m.delete({ timeout: 5000 }));
-            //si todo está en orden enviamos el mensaje eliminando el primer argumento (que es el canal)
+            //si está en orden enviamos el mensaje eliminando el primer argumento (que es el canal)
             canal.send(texto.slice(1).join(' '));
         //si contiene una mención
         }else{

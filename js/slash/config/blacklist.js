@@ -1,10 +1,8 @@
-const db = require('firebase-admin').firestore();
 const FieldValue = require('firebase-admin').firestore.FieldValue;
-const { Permissions } = require('discord.js');
 module.exports = {
     channels: async (client, interact, options) => {
         const lang = client.util.lang({ lang: client.servers.get(interact.guildId).lang, route: "slash/config" }).blacklist.channels;
-        if(!interact.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS])) return interact.reply({
+        if(!interact.member.permissions.has(['MANAGE_CHANNELS'])) return interact.reply({
             content: lang.permissions,
             ephemeral: true
         });
@@ -24,7 +22,7 @@ module.exports = {
                 ])}`,
                 ephemeral: true
             })
-        } 
+        }
         if (remove) {
             const channel = client.channels.cache.get(remove)
             db.collection('config').doc(interact.guildId).update({
@@ -36,12 +34,12 @@ module.exports = {
                 ])}`,
                 ephemeral: true
             })
-        } 
+        }
         if (!add && !remove) {
             //get the config
             interact.deferUpdate();
         } else {
-            interact.guild.commands.create(await client.slash.get('config').data({guild: interact.guildId, client}));
+            interact.guild.commands.create(await client.slash.get('config').data({guild: interact.guildId}));
         }
     }
 }

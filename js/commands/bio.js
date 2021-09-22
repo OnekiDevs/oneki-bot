@@ -1,13 +1,24 @@
 const shortid = require("shortid");
-const { MessageButton, MessageActionRow } = require("discord.js");
-module.exports = {
-    name: "bio",
-    botPermissions: [],
-    userPermissions: [],
-    alias: ["betrayal.io"],
-    run: async (client, message, args) => {
+const {MessageActionRow, MessageButton} = require("discord.js");
+module.exports = class Ping extends require('../classes/Command'){
+
+    constructor() {
+        super({
+            name: 'bio',
+            aliases: ['betrayal.io'],
+            permissions: {
+                bot: [],
+                member: []
+            },
+            cooldown: 0,
+            args: []
+        })
+
+    }
+
+    async run(message, args) {
         const server = client.servers.get(message.guild.id);
-        const lang = client.util.lang({ lang: server.lang, route: "commands/bio" });
+        const lang = util.lang({ lang: server.lang, route: "commands/bio" });
         const messageMention = message.mentions.channels.first()
         let messageVoiceChannel;
         if (!message.member.voice.channel) {
@@ -23,7 +34,7 @@ module.exports = {
         } else {
             messageVoiceChannel = message.member.voice.channel;
         }
-        
+
         const invite = await messageVoiceChannel.createInvite({
             targetApplication: "773336526917861400",
             targetType: 2,
@@ -55,4 +66,5 @@ module.exports = {
             },
         });
     }
-};
+
+}
