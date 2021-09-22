@@ -17,11 +17,11 @@ async def report(ctx, *, report_message):
 
         embed.set_author(name = translations["embed"]["author"].format(ctx.author), icon_url = f"{ctx.author.avatar_url}", url = f"{ctx.message.jump_url}")
         await ctx.message.delete()
-        embed.add_fiel(name = translations["embed"]["field_author"], value = translations["embed"]["field"]["value"].format(ctx.author, ctx.author.joined_at, ctx.author.id))
+        embed.add_field(name = translations["embed"]["field_author"], value = translations["embed"]["field"]["value"].format(ctx.author, ctx.author.joined_at, ctx.author.id))
 
         if ctx.message.mentions:
             for user in ctx.message.mentions:
-                embed.add_fiel(name = translations["embed"]["field"]["name"], value = translations["embed"]["field"]["value"].format(ctx.author, ctx.author.joined_at, ctx.author.id))
+                embed.add_field(name = translations["embed"]["field"]["name"], value = translations["embed"]["field"]["value"].format(ctx.author, ctx.author.joined_at, ctx.author.id))
                 document_report = tools.db.Document(collection = f"{ctx.guild.id}", document = "users", subcollection = f"{user.id}", subdocument = "reports")
 
                 map = {"id": 0, "report": report_message, "author": f"{ctx.author} / {ctx.author.id}"}
