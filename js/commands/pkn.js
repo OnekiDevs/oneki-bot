@@ -1,10 +1,10 @@
 const shortid = require("shortid");
 const {MessageActionRow, MessageButton} = require("discord.js");
-module.exports = class Ping extends require('../classes/Command'){
+module.exports = class Pkn extends require('../classes/Command'){
 
     constructor() {
         super({
-            name: 'ping',
+            name: 'pkn',
             aliases: ['pokernight', 'poker-night'],
             permissions: {
                 bot: [],
@@ -41,7 +41,7 @@ module.exports = class Ping extends require('../classes/Command'){
         });
         const ID = shortid.generate();
         message.reply({
-            content: `${await client.util.replace(lang.message, [
+            content: `${await util.replace(lang.message, [
                 { match: "{user}", replace: message.member.displayName },
             ])}`,
             components: [
@@ -58,7 +58,7 @@ module.exports = class Ping extends require('../classes/Command'){
             params: {
                 url: `https://discord.com/invite/${invite.code}`,
             },
-            run: (client, interact, { url }) => {
+            run: (interact, { url }) => {
                 interact.reply({
                     content: url,
                     ephemeral: true,

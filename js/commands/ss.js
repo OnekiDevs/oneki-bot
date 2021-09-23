@@ -1,7 +1,7 @@
 const shortid = require("shortid");
 const {MessageActionRow, MessageButton, MessageAttachment} = require("discord.js");
 const puppeteer = require("puppeteer");
-module.exports = class Ping extends require('../classes/Command'){
+module.exports = class Ss extends require('../classes/Command'){
 
     constructor() {
         super({
@@ -21,7 +21,7 @@ module.exports = class Ping extends require('../classes/Command'){
         // return message.reply('comando temporalmente desactivado por mantenimmiento\nDisculpe las molestias')
         message.channel.sendTyping();
         const server = client.servers.get(message.guild.id);
-        const lang = client.util.lang({lang:server.lang, route:'commands/ss'});
+        const lang = util.lang({lang:server.lang, route:'commands/ss'});
         // message.delete();
         if (!args[0]) return message.channel.send(lang.fail);
         const browser = await puppeteer.launch({

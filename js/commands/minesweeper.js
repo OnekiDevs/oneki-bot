@@ -1,4 +1,4 @@
-module.exports = class Ping extends require('../classes/Command'){
+module.exports = class Minesweeper extends require('../classes/Command'){
 
     constructor() {
         super({
@@ -28,7 +28,6 @@ module.exports = class Ping extends require('../classes/Command'){
                 matriz[x][y] = 0;
             }
         }
-        imprimir(matriz, filas, columnas);
         //se colocan bombas aleatoriamente
         while (bombas != 0) {
             let filaRandom = Math.floor(Math.random() * filas);
@@ -42,7 +41,6 @@ module.exports = class Ping extends require('../classes/Command'){
             matriz[filaRandom][columnaRandom] = 9;
             bombas--;
         }
-        imprimir(matriz, filas, columnas);
         //recorremos todas las casillas para colocar los mumeros
         for (let x = 0; x < filas; x++) {
             for (let y = 0; y < columnas; y++) {
@@ -123,7 +121,7 @@ module.exports = class Ping extends require('../classes/Command'){
                 buscaminas += "\n";
             }
             //terminando el ciclo entero se envia el mensaje
-            message.channel.reply(buscaminas);
+            message.reply(buscaminas);
         }
     }
 

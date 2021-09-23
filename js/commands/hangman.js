@@ -2,11 +2,14 @@ class myArray extends Array {
     constructor(...ar) {super(...ar)}
     toString(){return this.join(' ')}
 }
-class Life extends Number{
-    constructor(...num) {super(...num)}
-    toString(){return '<3'.repeat(this)}
+class Life {
+    life=5
+    constructor(life){this.life=life}
+    toString(){return '<3'.repeat(this.life)}
+    subtract(){this.life--}
+    add(){this.life++}
 }
-module.exports = class Ping extends require('../classes/Command'){
+module.exports = class Hangman extends require('../classes/Command'){
 
     constructor() {
         super({
@@ -30,9 +33,9 @@ module.exports = class Ping extends require('../classes/Command'){
         const msg = await message.reply(lang.loading);
         message.mentions.users.map(u=>u.id).forEach(u=>participants.push(u));
         while (true) {
-            wordShow = word.map(i=>{
-                if (!usedLetters.includes(i)) return "_";
-                else return i;
+            word.map((i,u)=>{
+                if (!usedLetters.includes(i)) wordShow[u] = "_";
+                else wordShow[u] = i;
             })
             msg.edit(`${lang.used}: ${usedLetters}\n\`${wordShow}\`\n${life}`);
             if (life == 0) return msg.reply(`${message.author} ${lang.lose} **${word.join('')}**`);
@@ -47,7 +50,7 @@ module.exports = class Ping extends require('../classes/Command'){
                 m.reply(lang.repeat).then(ms => ms.delete({ timeout: 5000 }).then(() =>m.delete()))
             } else {
                 usedLetters.push(l);
-                if (!word.includes(l)) life--;
+                if (!word.includes(l)) life.subtract();
                 m.delete({ timeout: 500 });
             }
         }

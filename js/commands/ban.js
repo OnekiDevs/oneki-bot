@@ -1,5 +1,5 @@
 const {MessageEmbed} = require("discord.js");
-module.exports = class Ping extends require('../classes/Command'){
+module.exports = class Ban extends require('../classes/Command'){
 
     constructor() {
         super({
@@ -84,13 +84,13 @@ module.exports = class Ping extends require('../classes/Command'){
                 informBan = `${lang.ready} **${user.tag}**, ${lang.without_reason}`
             }
             if (!providedDeleteDays) {
-                informBan = `${lang.ready} **${user.tag}**, ${await client.utiles.replace(lang.erasing, [{match:"{deleteDays}", replace:deleteDays}])}`
+                informBan = `${lang.ready} **${user.tag}**, ${await util.replace(lang.erasing, [{match:"{deleteDays}", replace:deleteDays}])}`
             }
             user.send(embed).then(() => {
                 message.guild.members.ban(user, { deleteDays: deleteDays, reason: reason })
                     .then(_ => message.reply(informBan))
                     .catch(async (error) => {
-                        message.reply(`${await client.utiles.replace(lang.fail, [{match:"tag",replace:user.tag}])}: ${error}`);
+                        message.reply(`${await util.replace(lang.fail, [{match:"tag",replace:user.tag}])}: ${error}`);
                     })
             })
         }
@@ -110,7 +110,6 @@ module.exports = class Ping extends require('../classes/Command'){
                     }
                 })
                 if (doc.data().numberOfBans == undefined) {
-                    console.log(doc.data().numberOfBans);
                     sanctionsRef.set({ numberOfBans: 1, bans: [{ reason: reason }] }).then(() => {
                         console.log(`Sanctions ref for user "${user.tag}" didn't existed, created.\nRegistered ban, and incremented number of bans by 1.`);
                         firstBan = true;

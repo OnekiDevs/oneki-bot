@@ -1,4 +1,4 @@
-module.exports = class Ping extends require('../classes/Command'){
+module.exports = class Unban extends require('../classes/Command'){
 
     constructor() {
         super({

@@ -1,6 +1,6 @@
 const shortid = require("shortid");
 const {MessageActionRow, MessageButton} = require("discord.js");
-module.exports = class Ping extends require('../classes/Command'){
+module.exports = class Ytt extends require('../classes/Command'){
 
     constructor() {
         super({
@@ -18,7 +18,7 @@ module.exports = class Ping extends require('../classes/Command'){
 
     async run(message, args) {
         const server = client.servers.get(message.guild.id);
-        const lang = client.util.lang({lang:server.lang, route:'commands/ytt'});
+        const lang = util.lang({lang:server.lang, route:'commands/ytt'});
         const messageMention = message.mentions.channels.first()
         let messageVoiceChannel;
         if (!message.member.voice.channel) {
@@ -58,7 +58,7 @@ module.exports = class Ping extends require('../classes/Command'){
             params: {
                 url: `https://discord.com/invite/${invite.code}`,
             },
-            run: (client, interact, { url }) => {
+            run: (interact, { url }) => {
                 interact.reply({
                     content: url,
                     ephemeral: true,

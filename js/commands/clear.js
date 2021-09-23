@@ -1,5 +1,5 @@
 const {MessageButton, MessageActionRow} = require("discord.js");
-module.exports = class Ping extends require('../classes/Command'){
+module.exports = class Clear extends require('../classes/Command'){
 
     constructor() {
         super({

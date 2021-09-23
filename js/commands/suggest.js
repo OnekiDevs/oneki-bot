@@ -1,4 +1,4 @@
-module.exports = class Ping extends require('../classes/Command'){
+module.exports = class Suggest extends require('../classes/Command'){
 
     constructor() {
         super({
@@ -17,14 +17,14 @@ module.exports = class Ping extends require('../classes/Command'){
     async run(message, args) {
         const pkg = require("../../package.json");
         const server = client.servers.get(message.guild.id);
-        const lang = client.util.lang({lang:server.lang, route:'commands/sugerir'});
+        const lang = util.lang({lang:server.lang, route:'commands/sugerir'});
         const snapshot = await db.collection(message.guild.id).doc("suggest").get();
         if (!snapshot.exists) return;
         const prefix = await client.servers.get(message.guild.id).prefix;
-        if (args.length < 1) return message.reply(`${await client.util.replace(lang.use, [{match:"{prefix}", replace:server.prefix}])}`);
+        if (args.length < 1) return message.reply(`${await util.replace(lang.use, [{match:"{prefix}", replace:server.prefix}])}`);
         const channelid = snapshot.data()[args[0]];
         console.log(channelid, !!channelid, args.length < 2, !!channelid && args.length < 2);
-        if (!!channelid && args.length < 2) return message.reply(`${await client.util.replace(lang.use, [{match:"{prefix}", replace:server.prefix}])}`);
+        if (!!channelid && args.length < 2) return message.reply(`${await util.replace(lang.use, [{match:"{prefix}", replace:server.prefix}])}`);
         const channel = message.guild.channels.cache.get(channelid ?? snapshot.data().predetermined);
         if (!channel) return;
         await client.application.fetch()

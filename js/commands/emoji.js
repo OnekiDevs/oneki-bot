@@ -1,6 +1,6 @@
 const fetch = require("node-fetch");
 const {MessageEmbed} = require("discord.js");
-module.exports = class Ping extends require('../classes/Command'){
+module.exports = class Emoji extends require('../classes/Command'){
 
     constructor() {
         super({
@@ -15,6 +15,8 @@ module.exports = class Ping extends require('../classes/Command'){
         })
 
     }
+
+    //TODO agregar lenguaje a este comando
 
     run(message, args) {
         const emojiString = (message.content.match(/<a?:(.+):\d{18}>/)??args)[0]

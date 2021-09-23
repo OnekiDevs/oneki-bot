@@ -1,6 +1,6 @@
 const fetch = require("node-fetch");
 const {MessageEmbed, MessageButton, MessageActionRow} = require("discord.js");
-module.exports = class Ping extends require('../classes/Command'){
+module.exports = class Help extends require('../classes/Command'){
 
     constructor() {
         super({
@@ -21,10 +21,10 @@ module.exports = class Ping extends require('../classes/Command'){
         const server = client.servers.get(message.guild.id);
         fetch(`https://oneki.herokuapp.com/api/lang/${server.lang}/cmd/categories`).then((r) => r.json()).then((categories) => {
             fetch(`https://oneki.herokuapp.com/api/lang/${server.lang}/cmd/${categories[0]}`).then((r) => r.json()).then(async category=>{
-                const lang = client.util.lang({lang:server.lang, route:'commands/help'}),
-                    embed = new MessageEmbed().setTitle(`${await client.util.replace(lang.embed.title, [{match:"{bot}", replace:message.guild.me.displayName}])}`).setDescription(`${await client.util.replace(lang.embed.description, [{match:"{type}", replace:categories[0]}])}`).setColor('#f89dfa');
+                const lang = util.lang({lang:server.lang, route:'commands/help'}),
+                    embed = new MessageEmbed().setTitle(`${await util.replace(lang.embed.title, [{match:"{bot}", replace:message.guild.me.displayName}])}`).setDescription(`${await util.replace(lang.embed.description, [{match:"{type}", replace:categories[0]}])}`).setColor('#f89dfa');
                 let j = 0, k = 0, buttons = [];
-                for (const i of category) embed.addField(i.name, `${await client.util.replace(lang.command, [
+                for (const i of category) embed.addField(i.name, `${await util.replace(lang.command, [
                     {match:"{alias}", replace:i.alias.length>0?`\`${i.alias.join('` `')}\``:lang.none},
                     {match:"{description}", replace:i.description},
                     {match:"{prefix}", replace:i.type=='slash'?'/':server.prefix},

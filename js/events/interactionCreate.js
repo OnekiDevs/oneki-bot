@@ -2,7 +2,6 @@ module.exports = {
     name: 'interactionCreate',
     run: async (interact) => {
         try {
-            // console.log(interact);
             if(interact.isButton()) {
                 if (interact.customId.startsWith('help_')) {
                     let cmd = client.buttons.get('help');

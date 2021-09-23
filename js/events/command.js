@@ -6,9 +6,11 @@ module.exports = {
         const cmd = client.commands.find(c=>c.checkCommand(command));
         if (cmd) cmd.checkMemberPermissions(message.member).then(()=>{
             cmd.checkBotPermissions(message.guild.me).then(()=>{
-                cmd.run(message, args).catch(async (error) => {
+                try {
+                    cmd.run(message, args)
+                } catch (error) {
                     util.error(error, __dirname)
-                })
+                }
             }).catch(msg=>message.reply(msg))
         }).catch(msg=>message.reply(msg))
     }
