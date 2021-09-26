@@ -2,8 +2,8 @@ const db = require("firebase-admin").firestore();
 const FieldValue = require("firebase-admin").firestore.FieldValue;
 const { Permissions } = require('discord.js');
 module.exports = {
-    set: async (client, interact, options) => {
-        const lang = client.util.lang({ lang: client.servers.get(interact.guildId).lang, route: "slash/config" }).suggest.channel;
+    set: async (interact, options) => {
+        const lang = util.lang({ lang: client.servers.get(interact.guildId).lang, route: "slash/config" }).suggest.channel;
         if(!interact.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS])) return interact.reply({
             content: lang.permissions,
             ephemeral: true
@@ -21,14 +21,14 @@ module.exports = {
                     db.collection(interact.guildId).doc("suggest").set(obj);
             });
         interact.reply({
-            content: `${await client.util.replace(lang.reply, [
+            content: `${await util.replace(lang.reply, [
                 { match: "{channel}", replace: channel.name },
                 { match: "{alias}", replace: name??'' }
             ])}`,
             ephemeral: true,
         });
         channel.send(
-            `${await client.util.replace(lang.send, [
+            `${await util.replace(lang.send, [
                 { match: "{prefix}", replace: client.servers.get(interact.guildId)?.prefix },
                 { match: "{channel}", replace: channel.name },
                 { match: "{alias}", replace: name },
@@ -36,8 +36,8 @@ module.exports = {
             ])}`
         );
     },
-    delete: async (client, interact, options) => {
-        const lang = client.util.lang({ lang: client.servers.get(interact.guildId).lang, route: "slash/config" }).suggest.delete;
+    delete: async (interact, options) => {
+        const lang = util.lang({ lang: client.servers.get(interact.guildId).lang, route: "slash/config" }).suggest.delete;
         if(!interact.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS])) return interact.reply({
             content: lang.permissions,
             ephemeral: true
@@ -54,7 +54,7 @@ module.exports = {
                         db.collection(interact.guildId).doc("suggest").set(obj);
                 });
             interact.reply({
-                content: `${await client.util.replace(lang.reply, [
+                content: `${await util.replace(lang.reply, [
                     { match: "{channel}", replace: channel },
                 ])}`,
                 ephemeral: true

@@ -6,6 +6,7 @@ module.exports = {
             if (!oldMessage.author || oldMessage.author?.bot) return;
             if (oldMessage.content && oldMessage.content === newMessage.content) return;
             const snapshot = await db.collection(oldMessage.guild.id).doc("edited").get();
+            console.log(snapshot.data())
             const canal = client.channels.cache.get(snapshot.data()?.channel);
             if (!canal) return;
             const embed = new MessageEmbed()

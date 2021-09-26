@@ -1,7 +1,7 @@
 const FieldValue = require('firebase-admin').firestore.FieldValue;
 module.exports = {
-    channels: async (client, interact, options) => {
-        const lang = client.util.lang({ lang: client.servers.get(interact.guildId).lang, route: "slash/config" }).blacklist.channels;
+    channels: async (interact, options) => {
+        const lang = util.lang({ lang: client.servers.get(interact.guildId).lang, route: "slash/config" }).blacklist.channels;
         if(!interact.member.permissions.has(['MANAGE_CHANNELS'])) return interact.reply({
             content: lang.permissions,
             ephemeral: true
@@ -17,7 +17,7 @@ module.exports = {
                 })
             })
             interact.reply({
-                content: `${await client.util.replace(lang.replyAdd, [
+                content: `${await util.replace(lang.replyAdd, [
                     { match: "{channel}", replace: add.name }
                 ])}`,
                 ephemeral: true
@@ -29,7 +29,7 @@ module.exports = {
                 blacklistChannels: FieldValue.arrayRemove(channel.id)
             }).catch(err => {})
             interact.reply({
-                content: `${await client.util.replace(lang.replyRemove, [
+                content: `${await util.replace(lang.replyRemove, [
                     { match: "{channel}", replace: channel.name }
                 ])}`,
                 ephemeral: true

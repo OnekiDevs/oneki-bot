@@ -1,8 +1,8 @@
 const db = require('firebase-admin').firestore();
 const { Permissions } = require('discord.js');
 module.exports = {
-    channel: async (client, interact, options) => {
-        const lang = client.util.lang({ lang: client.servers.get(interact.guildId).lang, route: 'slash/config' }).edited.channel;
+    channel: async (interact, options) => {
+        const lang = util.lang({ lang: client.servers.get(interact.guildId).lang, route: 'slash/config' }).edited.channel;
         if(!interact.member.permissions.has([Permissions.FLAGS.MANAGE_MESSAGES, Permissions.FLAGS.MANAGE_CHANNELS])) return interact.reply({
             content: lang.permissions,
             ephemeral: true
@@ -16,12 +16,12 @@ module.exports = {
             })
         })
         interact.reply({
-            content: `${await client.util.replace(lang.reply, [{ match: "{channel}", replace: `\`${channel.name}\`` }])}`,
+            content: `${await util.replace(lang.reply, [{ match: "{channel}", replace: `\`${channel.name}\`` }])}`,
             ephemeral: true
         })
     }, 
-    reset: async (client, interact, options) => {
-        const lang = client.util.lang({ lang: client.servers.get(interact.guildId).lang, route: 'slash/config' }).edited.reset;
+    reset: async (interact, options) => {
+        const lang = util.lang({ lang: client.servers.get(interact.guildId).lang, route: 'slash/config' }).edited.reset;
         if(!interact.member.permissions.has([Permissions.FLAGS.MANAGE_MESSAGES, Permissions.FLAGS.MANAGE_CHANNELS])) return interact.reply({
             content: lang.permissions,
             ephemeral: true

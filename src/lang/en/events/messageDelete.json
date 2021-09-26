@@ -1,9 +1,18 @@
 {
     "embed": {
-        "title": "Deleted Message",
+        "title":{
+            "CHANNEL_PINNED_MESSAGE": "Pinning Message Removed",
+            "DEFAULT": "Deleted Message"
+        },
         "fields": {
-            "author" : "Message in",
-            "deletedIn": "Deleted in",
+            "author" : {
+                "CHANNEL_PINNED_MESSAGE": "Fixed by",
+                "DEFAULT": "Message in"
+            },
+            "deletedIn": {
+                "CHANNEL_PINNED_MESSAGE": "Fixed in",
+                "DEFAULT": "Deleted in"
+            },
             "write": "Written on",
             "content": "Content:"
         } 

@@ -1,8 +1,8 @@
 const db = require('firebase-admin').firestore();
 const { Permissions } = require('discord.js');
 module.exports = {
-    set: async (client, interact, options) => {
-        const lng = client.util.lang({ lang: client.servers.get(interact.guildId).lang, route: 'slash/config' }).language.set;
+    set: async (interact, options) => {
+        const lng = util.lang({ lang: client.servers.get(interact.guildId).lang, route: 'slash/config' }).language.set;
         if(!interact.member.permissions.has([Permissions.FLAGS.MANAGE_GUILD])) return interact.reply({
             content: lng.permissions,
             ephemeral: true
@@ -16,11 +16,11 @@ module.exports = {
             })
         });
         interact.reply({
-            content: `${await client.util.replace(lng.reply, [{ match: "{lang}", replace: `\`${lang}\`` }])}`,
+            content: `${await util.replace(lng.reply, [{ match: "{lang}", replace: `\`${lang}\`` }])}`,
         })
     },
-    reset: (client, interact, options) => {
-        const lang = client.util.lang({ lang: client.servers.get(interact.guildId).lang, route: 'slash/config' }).language.reset;
+    reset: (interact, options) => {
+        const lang = util.lang({ lang: client.servers.get(interact.guildId).lang, route: 'slash/config' }).language.reset;
         if(!interact.member.permissions.has([Permissions.FLAGS.MANAGE_GUILD])) return interact.reply({
             content: lang.permissions,
             ephemeral: true

@@ -1,7 +1,7 @@
 const db = require('firebase-admin').firestore();
 const { Permissions } = require('discord.js');
 module.exports = {
-    channel: async (client, interact, options) => {
+    channel: async (interact, options) => {
         const lang = util.lang({ lang: client.servers.get(interact.guildId).lang, route: 'slash/config' }).deleted.channel;
         if(!interact.member.permissions.has([Permissions.FLAGS.MANAGE_MESSAGES, Permissions.FLAGS.MANAGE_CHANNELS])) return interact.reply({
             content: lang.permissions,
@@ -20,7 +20,7 @@ module.exports = {
             ephemeral: true
         });
     },
-    reset: async (client, interact, options) => {
+    reset: async (interact, options) => {
         const lang = util.lang({ lang: client.servers.get(interact.guildId).lang, route: 'slash/config' }).deleted.reset;
         if(!interact.member.permissions.has([Permissions.FLAGS.MANAGE_MESSAGES, Permissions.FLAGS.MANAGE_CHANNELS])) return interact.reply({
             content: lang.permissions,

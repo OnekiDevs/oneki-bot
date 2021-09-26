@@ -49,7 +49,7 @@ module.exports = {
                     })
                 }).addSubcommand(subcommand => {
                     return subcommand.setName('deactivate').setDescription('disable a welcome feature').addStringOption(option => {
-                        return option.setName('function').setDescription('function to deactivate').setRequired(true).addChoice('welcome', 'welcome').addChoice('welcome', 'welcome')
+                        return option.setName('function').setDescription('function to deactivate').setRequired(true).addChoice('welcome', 'welcome').addChoice('rolls', 'rolls')
                     })
                 })
             }).addSubcommandGroup(subcommandGroup => {
@@ -92,7 +92,6 @@ module.exports = {
     servers: [],
     run: async (interact) => {
         require(`./config/${interact.options.getSubcommandGroup()}`)[interact.options.getSubcommand()](
-            client,
             interact,
             interact.options
         );

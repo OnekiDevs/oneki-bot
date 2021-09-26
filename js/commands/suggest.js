@@ -1,3 +1,5 @@
+const { MessageEmbed } = require('discord.js')
+const FieldValue = require('firebase-admin').firestore.FieldValue;
 module.exports = class Suggest extends require('../classes/Command'){
 
     constructor() {
@@ -30,7 +32,7 @@ module.exports = class Suggest extends require('../classes/Command'){
         await client.application.fetch()
         // console.log(channel.permissionsFor(await message.guild.roles.cache.find(role => role.name == client.application.name)));
         // console.log(channel.permissionsFor(message.guild.roles.cache.find(role => role.name == client.application.name)).serialize());
-        if (!channel.permissionsFor(message.guild.roles.cache.find(role => role.name == client.application.name))?.has(Permissions.FLAGS.SEND_MESSAGES)) return;
+        // if (!channel.permissionsFor(message.guild.roles.cache.find(role => role.name == client.application.name))?.has(Permissions.FLAGS.SEND_MESSAGES)) return;
         message.delete();
         const embed = new MessageEmbed();
         embed.setAuthor(message.author.username, message.author.displayAvatarURL());
@@ -44,8 +46,9 @@ module.exports = class Suggest extends require('../classes/Command'){
         const m = await channel.send({
             embeds: [embed]
         });
-        m.react("👍");
-        m.react("👎");
+        m.react("<:yes:885693508533489694>").then(()=>m.react("<:no:885693492632879104>").then(()=>m.startThread({
+            name: `Sugerencia ${snapshot.data().lastId?+snapshot.data().lastId+1:1}`
+        })))
         db.collection(message.guild.id).doc('suggest').update({
             lastId: snapshot.exists ? FieldValue.increment(1) : 1
         }).catch(err => {

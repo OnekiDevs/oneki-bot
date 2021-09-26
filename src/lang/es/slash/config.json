@@ -28,7 +28,8 @@
             "reply": "Prefijo establecido a \"**{prefix}**\"",
             "permissionsError": "No tienes los permisos para cambiar el prefijo del bot",
             "serverError": "Necesito estar en el servidor para ejecutar el comando",
-            "prefixError": "El prefijo no puede contener espacios"
+            "prefixError": "El prefijo no puede contener espacios",
+            "permissions": "No tienes los permisos nesesaarios"
         },
         "reset": {
             "reply": "Prefijo reseteado a \"**>**\""
