@@ -1,8 +1,34 @@
-const sleep = (ms=1000) => new Promise(resolve => setTimeout(resolve, ms));
+const {MessageEmbed} = require("discord.js");
 
 module.exports = {
-    sleep,
+    sleep(ms = 1000){
+        return new Promise(resolve => setTimeout(resolve, ms))
+    },
     lang: require('./langs'), 
-    replace: require('./replace'),
-    error: require('./error')
+    replace(text, array = []) {
+        try {
+            for (const i of array) text = text.replace(i.match, i.replace);
+            return text;
+        } catch (error) {
+            return error;
+        }
+    },
+    async error(error, file) {
+        console.log("\x1b[31m%s\x1b[0m", "*****************************************************************\n", error, "\x1b[31m%s\x1b[0m", "*****************************************************************");
+        (await client.channels.fetch("887514182474428446")).send({
+            content: process.env.NODE_ENV!=='production'?process.env.DEVELOPER_ID?`<@${process.env.DEVELOPER_ID}>`:null:'<@&887514697690128425>',
+            embeds: [
+                new MessageEmbed()
+                    .setColor("YELLOW")
+                    .setTitle("New Error Detected")
+                    .addField("Error Type", "```cmd\n" + error.name + "\n```", true)
+                    .addField("Error Message", "```cmd\n" + error.message + "\n```", true)
+                    .addField("Error In", '```cmd\n'+file+'\n```', true),
+                new MessageEmbed()
+                    .setColor("YELLOW")
+                    .setTitle("Error Stack")
+                    .setDescription(`\`\`\`cmd\n${error.stack}\n\`\`\``),
+            ],
+        });
+    }
 }

@@ -18,7 +18,6 @@ module.exports = {
                 .setColor("RANDOM")
                 .setDescription(message.content)
                 .setAuthor(message.author.username, message.author.displayAvatarURL())
-                // .addField(lang.embed.fields.author[message.type]??lang.embed.fields.author["DEFAULT"], message.author.username, true)
                 .addField(lang.embed.fields.deletedIn, `${message.channel} | ${message.channel.name}`, true)
                 .setTimestamp()
                 .setThumbnail(message.author.displayAvatarURL({dynamic: true}))

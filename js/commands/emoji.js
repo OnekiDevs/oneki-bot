@@ -1,4 +1,3 @@
-const fetch = require("node-fetch");
 const {MessageEmbed} = require("discord.js");
 module.exports = class Emoji extends require('../classes/Command'){
 

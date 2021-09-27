@@ -4,7 +4,7 @@ module.exports = async (maso) => {
         maso = maso.map(m => {
             return {
                 id: m,
-                ...require('../../../src/unoCards.json')[m]
+                ...require('../../src/unoCards.json')[m]
             }
         });
         let img = await canvas.loadImage(maso[0].url);
