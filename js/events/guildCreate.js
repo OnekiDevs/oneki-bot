@@ -27,7 +27,7 @@ module.exports = {
                 if ((slash.servers[0] && slash.servers.includes(guild.id)) || !slash.servers[0]) guild.commands.create(await slash.data({guild: guild.id})).then((command) => console.log(command.name, '|', guild.name)).catch(err => console.log(guild.name, 'error',));
             })
         } catch (e) {
-            util.error(e, __dirname)
+            util.error(e, `${__dirname}/${__filename}`)
         }
     }
 }

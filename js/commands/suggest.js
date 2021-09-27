@@ -33,10 +33,10 @@ module.exports = class Suggest extends require('../classes/Command'){
         // console.log(channel.permissionsFor(await message.guild.roles.cache.find(role => role.name == client.application.name)));
         // console.log(channel.permissionsFor(message.guild.roles.cache.find(role => role.name == client.application.name)).serialize());
         // if (!channel.permissionsFor(message.guild.roles.cache.find(role => role.name == client.application.name))?.has(Permissions.FLAGS.SEND_MESSAGES)) return;
-        message.delete();
+        message.delete().catch(err => {})
         const embed = new MessageEmbed();
         embed.setAuthor(message.author.username, message.author.displayAvatarURL());
-        embed.setTitle(`Sugerencia # ${snapshot.data().lastId?+snapshot.data().lastId+1:1}`);
+        embed.setTitle(`Sugerencia ## ${snapshot.data().lastId?+snapshot.data().lastId+1:1}`);
         embed.setColor(16313844);
         embed.setDescription(channelid ? args.slice(1).join(' ') : args.join(' '));
         // console.log(client.user.username);
@@ -44,7 +44,8 @@ module.exports = class Suggest extends require('../classes/Command'){
         // embed.setFooter(`${client.user.name} Bot ${package.version} | ${lang.pending} | ID ${snapshot.data().lastId?+snapshot.data().lastId+1:1}`, client.user.avatarURL());
         embed.setTimestamp();
         const m = await channel.send({
-            embeds: [embed]
+            embeds: [embed],
+            files: message.attachments.map(i=>i)
         });
         m.react("<:yes:885693508533489694>").then(()=>m.react("<:no:885693492632879104>").then(()=>m.startThread({
             name: `Sugerencia ${snapshot.data().lastId?+snapshot.data().lastId+1:1}`

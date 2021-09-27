@@ -5,7 +5,10 @@
             "DEFAULT": "Mensaje Eliminado"
         },
         "fields": {
-            "author" : "Escrito por",
+            "author": {
+                "CHANNEL_PINNED_MESSAGE": "Fijado por",
+                "DEFAULT": "Escrito por"
+            },
             "deletedIn": "Eliminado en",
             "write": "Escrito el",
             "content": "Contenido:"

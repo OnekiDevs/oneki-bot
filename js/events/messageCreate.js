@@ -10,7 +10,7 @@ module.exports = {
             args = message.content.slice(prefix.length).trim().split(/ +/g);
             return client.emit('command', args.shift().toLowerCase(), message, args);
         } catch (e) {
-            util.error(e, __dirname)
+            util.error(e, `${__dirname}/${__filename}`)
         }
     }
 }

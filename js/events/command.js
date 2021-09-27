@@ -9,7 +9,7 @@ module.exports = {
                 try {
                     cmd.run(message, args)
                 } catch (error) {
-                    util.error(error, __dirname)
+                    util.error(error, `${__dirname}/${__filename}`)
                 }
             }).catch(msg=>message.reply(msg))
         }).catch(msg=>message.reply(msg))

@@ -3,12 +3,11 @@ module.exports = {
     name: "messageDelete",
     run: async (message) => {
         try {
-            if (!['DEFAULT', 'REPLY'].includes(message.type))
-            console.log(message)
+            if (!['DEFAULT', 'REPLY'].includes(message.type)) console.log(message.type)
             if (!message.author || message.author?.bot) return;
-            console.log(message.type)
+            // console.log(message.type)
             const snapshot = await db.collection(message.guild.id).doc("deleted").get();
-            console.log(snapshot.data())
+            // console.log(snapshot.data())
             const canal = client.channels.cache.get(snapshot.data()?.channel);
             if (!canal) return;
             const server = client.servers.get(message.guild.id);
@@ -18,8 +17,9 @@ module.exports = {
                 .setURL(message.url)
                 .setColor("RANDOM")
                 .setDescription(message.content)
-                .addField(lang.embed.fields.author[message.type]??lang.embed.fields.author["DEFAULT"], message.author.username, true)
-                .addField(lang.embed.fields.deletedIn, `${message.channel}`, true)
+                .setAuthor(message.author.username, message.author.displayAvatarURL())
+                // .addField(lang.embed.fields.author[message.type]??lang.embed.fields.author["DEFAULT"], message.author.username, true)
+                .addField(lang.embed.fields.deletedIn, `${message.channel} | ${message.channel.name}`, true)
                 .setTimestamp()
                 .setThumbnail(message.author.displayAvatarURL({dynamic: true}))
                 .addField(lang.embed.fields.write, `${new Date(message.createdTimestamp).toDateString()}`, true)
@@ -29,7 +29,7 @@ module.exports = {
                 embeds: [embed]
             });
         } catch (e) {
-            util.error(e, __dirname)
+            util.error(e, `${__dirname}/${__filename}`)
         }
     }
 }

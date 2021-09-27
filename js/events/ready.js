@@ -47,7 +47,7 @@ module.exports = {
             // }
             console.log('\x1b[31m%s\x1b[0m', `${client.user.username} ${require('../../package.json').version} Listo y Atento!!!`);
         }  catch (e) {
-            util.error(e, __dirname)
+            util.error(e, `${__dirname}/${__filename}`)
         }
     }
 }

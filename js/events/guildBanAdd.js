@@ -5,7 +5,7 @@ module.exports = {
         try {
 
         } catch (e) {
-            util.error(e, __dirname)
+            util.error(e, `${__dirname}/${__filename}`)
         }
         // fetch('https://koneweb.herokuapp.com/api/ban', {
         //     method: 'POST',
