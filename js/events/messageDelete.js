@@ -13,12 +13,12 @@ module.exports = {
             const server = client.servers.get(message.guild.id);
             const lang = util.lang({lang:server.lang, route:'events/messageDelete'});
             const embed = new MessageEmbed()
-                .setTitle(lang.embed.title[message.type]??lang.embed.fields.author["DEFAULT"])
+                .setTitle(lang.embed.title[message.type]??lang.embed.fields.author.DEFAULT)
                 .setURL(message.url)
                 .setColor("RANDOM")
                 .setDescription(message.content)
                 .setAuthor(message.author.username, message.author.displayAvatarURL())
-                .addField(lang.embed.fields.deletedIn, `${message.channel} | ${message.channel.name}`, true)
+                .addField(lang.embed.fields.deletedIn[message.type]??lang.embed.fields.deletedIn.DEFAULT, `${message.channel} | ${message.channel.name}`, true)
                 .setTimestamp()
                 .setThumbnail(message.author.displayAvatarURL({dynamic: true}))
                 .addField(lang.embed.fields.write, `${new Date(message.createdTimestamp).toDateString()}`, true)
@@ -28,7 +28,7 @@ module.exports = {
                 embeds: [embed]
             });
         } catch (e) {
-            util.error(e, `${__dirname}/${__filename}`)
+            util.error(e, __filename)
         }
     }
 }

@@ -32,7 +32,7 @@ module.exports = {
                 embeds: [embed]
             });
         } catch (e) {
-            util.error(e, `${__dirname}/${__filename}`)
+            util.error(e, __filename)
         }
     }
 }

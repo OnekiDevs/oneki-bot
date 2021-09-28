@@ -9,7 +9,10 @@
                 "CHANNEL_PINNED_MESSAGE": "Fijado por",
                 "DEFAULT": "Escrito por"
             },
-            "deletedIn": "Eliminado en",
+            "deletedIn": {
+                "CHANNEL_PINNED_MESSAGE": "Fijado en",
+                "DEFAULT": "Eliminado en"
+            },
             "write": "Escrito el",
             "content": "Contenido:"
         } 
