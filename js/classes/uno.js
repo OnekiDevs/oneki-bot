@@ -120,7 +120,7 @@ module.exports = class UNO {
     #updatePlayerCard(collect){
         return new Promise(async resolve => {
             const player = this.players.find(p=>p.id==collect.member.id);
-            const maso = await require('../scripts/uno/cartas')(player.cards);
+            const maso = await require('../scripts/cartas')(player.cards);
             const attachment = new MessageAttachment(maso, 'cartas.png');
             const msg = await client.channels.cache.get('887515559628009473').send({
                 files: [attachment]
@@ -170,14 +170,41 @@ module.exports = class UNO {
             jugada.deferUpdate();
             const index = this.players.get(jugada.member.id).cards.indexOf(cartaJugada.id);
             this.players.get(jugada.member.id).cards.splice(index, 1);
-            this.players.rotate(this.flow);
-            this.turn = this.players.first();
-            this.message.edit(this.embed);
-            const res = await this.#updatePlayerCard(this.turn.interact);
-            this.turn.interact.editReply(res)
-            this.#cicle();
-            const response = await this.#updatePlayerCard(jugada);
-            this.players.get(jugada.member.id).interact.editReply(response);
+            if(this.players.get(jugada.member.id).cards.length == 0) {
+                this.winner = this.players.get(jugada.member.id)
+                this.status = 'end'
+                this.message.edit(this.embed);
+            } else {
+                this.players.rotate(this.flow);
+                this.turn = this.players.first();
+                //TODO hacer que las cartas especiales tengan funcion
+                if(!((/\d[r|g|y|b]/).test(cartaJugada.id))) {
+                    if((/p[r|g|y|b]/).test(cartaJugada.id)) {
+                        const cartas = Object.keys(require('../../src/unoCards.json'));
+                        this.turn.addCard(cartas[Math.floor(Math.random() * cartas.length)]);
+                        this.turn.addCard(cartas[Math.floor(Math.random() * cartas.length)]);
+                    } else if((/r[r|g|y|b]/).test(cartaJugada.id)) {
+                        this.flow(!this.flow)
+                        this.players.rotate(this.flow);
+                        this.players.rotate(this.flow);
+                    } else if((/r[r|g|y|b]/).test(cartaJugada.id)) {
+                        this.players.rotate(this.flow);
+                        this.turn = this.players.first();
+                    } else if(cartaJugada.id == 'p4') {
+                        const cartas = Object.keys(require('../../src/unoCards.json'));
+                        this.turn.addCard(cartas[Math.floor(Math.random() * cartas.length)]);
+                        this.turn.addCard(cartas[Math.floor(Math.random() * cartas.length)]);
+                        this.turn.addCard(cartas[Math.floor(Math.random() * cartas.length)]);
+                        this.turn.addCard(cartas[Math.floor(Math.random() * cartas.length)]);
+                    }
+                }
+                this.message.edit(this.embed);
+                const res = await this.#updatePlayerCard(this.turn.interact);
+                this.turn.interact.editReply(res)
+                this.#cicle();
+                const response = await this.#updatePlayerCard(jugada);
+                this.players.get(jugada.member.id).interact.editReply(response);
+            }
         }).catch(async reason => {
             if (reason != 'time') console.log(reason);
             const inter = this.turn.interact;
@@ -238,7 +265,6 @@ module.exports = class UNO {
     */
     async play(){
         this.#cicle()
-        //TODO hacer que las cartas especiales tengan funcion
     }
 
 
@@ -254,18 +280,21 @@ module.exports = class UNO {
         embed.title = "UNO Beta (class)";
         embed.addField(`Jugadores ${this.players.size}/${this.maxPlayers}`, `${this.players}`);
         embed.addField('Host', `<@${this.host}>`);
-        const ingresar = new MessageButton().setLabel('Ingresar').setCustomId(`uno_i_${this.id}`).setStyle('PRIMARY')
-        const comenzar = new MessageButton().setLabel('Comenzar').setCustomId(`uno_c_${this.id}`).setStyle('SUCCESS');
-        const buttons = new MessageActionRow();
+        let buttons = [new MessageActionRow()];
         if (this.players.length == 1) comenzar.setDisabled(true);
         const mostrar = new MessageButton().setLabel('Mostrar Cartas').setCustomId(`uno_m_${this.id}`).setStyle('SECONDARY');
         if(this.status == 'waiting') {
-            buttons.addComponents([ingresar, comenzar]);
+            buttons[0].addComponents([
+                new MessageButton().setLabel('Ingresar').setCustomId(`uno_i_${this.id}`).setStyle('PRIMARY'),
+                new MessageButton().setLabel('Comenzar').setCustomId(`uno_c_${this.id}`).setStyle('SUCCESS')]);
             embed.description = "Esperando jugadores (se requieren minimo 2)";
             embed.setThumbnail(require('../../src/unoCards.json')['1r'].url);
+        } else if(this.status == 'end') {
+            embed.description = `Partida terminada, Ganador: ${this.winner}`;
+            buttons = []
         } else {
             embed.description = `Partida en curso, turno de: <@${this.turn.id}>`;
-            buttons.addComponents([mostrar]);
+            buttons[0].addComponents([mostrar]);
             embed.setImage(this.actualCard.url);
         }
         return {
