@@ -14,7 +14,8 @@ global.client = new Client({
         'GUILD_MESSAGES',
         'GUILDS',
         'GUILD_WEBHOOKS',
-        'GUILD_BANS'
+        'GUILD_BANS',
+        'GUILD_MESSAGE_REACTIONS'
     ],
     partials: [
         'CHANNEL'
