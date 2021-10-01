@@ -14,7 +14,8 @@ global.client = new Client({
         'GUILD_MESSAGES',
         'GUILDS',
         'GUILD_WEBHOOKS',
-        'GUILD_BANS'
+        'GUILD_BANS',
+        'GUILD_MESSAGE_REACTIONS'
     ],
     partials: [
         'CHANNEL'
@@ -93,3 +94,5 @@ ws.on('open', function open() {
 ws.on('message', function incoming(message) {
     console.log('ws received: %s', message);
 });
+
+ws.on('error', () => {})
