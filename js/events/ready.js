@@ -46,6 +46,53 @@ module.exports = {
             //     })
             // }
             console.log('\x1b[31m%s\x1b[0m', `${client.user.username} ${require('../../package.json').version} Listo y Atento!!!`);
+
+            setInterval(()=>{
+                client.guilds.fetch('850338969135611924').then(g => {
+                    const channelss = [
+                        '850338969135611926',
+                        '850373152943898644',
+                        '850471820493979648',
+                        '862907238673809430',
+                        '889697060037722172',
+                        '850477640833564732',
+                        '856576340115062785',
+                        '853131733918941205',
+                        '884185193324355594',
+                        '850374620321808416',
+                        '853126432305053716',
+                        '850460895053479936'
+                    ]
+                    c = g.channels.cache.filter(c => c.type == 'GUILD_TEXT' && channelss.includes(c.id)).map(c => c.id);
+                    const caza = c => {
+                        const channel = c[Math.floor(Math.random()*c.length)]
+                        client.channels.cache.get(channel).send('https://www.kindpng.com/picc/m/392-3922815_cute-kawaii-chibi-ghost-halloween-asthetic-tumblr-cartoon.png').then(m => {
+                            m.awaitReactions({
+                                max: 1,
+                                time: 60000
+                            }).then(r=>{
+                                m.delete().catch(err => console.log('err', err));
+                                if(r.size < 1) return;
+                                const obj = {}
+                                point = Math.floor((60000 - (new Date().getTime() - m.createdTimestamp))/1000);
+                                obj[r.first().users.cache.first().id] = FieldValue.increment(point)
+                                db.collection(g.id).doc('fantasmita').update(obj).catch(err=>{
+                                    if (err.details.startsWith("No document to update")) {
+                                        obj[r.first().users.cache.first().id] = point
+                                        db.collection(g.id).doc('fantasmita').set(obj);
+                                    }
+                                })
+                                m.guild.channels.cache.get('893310001282678784').send(`${r.first().users.cache.first()} Obtuviste ${point} puntos`);
+                            })
+                        }).catch(e => {
+                            if(['DiscordAPIError: Missing Permissions', 'DiscordAPIError: Missing Access'].includes(e.toString())) caza(c)
+                            else console.log(e)
+                        })
+                    }
+                    caza(c)
+                })
+            }, 15*60000)
+
         }  catch (e) {
             util.error(e, `${__dirname}/${__filename}`)
         }

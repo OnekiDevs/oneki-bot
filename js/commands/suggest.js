@@ -36,7 +36,7 @@ module.exports = class Suggest extends require('../classes/Command'){
         message.delete().catch(err => {})
         const embed = new MessageEmbed();
         embed.setAuthor(message.author.username, message.author.displayAvatarURL());
-        embed.setTitle(`Sugerencia ## ${snapshot.data().lastId?+snapshot.data().lastId+1:1}`);
+        embed.setTitle(`Sugerencia # ${snapshot.data().lastId?+snapshot.data().lastId+1:1}`);
         embed.setColor(16313844);
         embed.setDescription(channelid ? args.slice(1).join(' ') : args.join(' '));
         // console.log(client.user.username);
