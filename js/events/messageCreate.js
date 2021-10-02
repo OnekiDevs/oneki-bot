@@ -10,7 +10,11 @@ module.exports = {
             if(message.channel.id == '893310001282678784'){
                 if(['points', 'puntos', '>points', '>puntos'].includes(message.content.toLowerCase())) {
                     db.collection(message.guild.id).doc('fantasmita').get().then(s=>{
-                        message.reply(`Tienes ${s.data()[message.author.id]??0} puntos acumulados`);
+                        message.reply(`Tienes ${s.data()[message.author.id]??0} puntos acumulados`).then(async m => {
+                            await util.sleep(10000);
+                            m.delete()
+                            message.delete()
+                        })
                     })
                 } else {
                     message.delete()
