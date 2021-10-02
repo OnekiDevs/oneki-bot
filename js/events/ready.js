@@ -92,7 +92,7 @@ module.exports = {
                         await util.sleep(ms)
                         caza(c)
                     }
-                    // caza(c)
+                    caza(c)
 
         }  catch (e) {
             util.error(e, __filename)
