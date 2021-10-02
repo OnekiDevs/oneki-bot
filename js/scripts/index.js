@@ -90,7 +90,8 @@ for (const file of fs.readdirSync("./js/buttons").filter((f) => f.endsWith(".js"
 }
 
 //login
-client.login(process.env.NODE_ENV!=='production'?process.env.TOKEN_DISCORD_DEV:process.env.TOKEN_DISCORD);
+global.TOKEN = process.env.NODE_ENV!=='production'?process.env.TOKEN_DISCORD_DEV:process.env.TOKEN_DISCORD
+client.login(global.TOKEN);
 
 const WebSocket = require('ws');
 global.ws = new WebSocket('wss://oneki.herokuapp.com/');

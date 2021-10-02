@@ -19,11 +19,12 @@ module.exports = {
                     if (cmd) cmd.run(interact, cmd.params)
                 }
             } else if (interact.isCommand()){
+                console.log(interact.commandName)
                 let cmd = client.slash.get(interact.commandName)
                 if (cmd) cmd.run(interact)
             }
         }  catch (e) {
-            util.error(e, `${__dirname}/${__filename}`)
+            util.error(e, __filename)
         }
     }
 }

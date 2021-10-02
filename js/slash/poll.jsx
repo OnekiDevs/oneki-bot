@@ -38,7 +38,7 @@ module.exports = {
                 .toJSON())
         })
     },
-    servers: ['885674114310881362'],
+    servers: [],
     /**
      * Execute the slash command
      * @param interact: DiscordInteraction

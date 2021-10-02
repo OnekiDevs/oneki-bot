@@ -3,7 +3,7 @@ const { MessageEmbed, MessageButton, MessageAttachment, MessageActionRow, Collec
 const shortid = require('shortid');
 const Player = require('./Player');
 const Players = require('./Players');
-module.exports = class UNO {
+module.exports = class Cero {
     host = null;
     id = shortid.generate();
     players = new Players();
@@ -277,7 +277,7 @@ module.exports = class UNO {
     get turn(){return this.players.first()}
     get embed(){
         const embed = new MessageEmbed();
-        embed.title = "UNO Beta (class)";
+        embed.title = "Cero Game";
         embed.addField(`Jugadores ${this.players.size}/${this.maxPlayers}`, `${this.players}`);
         embed.addField('Host', `<@${this.host}>`);
         let buttons = [new MessageActionRow()];
@@ -297,6 +297,8 @@ module.exports = class UNO {
             buttons[0].addComponents([mostrar]);
             embed.setImage(this.actualCard.url);
         }
+        embed.setFooter(`${client.user.username} Bot ${require('../../package.json').version}`, client.user.avatarURL());
+
         return {
             embeds: [embed],
             components: [buttons]

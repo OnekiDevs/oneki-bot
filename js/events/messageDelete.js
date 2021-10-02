@@ -22,7 +22,7 @@ module.exports = {
                 .setTimestamp()
                 .setThumbnail(message.author.displayAvatarURL({dynamic: true}))
                 .addField(lang.embed.fields.write, `${new Date(message.createdTimestamp).toDateString()}`, true)
-                .setFooter(`Kone Bot ${require('../../package.json').version}`, client.user.avatarURL());
+                .setFooter(`${client.user.username} Bot ${require('../../package.json').version}`, client.user.avatarURL());
             canal.send({
                 content: message.author.id,
                 embeds: [embed]

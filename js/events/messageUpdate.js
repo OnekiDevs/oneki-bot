@@ -26,7 +26,7 @@ module.exports = {
             if (newMessage.content) {
                 embed.addField("Despues", newMessage.content, false);
             }
-            embed.setFooter(`Kone Bot ${require('../../package.json').version}`, client.user.avatarURL());
+            embed.setFooter(`${client.user.username} Bot ${require('../../package.json').version}`, client.user.avatarURL());
             canal.send({
                 content: oldMessage.author.id,
                 embeds: [embed]

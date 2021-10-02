@@ -1,11 +1,10 @@
-const fetch = require("node-fetch");
 module.exports = {
     name: 'guildBanAdd',
     run: async (guild, user) => {
         try {
 
         } catch (e) {
-            util.error(e, `${__dirname}/${__filename}`)
+            util.error(e, __filename)
         }
         // fetch('https://koneweb.herokuapp.com/api/ban', {
         //     method: 'POST',
