@@ -32,13 +32,14 @@ module.exports = {
                             .setAuthor('Top Evento Caza Fantasmas')
                             .setTitle(`Tu lugar: ${lugar}`)
                         embed.description = ''
-                        for (let i = 0; i < 2; i++) {
-                            console.log(puntuajes[i])
-                            embed.description += `#${i+1} ${await client.users.fetch(Object.keys(puntuajes[i])[0])} / \`${puntuajes[i][Object.keys(puntuajes[i])[0]]}\` puntos\n`
+                        for (let i = 0; i < 10; i++) {
+                            if (puntuajes[i]) {
+                                embed.description += `#${i+1} ${await client.users.fetch(Object.keys(puntuajes[i])[0])} / \`${puntuajes[i][Object.keys(puntuajes[i])[0]]}\` puntos\n`
+                            }
                         }
                         message.reply({
                             embeds: [embed]
-                        })
+                        }).then(m=> util.sleep(120000).then(()=>m.delete()))
                     })
                 } else {
                     message.delete()
