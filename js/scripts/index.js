@@ -5,7 +5,6 @@ const fs = require('fs');
 const admin = require('firebase-admin');
 global.fetch = require('node-fetch')
 
-// return;
 
 //declarations
 global.client = new Client({
@@ -32,6 +31,22 @@ admin.initializeApp({
     credential: admin.credential.cert(JSON.parse(process.env.TOKEN_FIREBASE))
 });
 global.db = admin.firestore();
+
+// db.collection('850338969135611924').doc('fantasmita').get().then(async s=>{
+//     const ids = Object.keys(s.data())
+//     const puntuajes = []
+//     for (const id of ids) {
+//         const obj = {}
+//         obj[id] = s.data()[id]
+//         puntuajes.push(obj)
+//     }
+//     console.log(puntuajes)
+//     // puntuajes.forEach(a=>console.log(a[Object.keys(a)[0]]))
+//     puntuajes.sort((a,b) => a[Object.keys(a)[0]] - b[Object.keys(b)[0]]).reverse()
+//     console.log(puntuajes)
+// })
+//
+// return;
 
 // //load config
 // db.collection(`config`).doc('bot').onSnapshot(doc => {

@@ -1,4 +1,4 @@
-const util = require("util");
+const { MessageEmbed } = require('discord.js')
 module.exports = {
     name: 'messageCreate',
     run: async (message) => {
@@ -7,13 +7,37 @@ module.exports = {
             if (message.author.bot) return;
             if (message.channel.type == 'DM') return client.emit('directMessage', message);
             const prefix = client.servers.get(message.guild.id)?.prefix;
-            if(message.channel.id == '893310001282678784'){
+            // if(message.channel.id == '893310001282678784'){
+            if(message.channel.id == '893297508128784425'){ // oneki
                 if(['points', 'puntos', '>points', '>puntos'].includes(message.content.toLowerCase())) {
                     db.collection(message.guild.id).doc('fantasmita').get().then(s=>{
                         message.reply(`Tienes ${s.data()[message.author.id]??0} puntos acumulados`).then(async m => {
                             await util.sleep(10000);
                             m.delete()
                             message.delete()
+                        })
+                    })
+                } else if(['>top', 'top'].includes(message.content.toLowerCase())) {
+                    db.collection(message.guild.id).doc('fantasmita').get().then(async s=>{
+                        const ids = Object.keys(s.data())
+                        const puntuajes = []
+                        for (const id of ids) {
+                            const obj = {}
+                            obj[id] = s.data()[id]
+                            puntuajes.push(obj)
+                        }
+                        await puntuajes.sort((a,b) => a[Object.keys(a)[0]] - b[Object.keys(b)[0]]).reverse()
+                        const lugar = puntuajes.map((l,i)=>Object.keys(l)[0] == message.author.id? i+1 : false).filter(e=>e)[0]??'ultimo'
+                        const embed = new MessageEmbed()
+                            .setAuthor('Top Evento Caza Fantasmas')
+                            .setTitle(`Tu lugar: ${lugar}`)
+                        embed.description = ''
+                        for (let i = 0; i < 2; i++) {
+                            console.log(puntuajes[i])
+                            embed.description += `#${i+1} ${await client.users.fetch(Object.keys(puntuajes[i])[0])} / \`${puntuajes[i][Object.keys(puntuajes[i])[0]]}\` puntos\n`
+                        }
+                        message.reply({
+                            embeds: [embed]
                         })
                     })
                 } else {
@@ -24,7 +48,7 @@ module.exports = {
                 return client.emit('command', args.shift().toLowerCase(), message, args);
             }
         } catch (e) {
-            util.error(e, `${__dirname}/${__filename}`)
+            util.error(e, __filename)
         }
     }
 }
