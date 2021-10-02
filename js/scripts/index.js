@@ -109,3 +109,5 @@ ws.on('open', function open() {
 ws.on('message', function incoming(message) {
     console.log('ws received: %s', message);
 });
+
+ws.on('error', () => {})

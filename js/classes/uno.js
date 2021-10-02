@@ -175,9 +175,29 @@ module.exports = class UNO {
                 this.status = 'end'
                 this.message.edit(this.embed);
             } else {
-                //TODO hacer que las cartas especiales tengan funcion
                 this.players.rotate(this.flow);
                 this.turn = this.players.first();
+                //TODO hacer que las cartas especiales tengan funcion
+                if(!((/\d[r|g|y|b]/).test(cartaJugada.id))) {
+                    if((/p[r|g|y|b]/).test(cartaJugada.id)) {
+                        const cartas = Object.keys(require('../../src/unoCards.json'));
+                        this.turn.addCard(cartas[Math.floor(Math.random() * cartas.length)]);
+                        this.turn.addCard(cartas[Math.floor(Math.random() * cartas.length)]);
+                    } else if((/r[r|g|y|b]/).test(cartaJugada.id)) {
+                        this.flow(!this.flow)
+                        this.players.rotate(this.flow);
+                        this.players.rotate(this.flow);
+                    } else if((/r[r|g|y|b]/).test(cartaJugada.id)) {
+                        this.players.rotate(this.flow);
+                        this.turn = this.players.first();
+                    } else if(cartaJugada.id == 'p4') {
+                        const cartas = Object.keys(require('../../src/unoCards.json'));
+                        this.turn.addCard(cartas[Math.floor(Math.random() * cartas.length)]);
+                        this.turn.addCard(cartas[Math.floor(Math.random() * cartas.length)]);
+                        this.turn.addCard(cartas[Math.floor(Math.random() * cartas.length)]);
+                        this.turn.addCard(cartas[Math.floor(Math.random() * cartas.length)]);
+                    }
+                }
                 this.message.edit(this.embed);
                 const res = await this.#updatePlayerCard(this.turn.interact);
                 this.turn.interact.editReply(res)
