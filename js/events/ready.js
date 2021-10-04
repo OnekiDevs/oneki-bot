@@ -67,7 +67,7 @@ module.exports = {
             }
             const caza = async () => {
                 let ch = client.channels.cache.get(channel())
-                if(ch.id != '850338969135611926' && (Math.floor(Math.random()*5)+1) == 5){
+                if(ch.id != '850338969135611926' && (Math.floor(Math.random()*5)+1) > 3){
                     const e = ch.guild.emojis.cache.filter(e=>e.available).map(e=>`<${e.animated?'a':''}:${e.name}:${e.id}>`)
                     const msg = [
                         'se te perdió algo?',
