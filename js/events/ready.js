@@ -96,7 +96,7 @@ module.exports = {
                 }))
                 util.sleep((Math.floor(Math.random()*25)+5)*60000).then(()=>caza())
             }
-            // caza()
+            caza()
 
         }  catch (e) {
             util.error(e, __filename)
