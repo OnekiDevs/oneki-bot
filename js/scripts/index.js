@@ -26,36 +26,11 @@ client.buttons = new Collection();
 client.servers = new Collection();
 client.slash = new Collection();
 client.uno = new Collection();
-// const serviceAccount = require("../../src/firebase-key.json");
 admin.initializeApp({
     credential: admin.credential.cert(JSON.parse(process.env.TOKEN_FIREBASE))
 });
 global.db = admin.firestore();
 
-// db.collection('850338969135611924').doc('fantasmita').get().then(async s=>{
-//     const ids = Object.keys(s.data())
-//     const puntuajes = []
-//     for (const id of ids) {
-//         const obj = {}
-//         obj[id] = s.data()[id]
-//         puntuajes.push(obj)
-//     }
-//     console.log(puntuajes)
-//     // puntuajes.forEach(a=>console.log(a[Object.keys(a)[0]]))
-//     puntuajes.sort((a,b) => a[Object.keys(a)[0]] - b[Object.keys(b)[0]]).reverse()
-//     console.log(puntuajes)
-// })
-//
-// return;
-
-// //load config
-// db.collection(`config`).doc('bot').onSnapshot(doc => {
-//     client.settings = {
-//         prefix: doc.data()?.prefix??'r!',
-//         dmChannel: "832788680200028212",
-//         guild: "825936007449935903"
-//     }
-// })
 
 //load events
 for (const file of fs.readdirSync("./js/events").filter((f) => f.endsWith(".js"))) {
@@ -65,11 +40,6 @@ for (const file of fs.readdirSync("./js/events").filter((f) => f.endsWith(".js")
 }
 
 //load commands
-// for (const file of fs.readdirSync("./js/commands").filter((f) => f.endsWith(".js"))) {
-//     const command = require("../commands/" + file);
-//     client.commands.set(command.name, command);
-//     console.log("\x1b[36m%s\x1b[0m", file, "fue cargado correctamente");
-// }
 for(const file of fs.readdirSync('./js/commands').filter(f=>f.endsWith('.js'))) {
     const Command = new (require(`../commands/${file}`))
     client.commands.set(Command.name, Command);
