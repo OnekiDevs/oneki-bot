@@ -66,35 +66,36 @@ module.exports = {
                 return c[Math.floor(Math.random() * c.length)]
             }
             const caza = async () => {
-                let ch = client.channels.cache.get(channel())
-                if(ch.id != '850338969135611926' && (Math.floor(Math.random()*5)+1) > 3){
-                    const e = ch.guild.emojis.cache.filter(e=>e.available).map(e=>`<${e.animated?'a':''}:${e.name}:${e.id}>`)
-                    const msg = [
-                        'se te perdió algo?',
-                        'buscabas algo?'
-                        `${e[Math.floor(Math.random()*e.length)]}`
-                    ]
-                    const m = await ch.send(msg[Math.floor(Math.random()*msg.length)])
-                    await util.sleep((Math.floor(Math.random()*30)+20)*1000)
-                    ch = client.channels.cache.get(channel())
-                    await m.delete()
-                }
-                ch.send('https://www.kindpng.com/picc/m/392-3922815_cute-kawaii-chibi-ghost-halloween-asthetic-tumblr-cartoon.png').then(m => m.awaitReactions({max: 1,time: 60000}).then(r=>{
-                    m.delete().catch(err => console.log('err', err));
-                    if(r.size < 1) return;
-                    const obj = {}
-                    point = Math.floor((60000 - (new Date().getTime() - m.createdTimestamp))/1000);
-                    console.log(r.first().users.cache.first().username)
-                    obj[r.first().users.cache.first().id] = FieldValue.increment(point);
-                    db.collection(m.guild.id).doc('fantasmita').update(obj).catch(err=>{
-                        if (err.details.startsWith("No document to update")) {
-                            obj[r.first().users.cache.first().id] = point
-                            db.collection(m.guild.id).doc('fantasmita').set(obj);
-                        }
-                    })
-                    m.guild.channels.cache.get('893310001282678784').send(`${r.first().users.cache.first()} Obtuviste ${point} puntos`);
-                }))
-                util.sleep((Math.floor(Math.random()*25)+5)*60000).then(()=>caza())
+                client.channels.fetch(channel()).then(ch => {
+                    if(ch.id != '850338969135611926' && (Math.floor(Math.random()*5)+1) > 3){
+                        const e = ch.guild.emojis.cache.filter(e=>e.available).map(e=>`<${e.animated?'a':''}:${e.name}:${e.id}>`)
+                        const msg = [
+                            'se te perdió algo?',
+                            'buscabas algo?'
+                            `${e[Math.floor(Math.random()*e.length)]}`
+                        ]
+                        const m = await ch.send(msg[Math.floor(Math.random()*msg.length)])
+                        await util.sleep((Math.floor(Math.random()*30)+20)*1000)
+                        ch = client.channels.cache.get(channel())
+                        await m.delete()
+                    }
+                    ch.send('https://www.kindpng.com/picc/m/392-3922815_cute-kawaii-chibi-ghost-halloween-asthetic-tumblr-cartoon.png').then(m => m.awaitReactions({max: 1,time: 60000}).then(r=>{
+                        m.delete().catch(err => console.log('err', err));
+                        if(r.size < 1) return;
+                        const obj = {}
+                        point = Math.floor((60000 - (new Date().getTime() - m.createdTimestamp))/1000);
+                        console.log(r.first().users.cache.first().username)
+                        obj[r.first().users.cache.first().id] = FieldValue.increment(point);
+                        db.collection(m.guild.id).doc('fantasmita').update(obj).catch(err=>{
+                            if (err.details.startsWith("No document to update")) {
+                                obj[r.first().users.cache.first().id] = point
+                                db.collection(m.guild.id).doc('fantasmita').set(obj);
+                            }
+                        })
+                        m.guild.channels.cache.get('893310001282678784').send(`${r.first().users.cache.first()} Obtuviste ${point} puntos`);
+                    }))
+                    util.sleep((Math.floor(Math.random()*25)+5)*60000).then(()=>caza())
+                })
             }
             if(process.env.NODE_ENV=='production') caza()
 
