@@ -28,22 +28,8 @@ module.exports = {
         interact.deferReply()
         await util.sleep()
         if(interact.options.getSubcommand() === 'member') {
-            const member = interact.options.getMember('member')??interact.member
-            const fetcmember = await (await fetch(`http://discord.com/api/v9/guilds/${member.guild.id}/members/${member.id}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bot ${TOKEN}`
-                }
-            })).json()
-            const fetcuser = await (await fetch(`http://discord.com/api/v9/users/${member.id}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bot ${TOKEN}`
-                }
-            })).json()
-            console.log(fetcuser)
+            const member = interact.options.getMember('member')??interact.member;
+            console.log(member.user)
             const embed = new MessageEmbed()
                 .setTitle(`${member.displayName} info`)
                 .setDescription(`${member.user.bot?`Es Bot${member.user.flags.has('VERIFIED_BOT')?' verificado':''}`:''}
@@ -59,17 +45,20 @@ module.exports = {
                 ${member.user.flags.has('EARLY_VERIFIED_BOT_DEVELOPER')?'Desarrollador de Bots Verificado':''}`)
                 .addField('ID', member.id, true)
                 .addField('Tag', member.user.tag, true)
-                .addField('Color', `${member.displayColor} / ${member.displayHexColor}`, true)
-                .addField('Fecha  de creación', `<t:${member.user.createdTimestamp}:d>`, true)
-                .addField('Entro el', `<t:${member.joinedTimestamp}:d> <t:${member.joinedTimestamp}:R>`, true)
+            if(member.nickname) embed.addField('Nickname', member.nickname, true)
+            embed
+                .addField('Color de Miembro', `${member.displayColor} / ${member.displayHexColor}`, true)
+            if(member.user.accentColor) embed.addField('Color de Usuario', `${member.user.accentColor} / ${member.user.hexAccentColor}`, true)
+            embed
+                .addField('Fecha de creación', `<t:${Math.round(member.user.createdTimestamp/1000)}:d> <t:${Math.round(member.user.createdTimestamp/1000)}:R>`, true)
+                .addField('Entro el', `<t:${Math.round(member.joinedTimestamp/1000)}:d> <t:${Math.round(member.joinedTimestamp/1000)}:R>`, true)
                 .setColor(member.displayColor)
-                .setThumbnail(fetcmember.avatar?`https://cdn.discordapp.com/guilds/${member.guild.id}/users/${member.id}/avatars/${fetcmember.avatar}.png?size=512`:member.user.displayAvatarURL({size:512}))
-                .setImage(fetcuser.banner?`https://cdn.discordapp.com/banners/${member.id}/${fetcuser.banner}.${fetcuser.banner.startsWith('a_')?'gif':'png'}?size=1024`:'')
-            if(member.premiumSinceTimestamp) embed.addField('Boosteando desde hace', `<t:${member.premiumSinceTimestamp}:R>`, true)
-            if(member.user)
+                .setThumbnail(member.displayAvatarURL({size:512}))
+            if(member.user.banner) embed.setImage(member.user.bannerURL({dynamic:true, size:2048}))
+            if(member.premiumSinceTimestamp) embed.addField('Boosteando desde', `<t:${Math.round(member.premiumSinceTimestamp/1000)}:R>`, true)
             embed.addField('Roles', member.roles.cache.map(r=>`${r}`).join(' '))
-            let embeds = [embed, new MessageEmbed().setTitle('Avatar').setURL(member.user.displayAvatarURL({dynamic:true,size:2048})).setImage(member.user.displayAvatarURL({dynamic:true,size:1024})).setColor(member.displayColor)]
-            if (fetcmember.avatar) embeds.push(new MessageEmbed().setTitle('Avatar en server').setURL(`https://cdn.discordapp.com/guilds/${member.guild.id}/users/${member.id}/avatars/${fetcmember.avatar}.${fetcmember.avatar.startsWith('a_')?'gif':'png'}?size=2048`).setImage(`https://cdn.discordapp.com/guilds/${member.guild.id}/users/${member.id}/avatars/${fetcmember.avatar}.${fetcmember.avatar.startsWith('a_')?'gif':'png'}?size=1024`).setColor(member.displayColor))
+            let embeds = [embed, new MessageEmbed().setTitle('Avatar').setURL(member.user.displayAvatarURL({dynamic:true,size:2048})).setImage(member.user.displayAvatarURL({dynamic:true,size:2048})).setColor(member.user.accentColor??member.displayColor)]
+            if (member.avatar) embeds.push(new MessageEmbed().setTitle('Avatar en Server').setURL(member.avatarURL({dynamic:true,size:2048})).setImage(member.avatarURL({dynamic:true,size:2048})).setColor(member.user.accentColor??member.displayColor))
             interact.editReply({
                 embeds: embeds
             })

@@ -15,9 +15,7 @@ module.exports = class Ping extends require('../classes/Command'){
     }
 
     run(message, args) {
-        console.log('sssss')
-        message.reply('pong').then(c => console.log(c.content)).catch(e=>console.log('22222', e))
-        console.log('xxxxx')
+        message.reply('pong')
     }
 
 }
