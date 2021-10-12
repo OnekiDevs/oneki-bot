@@ -3,12 +3,11 @@ module.exports = {
     name: "messageUpdate",
     run: async (oldMessage, newMessage) => {
         try {
-            if (!oldMessage.author || oldMessage.author?.bot) return;
-            if (oldMessage.content && oldMessage.content === newMessage.content) return;
+            if ((!oldMessage.author || oldMessage.author?.bot) || (oldMessage.content && oldMessage.content === newMessage.content)) return;
             const snapshot = await db.collection(oldMessage.guild.id).doc("edited").get();
             console.log(snapshot.data())
             const canal = client.channels.cache.get(snapshot.data()?.channel);
-            if (!canal) return;
+            if (!canal || !canal.permissionsFor(client.user.id)?.has('SEND_MESSAGES')) return;
             const embed = new MessageEmbed()
             embed.setTitle("Mensaje Editado");
             embed.setURL(oldMessage.url);

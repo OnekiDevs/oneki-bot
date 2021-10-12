@@ -33,9 +33,9 @@ module.exports = {
                 })).catch((err) => {
                     if (!err.toString().endsWith('Missing Access')) console.log(err)
                 })
-                else client.guilds.cache.forEach(async guild => guild.commands.create(await slash.data({guild: guild.id, client})).then((command) => console.log(command.name, '|', guild.name)).catch(err => {
+                else await Promise.all(client.guilds.cache.map(async guild => guild.commands.create(await slash.data({guild: guild.id, client})).then((command) => console.log(command.name, '|', guild.name)).catch(err => {
                     if (!err.toString().endsWith('Missing Access')) console.log(err)
-                }))
+                })))
             }
             //load user menu
             // for (const file of fs.readdirSync("./js/user").filter((f) => f.endsWith(".js"))) {
@@ -48,7 +48,7 @@ module.exports = {
 
 
 
-            var channel = () => {
+            let channel = () => {
                 const c = [
                     // '885674115615301650', //oneki
                     '850338969135611926',
@@ -66,12 +66,12 @@ module.exports = {
                 return c[Math.floor(Math.random() * c.length)]
             }
             const caza = async () => {
-                client.channels.fetch(channel()).then(ch => {
-                    if(ch.id != '850338969135611926' && (Math.floor(Math.random()*5)+1) > 3){
-                        const e = ch.guild.emojis.cache.filter(e=>e.available).map(e=>`<${e.animated?'a':''}:${e.name}:${e.id}>`)
+                client.channels.fetch(channel()).then(async ch => {
+                    if(ch.id !== '850338969135611926' && (Math.floor(Math.random()*5)+1) > 3){
+                        const e = ch["guild"].emojis.cache.filter(e=>e.available).map(e=>`<${e.animated?'a':''}:${e.name}:${e.id}>`)
                         const msg = [
                             'se te perdió algo?',
-                            'buscabas algo?'
+                            'buscabas algo?',
                             `${e[Math.floor(Math.random()*e.length)]}`
                         ]
                         const m = await ch.send(msg[Math.floor(Math.random()*msg.length)])
@@ -97,7 +97,7 @@ module.exports = {
                     util.sleep((Math.floor(Math.random()*25)+5)*60000).then(()=>caza())
                 })
             }
-            if(process.env.NODE_ENV=='production') caza()
+            if(process.env.NODE_ENV==='production') caza()
 
         }  catch (e) {
             util.error(e, __filename)

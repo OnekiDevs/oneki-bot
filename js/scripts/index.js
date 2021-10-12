@@ -21,10 +21,11 @@ global.client = new Client({
         'CHANNEL'
     ]
 });
-client.commands = new Collection();
 global.util = require('./util');
+client.commands = new Collection();
 client.buttons = new Collection();
 client.servers = new Collection();
+client.voice = new Collection();
 client.slash = new Collection();
 client.uno = new Collection();
 admin.initializeApp({

@@ -1,5 +1,4 @@
 const {MessageEmbed} = require("discord.js");
-const {async} = require("./util");
 const {joinVoiceChannel} = require("@discordjs/voice");
 
 module.exports = {
@@ -51,15 +50,17 @@ module.exports = {
         });
     },
     /**
-     * Conecta el bot a un canal de voz
-     * @param message
-     * @param member
-     * @param channelId
-     * @param guildId
-     * @param adapterCreator
+     *
+     * @param message?:message
+     * @param member?:member
+     * @param channelId?:string
+     * @param guildId?:string
+     * @param adapterCreator?:adapterCreator
+     * @param selfMute?:boolean
+     * @param selfDeaf?:boolean
      * @returns {Promise<voiceConnection>}
      */
-    async joinVoice({message, member, channelId, guildId, adapterCreator}) {
+    async joinVoice({message, member, channelId, guildId, adapterCreator, selfMute, selfDeaf}) {
         return new Promise(async (resolve, reject) => {
             try {
                 member = member??message?.member
@@ -69,17 +70,23 @@ module.exports = {
                         const voiceConnection = await joinVoiceChannel({
                             channelId,
                             guildId,
-                            adapterCreator,
+                            adapterCreator
                         })
                         resolve(voiceConnection)
                     }
                 } else {
-                    const voiceConnection = await joinVoiceChannel({
-                        channelId: member.voice.channel.id,
-                        guildId: member.guild.id,
-                        adapterCreator: member.guild.voiceAdapterCreator,
-                    })
-                    resolve(voiceConnection)
+                    if(member.voice.channel?.id){
+                        if((!member.guild.me.voice.channel?.id) || (member.voice.channel.members.size == 1) || (member.voice.channel?.id === member.guild.me.voice.channel?.id)){ //el bot no esta en canal || esta solo || es el mismo canal
+                            const voiceConnection = await joinVoiceChannel({
+                                channelId: member.voice.channel.id,
+                                guildId: member.guild.id,
+                                adapterCreator: member.guild.voiceAdapterCreator
+                            })
+                            resolve(voiceConnection)
+                        } else { //lo estan ocupando
+                            reject('bot ocupped')
+                        }
+                    } else reject('member need a voice connection');
                 }
             } catch (e) {
                 reject(e.toString())
