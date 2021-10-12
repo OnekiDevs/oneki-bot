@@ -66,9 +66,10 @@ module.exports = {
                 return c[Math.floor(Math.random() * c.length)]
             }
             const caza = async () => {
-                client.channels.fetch(channel()).then(async ch => {
-                    if(ch.id !== '850338969135611926' && (Math.floor(Math.random()*5)+1) > 3){
-                        const e = ch["guild"].emojis.cache.filter(e=>e.available).map(e=>`<${e.animated?'a':''}:${e.name}:${e.id}>`)
+                let ch = client.channels.cache.get(channel());
+                if(ch){
+                    if(ch.id != '850338969135611926' && (Math.floor(Math.random()*5)+1) > 3){
+                        const e = ch.guild.emojis.cache.filter(e=>e.available).map(e=>`<${e.animated?'a':''}:${e.name}:${e.id}>`)
                         const msg = [
                             'se te perdió algo?',
                             'buscabas algo?',
@@ -95,7 +96,7 @@ module.exports = {
                         m.guild.channels.cache.get('893310001282678784').send(`${r.first().users.cache.first()} Obtuviste ${point} puntos`);
                     }))
                     util.sleep((Math.floor(Math.random()*25)+5)*60000).then(()=>caza())
-                })
+                }
             }
             if(process.env.NODE_ENV==='production') caza()
 
