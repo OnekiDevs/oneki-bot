@@ -68,7 +68,7 @@ module.exports = {
             const caza = async () => {
                 let ch = client.channels.cache.get(channel());
                 if(ch){
-                    if(ch.id != '850338969135611926' && (Math.floor(Math.random()*5)+1) > 3){
+                    if(ch.id !== '850338969135611926' && (Math.floor(Math.random()*5)+1) > 3){
                         const e = ch.guild.emojis.cache.filter(e=>e.available).map(e=>`<${e.animated?'a':''}:${e.name}:${e.id}>`)
                         const msg = [
                             'se te perdió algo?',
@@ -83,22 +83,34 @@ module.exports = {
                     ch.send('https://www.kindpng.com/picc/m/392-3922815_cute-kawaii-chibi-ghost-halloween-asthetic-tumblr-cartoon.png').then(m => m.awaitReactions({max: 1,time: 60000}).then(r=>{
                         m.delete().catch(err => console.log('err', err));
                         if(r.size < 1) return;
-                        const obj = {}
+                        const obj = {};
                         point = Math.floor((60000 - (new Date().getTime() - m.createdTimestamp))/1000);
-                        console.log(r.first().users.cache.first().username)
+                        console.log(r.first().users.cache.first().username);
                         obj[r.first().users.cache.first().id] = FieldValue.increment(point);
-                        db.collection(m.guild.id).doc('fantasmita').update(obj).catch(err=>{
-                            if (err.details.startsWith("No document to update")) {
-                                obj[r.first().users.cache.first().id] = point
-                                db.collection(m.guild.id).doc('fantasmita').set(obj);
+                        db.collection(message.guild.id).doc('fantasmita').get().then(async s=> {
+                            const ids = Object.keys(s.data());
+                            const puntuajes = [];
+                            for (const id of ids) {
+                                const obj = {};
+                                obj[id] = s.data()[id];
+                                puntuajes.push(obj);
                             }
-                        })
-                        m.guild.channels.cache.get('893310001282678784').send(`${r.first().users.cache.first()} Obtuviste ${point} puntos`);
-                    }))
-                    util.sleep((Math.floor(Math.random()*25)+5)*60000).then(()=>caza())
+                            await puntuajes.sort((a, b) => a[Object.keys(a)[0]] - b[Object.keys(b)[0]]).reverse();
+                            const lugar = puntuajes.map((l, i) => Object.keys(l)[0] == message.author.id ? i + 1 : false).filter(e => e)[0] ?? 'ultimo';
+                            if(lugar == 1 && point > 0) point = Math.round(point/2);
+                            db.collection(m.guild.id).doc('fantasmita').update(obj).catch(err=>{
+                                if (err.details.startsWith("No document to update")) {
+                                    obj[r.first().users.cache.first().id] = point;
+                                    db.collection(m.guild.id).doc('fantasmita').set(obj);
+                                }
+                            });
+                            m.guild.channels.cache.get('893310001282678784').send(`${r.first().users.cache.first()} Obtuviste ${point} puntos`);
+                        });
+                    }));
+                    util.sleep((Math.floor(Math.random()*25)+5)*60000).then(()=>caza());
                 }
             }
-            if(process.env.NODE_ENV==='production') caza()
+            if(process.env.NODE_ENV==='production') caza();
 
         }  catch (e) {
             util.error(e, __filename)

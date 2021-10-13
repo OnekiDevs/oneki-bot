@@ -14,7 +14,7 @@ module.exports = {
             embed.setColor("RANDOM");
             embed.setAuthor(oldMessage.author.username, oldMessage.author.displayAvatarURL())
             // embed.addField("Autor del mensaje:", oldMessage.author.username, true);
-            embed.addField("Eliminado En:", `${oldMessage.channel}`, true);
+            embed.addField("Editado En:", `${oldMessage.channel}`, true);
             embed.setTimestamp();
             embed.setThumbnail(oldMessage.author.displayAvatarURL({dynamic: true}));
             embed.addField("Escrito el:", `${new Date(oldMessage.createdTimestamp).toDateString()}`, true);

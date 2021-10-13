@@ -32,6 +32,7 @@ admin.initializeApp({
     credential: admin.credential.cert(JSON.parse(process.env.TOKEN_FIREBASE))
 });
 global.db = admin.firestore();
+global.DEVELOPERS = ['534614025271771158']
 
 
 //load events
