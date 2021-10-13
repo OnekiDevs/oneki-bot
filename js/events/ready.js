@@ -97,7 +97,9 @@ module.exports = {
                             }
                             await puntuajes.sort((a, b) => a[Object.keys(a)[0]] - b[Object.keys(b)[0]]).reverse();
                             const lugar = puntuajes.map((l, i) => Object.keys(l)[0] == message.author.id ? i + 1 : false).filter(e => e)[0] ?? 'ultimo';
-                            if(lugar == 1 && point > 0) point = Math.round(point/2);
+                            if(lugar == 1 && point > 0) {
+                                point = Math.round(point / 2);
+                            }
                             db.collection(m.guild.id).doc('fantasmita').update(obj).catch(err=>{
                                 if (err.details.startsWith("No document to update")) {
                                     obj[r.first().users.cache.first().id] = point;
