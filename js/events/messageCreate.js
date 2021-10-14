@@ -7,8 +7,8 @@ module.exports = {
             if (message.author.bot) return;
             if (message.channel.type == 'DM') return client.emit('directMessage', message);
             const prefix = client.servers.get(message.guild.id)?.prefix;
-            // if(message.channel.id == '893310001282678784'){
-            if(message.channel.id == '893310001282678784'){ // oneki
+            if(message.channel.id == '893310001282678784'){
+            // if(message.channel.id == '893297508128784425'){ // oneki
                 if(['points', 'puntos', '>points', '>puntos'].includes(message.content.toLowerCase())) db.collection(message.guild.id).doc('fantasmita').get().then(s=>message.reply(`Tienes ${s.data()[message.author.id]??0} puntos acumulados`).then(async m => util.sleep(10000).then(()=>m.delete().then(()=>message.delete()))))
                 else if(['>top', 'top'].includes(message.content.toLowerCase())) db.collection(message.guild.id).doc('fantasmita').get().then(async s=>{
                     const ids = Object.keys(s.data())

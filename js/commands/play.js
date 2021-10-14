@@ -28,6 +28,7 @@ module.exports = class Play extends require('../classes/Command'){
             }))
             if(!voiceConnection) voiceConnection = await util.joinVoice({message, selfMute:false})
         } catch (e) {
+            console.log(e)
             return message.reply('fallo al conectar')
         }
         const audioPlayer = createAudioPlayer();
