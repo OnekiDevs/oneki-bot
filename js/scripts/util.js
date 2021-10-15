@@ -60,14 +60,14 @@ module.exports = {
      * @param selfDeaf?:boolean
      * @returns {Promise<voiceConnection>}
      */
-    async joinVoice({message, member, channelId, guildId, adapterCreator, selfMute, selfDeaf}) {
+    async joinVoice({message, member, channelId, guildId, adapterCreator, selfMute, selfDeaf, guild}) {
         return new Promise(async (resolve, reject) => {
             try {
                 member = member??message?.member
                 if(!member){
                     if(!channelId || !guildId || !adapterCreator) reject('requiere {(member | message) | (channelId, guildId, adapterCreator)}')
                     else {
-                        const voiceConnection = await joinVoiceChannel({
+                        const voiceConnection = joinVoiceChannel({
                             channelId,
                             guildId,
                             adapterCreator
@@ -77,10 +77,10 @@ module.exports = {
                 } else {
                     if(member.voice.channel?.id){
                         if((!member.guild.me.voice.channel?.id) || (member.voice.channel.members.size == 1) || (member.voice.channel?.id === member.guild.me.voice.channel?.id)){ //el bot no esta en canal || esta solo || es el mismo canal
-                            const voiceConnection = await joinVoiceChannel({
+                            const voiceConnection = joinVoiceChannel({
                                 channelId: member.voice.channel.id,
                                 guildId: member.guild.id,
-                                adapterCreator: member.guild.voiceAdapterCreator
+                                adapterCreator: adapterCreator??member.guild.voiceAdapterCreator
                             })
                             resolve(voiceConnection)
                         } else { //lo estan ocupando
@@ -89,6 +89,7 @@ module.exports = {
                     } else reject('member need a voice connection');
                 }
             } catch (e) {
+                console.log(e)
                 reject(e.toString())
             }
         })

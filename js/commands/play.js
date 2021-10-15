@@ -18,17 +18,19 @@ module.exports = class Play extends require('../classes/Command'){
     }
 
     async run(message, args = []) {
+        return;
         if(!(args[0] || message.attachments?.first())) return message.reply('Inserta un link, algun archivo o alguna cancion a buscar');
         if(message.attachments?.first() && !message.attachments?.first().contentType?.startsWith('audio')) return message.reply('El archivo debe ser un audio')
         let voiceConnection = null
+        console.log(message.guild.voiceAdapterCreator)
         try {
-            if(!message.guild.me.voice.channel) message.reply('conectando...').then(m=>util.joinVoice({message}).then((vc)=>{
+            if(!message.guild.me.voice.channel) message.reply('conectando...').then(m=>util.joinVoice({message, adapterCreator:message.guild.voiceAdapterCreator}).then((vc)=>{
                 m.edit('conectado')
                 voiceConnection = vc
             }))
-            if(!voiceConnection) voiceConnection = await util.joinVoice({message, selfMute:false})
+            if(!voiceConnection) voiceConnection = await util.joinVoice({message, adapterCreator:message.guild.voiceAdapterCreator})
         } catch (e) {
-            console.log(e)
+            console.log('***************************************************', e, '***************************************************')
             return message.reply('fallo al conectar')
         }
         const audioPlayer = createAudioPlayer();

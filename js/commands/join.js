@@ -14,7 +14,11 @@ module.exports = class Join extends require('../classes/Command'){
     }
 
     async run(message, args = []) {
-        message.reply('conectando...').then(m=>util.joinVoice({message,selfMute:false}).then(()=>m.edit('conectado')).catch(()=>m.edit('Estoy ocupado')))
+        return;
+        message.reply('conectando...').then(m=>util.joinVoice({message,selfMute:false}).then(()=>m.edit('conectado')).catch((e)=>{
+            console.log(e)
+            m.edit('Estoy ocupado')
+        }))
     }
 
 }

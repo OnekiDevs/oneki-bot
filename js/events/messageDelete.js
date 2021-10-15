@@ -6,7 +6,7 @@ module.exports = {
             if (!['DEFAULT', 'REPLY'].includes(message.type)) console.log(message.type)
             if (!message.author || message.author?.bot) return;
             // console.log(message.type)
-            const snapshot = await db.collection(message.guild.id).doc("deleted").get();
+            const snapshot = await db.collection(message.guild?.id).doc("deleted").get();
             // console.log(snapshot.data())
             const canal = client.channels.cache.get(snapshot.data()?.channel);
             if (!canal) return;
@@ -21,7 +21,7 @@ module.exports = {
                 .addField(lang.embed.fields.deletedIn[message.type]??lang.embed.fields.deletedIn.DEFAULT, `${message.channel} | ${message.channel.name}`, true)
                 .setTimestamp()
                 .setThumbnail(message.author.displayAvatarURL({dynamic: true}))
-                .addField(lang.embed.fields.write, `${new Date(message.createdTimestamp).toDateString()}`, true)
+                .addField(lang.embed.fields.write, `<t:${message.createdTimestamp/1000}>`, true)
                 .setFooter(`${client.user.username} Bot ${require('../../package.json').version}`, client.user.avatarURL());
             canal.send({
                 content: message.author.id,
