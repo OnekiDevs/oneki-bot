@@ -48,7 +48,10 @@ async def on_message(message):
                     color = 0xFCE64C
                 ), delete_after = 10.0)
 
+#     if message.channel.id == 885674115946643457:
     if message.channel.id == 899043967507791974:
+        print(message.channel.id)
         server = tools.servers.get(f"{message.guild.id}")
+        print(server)
         ctx = await tools.bot.get_context(message)
         await _report(ctx, tools.utils.translations(server["lang"], f"commands/report"), message.content)

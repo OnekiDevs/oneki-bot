@@ -3,10 +3,15 @@ from tools.utils import commands
 
 
 async def _report(ctx, translations, report_message):
+    print(report_message)
+    print("--------------------------")
+    print(translations)
+    print("--------------------------")
     document = tools.db.Document(collection = f"{ctx.guild.id}", document = "report")
     if document.exists:
+        print("exist")
         channel = tools.bot.get_channel(int(document.content.get("channel")))
-
+        print(f"channel {channel}")
         embed = tools.discord.Embed(
             description = f"{report_message}",
             color = tools.discord.Colour.dark_red(),
@@ -18,6 +23,7 @@ async def _report(ctx, translations, report_message):
         embed.add_field(name = translations["embed"]["field_author"], value = translations["embed"]["field"]["value"].format(ctx.author, ctx.author.joined_at, ctx.author.id))
 
         if ctx.message.mentions:
+            print("mentions")
             for user in ctx.message.mentions:
                 embed.add_field(name = translations["embed"]["field"]["name"], value = translations["embed"]["field"]["value"].format(ctx.author, ctx.author.joined_at, ctx.author.id))
                 document_report = tools.db.Document(collection = f"{ctx.guild.id}", document = "users", subcollection = f"{user.id}", subdocument = "reports")
@@ -33,12 +39,15 @@ async def _report(ctx, translations, report_message):
                 else: 
                     document_report.set(report_id = 1)
                     document_report.update(f"report0", map)          
-
+        print("send")
         await channel.send(embed = embed)
+        print("embed")
         await ctx.author.send(translations["correct"])
+        print("translation")
 
     else:
         await ctx.send(translations["error"])
+        print("error")
 
 
 @tools.bot.command()
