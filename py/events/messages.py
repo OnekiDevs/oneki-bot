@@ -1,5 +1,6 @@
 import tools
 from tools.utils import events
+from commands.report import _report
 
 @tools.bot.event
 async def on_message(message):
@@ -46,3 +47,8 @@ async def on_message(message):
                     timestamp = tools.afks[f"{user.id}"]["time"],
                     color = 0xFCE64C
                 ), delete_after = 10.0)
+
+    if message.channel.id == 899043967507791974:
+        server = tools.servers.get(f"{message.guild.id}")
+        ctx = await tools.bot.get_context(message)
+        await _report(ctx, tools.utils.translations(server["lang"], f"commands/report"), message.content)

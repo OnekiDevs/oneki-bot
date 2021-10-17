@@ -2,9 +2,7 @@ import tools
 from tools.utils import commands
 
 
-@tools.bot.command()
-async def report(ctx, *, report_message):
-    translations = commands.get_config(ctx, "report")
+async def _report(ctx, translations, report_message):
     document = tools.db.Document(collection = f"{ctx.guild.id}", document = "report")
     if document.exists:
         channel = tools.bot.get_channel(int(document.content.get("channel")))
@@ -41,3 +39,9 @@ async def report(ctx, *, report_message):
 
     else:
         await ctx.send(translations["error"])
+
+
+@tools.bot.command()
+async def report(ctx, *, report_message):
+    translations = commands.get_config(ctx, "report")
+    _report(ctx, translations, report_message)
