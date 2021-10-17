@@ -1,14 +1,24 @@
-const fetch = require("node-fetch");
-const { MessageButton, MessageActionRow } = require("discord.js");
 const shortid = require("shortid");
-module.exports = {
-    name: "fio",
-    botPermissions: [],
-    userPermissions: [],
-    alias: ['fishing.io'],
-    run: async (client, message, args) => {
+const {MessageActionRow, MessageButton} = require("discord.js");
+module.exports = class Fio extends require('../classes/Command'){
+
+    constructor() {
+        super({
+            name: 'fio',
+            aliases: ['fishing.io'],
+            permissions: {
+                bot: [],
+                member: []
+            },
+            cooldown: 0,
+            args: []
+        })
+
+    }
+
+    async run(message, args) {
         const server = client.servers.get(message.guild.id);
-        const lang = client.util.lang({lang:server.lang, route:'commands/fio'});
+        const lang = util.lang({lang:server.lang, route:'commands/fio'});
         const messageMention = message.mentions.channels.first()
         let messageVoiceChannel;
         if (!message.member.voice.channel) {
@@ -30,7 +40,7 @@ module.exports = {
         });
         const ID = shortid.generate();
         message.reply({
-            content: `${await client.util.replace(lang.message, [
+            content: `${await util.replace(lang.message, [
                 { match: "{user}", replace: message.member.displayName },
             ])}`,
             components: [
@@ -47,12 +57,13 @@ module.exports = {
             params: {
                 url: `https://discord.com/invite/${invite.code}`,
             },
-            run: (client, interact, { url }) => {
+            run: (interact, { url }) => {
                 interact.reply({
                     content: url,
                     ephemeral: true,
                 });
             },
         });
-    },
-};
+    }
+
+}

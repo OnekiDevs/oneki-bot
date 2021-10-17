@@ -1,9 +1,8 @@
-const db = require('firebase-admin').firestore();
+const FieldValue = require('firebase-admin').firestore.FieldValue;
 const fs = require('fs');
-// const { Permissions } = require('discord.js')
 module.exports = {
     name: 'ready',
-    run: async (client) => {
+    run: async () => {
         try {
             //load configs
             db.collection('config').onSnapshot(snap => {
@@ -29,8 +28,14 @@ module.exports = {
             //load slash commands
             for (const file of fs.readdirSync("./js/slash").filter((f) => f.endsWith(".js"))) {
                 const slash = require("../slash/" + file);
-                if (slash.servers[0])  for (const guildID of slash.servers) client.guilds.fetch(guildID).then(async guild => guild.commands.create(await slash.data({guild: guildID, client})).then((command) => console.log(command.name, '|', guild.name)).catch(err => console.log(guild.name, 'error',))).catch((err) => {})
-                else client.guilds.cache.forEach(async guild => guild.commands.create(await slash.data({guild: guild.id, client})).then((command) => console.log(command.name, '|', guild.name)).catch(err => console.log(guild.name, 'error',)))
+                if (slash.servers[0])  for (const guildID of slash.servers) client.guilds.fetch(guildID).then(async guild => guild.commands.create(await slash.data({guild: guildID, client})).then((command) => console.log(command.name, '|', guild.name)).catch(err => {
+                    if (!err.toString().endsWith('Missing Access')) console.log(err)
+                })).catch((err) => {
+                    if (!err.toString().endsWith('Missing Access')) console.log(err)
+                })
+                else await Promise.all(client.guilds.cache.map(async guild => guild.commands.create(await slash.data({guild: guild.id, client})).then((command) => console.log(command.name, '|', guild.name)).catch(err => {
+                    if (!err.toString().endsWith('Missing Access')) console.log(err)
+                })))
             }
             //load user menu
             // for (const file of fs.readdirSync("./js/user").filter((f) => f.endsWith(".js"))) {
@@ -40,31 +45,78 @@ module.exports = {
             //     })
             // }
             console.log('\x1b[31m%s\x1b[0m', `${client.user.username} ${require('../../package.json').version} Listo y Atento!!!`);
-        } catch (error) {
-            console.log(
-                "\x1b[31m%s\x1b[0m",
-                "**********************************************************************"
-            );
-            console.log(error);
-            console.log(
-                "\x1b[31m%s\x1b[0m",
-                "**********************************************************************"
-            );
-            (await client.channels.fetch("833780614712131616")).send({
-                content: process.env.NODE_ENV!='production'?process.env.DEVELOPER_ID?`<@${process.env.DEVELOPER_ID}>`:null:'<@&832657759081463848>',
-                embeds: [
-                    new MessageEmbed()
-                        .setColor("YELLOW")
-                        .setTitle("New Error Detected")
-                        .addField("Error Type", "```cmd\n" + error.name + "\n```", true)
-                        .addField("Error Message", "```cmd\n" + error.message + "\n```", true)
-                        .addField("Error In", `\`\`\`cmd\nevent ready\n\`\`\``, true),
-                    new MessageEmbed()
-                        .setColor("YELLOW")
-                        .setTitle("Error Stack")
-                        .setDescription(`\`\`\`cmd\n${error.stack}\n\`\`\``),
-                ],
-            });
+
+
+
+            let channel = () => {
+                const c = [
+                    // '885674115615301650', //oneki
+                    '850338969135611926',
+                    '850373152943898644',
+                    '850471820493979648',
+                    '862907238673809430',
+                    '889697060037722172',
+                    '856576340115062785',
+                    '853131733918941205',
+                    '884185193324355594',
+                    '850374620321808416',
+                    '853126432305053716',
+                    '850460895053479936'
+                ]
+                return c[Math.floor(Math.random() * c.length)]
+            }
+            const caza = async () => {
+                let ch = client.channels.cache.get(channel());
+                if(ch){
+                    if(ch.id !== '850338969135611926' && (Math.floor(Math.random()*5)+1) > 3){
+                        const e = ch.guild.emojis.cache.filter(e=>e.available).map(e=>`<${e.animated?'a':''}:${e.name}:${e.id}>`)
+                        const msg = [
+                            'se te perdió algo?',
+                            'buscabas algo?',
+                            `${e[Math.floor(Math.random()*e.length)]}`
+                        ]
+                        const m = await ch.send(msg[Math.floor(Math.random()*msg.length)])
+                        await util.sleep((Math.floor(Math.random()*30)+20)*1000)
+                        ch = client.channels.cache.get(channel())
+                        await m.delete()
+                    }
+                    ch.send('https://www.kindpng.com/picc/m/392-3922815_cute-kawaii-chibi-ghost-halloween-asthetic-tumblr-cartoon.png').then(m => m.awaitReactions({max: 1,time: 60000}).then(r=>{
+                        m.delete().catch(err => console.log('err', err));
+                        if(r.size < 1) return;
+                        const obj = {};
+                        point = Math.floor((60000 - (new Date().getTime() - m.createdTimestamp))/1000);
+                        console.log(r.first().users.cache.first().username);
+                        obj[r.first().users.cache.first().id] = FieldValue.increment(point);
+                        db.collection(m.guild.id).doc('fantasmita').get().then(async s=> {
+                            const ids = Object.keys(s.data());
+                            const puntuajes = [];
+                            for (const id of ids) {
+                                const obj = {};
+                                obj[id] = s.data()[id];
+                                puntuajes.push(obj);
+                            }
+                            await puntuajes.sort((a, b) => a[Object.keys(a)[0]] - b[Object.keys(b)[0]]).reverse();
+                            const lugar = puntuajes.map((l, i) => Object.keys(l)[0] == r.first().users.cache.first().id ? i + 1 : false).filter(e => e)[0] ?? 'ultimo';
+                            if(lugar == 1 && point > 0) {
+                                point = Math.round(point / 2);
+                            }
+                            console.log(r.first().users.cache.first().username, point, 'points');
+                            db.collection(m.guild.id).doc('fantasmita').update(obj).catch(err=>{
+                                if (err.details.startsWith("No document to update")) {
+                                    obj[r.first().users.cache.first().id] = point;
+                                    db.collection(m.guild.id).doc('fantasmita').set(obj);
+                                }
+                            });
+                            m.guild.channels.cache.get('893310001282678784').send(`${r.first().users.cache.first()} Obtuviste ${point} puntos`);
+                        });
+                    }));
+                    util.sleep((Math.floor(Math.random()*25)+5)*60000).then(()=>caza());
+                }
+            }
+            /*if(process.env.NODE_ENV==='production')*/ caza();
+
+        }  catch (e) {
+            util.error(e, __filename)
         }
     }
 }

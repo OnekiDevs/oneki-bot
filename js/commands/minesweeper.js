@@ -1,11 +1,20 @@
-const fetch = require("node-fetch");
-const shortid = require("shortid");
-module.exports = {
-    name: "buscaminas",
-    botPermissions: [],
-    usersPermissions: [],
-    alias: ['minesweeper'],
-    run: async (client, message, args) => {
+module.exports = class Minesweeper extends require('../classes/Command'){
+
+    constructor() {
+        super({
+            name: 'minesweeper',
+            aliases: ['buscaminas'],
+            permissions: {
+                bot: [],
+                member: []
+            },
+            cooldown: 0,
+            args: []
+        })
+
+    }
+
+    run(message, args) {
         //se definen las filas, columnas y bombas
         let filas = 9, columnas = 9, bombas = 15;
         //se crea una matriz de 9x9
@@ -19,7 +28,6 @@ module.exports = {
                 matriz[x][y] = 0;
             }
         }
-        imprimir(matriz, filas, columnas);
         //se colocan bombas aleatoriamente
         while (bombas != 0) {
             let filaRandom = Math.floor(Math.random() * filas);
@@ -33,7 +41,6 @@ module.exports = {
             matriz[filaRandom][columnaRandom] = 9;
             bombas--;
         }
-        imprimir(matriz, filas, columnas);
         //recorremos todas las casillas para colocar los mumeros
         for (let x = 0; x < filas; x++) {
             for (let y = 0; y < columnas; y++) {
@@ -93,40 +100,29 @@ module.exports = {
                 }
             }
         }
-        imprimir(matriz, filas, columnas);
         enviar(matriz, filas, columnas, message);
-    }
-};
-
-function imprimir(matriz, filas, columnas) {
-    for (let x = 0; x < filas; x++) {
-        let fila = "";
-        for (let y = 0; y < columnas; y++) {
-            fila += ` ${matriz[x][y]} `
+        function enviar(matriz, filas, columnas, message) {
+            //creamos los emojis que remplazarán los muneros
+            const choices = [
+                "||:zero:||", "||:one:||", "||:two:||",
+                "||:three:||", "||:four:||", "||:five:||", "||:six:||",
+                "||:seven:||", "||:eight:||", "||:bomb:||"
+            ];
+            //inicializamos el mensaje
+            let buscaminas = "";
+            //recorremos x
+            for (let x = 0; x < filas; x++) {
+                //recorremos y
+                for (let y = 0; y < columnas; y++) {
+                    //colocamos el emoji correspondiente a la casilla
+                    buscaminas += `${choices[matriz[x][y]]} `
+                }
+                //cuando termine de recorrer y se agrega un salto de linea y se repite el ciclo
+                buscaminas += "\n";
+            }
+            //terminando el ciclo entero se envia el mensaje
+            message.reply(buscaminas);
         }
     }
-    console.log("")
-}
 
-function enviar(matriz, filas, columnas, message) {
-    //creamos los emojis que remplazarán los muneros
-    const choices = [
-        "||:zero:||", "||:one:||", "||:two:||",
-        "||:three:||", "||:four:||", "||:five:||", "||:six:||", 
-        "||:seven:||", "||:eight:||", "||:bomb:||"
-    ];
-    //inicializamos el mensaje
-    let buscaminas = "";
-    //recorremos x
-    for (let x = 0; x < filas; x++) {
-        //recorremos y
-        for (let y = 0; y < columnas; y++) {
-            //colocamos el emoji correspondiente a la casilla
-            buscaminas += `${choices[matriz[x][y]]} `
-        }
-        //cuando termine de recorrer y se agrega un salto de linea y se repite el ciclo
-        buscaminas += "\n";
-    }
-    //terminando el ciclo entero se envia el mensaje
-    message.channel.send(buscaminas);
 }

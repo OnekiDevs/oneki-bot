@@ -1,9 +1,9 @@
 const db = require('firebase-admin').firestore();
 const { Permissions } = require('discord.js');
 module.exports = {
-    set: async (client, interact, options) => {
-        const lang = client.util.lang({ lang: client.servers.get(interact.guildId).lang, route: 'slash/config' }).prefix.set;
-        if(!interact.member.permissions.has([Permissions.FLAGS.MANAGE_GUILD])) return interact.reply({
+    set: async (interact, options) => {
+        const lang = util.lang({ lang: client.servers.get(interact.guildId).lang, route: 'slash/config' }).prefix.set;
+        if(!interact.member.permissions.has(['MANAGE_GUILD'])) return interact.reply({
             content: lang.permissions,
             ephemeral: true
         });
@@ -23,8 +23,9 @@ module.exports = {
             content: lang.permissionsError,
             ephemeral: true
         });
+
         interact.reply({
-            content:  `${await client.util.replace(lang.reply, [{ match: "{prefix}", replace: np }])}`,
+            content:  `${await util.replace(lang.reply, [{ match: "{prefix}", replace: np }])}`,
         });
         db.collection('config').doc(interact.guildId).update({
             prefix: np
@@ -35,8 +36,8 @@ module.exports = {
             });
         });
     },
-    reset: (client, interact, options) => {
-        const lang = client.util.lang({ lang: client.servers.get(interact.guildId).lang, route: 'slash/config' }).prefix.reset;
+    reset: (interact) => {
+        const lang = util.lang({ lang: client.servers.get(interact.guildId).lang, route: 'slash/config' }).prefix.reset;
         if(!interact.member.permissions.has([Permissions.FLAGS.MANAGE_GUILD])) return interact.reply({
             content: lang.permissions,
             ephemeral: true
@@ -44,10 +45,10 @@ module.exports = {
         db.collection('config').doc(interact.guildId).update({
             prefix: '>'
         }).catch((err) => {
-            console.log(err);
             if (err.details.startsWith("No document to update")) db.collection('config').doc(interact.guildId).set({
                 prefix: '>'
             });
+            else console.log(err);
         });
         interact.reply({
             content: lang.reply

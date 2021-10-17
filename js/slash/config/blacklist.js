@@ -1,10 +1,8 @@
-const db = require('firebase-admin').firestore();
 const FieldValue = require('firebase-admin').firestore.FieldValue;
-const { Permissions } = require('discord.js');
 module.exports = {
-    channels: async (client, interact, options) => {
-        const lang = client.util.lang({ lang: client.servers.get(interact.guildId).lang, route: "slash/config" }).blacklist.channels;
-        if(!interact.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS])) return interact.reply({
+    channels: async (interact, options) => {
+        const lang = util.lang({ lang: client.servers.get(interact.guildId).lang, route: "slash/config" }).blacklist.channels;
+        if(!interact.member.permissions.has(['MANAGE_CHANNELS'])) return interact.reply({
             content: lang.permissions,
             ephemeral: true
         });
@@ -19,29 +17,29 @@ module.exports = {
                 })
             })
             interact.reply({
-                content: `${await client.util.replace(lang.replyAdd, [
+                content: `${await util.replace(lang.replyAdd, [
                     { match: "{channel}", replace: add.name }
                 ])}`,
                 ephemeral: true
             })
-        } 
+        }
         if (remove) {
             const channel = client.channels.cache.get(remove)
             db.collection('config').doc(interact.guildId).update({
                 blacklistChannels: FieldValue.arrayRemove(channel.id)
             }).catch(err => {})
             interact.reply({
-                content: `${await client.util.replace(lang.replyRemove, [
+                content: `${await util.replace(lang.replyRemove, [
                     { match: "{channel}", replace: channel.name }
                 ])}`,
                 ephemeral: true
             })
-        } 
+        }
         if (!add && !remove) {
             //get the config
             interact.deferUpdate();
         } else {
-            interact.guild.commands.create(await client.slash.get('config').data({guild: interact.guildId, client}));
+            interact.guild.commands.create(await client.slash.get('config').data({guild: interact.guildId}));
         }
     }
 }

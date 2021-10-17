@@ -28,7 +28,8 @@
             "reply": "Prefijo establecido a \"**{prefix}**\"",
             "permissionsError": "No tienes los permisos para cambiar el prefijo del bot",
             "serverError": "Necesito estar en el servidor para ejecutar el comando",
-            "prefixError": "El prefijo no puede contener espacios"
+            "prefixError": "El prefijo no puede contener espacios",
+            "permissions": "No tienes los permisos nesesaarios"
         },
         "reset": {
             "reply": "Prefijo reseteado a \"**>**\""
@@ -37,7 +38,7 @@
     "suggest": {
         "channel": {
             "reply": "Canal {channel} configurado como {alias} sugerencias",
-            "send": "Este canal se ha configurado como canal para sugerencias {alias}\nTo make a suggestion, Para hacer una sugerencia, use el comando {prefix}suggest {displayAlias} [your suggestion]`"
+            "send": "Este canal se ha configurado como canal para sugerencias {alias}\nTo make a suggestion, Para hacer una sugerencia, use el comando `{prefix}suggest {displayAlias} [your suggestion]`"
         },
         "delete": {
             "reply": "El canal {channel} se ha desconfigurado"

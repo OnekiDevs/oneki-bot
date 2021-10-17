@@ -2,8 +2,8 @@ const db = require('firebase-admin').firestore();
 const FieldValue = require('firebase-admin').firestore.FieldValue;
 const { Permissions } = require('discord.js');
 module.exports = {
-    channel: async (client, interact, options) => {
-        const lang = client.util.lang({ lang: client.servers.get(interact.guildId).lang, route: "slash/config" }).welcome.channel;
+    channel: async (interact, options) => {
+        const lang = util.lang({ lang: client.servers.get(interact.guildId).lang, route: "slash/config" }).welcome.channel;
         if(!interact.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS])) return interact.reply({
             content: lang.permissions,
             ephemeral: true
@@ -17,14 +17,14 @@ module.exports = {
             })
         })
         interact.reply({
-            content: `${await client.util.replace(lang.reply, [
+            content: `${await util.replace(lang.reply, [
                 { match: "{channel}", replace: channel.name },
             ])}`,
             ephemeral: true
         })
     }, 
-    deactivate: async (client, interact, options) => {
-        const lang = client.util.lang({ lang: client.servers.get(interact.guildId).lang, route: "slash/config" }).welcome.deactivate;
+    deactivate: async (interact, options) => {
+        const lang = util.lang({ lang: client.servers.get(interact.guildId).lang, route: "slash/config" }).welcome.deactivate;
         
         const func = options.getString('function');
         if (func == 'welcome') {
@@ -53,8 +53,8 @@ module.exports = {
             })
         }
     }, 
-    rols: async (client, interact, options) => {
-        const lang = client.util.lang({ lang: client.servers.get(interact.guildId).lang, route: "slash/config" }).welcome.rols;
+    rols: async (interact, options) => {
+        const lang = util.lang({ lang: client.servers.get(interact.guildId).lang, route: "slash/config" }).welcome.rols;
         if(!interact.member.permissions.has([Permissions.FLAGS.MANAGE_ROLES])) return interact.reply({
             content: lang.permissions,
             ephemeral: true
@@ -68,7 +68,7 @@ module.exports = {
             })
         })
         interact.reply({
-            content: `${await client.util.replace(lang.reply, [
+            content: `${await util.replace(lang.reply, [
                 { match: "{role}", replace: rol.name },
             ])}`,
             ephemeral: true

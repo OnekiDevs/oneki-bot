@@ -42,6 +42,7 @@ esto puede ir cambiando con el tiempo
 config -> coleccion
 ├── {id_servidor} -> documento
 │   ├── prefix: str
+│   ├── blacklistChannels (lista con id de canales): list
 │   └── lang: str
 ├── bot -> documento
 │   ├── prefixes (lista que contiene todos los prefijos): list

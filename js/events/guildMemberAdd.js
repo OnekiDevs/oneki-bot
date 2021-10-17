@@ -2,7 +2,12 @@ const fetch = require("node-fetch");
 const db = require("firebase-admin").firestore();
 module.exports = {
     name: 'guildMemberAdd',
-    run: async (client, member) => {
+    run: async (member) => {
+        try {
+
+        } catch (e) {
+            util.error(e, `${__dirname}/${__filename}`)
+        }
         // const snapshot = await db.collection(member.guild.id).doc('bienvenidas').get();
         // if (!snapshot.exists || !snapshot.data()?.channelBans) return;
         // const channel = client.channels.cache.get(snapshot.data().channelBans);

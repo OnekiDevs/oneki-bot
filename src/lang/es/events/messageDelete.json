@@ -1,9 +1,18 @@
 {
     "embed": {
-        "title": "Mensaje Eliminado",
+        "title":{
+            "CHANNEL_PINNED_MESSAGE": "Mensaje de Fijación Eliminado",
+            "DEFAULT": "Mensaje Eliminado"
+        },
         "fields": {
-            "author" : "Escrito por",
-            "deletedIn": "Eliminado en",
+            "author": {
+                "CHANNEL_PINNED_MESSAGE": "Fijado por",
+                "DEFAULT": "Escrito por"
+            },
+            "deletedIn": {
+                "CHANNEL_PINNED_MESSAGE": "Fijado en",
+                "DEFAULT": "Eliminado en"
+            },
             "write": "Escrito el",
             "content": "Contenido:"
         } 

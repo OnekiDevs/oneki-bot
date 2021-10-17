@@ -1,6 +1,9 @@
-const { Permissions } = require('discord.js')
-module.exports.run = async (client, interact, params) => {
+module.exports.run = async (interact, params) => {
+    const message = await interact.message.channel.messages.fetch(interact.message.reference.messageId)
+    if (interact.member.id == message.member.id) {
+        interact.message.delete();
+        message.delete();
+    }
     interact.deferUpdate();
-    if (interact.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS, Permissions.FLAGS.MANAGE_MESSAGES])) interact.message.delete();
 }
 module.exports.id = 'clear_no';

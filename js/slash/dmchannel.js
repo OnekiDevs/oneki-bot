@@ -1,6 +1,6 @@
-const db = require('firebase-admin').firestore();
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { Permissions } = require('discord.js');
+const fetch = require('node-fetch');
 module.exports = {
     name: 'dm',
     data: async ({guild}) => {
@@ -20,8 +20,8 @@ module.exports = {
                 .setDescription('deactivate dm messages')).toJSON()))
         })
     },
-    servers: ['825936007449935903', '850338969135611924'],
-    run: async (client, interact) => {
+    servers: ['885674114310881362', '850338969135611924'],
+    run: async (interact) => {
         if (interact.options.getSubcommand() == 'channel') {
             const lang = client.util.lang({ lang: client.servers.get(interact.guildId).lang, route: "slash/dm" }).channel;
             if(!interact.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS])) return interact.reply({

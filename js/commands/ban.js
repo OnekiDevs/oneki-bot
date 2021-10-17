@@ -1,25 +1,23 @@
-const { Permissions } = require('discord.js')
-module.exports = {
-    name: 'ban',
-    userPermissions: [Permissions.FLAGS.BAN_MEMBERS],
-    botPermissions: [Permissions.FLAGS.BAN_MEMBERS],
-    description: 'Banea un miembro del servidor (Solo para gente con permiso "Administrador" o "Banear")!',
-    guildOnly: true,
-    usage: '[usuario] [Dias de eliminacion de historial de mensajes] [-s (Mostrar el nombre del moderador responsable al ban] [razón]',
-    alias: [],
-    run: async (client, message, args) => {
-        const server = client.servers.get(message.guild.id);
-        const lang = client.util.lang({lang:server.lang, route:'commands/ban'});
-        const db = admin.firestore();
-        if (!message.member.permissions.has(Permissions.FLAGS.BAN_MEMBERS)) {
-            message.reply(lang.missing_permissions_user);
-            return;
-        }
-        if (!message.guild.me.permissions.has(Permissions.FLAGS.BAN_MEMBERS)) {
-            message.reply(lang.missing_permissions_bot);
-            return;
-        }
+const {MessageEmbed} = require("discord.js");
+module.exports = class Ban extends require('../classes/Command'){
 
+    constructor() {
+        super({
+            name: 'ban',
+            aliases: [],
+            permissions: {
+                bot: ['BAN_MEMBERS'],
+                member: ['BAN_MEMBERS']
+            },
+            cooldown: 0,
+            args: []
+        })
+
+    }
+
+    async run(message, args) {
+        const server = client.servers.get(message.guild.id);
+        const lang = util.lang({lang:server.lang, route:'commands/ban'});
         function getUserFromMention(mention) {
             if (!mention) return;
 
@@ -35,7 +33,6 @@ module.exports = {
                 return client.users.cache.get(mention);
             }
         }
-
         const user = getUserFromMention(args[0]);
 
         if (user.id === message.author.id) {
@@ -45,7 +42,6 @@ module.exports = {
 
         let deleteDays = args[1] ?? 1
         let providedDeleteDays;
-        console.log(user);
         if (args.length < 2) {
             providedDeleteDays = 1;
         }
@@ -66,7 +62,7 @@ module.exports = {
         }
 
         let member = message.guild.members.cache.get(user.id);
-        let embed = new Discord.MessageEmbed()
+        let embed = new MessageEmbed()
             .setColor(member.displayHexColor)
             .setTitle(`${lang.embed.title} **${message.guild.name}**`)
             .setImage('https://media1.tenor.com/images/de413d89fff5502df7cff9f68b24dca5/tenor.gif?itemid=12850590')
@@ -88,13 +84,13 @@ module.exports = {
                 informBan = `${lang.ready} **${user.tag}**, ${lang.without_reason}`
             }
             if (!providedDeleteDays) {
-                informBan = `${lang.ready} **${user.tag}**, ${await client.utiles.replace(lang.erasing, [{match:"{deleteDays}", replace:deleteDays}])}`
+                informBan = `${lang.ready} **${user.tag}**, ${await util.replace(lang.erasing, [{match:"{deleteDays}", replace:deleteDays}])}`
             }
             user.send(embed).then(() => {
                 message.guild.members.ban(user, { deleteDays: deleteDays, reason: reason })
                     .then(_ => message.reply(informBan))
                     .catch(async (error) => {
-                        message.reply(`${await client.utiles.replace(lang.fail, [{match:"tag",replace:user.tag}])}: ${error}`);
+                        message.reply(`${await util.replace(lang.fail, [{match:"tag",replace:user.tag}])}: ${error}`);
                     })
             })
         }
@@ -114,7 +110,6 @@ module.exports = {
                     }
                 })
                 if (doc.data().numberOfBans == undefined) {
-                    console.log(doc.data().numberOfBans);
                     sanctionsRef.set({ numberOfBans: 1, bans: [{ reason: reason }] }).then(() => {
                         console.log(`Sanctions ref for user "${user.tag}" didn't existed, created.\nRegistered ban, and incremented number of bans by 1.`);
                         firstBan = true;
@@ -140,7 +135,7 @@ module.exports = {
                 })
             }
         })
-        await new Promise(r => setTimeout(r, 7000));
+        await util.sleep(7000)
         await db.collection(message.guild.id).doc('users').collection(user.id).doc('sanctions').get().then(doc => {
             if (firstBan) return
             if (doc.data().numberOfBans == undefined) {
@@ -162,7 +157,7 @@ module.exports = {
                 const arrayUnion = admin.firestore.FieldValue.arrayUnion;
                 userSanctionsRef.update(
                     { bans: arrayUnion(reason) }
-                    // { bans: [{ reason: reason }] }, { merge: true } 
+                    // { bans: [{ reason: reason }] }, { merge: true }
                 ).then(() => {
                     console.log(`New ban for user "${user.tag} registered.`);
                 })
@@ -173,5 +168,6 @@ module.exports = {
 
         })
         return;
-    },
-};
+    }
+
+}

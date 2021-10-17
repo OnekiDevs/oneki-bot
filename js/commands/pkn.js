@@ -1,14 +1,24 @@
-const fetch = require("node-fetch");
-const { MessageButton, MessageActionRow } = require("discord.js");
 const shortid = require("shortid");
-module.exports = {
-    name: "pkn",
-    botPermissions: [],
-    userPermissions: [],
-    alias: ["pokernight", "poker-night"],
-    run: async (client, message, args) => {
+const {MessageActionRow, MessageButton} = require("discord.js");
+module.exports = class Pkn extends require('../classes/Command'){
+
+    constructor() {
+        super({
+            name: 'pkn',
+            aliases: ['pokernight', 'poker-night'],
+            permissions: {
+                bot: [],
+                member: []
+            },
+            cooldown: 0,
+            args: []
+        })
+
+    }
+
+    async run(message, args) {
         const server = client.servers.get(message.guild.id);
-        const lang = client.util.lang({lang:server.lang, route:'commands/pkn'});
+        const lang = util.lang({lang:server.lang, route:'commands/pkn'});
         const messageMention = message.mentions.channels.first()
         let messageVoiceChannel;
         if (!message.member.voice.channel) {
@@ -24,14 +34,14 @@ module.exports = {
         } else {
             messageVoiceChannel = message.member.voice.channel;
         }
-        
+
         const invite = await messageVoiceChannel.createInvite({
             targetApplication: "755827207812677713",
             targetType: 2,
         });
         const ID = shortid.generate();
         message.reply({
-            content: `${await client.util.replace(lang.message, [
+            content: `${await util.replace(lang.message, [
                 { match: "{user}", replace: message.member.displayName },
             ])}`,
             components: [
@@ -48,12 +58,13 @@ module.exports = {
             params: {
                 url: `https://discord.com/invite/${invite.code}`,
             },
-            run: (client, interact, { url }) => {
+            run: (interact, { url }) => {
                 interact.reply({
                     content: url,
                     ephemeral: true,
                 });
             },
         });
-    },
-};
+    }
+
+}

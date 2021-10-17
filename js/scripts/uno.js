@@ -3,7 +3,7 @@ module.exports.ingresar = require('./uno/ingresar');
 module.exports.comenzar = require('./uno/comenzar');
 module.exports.mostrar = require('./uno/mostrar');
 module.exports.jugada = require('./uno/jugada');
-module.exports.cartas = require('./uno/cartas');
+module.exports.cartas = require('./cartas');
 module.exports.comer = require('./uno/comer');
 module.exports.card = require('./uno/card').main;
 module.exports.repartir = (partida) => {

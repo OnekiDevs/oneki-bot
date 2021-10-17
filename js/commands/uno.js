@@ -1,16 +1,26 @@
-const { MessageEmbed, MessageButton } = require('discord.js');
-const UNO = require('../scripts/class/uno');
-module.exports = {
-    name: "uno",
-    botPermissions: [],
-    userPermissions: [],
-    alias: [],
-    run: async (client, message, args) => {
-        return;
-        const partida = new UNO(message.author.id);
+const CERO = require("../classes/Cero");
+module.exports = class Uno extends require('../classes/Command'){
+
+    constructor() {
+        super({
+            name: 'cero',
+            aliases: ['0', 'uno'],
+            permissions: {
+                bot: [],
+                member: []
+            },
+            cooldown: 0,
+            args: []
+        })
+
+    }
+
+    async run(message) {
+        const partida = new CERO(message.author.id);
         partida.maxPlayers = 4;
         partida.message = await message.reply(partida.embed);
         await partida.awaitPlayers();
-        partida.play(); 
+        partida.play();
     }
-};
+
+}
