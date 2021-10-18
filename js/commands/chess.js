@@ -17,6 +17,7 @@ module.exports = class Chess extends require('../classes/Command'){
     }
 
     async run(message, args) {
+        //832012586023256104 dev
         const server = client.servers.get(message.guild.id);
         const lang = util.lang({lang:server.lang, route:'commands/chess'});
         const messageMention = message.mentions.channels.first()

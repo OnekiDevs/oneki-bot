@@ -1,3 +1,4 @@
+const {joinVoiceChannel} = require("@discordjs/voice");
 module.exports = class Join extends require('../classes/Command'){
 
     constructor() {
@@ -14,11 +15,12 @@ module.exports = class Join extends require('../classes/Command'){
     }
 
     async run(message, args = []) {
-        return;
-        message.reply('conectando...').then(m=>util.joinVoice({message,selfMute:false}).then(()=>m.edit('conectado')).catch((e)=>{
-            console.log(e)
-            m.edit('Estoy ocupado')
-        }))
+        if(!message.member.voice.channel) return message.reply("No estas en un canal de voz");
+        const voiceConnection = joinVoiceChannel({
+            channelId: message.member.voice.channel.id,
+            guildId: message.guild.id,
+            adapterCreator: message.guild.voiceAdapterCreator
+        })
     }
 
 }
