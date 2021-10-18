@@ -1,9 +1,10 @@
 const { MessageEmbed } = require('discord.js')
+const SuggestCommand = require('../commands/suggest');
 module.exports = {
     name: 'messageCreate',
     run: async (message) => {
         try {
-            // console.log(message.channel.type);
+            console.log(client.servers.get(message.guild.id)?.channels.suggest);
             if (message.author.bot) return;
             if (message.channel.type == 'DM') return client.emit('directMessage', message);
             const prefix = client.servers.get(message.guild.id)?.prefix;
@@ -36,7 +37,15 @@ module.exports = {
                 else {
                     message.delete()
                 }
-            } else if (message.content.toLowerCase().startsWith(prefix)) {
+            } else if(client.servers.get(message.guild.id)?.channels.suggest.includes(message.channel.id)){
+                console.log('sss')
+                const suggestCommand = new SuggestCommand()
+                const sdb = await db.collection(message.guild.id).doc('suggest').get()
+                if (!sdb.exists) return;
+                const c = Object.keys(sdb.data()).map(key => sdb.data()[key]==message.channel.id?key:false).filter(o=>o)
+                if(!c) return
+                suggestCommand.run(message, [c, ...(message.content.split(' '))])
+            }else if(message.content.toLowerCase().startsWith(prefix)) {
                 args = message.content.slice(prefix.length).trim().split(/ +/g);
                 return client.emit('command', args.shift().toLowerCase(), message, args);
             }

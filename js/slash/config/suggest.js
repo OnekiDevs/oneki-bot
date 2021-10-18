@@ -27,6 +27,9 @@ module.exports = {
             ])}`,
             ephemeral: true,
         });
+        const sc = client.servers.get(interact.guildId)
+        sc.channels.suggest.push(channel.id)
+        client.servers.set(interact.guildId, sc)
         channel.send(
             `${await util.replace(lang.send, [
                 { match: "{prefix}", replace: client.servers.get(interact.guildId)?.prefix },
@@ -35,6 +38,7 @@ module.exports = {
                 { match: "{displayAlias}", replace:name??''}
             ])}`
         );
+        interact.guild.commands.create(await client.slash.get('config').data({guild: interact.guildId, client}));
     },
     delete: async (interact, options) => {
         const lang = util.lang({ lang: client.servers.get(interact.guildId).lang, route: "slash/config" }).suggest.delete;
@@ -59,6 +63,10 @@ module.exports = {
                 ])}`,
                 ephemeral: true
             });
+
+            const sc = client.servers.get(interact.guildId)
+            sc.channels.suggest.splice(sc.channels.suggest.indexOf(channel.id), 1);
+            client.servers.set(interact.guildId, sc)
             interact.guild.commands.create(await client.slash.get('config').data({guild: interact.guildId, client}));
         } else {
             interact.deferUpdate();

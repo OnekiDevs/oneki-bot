@@ -5,25 +5,48 @@ module.exports = {
     run: async () => {
         try {
             //load configs
-            db.collection('config').onSnapshot(snap => {
-                snap.docChanges().forEach(change => {
+            db.collection('config').onSnapshot(async snap => {
+                for (const change of snap.docChanges()) {
+                    let suggest;
+                    if(client.servers.has(change.doc.id)) suggest = client.servers.get(change.doc.id).channels.suggest
+                    else {
+                        const sdb = await db.collection(change.doc.id).doc('suggest').get()
+                        suggest = !sdb.exists ? [] : Object.keys(sdb.data()).filter(o => o != 'lastId').map(o => sdb.data()[o])
+                    }
+
                     client.servers.set(change.doc.id, {
                         prefix: change.doc.data()?.prefix ?? '>',
                         lang: change.doc.data()?.lang ?? 'en',
                         blacklist: {
                             channels: change.doc.data()?.blacklistChannels ?? []
+                        },
+                        channels: {
+                            suggest
                         }
                     });
-                })
+                }
             })
             client.guilds.cache.map(async guild => {
-                if (!client.servers.get(guild.id)) client.servers.set(guild.id, {
-                    prefix: '>',
-                    lang: 'en',
-                    blacklist: {
-                        channels: []
+
+
+                if (!client.servers.get(guild.id)) {
+                    let suggest;
+                    if(client.servers.has(guild.id)) suggest = client.servers.get(guild.id).channels.suggest
+                    else {
+                        const sdb = await db.collection(guild.id).doc('suggest').get()
+                        suggest = !sdb.exists ? [] : Object.keys(sdb.data()).filter(o => o != 'lastId').map(o => sdb.data()[o])
                     }
-                });
+                    client.servers.set(guild.id, {
+                        prefix: '>',
+                        lang: 'en',
+                        blacklist: {
+                            channels: []
+                        },
+                        channels: {
+                            suggest
+                        }
+                    });
+                }
             });
             //load slash commands
             for (const file of fs.readdirSync("./js/slash").filter((f) => f.endsWith(".js"))) {
@@ -88,7 +111,7 @@ module.exports = {
                         // point = Math.floor((60000 - (new Date().getTime() - m.createdTimestamp))/1000);
                         console.log(r.first().users.cache.first().username);
                         db.collection(m.guild.id).doc('fantasmita').get().then(async s=> {
-                            const pt = points(s.data()[message.author.id]??0, Math.floor((new Date().getTime() - m.createdTimestamp)/1000))
+                            const pt = points(s.data()[r.first().users.cache.first().id]??0, Math.floor((new Date().getTime() - m.createdTimestamp)/1000))
                             obj[r.first().users.cache.first().id] = FieldValue.increment(pt);
                             db.collection(m.guild.id).doc('fantasmita').update(obj).catch(err=>{
                                 if (err.details.startsWith("No document to update")) {
