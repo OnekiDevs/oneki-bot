@@ -48,7 +48,7 @@ async def on_message(message):
                     color = 0xFCE64C
                 ), delete_after = 10.0)
 
-    if message.channel.id == 899043967507791974:
+    if message.channel.id == 890460542601429003:
         channel = tools.bot.get_channel(885674115615301650)
         server = tools.servers.get(f"{message.guild.id}")
         
