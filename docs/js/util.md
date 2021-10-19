@@ -6,7 +6,8 @@ Contiene herramientas como:
 * sleep
 * lang
 * replace
-* errorEmbed
+* error
+* joinVoice
 
 ## `util.sleep(milisegundos = 1000)`
 Hace que la ejecucion del codigo se pare por algun tiempo
@@ -62,8 +63,7 @@ Requiere de 2 parametros:
   * match: es un `string` o `regex` que sera el texto a buscar
   * replace: contendra el valor que remplazara a lo encontrado por `match`
 
-Devuelve una promesa de string
-
+Devuelve **Promise\<string>**
 ###Ejemplo:
 con string en match y Async Await
 ```js
@@ -88,5 +88,59 @@ util.replace('{channel} default or {channel} {alias}', [
   }
 ]).then(respuesta=>{
   console.log(respuesta)
+})
+```
+
+## `util.error(error, file)`
+
+Lanza un error con un ping en un canal
+
+Requiere de 2 parametros:
+* error: un objeto error
+* file: la ruta del error
+
+no devuelve nada
+
+###Ejemplo:
+
+```js
+try {
+  thing();
+} catch (error) {
+  util.error(error, __filename)
+}
+```
+
+## `util.joinVoice(options)`
+
+Une el bot a un canal de voz
+
+Requiere de un objero con uno o varios parametros dependiendo de lo que se pase:
+* opcion 1: 
+  * `options.message` un objeto **\<message>**, si se da este parametro no será nesesario ningun otro, además lanza un `message.reply()` indicando el proceso de conección.
+* opcion 2:
+  * `options.member` un objeto **\<member>**, si se da este parametro no será nesesario ningun otro
+
+Devuelve **\<voiceConnection>**
+
+###Ejemplo:
+
+con `options.message`
+
+```js
+util.joinVoice({message}).then(voiceConnections => {
+  //...
+}).catch(error => {
+  //...
+})
+```
+
+con `options.member`
+
+```js
+util.joinVoice({member:msg.member}).then(voiceConnections => {
+  //...
+}).catch(error => {
+  //...
 })
 ```

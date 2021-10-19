@@ -75,18 +75,26 @@ module.exports = {
                         resolve(voiceConnection)
                     }
                 } else {
+                    let m;
+                    console.log(!member.guild.me.voice.channel)
+                    if((((member.voice.channel && member.guild.me.voice.channel) && (member.voice.channel?.id != member.guild.me.voice.channel?.id)) || (!member.guild.me.voice.channel)) && message) m = await message.reply('conectando...')
                     if(member.voice.channel?.id){
-                        if((!member.guild.me.voice.channel?.id) || (member.voice.channel.members.size == 1) || (member.voice.channel?.id === member.guild.me.voice.channel?.id)){ //el bot no esta en canal || esta solo || es el mismo canal
+                        if((!member.guild.me.voice.channel) || (member.guild.me.voice.channel.members.size == 1) || (member.voice.channel?.id === member.guild.me.voice.channel?.id)){ //el bot no esta en canal || esta solo || es el mismo canal
                             const voiceConnection = joinVoiceChannel({
                                 channelId: member.voice.channel.id,
                                 guildId: member.guild.id,
                                 adapterCreator: adapterCreator??member.guild.voiceAdapterCreator
                             })
+                            m?.edit('conectado')
                             resolve(voiceConnection)
                         } else { //lo estan ocupando
+                            m?.edit('Estoy ocupado')
                             reject('bot ocupped')
                         }
-                    } else reject('member need a voice connection');
+                    } else {
+                        m?.edit('nesesitas estar en un canal de voz')
+                        reject('member need a voice connection');
+                    }
                 }
             } catch (e) {
                 console.log(e)
