@@ -107,7 +107,7 @@ module.exports = {
                         m.delete().catch(err => console.log('err', err));
                         if(r.size < 1) return;
                         const obj = {};
-                        const points = (xp, t) => Math.round(100-(t+(Math.round((Math.sqrt(100*xp+25)+50)/100)-1)*2))
+                        const points = (xp, t) => Math.round(150-(t+Math.pow((Math.round((Math.sqrt(100*xp+25)+50)/100)-1),2)/2))
                         // point = Math.floor((60000 - (new Date().getTime() - m.createdTimestamp))/1000);
                         console.log(r.first().users.cache.first().username);
                         db.collection(m.guild.id).doc('fantasmita').get().then(async s=> {

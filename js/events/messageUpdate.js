@@ -7,7 +7,8 @@ module.exports = {
             const snapshot = await db.collection(oldMessage.guild.id).doc("edited").get();
             console.log(snapshot.data())
             const canal = client.channels.cache.get(snapshot.data()?.channel);
-            if (!canal || !canal.permissionsFor(client.user.id)?.has('SEND_MESSAGES')) return;
+            // console.log(canal.name, canal.permissionsFor(client.user.id).serialize());
+            if (!canal || !canal.permissionsFor(client.user.id)?.has(['SEND_MESSAGES', 'VIEW_CHANNEL'])) return;
             const embed = new MessageEmbed()
             embed.setTitle("Mensaje Editado");
             embed.setURL(oldMessage.url);

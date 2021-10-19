@@ -25,14 +25,14 @@ global.util = require('./util');
 client.commands = new Collection();
 client.buttons = new Collection();
 client.servers = new Collection();
-client.voice = new Collection();
+client.voice.servers = new Collection();
 client.slash = new Collection();
 client.uno = new Collection();
 admin.initializeApp({
     credential: admin.credential.cert(JSON.parse(process.env.TOKEN_FIREBASE))
 });
 global.db = admin.firestore();
-global.DEVELOPERS = ['534614025271771158']
+global.DEVELOPERS = ['534614025271771158', '617154779755446280']
 
 
 //load events
