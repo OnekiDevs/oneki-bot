@@ -21,10 +21,10 @@ module.exports = {
             embed.addField("Escrito el:", `<t:${Math.round(oldMessage.createdTimestamp/1000)}>`, true);
             embed.addField("Editado el:", `<t:${Math.round(newMessage.editedTimestamp/1000)}>`, true);
             if (oldMessage.content) {
-                embed.addField("Antes", '```\n'+oldMessage+'\n```', false);
+                embed.addField("Antes", '```\n'+oldMessage.content+'\n```', false);
             }
             if (newMessage.content) {
-                embed.addField("Después", '```\n'+newMessage+'\n```', false);
+                embed.addField("Después", '```\n'+newMessage.content+'\n```', false);
             }
             embed.setFooter(`${client.user.username} Bot ${require('../../package.json').version}`, client.user.avatarURL());
             canal.send({

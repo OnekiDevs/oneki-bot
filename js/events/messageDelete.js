@@ -16,7 +16,7 @@ module.exports = {
                 .setTitle(lang.embed.title[message.type]??lang.embed.fields.author.DEFAULT)
                 .setURL(message.url)
                 .setColor("RANDOM")
-                .setDescription('```\n'+message+'\n```')
+                .setDescription('```\n'+message.content+'\n```')
                 .setAuthor(message.author.username, message.author.displayAvatarURL())
                 .addField(lang.embed.fields.deletedIn[message.type]??lang.embed.fields.deletedIn.DEFAULT, `${message.channel} | ${message.channel.name}`, true)
                 .setTimestamp()
