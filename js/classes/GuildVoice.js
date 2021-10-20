@@ -1,6 +1,6 @@
 'use strict';
 const EventEmitter = require('node:events');
-const {createAudioPlayer} = require("@discordjs/voice");
+const {createAudioPlayer, createAudioResource} = require("@discordjs/voice");
 const Queue = require('./Queue')
 const MusicLoop = require('./MusicLoop')
 module.exports = class GuildVoice extends EventEmitter {
@@ -21,7 +21,13 @@ module.exports = class GuildVoice extends EventEmitter {
         })
         this.audioPlayer.on('idle', () => {
             if(this.loop.mode == 0) this.queue.shift()
-            else if(this.loop.mode == 1) this.queue.add(this.queue.shift())
+            else if(this.loop.mode == 1) this.queue.add((async ()=>{
+                const t = this.queue.shift()
+                return {
+                    ...t,
+                    resource: createAudioResource(t.type == 'file' ? t.link : await ytdld(t.link))
+                }
+            })())
             if(this.queue.size > 0) this.emit('startQueue')
             else {
                 this.voiceConnection.disconnect()

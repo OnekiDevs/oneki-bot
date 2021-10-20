@@ -30,12 +30,16 @@ module.exports = class Play extends Command {
         }
         let queueItem;
         if(message.attachments?.first() && message.attachments?.first().contentType?.startsWith('audio')) queueItem = new QueueItem({
-            resource: createAudioResource(message.attachments.first().url)
+            resource: createAudioResource(message.attachments.first().url),
+            type: 'file',
+            link: message.attachments.first().url
         });
         else {
             if ((/(https?:\/\/(www\.)?)?youtu\.?be(\.com)?\/((watch\?v=.+)|(.+))/gi).test(args[0])) {
                 queueItem = new QueueItem({
-                    resource: createAudioResource(await ytdld(args[0]))
+                    resource: createAudioResource(await ytdld(args[0])),
+                    type: 'yt',
+                    link: args[0]
                 })
             } else {
                 const query = (await yts(args.join(' '), {
@@ -46,7 +50,8 @@ module.exports = class Play extends Command {
                 queueItem = new QueueItem({
                     resource: createAudioResource(await ytdld(query.link)),
                     link: query.link,
-                    title: query.title
+                    title: query.title,
+                    type: 'yt'
                 })
             }
         }
