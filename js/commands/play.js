@@ -1,10 +1,8 @@
-const { createAudioPlayer, createAudioResource } = require('@discordjs/voice')
-const GuildVoice = require('../classes/GuildVoice')
-const QueueItem = require('../classes/QueueItem')
-// const {raw} = require('youtube-dl-exec')
+const { createAudioResource } = require('@discordjs/voice')
+const { GuildVoice, QueueItem, Command } = classes;
 const yts = require("youtube-search");
 const ytdld = require('ytdl-core-discord');
-module.exports = class Play extends require('../classes/Command'){
+module.exports = class Play extends Command {
 
     constructor() {
         super({
@@ -22,8 +20,8 @@ module.exports = class Play extends require('../classes/Command'){
     async run(message, args = []) {
         if(!(args[0] || message.attachments?.first())) return message.reply('Inserta un link, algun archivo o alguna cancion a buscar');
         if(message.attachments?.first() && !message.attachments?.first().contentType?.startsWith('audio')) return message.reply('El archivo debe ser un audio')
-        if(!client.voice.servers.has(message.guild.id)) client.voice.servers.set(message.guild.id, new GuildVoice(message.guild))
-        const guildVoice = client.voice.servers.get(message.guild.id)
+        // if(!client.servers.has(message.guild.id)) client.voice.servers.set(message.guild.id, new GuildVoice(message.guild))
+        const guildVoice = client.servers.get(message.guild.id).voice
         if(!guildVoice.voiceConnection) {
             try {
                 guildVoice.voiceConnection = await util.joinVoice({message});
@@ -58,6 +56,7 @@ module.exports = class Play extends require('../classes/Command'){
         // const guildVoice = client.voice.servers.get(message.guild.id)
         // guildVoice.voiceConnection = voiceConnection
         guildVoice.addToQueue(queueItem)
+        guildVoice.channel = message.channel;
         message.reply('Agregado a la cola')
     }
 

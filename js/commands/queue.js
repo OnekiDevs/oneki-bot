@@ -1,4 +1,4 @@
-module.exports = class Queue extends require('../classes/Command'){
+module.exports = class Queue extends classes.Command{
 
     constructor() {
         super({
@@ -14,8 +14,8 @@ module.exports = class Queue extends require('../classes/Command'){
     }
 
     async run(message, args = []) {
-        const guildVoice = client.voice.servers.get(message.guild.id)
-        message.reply(guildVoice?guildVoice.queue.join('\n'):'No hay musica en la cola')
+        const guildVoice = client.servers.get(message.guild.id).voice
+        message.reply(`${guildVoice.queue}`)
     }
 
 }

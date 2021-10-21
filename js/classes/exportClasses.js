@@ -1,0 +1,7 @@
+module.exports.Cero = require('./Cero')
+module.exports.Command = require('./Command')
+module.exports.GuildVoice = require('./GuildVoice')
+module.exports.Player = require('./Player')
+module.exports.Players = require('./Players')
+module.exports.QueueItem = require('./QueueItem')
+module.exports.Queue = require('./Queue')

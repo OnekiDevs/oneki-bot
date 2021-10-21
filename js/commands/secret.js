@@ -14,7 +14,7 @@ module.exports = class Ping extends require('../classes/Command'){
     }
 
     run(message) {
-        if(!DEVELOPERS.includes(message.author.id)) return message.reply('shh')
+        if(!DEVELOPERS.includes(message.author.id)) return;
         if(!args[0]) return;
         switch (args.shift()) {
             case 'say':

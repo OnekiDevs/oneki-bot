@@ -1,5 +1,6 @@
 const FieldValue = require('firebase-admin').firestore.FieldValue;
 const fs = require('fs');
+const { GuildVoice } = classes
 module.exports = {
     name: 'ready',
     run: async () => {
@@ -22,7 +23,8 @@ module.exports = {
                         },
                         channels: {
                             suggest
-                        }
+                        },
+                        voice: new GuildVoice()
                     });
                 }
             })
@@ -44,7 +46,8 @@ module.exports = {
                         },
                         channels: {
                             suggest
-                        }
+                        },
+                        voice: new GuildVoice()
                     });
                 }
             });
@@ -122,7 +125,7 @@ module.exports = {
                             m.guild.channels.cache.get('893310001282678784').send(`${r.first().users.cache.first()} Obtuviste ${pt} puntos`);
                         });
                     }));
-                    util.sleep((Math.floor(Math.random()*25)+5)*60000).then(()=>caza());
+                    util.sleep((Math.floor(Math.random()*15)+5)*60000).then(()=>caza());
                 }
             }
             /*if(process.env.NODE_ENV==='production')*/ caza();
