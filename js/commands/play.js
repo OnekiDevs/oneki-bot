@@ -20,7 +20,6 @@ module.exports = class Play extends Command {
     async run(message, args = []) {
         if(!(args[0] || message.attachments?.first())) return message.reply('Inserta un link, algun archivo o alguna cancion a buscar');
         if(message.attachments?.first() && !message.attachments?.first().contentType?.startsWith('audio')) return message.reply('El archivo debe ser un audio')
-        // if(!client.servers.has(message.guild.id)) client.voice.servers.set(message.guild.id, new GuildVoice(message.guild))
         const guildVoice = client.servers.get(message.guild.id).voice
         if(!guildVoice.voiceConnection) {
             try {
@@ -34,7 +33,7 @@ module.exports = class Play extends Command {
             resource: createAudioResource(message.attachments.first().url)
         });
         else {
-            if((/(https?:\/\/(www\.)?)?youtu\.?be(\.com)?\/((watch\?v=.+)|(.+))/gi).test(args[0])) {
+            if ((/(https?:\/\/(www\.)?)?youtu\.?be(\.com)?\/((watch\?v=.+)|(.+))/gi).test(args[0])) {
                 queueItem = new QueueItem({
                     resource: createAudioResource(await ytdld(args[0]))
                 })
@@ -44,7 +43,6 @@ module.exports = class Play extends Command {
                     key: process.env.TOKEN_GOOGLE,
                     type: "video",
                 })).results[0]
-                console.log(query)
                 queueItem = new QueueItem({
                     resource: createAudioResource(await ytdld(query.link)),
                     link: query.link,
@@ -52,11 +50,8 @@ module.exports = class Play extends Command {
                 })
             }
         }
-        // if(!client.voice.servers.has(message.guild.id)) client.voice.servers.set(message.guild.id, new GuildVoice(message.guild))
-        // const guildVoice = client.voice.servers.get(message.guild.id)
-        // guildVoice.voiceConnection = voiceConnection
         guildVoice.addToQueue(queueItem)
-        guildVoice.channel = message.channel;
+        guildVoice.setChannel(message.channel)
         message.reply('Agregado a la cola')
     }
 

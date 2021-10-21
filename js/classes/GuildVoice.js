@@ -1,7 +1,8 @@
 'use strict';
 const EventEmitter = require('node:events');
 const {createAudioPlayer} = require("@discordjs/voice");
-const { Queue, MusicLoop } = classes
+const Queue = require('./Queue')
+const MusicLoop = require('./MusicLoop')
 module.exports = class GuildVoice extends EventEmitter {
 
     queue = new Queue()

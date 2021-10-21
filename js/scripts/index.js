@@ -1,10 +1,10 @@
 //imports
+global.classes = require('../classes/exportClasses')
 require('dotenv').config();
 const { Client, Collection } = require('discord.js');
 const fs = require('fs');
 const admin = require('firebase-admin');
 global.fetch = require('node-fetch')
-global.classes = require('../classes/exportClasses')
 global.DEVELOPERS = ['534614025271771158', '617154779755446280'];
 
 //declarations
