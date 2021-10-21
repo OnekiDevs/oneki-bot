@@ -18,13 +18,13 @@ module.exports = {
             embed.addField("Editado En:", `${oldMessage.channel}`, true);
             embed.setTimestamp();
             embed.setThumbnail(oldMessage.author.displayAvatarURL({dynamic: true}));
-            embed.addField("Escrito el:", `${new Date(oldMessage.createdTimestamp).toDateString()}`, true);
-            embed.addField("Editado el:", `${new Date(newMessage.editedTimestamp).toDateString()}`, true);
+            embed.addField("Escrito el:", `<t:${Math.round(oldMessage.createdTimestamp/1000)}>`, true);
+            embed.addField("Editado el:", `<t:${Math.round(newMessage.editedTimestamp/1000)}>`, true);
             if (oldMessage.content) {
-                embed.addField("Antes", oldMessage.content, false);
+                embed.addField("Antes", '```\n'+oldMessage+'\n```', false);
             }
             if (newMessage.content) {
-                embed.addField("Despues", newMessage.content, false);
+                embed.addField("Después", '```\n'+newMessage+'\n```', false);
             }
             embed.setFooter(`${client.user.username} Bot ${require('../../package.json').version}`, client.user.avatarURL());
             canal.send({

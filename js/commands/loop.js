@@ -1,4 +1,4 @@
-module.exports = class Ping extends classes.Command{
+module.exports = class loop extends classes.Command{
 
     constructor() {
         super({
@@ -17,7 +17,7 @@ module.exports = class Ping extends classes.Command{
     run(message, args) {
         const guildVoice = client.servers.get(message.guild.id).voice
         guildVoice.loop.change(args[0])
-        message.reply(`loop establecido en \`${guildVoice.loop}\``)
+        message.reply(guildVoice.loop.mode != 0 ? `loop establecido en \`${guildVoice.loop}\`` : 'Loop desactivado')
     }
 
 }
