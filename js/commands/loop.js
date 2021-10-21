@@ -2,8 +2,8 @@ module.exports = class Ping extends classes.Command{
 
     constructor() {
         super({
-            name: 'ping',
-            aliases: [],
+            name: 'loop',
+            aliases: ['l'],
             permissions: {
                 bot: [],
                 member: []
@@ -15,7 +15,9 @@ module.exports = class Ping extends classes.Command{
     }
 
     run(message, args) {
-        message.reply('pong')
+        const guildVoice = client.servers.get(message.guild.id).voice
+        guildVoice.loop.change(args[0])
+        message.reply(`loop establecido en \`${guildVoice.loop}\``)
     }
 
 }
