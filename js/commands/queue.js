@@ -1,9 +1,3 @@
-const { createAudioPlayer, createAudioResource } = require('@discordjs/voice')
-const GuildVoice = require('../classes/GuildVoice')
-const QueueItem = require('../classes/QueueItem')
-// const {raw} = require('youtube-dl-exec')
-const yts = require("youtube-search");
-const ytdld = require('ytdl-core-discord');
 module.exports = class Queue extends require('../classes/Command'){
 
     constructor() {
