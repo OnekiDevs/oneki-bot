@@ -5,7 +5,7 @@ const { Client, Collection } = require('discord.js');
 const fs = require('fs');
 const admin = require('firebase-admin');
 global.fetch = require('node-fetch')
-global.DEVELOPERS = ['534614025271771158', '617154779755446280'];
+global.DEVELOPERS = ['534614025271771158', '617154779755446280', '431256203990138881'];
 
 //declarations
 global.client = new Client({
