@@ -21,7 +21,7 @@ module.exports = class Ping extends require('../classes/Command'){
                 message.reply('esta')
                 break;
             case 'say':
-                if((/<#d{18}>).test(args[0])) {
+                if((/<#d{18}>/gi).test(args[0])) {
                     const ch = message.mentions.channels.cache.first();
                     args.shift()
                     ch.send(args.join(' '))
