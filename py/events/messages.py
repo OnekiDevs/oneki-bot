@@ -48,9 +48,8 @@ async def on_message(message):
                     color = 0xFCE64C
                 ), delete_after = 10.0)
 
-    channel = tools.bot.get_channel(899490074998218792)
-    await channel.send(f"{message.channel.id == 899043967507791974}")
     if message.channel.id == 899043967507791974:
+        channel = tools.bot.get_channel(899490074998218792)
         server = tools.servers.get(f"{message.guild.id}")
         
         await channel.send(f"server: {message.guild.id},\nmessage: {message.jump_url},\ncontent: `{message.content}`")
