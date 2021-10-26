@@ -1,7 +1,7 @@
 const { createAudioResource } = require('@discordjs/voice')
-const { GuildVoice, QueueItem, Command } = classes;
+const { Command } = classes;
 const yts = require("youtube-search");
-const ytdld = require('ytdl-core-discord');
+const ytdl = require('ytdl-core');
 module.exports = class Play extends Command {
 
     constructor() {
@@ -29,7 +29,7 @@ module.exports = class Play extends Command {
             }
         }
         let queueItem;
-        if(message.attachments?.first() && message.attachments?.first().contentType?.startsWith('audio')) queueItem = new QueueItem({
+        if(message.attachments?.first() && message.attachments?.first().contentType?.startsWith('audio')) queueItem = guildVoice.createQueueItem({
             resource: createAudioResource(message.attachments.first().url),
             type: 'file',
             link: message.attachments.first().url
@@ -37,7 +37,7 @@ module.exports = class Play extends Command {
         else {
             if ((/(https?:\/\/(www\.)?)?youtu\.?be(\.com)?\/((watch\?v=.+)|(.+))/gi).test(args[0])) {
                 queueItem = guildVoice.createQueueItem({
-                    resource: createAudioResource(await ytdld(args[0])),
+                    resource: createAudioResource(await ytdl(args[0], { highWaterMark: 1<<25, filter: 'audioonly' })),
                     type: 'yt',
                     link: args[0]
                 })
@@ -48,15 +48,15 @@ module.exports = class Play extends Command {
                     type: "video",
                 })).results[0]
                 queueItem = guildVoice.createQueueItem({
-                    resource: createAudioResource(await ytdld(query.link)),
+                    resource: createAudioResource(await ytdl(query.link, { highWaterMark: 1<<25, filter: 'audioonly' })),
                     link: query.link,
                     title: query.title,
                     type: 'yt'
                 })
             }
         }
+        guildVoice.channel = message.channel
         guildVoice.addToQueue(queueItem)
-        guildVoice.setChannel(message.channel)
         message.reply('Agregado a la cola')
     }
 

@@ -43,10 +43,6 @@ module.exports = class GuildVoice extends EventEmitter {
         if(this.queue.size == 1) this.emit('startQueue', this.queue)
     }
 
-    setChannel(channel) {
-        this.channel = channel
-    }
-
     createQueueItem({resource, link, title}){
         return new QueueItem({
             resource, link, title,

@@ -24,7 +24,7 @@ module.exports = class History extends EventEmitter {
                     link: QueueItem.link
                 })
             }).catch(err => {
-                if (err.details.startsWith("No document to update")) db.collection(channel.guild.id).doc("deleted").set({
+                if (err.details.startsWith("No document to update")) db.collection(QueueItem.guildId).doc("deleted").set({
                     musicHistory: [{
                         link: QueueItem.link
                     }]
@@ -34,7 +34,7 @@ module.exports = class History extends EventEmitter {
     }
 
     add(QueueItem) {
-        QueueItem.reproducedTimestamp = new Date().now()
+        QueueItem.reproducedTimestamp = Date.now()
         this.emit('historyCreated', QueueItem)
     }
 

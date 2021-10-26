@@ -7,13 +7,13 @@ module.exports = class QueueItem {
     link = null
     title = null
     reproducedTimestamp = null
-    server = null
+    guildId = null
 
-    constructor({resource, link, title, server}){
+    constructor({resource, link, title, guildId}){
         this.resource = resource
         this.link = link
         this.title = title
-        this.server = server
+        this.guildId = guildId
     }
 
     toString(){
@@ -21,7 +21,7 @@ module.exports = class QueueItem {
     }
 
     async restore(){
-        this.resource = createAudioResource(this.type == 'file' ? this.link : await ytdld(this.link))
+        this.resource = createAudioResource(this.type == 'file' ? this.link : await ytdld(this.link, { highWaterMark: 1<<25, filter: 'audioonly' }))
         return this
     }
 
