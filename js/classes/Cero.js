@@ -122,7 +122,7 @@ module.exports = class Cero {
             const player = this.players.find(p=>p.id==collect.member.id);
             const maso = await require('../scripts/cartas')(player.cards);
             const attachment = new MessageAttachment(maso, 'cartas.png');
-            const msg = await client.channels.cache.get('887515559628009473').send({
+            const msg = await client.channels.cache.get(client.constants.channels.imgs).send({
                 files: [attachment]
             });
             let j = 0, k = 0, buttons = [];

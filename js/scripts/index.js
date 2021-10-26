@@ -5,7 +5,6 @@ const { Client, Collection } = require('discord.js');
 const fs = require('fs');
 const admin = require('firebase-admin');
 global.fetch = require('node-fetch')
-global.DEVELOPERS = ['534614025271771158', '617154779755446280', '431256203990138881'];
 
 //declarations
 global.client = new Client({
@@ -29,6 +28,21 @@ client.servers = new Collection();
 client.voice.servers = new Collection();
 client.slash = new Collection();
 client.uno = new Collection();
+client.constants = {
+    emojis: {
+        yes: '<:yes:885693508533489694>',
+        no: '<:no:885693492632879104>'
+    },
+    developers: [
+        '534614025271771158',
+        '617154779755446280',
+        '431256203990138881'
+    ],
+    channels: {
+        imgs: '885674115946643456',
+        errors: '885674115615301651'
+    }
+}
 admin.initializeApp({
     credential: admin.credential.cert(JSON.parse(process.env.TOKEN_FIREBASE))
 });
