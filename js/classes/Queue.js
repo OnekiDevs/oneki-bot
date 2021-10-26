@@ -12,6 +12,10 @@ module.exports = class Queue extends Array {
         return this[0]
     }
 
+    /**
+     * Almacena el item
+     * @param QueueItem
+     */
     add(QueueItem) {
         this.push(QueueItem)
     }

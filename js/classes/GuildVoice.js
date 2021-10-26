@@ -23,7 +23,7 @@ module.exports = class GuildVoice extends EventEmitter {
 
         this.on('startQueue', queue => {
             this.voiceConnection.subscribe(this.audioPlayer)
-            this.audioPlayer.play(queue[0].resource)
+            this.audioPlayer.play(queue.first().resource)
             this.channel?.send(`Reproduciendo ${queue.first()}`).catch(()=>{})
         })
         this.audioPlayer.on('idle', async () => {
@@ -40,7 +40,7 @@ module.exports = class GuildVoice extends EventEmitter {
 
     addToQueue(queueItem) {
         this.queue.add(queueItem)
-        if(this.queue.size == 1) this.emit('startQueue', null)
+        if(this.queue.size == 1) this.emit('startQueue', this.queue)
     }
 
     setChannel(channel) {
