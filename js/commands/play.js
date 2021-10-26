@@ -36,7 +36,7 @@ module.exports = class Play extends Command {
         });
         else {
             if ((/(https?:\/\/(www\.)?)?youtu\.?be(\.com)?\/((watch\?v=.+)|(.+))/gi).test(args[0])) {
-                queueItem = new QueueItem({
+                queueItem = guildVoice.createQueueItem({
                     resource: createAudioResource(await ytdld(args[0])),
                     type: 'yt',
                     link: args[0]
@@ -47,7 +47,7 @@ module.exports = class Play extends Command {
                     key: process.env.TOKEN_GOOGLE,
                     type: "video",
                 })).results[0]
-                queueItem = new QueueItem({
+                queueItem = guildVoice.createQueueItem({
                     resource: createAudioResource(await ytdld(query.link)),
                     link: query.link,
                     title: query.title,

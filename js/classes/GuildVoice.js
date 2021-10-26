@@ -2,6 +2,8 @@
 const EventEmitter = require('node:events');
 const {createAudioPlayer, createAudioResource} = require("@discordjs/voice");
 const Queue = require('./Queue')
+const QueueItem = require('./QueueItem')
+const History = require('./History')
 const MusicLoop = require('./MusicLoop')
 module.exports = class GuildVoice extends EventEmitter {
 
@@ -10,25 +12,25 @@ module.exports = class GuildVoice extends EventEmitter {
     audioPlayer = createAudioPlayer()
     channel = null
     loop = new MusicLoop()
+    history = null
+    guildId = null
 
-    constructor(){
+    constructor(guildId){
         super();
 
-        this.on('startQueue', () => {
+        this.guildId = guildId
+        this.history = new History(guildId)
+
+        this.on('startQueue', queue => {
             this.voiceConnection.subscribe(this.audioPlayer)
-            this.audioPlayer.play(this.queue[0].resource)
-            this.channel?.send(`Reproduciendo ${this.first}`).catch(()=>{})
+            this.audioPlayer.play(queue[0].resource)
+            this.channel?.send(`Reproduciendo ${queue.first()}`).catch(()=>{})
         })
-        this.audioPlayer.on('idle', () => {
+        this.audioPlayer.on('idle', async () => {
+            this.history.add(this.queue.first())
             if(this.loop.mode == 0) this.queue.shift()
-            else if(this.loop.mode == 1) this.queue.add((async ()=>{
-                const t = this.queue.shift()
-                return {
-                    ...t,
-                    resource: createAudioResource(t.type == 'file' ? t.link : await ytdld(t.link))
-                }
-            })())
-            if(this.queue.size > 0) this.emit('startQueue')
+            else if(this.loop.mode == 1) this.queue.add(await this.queue.shift().restore())
+            if(this.queue.size > 0) this.emit('startQueue', this.queue)
             else {
                 this.voiceConnection.disconnect()
                 this.voiceConnection = null
@@ -43,6 +45,13 @@ module.exports = class GuildVoice extends EventEmitter {
 
     setChannel(channel) {
         this.channel = channel
+    }
+
+    createQueueItem({resource, link, title}){
+        return new QueueItem({
+            resource, link, title,
+            guildId: this.guildId
+        })
     }
 
     set voiceConnection(voiceConnection) {
