@@ -43,7 +43,7 @@ module.exports = class Suggest extends require('../classes/Command'){
             embeds: [embed],
             files: message.attachments.map(i=>i)
         });
-        m.react("<:yes:885693508533489694>").then(()=>m.react("<:no:885693492632879104>").then(()=>m.startThread({
+        m.react(client.constants.emojis.yes).then(()=>m.react(client.constants.emojis.no).then(()=>m.startThread({
             name: `Sugerencia ${snapshot.data().lastId?+snapshot.data().lastId+1:1}`
         })))
         db.collection(message.guild.id).doc('suggest').update({

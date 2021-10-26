@@ -1,69 +1,57 @@
 const FieldValue = require('firebase-admin').firestore.FieldValue;
 const fs = require('fs');
-const { GuildVoice } = classes
+const { GuildVoice, Server } = classes
 module.exports = {
     name: 'ready',
     run: async () => {
         try {
             //load configs
+            await Promise.all(client.guilds.cache.map(async guild => {
+                const sdb = await db.collection(guild.id).doc('suggest').get();
+                let suggest = !sdb.exists ? [] : Object.keys(sdb.data()).filter(o => o != 'lastId').map(o => sdb.data()[o])
+                client.servers.set(guild.id, new Server(guild.id, {
+                    channels: {
+                        suggest
+                    }
+                }));
+            }))
+
             db.collection('config').onSnapshot(async snap => {
                 for (const change of snap.docChanges()) {
-                    let suggest;
-                    if(client.servers.has(change.doc.id)) suggest = client.servers.get(change.doc.id).channels.suggest
-                    else {
-                        const sdb = await db.collection(change.doc.id).doc('suggest').get()
-                        suggest = !sdb.exists ? [] : Object.keys(sdb.data()).filter(o => o != 'lastId').map(o => sdb.data()[o])
-                    }
-
-                    client.servers.set(change.doc.id, {
+                    if(change.doc.id == 'bot') return
+                    // console.log(change.doc.id)
+                    if(client.servers.has(change.doc.id)) client.servers.get(change.doc.id).emit('change', {
                         prefix: change.doc.data()?.prefix ?? '>',
                         lang: change.doc.data()?.lang ?? 'en',
                         blacklist: {
                             channels: change.doc.data()?.blacklistChannels ?? []
-                        },
-                        channels: {
-                            suggest
-                        },
-                        voice: new GuildVoice()
-                    });
+                        }
+                    })
+                    else client.guilds.fetch(change.doc.id).then(guild => {
+                        client.servers.set(guild.id, new Server(guild.id, {
+                            prefix: change.doc.data()?.prefix ?? '>',
+                            lang: change.doc.data()?.lang ?? 'en',
+                            blacklist: {
+                                channels: change.doc.data()?.blacklistChannels ?? []
+                            }
+                        }))
+                    }).catch(e => /*db.collection('config').doc(change.doc.id).delete()*/ {})
                 }
             })
-            client.guilds.cache.map(async guild => {
 
-
-                if (!client.servers.get(guild.id)) {
-                    let suggest;
-                    if(client.servers.has(guild.id)) suggest = client.servers.get(guild.id).channels.suggest
-                    else {
-                        const sdb = await db.collection(guild.id).doc('suggest').get()
-                        suggest = !sdb.exists ? [] : Object.keys(sdb.data()).filter(o => o != 'lastId').map(o => sdb.data()[o])
-                    }
-                    client.servers.set(guild.id, {
-                        prefix: '>',
-                        lang: 'en',
-                        blacklist: {
-                            channels: []
-                        },
-                        channels: {
-                            suggest
-                        },
-                        voice: new GuildVoice()
-                    });
-                }
-            });
             //load slash commands
             for (const file of fs.readdirSync("./js/slash").filter((f) => f.endsWith(".js"))) {
                 const slash = require("../slash/" + file);
-                if (slash.servers[0])  for (const guildID of slash.servers) client.guilds.fetch(guildID).then(async guild => guild.commands.create(await slash.data({guild: guildID, client})).then((command) => console.log(command.name, '|', guild.name)).catch(err => {
+                if (slash.servers[0]) await Promise.all(slash.servers.map(guildID => client.guilds.fetch(guildID).then(async guild => guild.commands.create(await slash.data({guild: guildID, client})).then((command) => console.log(command.name, '|', guild.name)).catch(err => {
                     if (!err.toString().endsWith('Missing Access')) console.log(err)
                 })).catch((err) => {
                     if (!err.toString().endsWith('Missing Access')) console.log(err)
-                })
+                })))
                 else await Promise.all(client.guilds.cache.map(async guild => guild.commands.create(await slash.data({guild: guild.id, client})).then((command) => console.log(command.name, '|', guild.name)).catch(err => {
                     if (!err.toString().endsWith('Missing Access')) console.log(err)
                 })))
             }
-            //load user menu
+            // load user menu
             // for (const file of fs.readdirSync("./js/user").filter((f) => f.endsWith(".js"))) {
             //     const user = require("../user/" + file);
             //     const guild = await client.guilds.cache.map(async g=>{

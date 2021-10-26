@@ -4,7 +4,7 @@ module.exports = {
     name: "guildCreate",
     run: async (guild) => {
         try {
-            let canal = client.channels.cache.get("867248825777127445");
+            let canal = client.channels.cache.get("885674115946643458");
             const embed = new MessageEmbed()
                 .setThumbnail(guild.iconURL())
                 .setTitle("Me añadieron en un Nuevo Servidor")
@@ -22,7 +22,17 @@ module.exports = {
             canal.send({
                 embeds: [embed]
             });
-
+            client.servers.set(guild.id, {
+                prefix: '>',
+                lang: 'en',
+                blacklist: {
+                    channels: []
+                },
+                channels: {
+                    suggest: []
+                },
+                voice: new classes.GuildVoice(guild)
+            });
             client.slash.map(async slash=>{
                 if ((slash.servers[0] && slash.servers.includes(guild.id)) || !slash.servers[0]) guild.commands.create(await slash.data({guild: guild.id})).then((command) => console.log(command.name, '|', guild.name)).catch(err => console.log(guild.name, 'error',));
             })
