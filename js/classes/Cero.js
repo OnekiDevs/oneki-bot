@@ -184,7 +184,7 @@ module.exports = class Cero {
                         this.turn.addCard(cartas[Math.floor(Math.random() * cartas.length)]);
                         this.turn.addCard(cartas[Math.floor(Math.random() * cartas.length)]);
                     } else if((/r[r|g|y|b]/).test(cartaJugada.id)) {
-                        this.flow(!this.flow)
+                        this.flow = !this.flow
                         this.players.rotate(this.flow);
                         this.players.rotate(this.flow);
                     } else if((/r[r|g|y|b]/).test(cartaJugada.id)) {
