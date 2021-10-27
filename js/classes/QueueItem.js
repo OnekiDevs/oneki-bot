@@ -22,6 +22,7 @@ module.exports = class QueueItem {
     }
 
     async restore(){
+        console.log('restoring')
         this.resource = createAudioResource(this.type == 'file' ? this.link : await ytdld(this.link, { highWaterMark: 1<<25, filter: 'audioonly' }))
         return this
     }

@@ -23,16 +23,20 @@ module.exports = class GuildVoice extends EventEmitter {
 
         this.on('startQueue', queue => {
             this.voiceConnection.subscribe(this.audioPlayer)
+            console.log('startQueue', 'actual QueueItem',queue.first())
             this.audioPlayer.play(queue.first().resource)
             this.channel?.send(`Reproduciendo ${queue.first()}`).catch(()=>{})
         })
 
         this.audioPlayer.on('idle', async () => {
             this.history.add(this.queue.first())
+            console.log('idle', 'loop', this.loop.mode, 'Queue size', this.queue.size)
             if(this.loop.mode == 0) this.queue.shift()
             else if(this.loop.mode == 1) this.queue.add(await this.queue.shift().restore())
+            console.log(this.queue)
             if(this.queue.size > 0) this.emit('startQueue', this.queue)
             else {
+                console.log('disconnect')
                 this.voiceConnection.disconnect()
                 this.voiceConnection = null
             }
@@ -41,6 +45,7 @@ module.exports = class GuildVoice extends EventEmitter {
         this.on('skipSong', async () => {
             if(this.loop.mode == 0 || this.loop.mode == 2) this.queue.shift()
             else if(this.loop.mode == 1) this.queue.add(await this.queue.shift().restore())
+
             this.audioPlayer.stop()
             this.audioPlayer.play(this.queue.first().resource)
         })
