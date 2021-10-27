@@ -10,6 +10,7 @@ module.exports = class QueueItem {
     guildId = null
 
     constructor({resource, link, title, guildId}){
+        console.log(resource.constructor.name)
         this.resource = resource
         this.link = link
         this.title = title

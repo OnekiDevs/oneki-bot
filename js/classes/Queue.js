@@ -17,7 +17,8 @@ module.exports = class Queue extends Array {
      * @param QueueItem
      */
     add(QueueItem) {
-        this.push(QueueItem)
+        if(QueueItem.constructor.name == 'QueueItem') this.push(QueueItem)
+        else throw new Error('Requiere a QueueItem')
     }
 
     get size() {

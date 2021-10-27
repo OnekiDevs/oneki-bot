@@ -1,4 +1,4 @@
-const Queue = require('./Queue')
+const QueueItem = require('./QueueItem')
 const EventEmitter = require('node:events')
 const HistoryManager = require('./HistoryManager')
 const FieldValue = require('firebase-admin').firestore.FieldValue;
@@ -34,6 +34,7 @@ module.exports = class History extends EventEmitter {
     }
 
     add(QueueItem) {
+        if(QueueItem.constructor.name != 'QueueItem') throw new Error('Requiere a QueueItem')
         QueueItem.reproducedTimestamp = Date.now()
         this.emit('historyCreated', QueueItem)
     }
