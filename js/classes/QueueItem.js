@@ -1,7 +1,6 @@
 'use strict';
 const {createAudioResource} = require("@discordjs/voice");
 const ytdld = require('ytdl-core');
-const QI = require('./QueueItem')
 module.exports = class QueueItem {
 
     resource = null
@@ -11,7 +10,6 @@ module.exports = class QueueItem {
     guildId = null
 
     constructor({resource, link, title, guildId}){
-        console.log(resource.constructor.name)
         this.resource = resource
         this.link = link
         this.title = title
@@ -23,9 +21,10 @@ module.exports = class QueueItem {
     }
 
     async restore(){
-        console.log('restoring')
-        //this.resource = createAudioResource(this.type == 'file' ? this.link : await ytdld(this.link, { highWaterMark: 1<<25, filter: 'audioonly' }))
-        return new QI({...this.title, resource: createAudioResource(this.type == 'file' ? this.link : await ytdld(this.guildId, {highWaterMark: 1<<25, filter:'audioonly'})) })
+        return new QueueItem({
+            ...this,
+            resource: createAudioResource(this.type == 'file' ? this.link : await ytdld(this.link, { highWaterMark: 1<<25, filter: 'audioonly' }))
+        })
     }
 
     set resource(resource) {
