@@ -40,7 +40,8 @@ client.constants = {
     ],
     channels: {
         imgs: '885674115946643456',
-        errors: '885674115615301651'
+        errors: '885674115615301651',
+        issues: '885674115615301646'
     }
 }
 admin.initializeApp({

@@ -1,6 +1,6 @@
 'use strict';
 const {createAudioResource} = require("@discordjs/voice");
-const ytdld = require('ytdl-core');
+const {stream} = require('play-dl');
 module.exports = class QueueItem {
 
     resource = null
@@ -21,9 +21,20 @@ module.exports = class QueueItem {
     }
 
     async restore(){
+        let res, op = null
+        if(this.type == 'yt') {
+            const str = await stream(this.link)
+            res = str.stream
+            op = {
+                inputType: str.type
+            }
+        } else {
+            res = this.link
+        }
         return new QueueItem({
             ...this,
-            resource: createAudioResource(this.type == 'file' ? this.link : await ytdld(this.link, { highWaterMark: 1<<25, filter: 'audioonly' }))
+            // resource: createAudioResource(this.type == 'file' ? this.link : await ytdld(this.link, { highWaterMark: 1<<25, filter: 'audioonly' }))
+            resource: createAudioResource(res, op)
         })
     }
 

@@ -21,6 +21,10 @@ module.exports = class Queue extends Array {
         else throw new Error('Requiere a QueueItem')
     }
 
+    delete(position) {
+        this.splice(position, 1)
+    }
+
     get size() {
         return this.length
     }

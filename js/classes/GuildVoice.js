@@ -33,7 +33,6 @@ module.exports = class GuildVoice extends EventEmitter {
             else if(this.loop.mode == 1) this.queue.add(await this.queue.shift().restore())
             if(this.queue.size > 0) this.emit('startQueue', this.queue)
             else {
-                console.log('disconnect')
                 this.voiceConnection.disconnect()
                 this.voiceConnection = null
             }
@@ -46,11 +45,30 @@ module.exports = class GuildVoice extends EventEmitter {
             this.audioPlayer.stop()
             this.audioPlayer.play(this.queue.first().resource)
         })
+
+        this.on('deletedSong', song => {
+            this.channel?.send(`${song.title} removida de la cola`).catch(()=>{})
+        })
     }
 
     addToQueue(queueItem) {
         this.queue.add(queueItem)
         if(this.queue.size == 1) this.emit('startQueue', this.queue)
+    }
+
+    removeSong(position){
+        const deleted = this.queue[position-1]
+        this.queue.delete(position-1)
+        this.emit('deletedSong', deleted)
+        if(position == 1) {
+            this.audioPlayer.stop()
+            this.history.add(deleted)
+            if(this.queue.size > 0) this.emit('startQueue', this.queue)
+        }
+        if(this.queue.size == 0) {
+            this.voiceConnection.disconnect()
+            this.voiceConnection = null
+        }
     }
 
     createQueueItem({resource, link, title}){
@@ -62,6 +80,11 @@ module.exports = class GuildVoice extends EventEmitter {
 
     async skipSong(){
         this.emit('skipSong', this.queue.first(), this.queue[1])
+    }
+
+    leaveVoiceConnection(){
+        if(this.voiceConnection) this.voiceConnection.disconnect()
+        this.voiceConnection = null
     }
 
     set voiceConnection(voiceConnection) {

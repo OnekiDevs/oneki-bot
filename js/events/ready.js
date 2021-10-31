@@ -116,7 +116,7 @@ module.exports = {
                     util.sleep((Math.floor(Math.random()*15)+5)*60000).then(()=>caza());
                 }
             }
-            /*if(process.env.NODE_ENV==='production')*/ caza();
+            if(process.env.NODE_ENV==='production') caza();
 
         }  catch (e) {
             util.error(e, __filename)

@@ -1,7 +1,8 @@
 const { createAudioResource } = require('@discordjs/voice')
 const { Command } = classes;
 const yts = require("youtube-search");
-const ytdl = require('ytdl-core');
+// const ytdl = require('ytdl-core');
+const {stream} = require("play-dl");
 module.exports = class Play extends Command {
 
     constructor() {
@@ -20,6 +21,7 @@ module.exports = class Play extends Command {
     async run(message, args = []) {
         if(!(args[0] || message.attachments?.first())) return message.reply('Inserta un link, algun archivo o alguna cancion a buscar');
         if(message.attachments?.first() && !message.attachments?.first().contentType?.startsWith('audio')) return message.reply('El archivo debe ser un audio')
+        if(!message.member.voice.channel) return message.reply('Conectate a un canal de voz primero')
         const guildVoice = client.servers.get(message.guild.id).voice
         if(!guildVoice.voiceConnection) {
             try {
@@ -36,21 +38,24 @@ module.exports = class Play extends Command {
         });
         else {
             if ((/(https?:\/\/(www\.)?)?youtu\.?be(\.com)?\/((watch\?v=.+)|(.+))/gi).test(args[0])) {
+                const str = await stream(args[0])
                 queueItem = guildVoice.createQueueItem({
-                    resource: createAudioResource(await ytdl(args[0], { highWaterMark: 1<<25, filter: 'audioonly' })),
+                    resource: createAudioResource(str.stream, {inputType: str.type}),
                     type: 'yt',
                     link: args[0]
                 })
             } else {
-                const query = (await yts(args.join(' '), {
+
+                const {link, title} = (await yts(args.join(' '), {
                     maxResults: 1,
                     key: process.env.TOKEN_GOOGLE,
                     type: "video",
                 })).results[0]
+                const str = await stream(link)
                 queueItem = guildVoice.createQueueItem({
-                    resource: createAudioResource(await ytdl(query.link, { highWaterMark: 1<<25, filter: 'audioonly' })),
-                    link: query.link,
-                    title: query.title,
+                    resource: createAudioResource(str.stream, {inputType: str.type}),
+                    link: link,
+                    title: title,
                     type: 'yt'
                 })
             }
