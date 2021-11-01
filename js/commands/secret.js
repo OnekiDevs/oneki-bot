@@ -29,7 +29,7 @@ module.exports = class Secret extends require('../classes/Command'){
                 } else message.channel.send(args.join(' '))
                 break;
             case 'ap':
-                const mention = await message.users.cache.get(message.mentions.members.first()?.id??args[0])
+                const mention = await client.users.cache.get(message.mentions.members.first()?.id??args[0])
                 if (!mention) return message.reply('Menciona a alguien');
                 if (!args[1] || !Number(args[1])) return message.reply('Ingrese una cantidad')
                 let obj = {}
