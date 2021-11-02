@@ -86,6 +86,14 @@ module.exports = {
                 }).addSubcommand(subcommand => {
                     return subcommand.setName('reset').setDescription('disable view deleted messages')
                 })
+            }).addSubcommandGroup(subcommandGroup => {
+                return subcommandGroup.setName('attachments').setDescription('configure attachments channel').addSubcommand(subcommand => {
+                    return subcommand.setName('channel').setDescription('configure attachments channel').addChannelOption(option => {
+                        return option.setName('channel').setDescription('channel where the attachments are send').setRequired(true)
+                    })
+                }).addSubcommand(subcommand => {
+                    return subcommand.setName('reset').setDescription('deactivate attachments channel')
+                })
             })).toJSON())
         })
     },

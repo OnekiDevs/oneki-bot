@@ -62,5 +62,15 @@
             "replyAdd": "{channel} agregado a la lista negra",
             "replyRemove": "{channel} removido de la lista negra"
         }
+    },
+    "attachments": {
+        "channel": {
+            "permissions": "No tienes los permisos nesesarios",
+            "reply": "El canal {channel} se estableció para los archivos"
+        },
+        "reset": {
+            "permissions": "No tienes los permisos nesesarios",
+            "reply": "El canal para los archivos de desactivó"
+        }
     }
 }

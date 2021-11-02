@@ -13,7 +13,7 @@ module.exports = {
                     channels: {
                         suggest
                     }
-                }));
+                }))
             }))
 
             db.collection('config').onSnapshot(async snap => {
@@ -25,6 +25,9 @@ module.exports = {
                         lang: change.doc.data()?.lang ?? 'en',
                         blacklist: {
                             channels: change.doc.data()?.blacklistChannels ?? []
+                        },
+                        channels: {
+                            attachments: change.doc.data()?.attachments ?? null
                         }
                     })
                     else client.guilds.fetch(change.doc.id).then(guild => {
@@ -33,6 +36,9 @@ module.exports = {
                             lang: change.doc.data()?.lang ?? 'en',
                             blacklist: {
                                 channels: change.doc.data()?.blacklistChannels ?? []
+                            },
+                            channels: {
+                                attachments: change.doc.data()?.attachments ?? null
                             }
                         }))
                     }).catch(e => /*db.collection('config').doc(change.doc.id).delete()*/ {})

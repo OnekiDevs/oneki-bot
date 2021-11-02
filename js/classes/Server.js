@@ -8,7 +8,8 @@ module.exports = class Server extends EventEmitter {
         channels: []
     }
     channels = {
-        suggest: []
+        suggest: [],
+        attachments: null
     }
     voice = null
     guild = null
@@ -29,8 +30,9 @@ module.exports = class Server extends EventEmitter {
                 if(blChannels) this.blacklist.channels = blChannels
             }
             if(channels) {
-                const {suggest} = channels
-                if(suggest) this.channels.suggest = suggest
+                const {suggest, attachments} = channels
+                console.log(attachments)
+                if(attachments) this.channels.attachments = attachments
             }
             if(voice) this.voice = voice
         })

@@ -74,5 +74,15 @@
             "replyAdd": "added {channel} to blacklist",
             "replyRemove": "removed {channel} to the blacklist"
         }
+    },
+    "attachments": {
+        "channel": {
+            "permissions": "You don't have the necessary permissions",
+            "reply": "the channel {channel} was established for attachments"
+        },
+        "reset": {
+            "permissions": "You don't have the necessary permissions",
+            "reply": "the channel for attachments was deactivated"
+        }
     }
 }

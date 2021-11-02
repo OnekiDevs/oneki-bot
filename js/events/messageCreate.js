@@ -7,6 +7,7 @@ module.exports = {
             // console.log(client.servers.get(message.guild.id)?.channels.suggest);
             if (message.author.bot) return;
             if (message.channel.type == 'DM') return client.emit('directMessage', message);
+            if (message.attachments.size > 0) client.emit('messageAttachment', message);
             const prefix = client.servers.get(message.guild.id)?.prefix;
             if(message.channel.id == '893310001282678784'){
             // if(message.channel.id == '893297508128784425'){ // oneki
