@@ -1,12 +1,12 @@
 'use strict';
-const { MessageEmbed, MessageButton, MessageAttachment, MessageActionRow, Collection } = require('discord.js');
+const { MessageEmbed, MessageButton, MessageAttachment, MessageActionRow } = require('discord.js');
 const shortid = require('shortid');
-const Player = require('./Player');
+const CeroPlayer = require('./CeroPlayers');
 const Players = require('./Players');
 module.exports = class Cero {
     host = null;
     id = shortid.generate();
-    players = new Players();
+    players = new CeroPlayers();
     message = null;
     maxPlayers = 4;
     status = 'waiting'

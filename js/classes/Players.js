@@ -3,7 +3,6 @@ const c = new Collection().set()
 module.exports = class Players extends Array {
     constructor(...args) {
         super(...args)
-        console.log('this', this);
     }
 
     /**
@@ -27,10 +26,5 @@ module.exports = class Players extends Array {
     }
     first() {
         return this[0]
-    }
-
-    rotate(direction) {
-        if(direction) this.push(this.shift())
-        else this.unshift(this.pop())
     }
 }
