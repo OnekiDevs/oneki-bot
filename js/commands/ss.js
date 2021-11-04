@@ -35,7 +35,7 @@ module.exports = class Ss extends require('../classes/Command'){
             }
         });
         // console.log(args[0], args[0].match(/<@!?(\d{17,19})>/))
-        let user, avatar, color, bot, verified, mentions = {}
+        let user, avatar, color, bot, verified, mentions = {}, roles = {}
         // const params = new URLSearchParams().set('text',(!args[0].match(/<@!?(\d{17,19})>/)?args.join(" "):args.slice(1).join(" ")))
         // console.log((!!args[0].match(/<@!?(\d{17,19})>/) && !!args[1]?args.slice(1).join(" "):args.join(" ")));
 
@@ -56,10 +56,14 @@ module.exports = class Ss extends require('../classes/Command'){
             // params.set(m.id, m.displayName)
             mentions[m.id] = m.displayName
         })
+        message.mentions.roles.map(r=>{
+            // params.set(m.id, m.displayName)
+            roles[r.id] = r.name
+        })
         // if(Object.keys(mentions).length > 0) params += "&mentions=" + JSON.stringify(mentions)
         const params = new URLSearchParams({
             text: (!!args[0].match(/<@!?(\d{17,19})>/) && !!args[1]?args.slice(1).join(" "):args.join(" ")).replace(/</gi, '&#60;').replace(/>/gi, '&#62;'),
-            user, avatar, color, bot, verified, mentions: JSON.stringify(mentions)
+            user, avatar, color, bot, verified, mentions: JSON.stringify(mentions), roles: JSON.stringify(roles)
         })
         console.log(params);
         // console.log(`\n${params}`);
