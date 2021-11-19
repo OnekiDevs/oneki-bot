@@ -1,11 +1,11 @@
 const shortid = require("shortid");
 const {MessageActionRow, MessageButton} = require("discord.js");
-module.exports = class Ytt extends require('../classes/Command'){
+module.exports = class Sa extends require('../classes/Command'){
 
     constructor() {
         super({
-            name: 'ytt',
-            aliases: ['youtubetogether', 'youtube-together'],
+            name: 'sa',
+            aliases: ['sketchy-artist', 'sketchyartist'],
             permissions: {
                 bot: [],
                 member: []
@@ -18,7 +18,7 @@ module.exports = class Ytt extends require('../classes/Command'){
 
     async run(message, args) {
         const server = client.servers.get(message.guild.id);
-        const lang = util.lang({lang:server.lang, route:'commands/ytt'});
+        const lang = util.lang({lang:server.lang, route:'commands/sa'});
         const messageMention = message.mentions.channels.first()
         let messageVoiceChannel;
         if (!message.member.voice.channel) {
@@ -36,7 +36,7 @@ module.exports = class Ytt extends require('../classes/Command'){
         }
 
         const invite = await messageVoiceChannel.createInvite({
-            targetApplication: "880218394199220334",
+            targetApplication: "879864070101172255",
             targetType: 2,
         });
         const ID = shortid.generate();
