@@ -19,6 +19,7 @@ module.exports = class Play extends Command {
     }
 
     async run(message, args = []) {
+        return
         if(!(args[0] || message.attachments?.first())) return message.reply('Inserta un link, algun archivo o alguna cancion a buscar');
         if(message.attachments?.first() && !message.attachments?.first().contentType?.startsWith('audio')) return message.reply('El archivo debe ser un audio')
         if(!message.member.voice.channel) return message.reply('Conectate a un canal de voz primero')
