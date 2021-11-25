@@ -1,13 +1,13 @@
 //imports
-global.classes = require('../classes/exportClasses')
+// classes = require('../classes/exportClasses')
 require('dotenv').config();
 const { Client, Collection } = require('discord.js');
 const fs = require('fs');
 const admin = require('firebase-admin');
-global.fetch = require('node-fetch')
+fetch = require('node-fetch')
 
 //declarations
-global.client = new Client({
+client = new Client({
     intents: [
         'DIRECT_MESSAGES',
         'GUILD_MESSAGES',
@@ -42,6 +42,9 @@ client.constants = {
         imgs: '885674115946643456',
         errors: '885674115615301651',
         issues: '885674115615301646'
+    },
+    rolls: {
+        js: '885674114663211038'
     }
 }
 admin.initializeApp({
@@ -78,25 +81,22 @@ for (const file of fs.readdirSync("./js/buttons").filter((f) => f.endsWith(".js"
 }
 
 //login
-global.TOKEN = process.env.NODE_ENV!=='production'?process.env.TOKEN_DISCORD_DEV:process.env.TOKEN_DISCORD
-client.login(global.TOKEN);
+TOKEN = process.env.NODE_ENV!=='production'?process.env.TOKEN_DISCORD_DEV:process.env.TOKEN_DISCORD
+client.login(TOKEN);
 
 const WebSocket = require('ws');
-global.ws = new WebSocket('wss://oneki.herokuapp.com/');
+ws = new WebSocket('wss://oneki.herokuapp.com/');
 
 ws.on('open', function open() {
     console.log('socket conectado')
-    // ws.send(JSON.stringify({
-    //     event: 'xd',
-    //     server: '584215654565661563',
-    //     data: {
-    //         in: ['f']
-    //     }
-    // }))
 });
 
-ws.on('message', function incoming(message) {
-    console.log('ws received: %s', message);
-});
+//TODO aplicar al bot entero
+
+//ws on message is in '../events/ready.js'
 
 ws.on('error', () => {})
+
+setInterval(()=>{
+    fetch(`https://oneki.herokuapp.com`)
+}, 1500000)

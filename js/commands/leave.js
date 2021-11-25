@@ -1,4 +1,5 @@
-module.exports = class Leave extends classes.Command{
+const {Command} = require("../scripts/exportClasses");
+module.exports = class Leave extends Command{
 
     constructor() {
         super({

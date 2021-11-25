@@ -1,4 +1,5 @@
-module.exports = class Queue extends classes.Command{
+const {Command} = require("../scripts/exportClasses");
+module.exports = class Queue extends Command{
 
     constructor() {
         super({

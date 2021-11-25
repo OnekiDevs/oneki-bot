@@ -1,49 +1,11 @@
-const FieldValue = require('firebase-admin').firestore.FieldValue;
 const fs = require('fs');
-const { GuildVoice, Server } = classes
+const { Server } = require('../scripts/exportClasses')
 module.exports = {
     name: 'ready',
     run: async () => {
         try {
             //load configs
-            await Promise.all(client.guilds.cache.map(async guild => {
-                const sdb = await db.collection(guild.id).doc('suggest').get();
-                let suggest = !sdb.exists ? [] : Object.keys(sdb.data()).filter(o => o != 'lastId').map(o => sdb.data()[o])
-                client.servers.set(guild.id, new Server(guild.id, {
-                    channels: {
-                        suggest
-                    }
-                }))
-            }))
-
-            db.collection('config').onSnapshot(async snap => {
-                for (const change of snap.docChanges()) {
-                    if(change.doc.id == 'bot') return
-                    // console.log(change.doc.id)
-                    if(client.servers.has(change.doc.id)) client.servers.get(change.doc.id).emit('change', {
-                        prefix: change.doc.data()?.prefix ?? '>',
-                        lang: change.doc.data()?.lang ?? 'en',
-                        blacklist: {
-                            channels: change.doc.data()?.blacklistChannels ?? []
-                        },
-                        channels: {
-                            attachments: change.doc.data()?.attachments ?? null
-                        }
-                    })
-                    else client.guilds.fetch(change.doc.id).then(guild => {
-                        client.servers.set(guild.id, new Server(guild.id, {
-                            prefix: change.doc.data()?.prefix ?? '>',
-                            lang: change.doc.data()?.lang ?? 'en',
-                            blacklist: {
-                                channels: change.doc.data()?.blacklistChannels ?? []
-                            },
-                            channels: {
-                                attachments: change.doc.data()?.attachments ?? null
-                            }
-                        }))
-                    }).catch(e => /*db.collection('config').doc(change.doc.id).delete()*/ {})
-                }
-            })
+            await Promise.all(client.guilds.cache.map(({id}) => client.servers.set(id, new Server(id))))
 
             //load slash commands
             for (const file of fs.readdirSync("./js/slash").filter((f) => f.endsWith(".js"))) {

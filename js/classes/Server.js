@@ -12,17 +12,25 @@ module.exports = class Server extends EventEmitter {
         attachments: null
     }
     voice = null
-    guild = null
+    guildId = null
 
-    constructor(guild, {prefix, lang, blacklist, channels, voice}) {
+    constructor(guildId) {
         super()
 
-        this.guild = guild
-        this.voice = new GuildVoice(guild)
+        this.guildId = guildId
+        this.voice = new GuildVoice(guildId)
 
-        this.emit('change', {prefix, lang, blacklist, channels, voice})
+        // (async () => {
+        //     const snap = await db.collection('config').doc(guildId).get()
+        //     if(snap.exists) {
+        //         const {prefix, lang, blacklist, channels, voice} = snap.data();
+        //         //TODO emitir evento "set"
+        //     }
+        // })()
 
-        this.on('change', ({prefix, lang, blacklist, channels, voice}) => {
+        // this.emit('change', {prefix, lang, blacklist, channels, voice})
+
+        this.on('set', ({prefix, lang, blacklist, channels, voice}) => {
             if(prefix) this.prefix = prefix
             if(lang) this.lang = lang
             if(blacklist) {
@@ -79,7 +87,7 @@ module.exports = class Server extends EventEmitter {
     }
 
     get guild() {
-        return this.guild
+        return client.guilds.cache.get(this.guildId)
     }
 
 }

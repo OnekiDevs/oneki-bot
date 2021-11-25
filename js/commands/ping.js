@@ -1,4 +1,5 @@
-module.exports = class Ping extends classes.Command{
+const {Command} = require("../scripts/exportClasses");
+module.exports = class Ping extends Command{
 
     constructor() {
         super({
