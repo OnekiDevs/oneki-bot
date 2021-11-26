@@ -4,6 +4,7 @@ module.exports = {
     name: 'messageCreate',
     run: async (message) => {
         try {
+            return
             // console.log(client.servers.get(message.guild.id)?.channels.suggest);
             if (message.author.bot) return;
             if (message.channel.type == 'DM') return client.emit('directMessage', message);

@@ -5,7 +5,7 @@ module.exports = {
         try {
             if ((!oldMessage.author || oldMessage.author?.bot) || (oldMessage.content && oldMessage.content === newMessage.content)) return;
             // const snapshot = await db.collection(oldMessage.guild.id).doc("edited").get();
-            const server = client.servers.get(message.guild.id);
+            const server = client.servers.get(oldMessage.guild.id);
             const canal = client.channels.cache.get(server?.channels.messageEdited);
             // console.log(canal.name, canal.permissionsFor(client.user.id).serialize());
             if (!canal || !canal.permissionsFor(client.user.id)?.has(['SEND_MESSAGES', 'VIEW_CHANNEL'])) return;

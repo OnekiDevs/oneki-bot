@@ -22,6 +22,10 @@ module.exports = {
                 console.log(interact.commandName)
                 let cmd = client.slash.get(interact.commandName)
                 if (cmd) cmd.run(interact)
+            } else if (interact.isContextMenu()){
+                console.log(interact.commandName)
+                let cmd = client.userCommands.get(interact.commandName)
+                if (cmd) cmd.run(interact)
             }
         }  catch (e) {
             util.error(e, __filename)
