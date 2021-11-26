@@ -39,6 +39,7 @@ module.exports = {
             ])}`
         );
         interact.guild.commands.create(await client.slash.get('config').data({guild: interact.guildId, client}));
+        client.servers.get(interact.guildId)?.addSuggestChannel(channel.id);
     },
     delete: async (interact, options) => {
         const lang = util.lang({ lang: client.servers.get(interact.guildId).lang, route: "slash/config" }).suggest.delete;
@@ -68,6 +69,7 @@ module.exports = {
             sc.channels.suggest.splice(sc.channels.suggest.indexOf(channel.id), 1);
             client.servers.set(interact.guildId, sc)
             interact.guild.commands.create(await client.slash.get('config').data({guild: interact.guildId, client}));
+            client.servers.get(interact.guildId)?.removeSuggestChannel(channel);
         } else {
             interact.deferUpdate();
         }

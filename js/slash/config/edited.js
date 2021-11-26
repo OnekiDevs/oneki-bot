@@ -19,6 +19,7 @@ module.exports = {
             content: `${await util.replace(lang.reply, [{ match: "{channel}", replace: `\`${channel.name}\`` }])}`,
             ephemeral: true
         })
+        client.servers.get(interact.guildId)?.setMessageDeleted(channel.id);
     }, 
     reset: async (interact, options) => {
         const lang = util.lang({ lang: client.servers.get(interact.guildId).lang, route: 'slash/config' }).edited.reset;
@@ -31,5 +32,6 @@ module.exports = {
             content: lang.reply,
             ephemeral: true
         })
+        client.servers.get(interact.guildId)?.setMessageDeleted(null);
     }
 }

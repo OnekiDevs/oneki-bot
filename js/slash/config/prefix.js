@@ -35,6 +35,12 @@ module.exports = {
                 prefix: np
             });
         });
+
+        ws.send(JSON.stringify({
+            event: 'prefix',
+            server: interact.guildId,
+            value: np
+        }))
     },
     reset: (interact) => {
         const lang = util.lang({ lang: client.servers.get(interact.guildId).lang, route: 'slash/config' }).prefix.reset;
@@ -53,5 +59,10 @@ module.exports = {
         interact.reply({
             content: lang.reply
         });
+        ws.send(JSON.stringify({
+            event: 'prefix',
+            server: interact.guildId,
+            value: '>'
+        }))
     }
 }

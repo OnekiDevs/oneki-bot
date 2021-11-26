@@ -5,12 +5,9 @@ module.exports = {
         try {
             if (!['DEFAULT', 'REPLY'].includes(message.type)) console.log(message.type)
             if (!message.author || message.author?.bot) return;
-            // console.log(message.type)
-            const snapshot = await db.collection(message.guild?.id).doc("deleted").get();
-            // console.log(snapshot.data())
-            const canal = client.channels.cache.get(snapshot.data()?.channel);
-            if (!canal) return;
             const server = client.servers.get(message.guild.id);
+            const canal = client.channels.cache.get(server?.channels.messageDeleted);
+            if (!canal) return;
             const lang = util.lang({lang:server.lang, route:'events/messageDelete'});
             const embed = new MessageEmbed()
                 .setTitle(lang.embed.title[message.type]??lang.embed.fields.author.DEFAULT)

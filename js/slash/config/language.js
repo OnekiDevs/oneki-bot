@@ -18,6 +18,11 @@ module.exports = {
         interact.reply({
             content: `${await util.replace(lng.reply, [{ match: "{lang}", replace: `\`${lang}\`` }])}`,
         })
+        ws.send(JSON.stringify({
+            event: 'lang',
+            server: interact.guildId,
+            value: lang
+        }))
     },
     reset: (interact, options) => {
         const lang = util.lang({ lang: client.servers.get(interact.guildId).lang, route: 'slash/config' }).language.reset;
@@ -35,5 +40,10 @@ module.exports = {
         interact.reply({
             content: lang.reply
         })
+        ws.send(JSON.stringify({
+            event: 'lang',
+            server: interact.guildId,
+            value: 'en'
+        }))
     }
 }

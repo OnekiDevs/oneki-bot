@@ -85,6 +85,7 @@ TOKEN = process.env.NODE_ENV!=='production'?process.env.TOKEN_DISCORD_DEV:proces
 client.login(TOKEN);
 
 const WebSocket = require('ws');
+// ws = new WebSocket('wss://localhost:3000/');
 ws = new WebSocket('wss://oneki.herokuapp.com/');
 
 ws.on('open', function open() {

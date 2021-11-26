@@ -7,6 +7,17 @@ module.exports = {
             //load configs
             await Promise.all(client.guilds.cache.map(({id}) => client.servers.set(id, new Server(id))))
 
+            ws.on('message', function message(data) {
+                try {
+                    const req = JSON.parse(data)
+                    client.emit(req.event, req)
+                } catch (e) {
+                    if(e.toString().startsWith('SyntaxError')) {
+                        console.log('SyntaxError on socket', data)
+                    }
+                }
+            });
+
             //load slash commands
             for (const file of fs.readdirSync("./js/slash").filter((f) => f.endsWith(".js"))) {
                 const slash = require("../slash/" + file);

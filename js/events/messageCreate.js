@@ -9,7 +9,7 @@ module.exports = {
             if (message.channel.type == 'DM') return client.emit('directMessage', message);
             if (message.attachments.size > 0) client.emit('messageAttachment', message);
             const prefix = client.servers.get(message.guild.id)?.prefix;
-            if(message.channel.id == '893310001282678784'){
+            /*if(message.channel.id == '893310001282678784'){
             // if(message.channel.id == '893297508128784425'){ // oneki
                 if(['points', 'puntos', '>points', '>puntos'].includes(message.content.toLowerCase())) db.collection(message.guild.id).doc('fantasmita').get().then(s=>message.reply(`Tienes ${s.data()[message.author.id]??0} puntos acumulados`).then(async m => util.sleep(10000).then(()=>m.delete().then(()=>message.delete()))))
                 else if(['>top', 'top'].includes(message.content.toLowerCase())) db.collection(message.guild.id).doc('fantasmita').get().then(async s=>{
@@ -38,8 +38,12 @@ module.exports = {
                 else {
                     message.delete()
                 }
-            } else if(client.servers.get(message.guild.id)?.channels.suggest.includes(message.channel.id)){
-                console.log('sss')
+            } else*/ if(client.servers.get(message.guild.id)?.channels.suggest.includes(message.channel.id)){
+                if(message.content.startsWith(client.servers.get(message.guild.id).prefix)) message.channel.send(`No puedes usar comandos en este canal`).then(async m => {
+                    await util.sleep(5000)
+                    m.delete()
+                    message.delete()
+                })
                 const suggestCommand = new SuggestCommand()
                 const sdb = await db.collection(message.guild.id).doc('suggest').get()
                 if (!sdb.exists) return;

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="text" id="in">
+<button onclick="s()">Send</button>
+<script>
+    const socket = new WebSocket('ws://oneki.herokuapp.com/');
+    socket.addEventListener('open', function (event) {
+        console.log('Hello Server!');
+    });
+    function s() {
+        document.getElementById('in').value
+        socket.send(document.getElementById('in').value??'hola')
+    }
+</script>
+</body>
+</html>
