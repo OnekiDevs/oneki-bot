@@ -1,4 +1,4 @@
-const db = require('firebase-admin').firestore();
+const FieldValue = require('firebase-admin').firestore.FieldValue;
 const { Permissions } = require('discord.js');
 module.exports = {
     set: async (interact, options) => {
@@ -49,13 +49,8 @@ module.exports = {
             ephemeral: true
         });
         db.collection('config').doc(interact.guildId).update({
-            prefix: '>'
-        }).catch((err) => {
-            if (err.details.startsWith("No document to update")) db.collection('config').doc(interact.guildId).set({
-                prefix: '>'
-            });
-            else console.log(err);
-        });
+            prefix: FieldValue.delete()
+        }).catch(() => {});
         interact.reply({
             content: lang.reply
         });

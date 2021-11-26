@@ -31,12 +31,8 @@ module.exports = {
             ephemeral: true
         });
         db.collection('config').doc(interact.guildId).update({
-            lang: 'en'
-        }).catch((err) => {
-            if(err.details.startsWith("No document to update")) db.collection('config').doc(interact.guildId).set({
-                lang: 'en'
-            })
-        });
+            lang: FieldValue.delete()
+        }).catch(() => {});
         interact.reply({
             content: lang.reply
         })

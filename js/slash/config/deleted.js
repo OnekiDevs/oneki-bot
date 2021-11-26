@@ -1,4 +1,4 @@
-const db = require('firebase-admin').firestore();
+const FieldValue = require('firebase-admin').firestore.FieldValue;
 const { Permissions } = require('discord.js');
 module.exports = {
     channel: async (interact, options) => {
@@ -8,11 +8,11 @@ module.exports = {
             ephemeral: true
         });
         const channel = options.getChannel('channel');
-        db.collection(channel.guild.id).doc("deleted").update({
-            channel: channel.id
+        db.collection('config').doc(channel.guild.id).update({
+            channelDeletedMessages: channel.id
         }).catch(err => {
-            if (err.details.startsWith("No document to update")) db.collection(channel.guild.id).doc("deleted").set({
-                channel: channel.id
+            if (err.details.startsWith("No document to update")) db.collection('config').doc(channel.guild.id).set({
+                channelDeletedMessages: channel.id
             });
         });
         interact.reply({
@@ -27,7 +27,9 @@ module.exports = {
             content: lang.permissions,
             ephemeral: true
         });
-        db.collection(interact.guildId).doc("deleted").delete();
+        db.collection('config').doc(interact.guildId).update({
+            channelDeletedMessages: FieldValue.delete()
+        }).catch(()=>{})
         interact.reply({
             content: lang.reply,
             ephemeral: true

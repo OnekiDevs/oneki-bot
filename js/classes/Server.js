@@ -22,13 +22,19 @@ module.exports = class Server extends EventEmitter {
         this.guildId = guildId
         this.voice = new GuildVoice(guildId)
 
-        // (async () => {
-        //     const snap = await db.collection('config').doc(guildId).get()
-        //     if(snap.exists) {
-        //         const {prefix, lang, blacklist, channels, voice} = snap.data();
-        //         //TODO emitir evento "set"
-        //     }
-        // })()
+        db.collection('config').doc(guildId).get().then(config => {
+            if (!config.exists) return
+            if(config.data().prefix) this.prefix = config.data().prefix
+            if(config.data().lang) this.lang = config.data().lang
+            if(config.data().blacklistChannels) this.blacklist.channels = config.data().blacklistChannels
+            if(config.data().attachments) this.channels.attachments = config.data().attachments
+            if(config.data().channelDeletedMessages) this.channels.messageDeleted = config.data().channelDeletedMessages
+            if(config.data().channelEditedMessages) this.channels.messageEdited = config.data().channelEditedMessages
+        })
+
+        db.collection(guildId).doc('suggest').get().then(config => {
+            if (config.exists) this.channels.suggest = Object.keys(config.data()).filter(k=>k!='lastId')?.map(k=>config.data()[k])??[]
+        })
 
     }
 
