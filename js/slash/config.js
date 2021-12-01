@@ -99,9 +99,13 @@ module.exports = {
     },
     servers: [],
     run: async (interact) => {
-        require(`./config/${interact.options.getSubcommandGroup()}`)[interact.options.getSubcommand()](
-            interact,
-            interact.options
-        );
+        try {
+            require(`./config/${interact.options.getSubcommandGroup()}`)[interact.options.getSubcommand()](
+                interact,
+                interact.options
+            );
+        } catch (e) {
+            throw e
+        }
     },
 };
