@@ -13,6 +13,7 @@ module.exports = class Server extends EventEmitter {
         messageDeleted: null,
         messageEdited: null
     }
+    notifications = {}
     voice = null
     guildId = null
 
@@ -30,6 +31,7 @@ module.exports = class Server extends EventEmitter {
             if(config.data().attachments) this.channels.attachments = config.data().attachments
             if(config.data().channelDeletedMessages) this.channels.messageDeleted = config.data().channelDeletedMessages
             if(config.data().channelEditedMessages) this.channels.messageEdited = config.data().channelEditedMessages
+            if(config.data().notifications) this.notifications = config.data().notifications
         })
 
         db.collection(guildId).doc('suggest').get().then(config => {
@@ -66,8 +68,12 @@ module.exports = class Server extends EventEmitter {
         if(this.blacklist.channels.includes(channel)) this.blacklist.channels.splice(this.blacklist.channels.indexOf(channel), 1)
     }
 
+    getPrefix() {
+        return [`<@${client.user.id}>`, `<@!${client.user.id}>`, this.prefix]
+    }
+
     get prefix() {
-        return this.prefix
+        return [`<@${client.user.id}>`, `<@!${client.user.id}>`, this.prefix]
     }
 
     set prefix(prefix) {

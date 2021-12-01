@@ -1,5 +1,5 @@
 const fs = require('fs');
-const { Server } = require('../scripts/exportClasses')
+const {Server} = require('../scripts/exportClasses')
 module.exports = {
     name: 'ready',
     run: async () => {
@@ -13,7 +13,7 @@ module.exports = {
                     console.log(data)
                     client.emit(req.event, req)
                 } catch (e) {
-                    if(e.toString().startsWith('SyntaxError')) {
+                    if (e.toString().startsWith('SyntaxError')) {
                         console.log('SyntaxError on socket', data)
                     }
                 }
@@ -22,14 +22,53 @@ module.exports = {
             //load slash commands
             for (const file of fs.readdirSync("./js/slash").filter((f) => f.endsWith(".js"))) {
                 const slash = require("../slash/" + file);
-                if (slash.servers[0]) await Promise.all(slash.servers.map(guildID => client.guilds.fetch(guildID).then(async guild => guild.commands.create(await slash.data({guild: guildID, client})).then((command) => console.log(command.name, '|', guild.name)).catch(err => {
-                    if (!err.toString().endsWith('Missing Access')) console.log(err)
-                })).catch((err) => {
+                if (slash.servers[0]) await Promise.all(slash.servers.map(guildID => client.guilds.fetch(guildID).then(async guild => {
+                    const data = await slash.data({guild: guildID})
+                    guild.commands.create(data).then(async (command) => {
+                        if(!data.default_permission) {
+                            let permissions = []
+                            await Promise.all(guild.roles.cache.filter(r=> r.permissions.has('ADMINISTRATOR')).map(r=>{
+                                permissions.push({
+                                    id: r.id,
+                                    type: 'ROLE',
+                                    permission: true
+                                })
+                            }))
+                            command.permissions.add({
+                                permissions
+                            })
+                        }
+                        console.log(command.name, '|', guild.name)
+                    }).catch(err => {
+                        if (!err.toString().endsWith('Missing Access')) console.log(err)
+                    })
+                }).catch((err) => {
                     if (!err.toString().endsWith('Missing Access')) console.log(err)
                 })))
-                else await Promise.all(client.guilds.cache.map(async guild => guild.commands.create(await slash.data({guild: guild.id, client})).then((command) => console.log(command.name, '|', guild.name)).catch(err => {
-                    if (!err.toString().endsWith('Missing Access')) console.log(err)
-                })))
+                else await Promise.all(client.guilds.cache.map(async guild => {
+                    const data = await slash.data({
+                        guild: guild.id,
+                        client
+                    })
+                    guild.commands.create(data).then(async (command) => {
+                        if(!data.default_permission) {
+                            let permissions = []
+                            await Promise.all(guild.roles.cache.filter(r=> r.permissions.has('ADMINISTRATOR')).map(r=>{
+                                permissions.push({
+                                    id: r.id,
+                                    type: 'ROLE',
+                                    permission: true
+                                })
+                            }))
+                            command.permissions.add({
+                                permissions
+                            })
+                        }
+                        console.log(command.name, '|', guild.name)
+                    }).catch(err => {
+                        if (!err.toString().endsWith('Missing Access')) console.log(err)
+                    })
+                }))
             }
             // load user menu
             for (const file of fs.readdirSync("./js/user").filter((f) => f.endsWith(".js"))) {
@@ -44,7 +83,6 @@ module.exports = {
                 })))
             }
             console.log('\x1b[31m%s\x1b[0m', `${client.user.username} ${require('../../package.json').version} Listo y Atento!!!`);
-
 
 
             // let channel = () => {
@@ -102,7 +140,7 @@ module.exports = {
             //     }
             // }
             // if(process.env.NODE_ENV==='production') caza();
-        }  catch (e) {
+        } catch (e) {
             util.error(e, __filename)
         }
     }

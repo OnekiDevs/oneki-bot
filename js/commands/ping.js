@@ -15,8 +15,8 @@ module.exports = class Ping extends Command{
 
     }
 
-    run(message, args) {
-        message.reply('pong')
+    async run(message, args) {
+        await message.reply('pong')
     }
 
 }

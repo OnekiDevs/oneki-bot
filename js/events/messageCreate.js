@@ -4,12 +4,12 @@ module.exports = {
     name: 'messageCreate',
     run: async (message) => {
         try {
-            return
+            // return
             // console.log(client.servers.get(message.guild.id)?.channels.suggest);
             if (message.author.bot) return;
             if (message.channel.type == 'DM') return client.emit('directMessage', message);
             if (message.attachments.size > 0) client.emit('messageAttachment', message);
-            const prefix = client.servers.get(message.guild.id)?.prefix;
+            const prefix = client.servers.get(message.guild.id)?.getPrefix();
             /*if(message.channel.id == '893310001282678784'){
             // if(message.channel.id == '893297508128784425'){ // oneki
                 if(['points', 'puntos', '>points', '>puntos'].includes(message.content.toLowerCase())) db.collection(message.guild.id).doc('fantasmita').get().then(s=>message.reply(`Tienes ${s.data()[message.author.id]??0} puntos acumulados`).then(async m => util.sleep(10000).then(()=>m.delete().then(()=>message.delete()))))
@@ -40,7 +40,7 @@ module.exports = {
                     message.delete()
                 }
             } else*/ if(client.servers.get(message.guild.id)?.channels.suggest.includes(message.channel.id)){
-                if(message.content.startsWith(client.servers.get(message.guild.id).prefix)) message.channel.send(`No puedes usar comandos en este canal`).then(async m => {
+                if(message.content.startsWith(prefix[2])) message.channel.send(`No puedes usar comandos en este canal`).then(async m => {
                     await util.sleep(5000)
                     m.delete()
                     message.delete()
@@ -51,9 +51,12 @@ module.exports = {
                 const c = Object.keys(sdb.data()).map(key => sdb.data()[key]==message.channel.id?key:false).filter(o=>o)
                 if(!c) return
                 suggestCommand.run(message, [c, ...(message.content.split(' '))])
-            }else if(message.content.toLowerCase().startsWith(prefix)) {
-                args = message.content.slice(prefix.length).trim().split(/ +/g);
-                return client.emit('command', args.shift().toLowerCase(), message, args);
+            }else {
+                [p] = await Promise.all(prefix.map(p => message.content.toLowerCase().startsWith(p)?p:false).filter(p=>p))
+                if(p) {
+                    const args = message.content.slice(p.length).trim().split(/ +/g);
+                    return client.emit('command', args.shift().toLowerCase(), message, args);
+                }
             }
         } catch (e) {
             util.error(e, __filename)

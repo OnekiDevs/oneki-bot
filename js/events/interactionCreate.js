@@ -19,11 +19,9 @@ module.exports = {
                     if (cmd) cmd.run(interact, cmd.params)
                 }
             } else if (interact.isCommand()){
-                console.log(interact.commandName)
                 let cmd = client.slash.get(interact.commandName)
                 if (cmd) cmd.run(interact)
             } else if (interact.isContextMenu()){
-                console.log(interact.commandName)
                 let cmd = client.userCommands.get(interact.commandName)
                 if (cmd) cmd.run(interact)
             }

@@ -5,7 +5,7 @@ const { Client, Collection } = require('discord.js');
 const fs = require('fs');
 const admin = require('firebase-admin');
 fetch = require('node-fetch')
-
+sleep = (ms = 1000) => new Promise(resolve => setTimeout(resolve, ms))
 //declarations
 client = new Client({
     intents: [
