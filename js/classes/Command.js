@@ -1,78 +1,97 @@
 module.exports = class Command {
 
-    name = ''
-    aliases = []
-    permissions = {
-        bot: [],
-        member: []
-    }
-    cooldown = 0
-    args = []
+    name = 'ping'
+    description = 'ping pong'
+    options = []
+    defaultPermission = true
+    global = true
+    server = []
 
-    constructor({name, aliases, permissions, cooldown, args}) {
-        this.name = name
-        this.aliases = aliases
-        this.permissions = permissions
-        this.cooldown = cooldown
-        this.args = args
+    constructor({name, description, options, defaultPermission, global, servers}) {
+        if(name) this.name = name;
+        if(description) this.description = description;
+        if(options) this.options = options;
+        if(defaultPermission) this.default_permission = defaultPermission;
+        if(global) this.global = global;
+        if(servers) this.servers = servers;
     }
 
-    /**
-     * Valid the arguments
-     * @param content: string
-     * @param prefix: string
-     * @returns {Promise<array<string>>>}
-     */
-    checkArguments(content, prefix) {
-        return new Promise((resolve, reject)=> {
-            if(!this.args) {
-                resolve( content.slice(prefix.length).trim().split(/ +/g).slice(1))
+    getData(guild) {
+        return new Promise(resolve => resolve({
+            name: this.name,
+            description: this.description,
+            type: 1,
+            default_permission: this.defaultPermission,
+            options: this.options
+        }))
+    }
+
+    run(interact){
+        interact.reply('pong')
+    }
+
+    async deploy(){
+        if(this.global) {
+            //comando global
+            const data = await this.getData()
+            client.application.commands.create(data)
+        } else if (this.servers.length > 0) {
+            //comando privado
+            for (const gid of this.servers) {
+                const guild = client.guilds.cache.get(gid)
+                if(guild) {
+                    const data = await this.getData(guild)
+                    const command = await guild.commands.create(data)
+                    if(!this.defaultPermission) {
+                        let permissions = []
+                        await Promise.all(guild.roles.cache.filter(r=> r.permissions.has('ADMINISTRATOR')).map(r=>{
+                            permissions.push({
+                                id: r.id,
+                                type: 'ROLE',
+                                permission: true
+                            })
+                        }))
+                        command.permissions.add({
+                            permissions
+                        })
+                    }
+                }
             }
-        })
+        } else {
+            //comando custom
+        }
     }
 
-    /**
-     * Check if the member has the required permissions
-     * @param member: DiscordMember
-     * @returns {Promise<boolean>}
-     */
-    checkMemberPermissions(member) {
-        return new Promise((resolve, reject) => {
-            if(this.permissions.member.length===0) resolve(true)
-            else if(member.permissions.has(this.permissions.member)) resolve(true)
-            else reject(`nesesitas: \`${this.permissions.member.join('` `')}\``)
-        })
+    get name() {
+        return this.name
     }
 
-    /**
-     * Check if the bot has the required permissions
-     * @param memberBot: DiscordmemberBot
-     * @returns {Promise<boolean>}
-     */
-    checkBotPermissions(memberBot) {
-        return new Promise((resolve, reject) => {
-            if(this.permissions.bot.length===0) resolve(true)
-            else if(memberBot.permissions.has(this.permissions.bot)) resolve(true)
-            else reject(`nesesito: \`${this.permissions.bot.join('` `')}\``)
-        })
+    get description() {
+        return this.description
     }
 
-    /**
-     * execute the command
-     * @param message: DiscordJSMessage
-     * @param args: array<string>
-     */
-    run(message, args = []){
-        message.reply(`${this.name} command executed`);
+    get options() {
+        return this.options
     }
 
-    /**
-     * Check if is the command
-     * @param input: string
-     * @returns {boolean}
-     */
-    checkCommand(command){
-        return command === this.name.toLowerCase() || this.aliases.includes(command)
+    get defaultPermission() {
+        return this.default_permission
+    }
+
+    set name(name) {
+        this.name = name
+    }
+
+    set description(description) {
+        this.description = description
+    }
+
+    set options(options) {
+        this.options = options
+    }
+
+    set defaultPermission(defaultPermission) {
+        this.default_permission = defaultPermission
     }
 
 }

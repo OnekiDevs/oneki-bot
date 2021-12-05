@@ -1,8 +1,8 @@
 const { createAudioResource } = require('@discordjs/voice')
 const yts = require("youtube-search");
 const {stream} = require("play-dl");
-const {Command} = require("../scripts/exportClasses");
-module.exports = class Play extends Command {
+const {OldCommand} = require("../scripts/exportClasses");
+module.exports = class Play extends OldCommand {
 
     constructor() {
         super({

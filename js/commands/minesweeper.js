@@ -1,4 +1,4 @@
-module.exports = class Minesweeper extends require('../classes/Command'){
+module.exports = class Minesweeper extends require('../classes/OldCommand'){
 
     constructor() {
         super({

@@ -1,5 +1,5 @@
 const {joinVoiceChannel} = require("@discordjs/voice");
-module.exports = class Join extends require('../classes/Command'){
+module.exports = class Join extends require('../classes/OldCommand'){
 
     constructor() {
         super({

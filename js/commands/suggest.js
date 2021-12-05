@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js')
 const FieldValue = require('firebase-admin').firestore.FieldValue;
-module.exports = class Suggest extends require('../classes/Command'){
+module.exports = class Suggest extends require('../classes/OldCommand'){
 
     constructor() {
         super({

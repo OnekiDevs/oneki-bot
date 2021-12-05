@@ -1,5 +1,5 @@
-const {Command} = require("../scripts/exportClasses");
-module.exports = class Queue extends Command{
+const {OldCommand} = require("../scripts/exportClasses");
+module.exports = class Queue extends OldCommand{
 
     constructor() {
         super({

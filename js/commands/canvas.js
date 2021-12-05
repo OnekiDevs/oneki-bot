@@ -1,6 +1,6 @@
 const {MessageEmbed} = require("discord.js");
-const {MessageCanvas, Command} = require('../scripts/exportClasses')
-module.exports = class Canvas extends Command{
+const {MessageCanvas, OldCommand} = require('../scripts/exportClasses')
+module.exports = class Canvas extends OldCommand{
 
     constructor() {
         super({

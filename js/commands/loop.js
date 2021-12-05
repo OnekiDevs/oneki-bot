@@ -1,5 +1,5 @@
-const {Command} = require("../scripts/exportClasses");
-module.exports = class loop extends Command{
+const {OldCommand} = require("../scripts/exportClasses");
+module.exports = class loop extends OldCommand{
 
     constructor() {
         super({

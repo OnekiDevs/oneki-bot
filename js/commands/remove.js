@@ -1,5 +1,5 @@
-const {Command} = require("../scripts/exportClasses");
-module.exports = class Remove extends Command{
+const {OldCommand} = require("../scripts/exportClasses");
+module.exports = class Remove extends OldCommand{
 
     constructor() {
         super({

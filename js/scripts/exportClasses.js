@@ -1,4 +1,5 @@
 module.exports.Cero = require('../classes/Cero')
+module.exports.OldCommand = require('../classes/OldCommand')
 module.exports.Command = require('../classes/Command')
 module.exports.GuildVoice = require('../classes/GuildVoice')
 module.exports.Player = require('../classes/Player')

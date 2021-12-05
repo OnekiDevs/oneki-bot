@@ -1,6 +1,7 @@
 const shortid = require("shortid");
 const {MessageActionRow, MessageButton} = require("discord.js");
-module.exports = class Sa extends require('../classes/Command'){
+const {OldCommand} = require("../scripts/exportClasses");
+module.exports = class Sa extends OldCommand{
 
     constructor() {
         super({

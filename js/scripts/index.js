@@ -51,7 +51,7 @@ client.constants = {
 admin.initializeApp({
     credential: admin.credential.cert(JSON.parse(process.env.TOKEN_FIREBASE))
 });
-global.db = admin.firestore();
+db = admin.firestore();
 
 
 //load events
