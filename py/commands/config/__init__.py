@@ -1,1 +1,0 @@
-from commands.config import channel, welcome, lang

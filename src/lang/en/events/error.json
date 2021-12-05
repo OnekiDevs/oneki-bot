@@ -1,5 +1,0 @@
-{
-    "MissingPermissions" : "You do not have enough permissions to use this command\n**Missing permissions:**\n",
-    "BotMissingPermissions" : "I do not have enough permissions for this command\n**Missing permissions:**\n",
-    "MissingRequiredArgument" : "**Missing arguments:** `{}`"
-}

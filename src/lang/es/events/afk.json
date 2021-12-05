@@ -1,8 +1,0 @@
-{
-    "embed": {
-        "title": "{} se encuentra afk",
-        "reason": "Razón: {}"
-    },
-    "no_longer_afk": "{} ya no se encuentra AFK!",
-    "no_permissions": "¡Me faltan permisos para realizar esto!"
-}

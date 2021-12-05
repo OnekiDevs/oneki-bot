@@ -1,2 +1,2 @@
-# Oneki 
-Version publica del bot resistance
+# rewrite-oneki-bot
+Reescritura total del bot de Oneki en python

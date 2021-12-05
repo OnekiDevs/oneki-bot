@@ -1,5 +1,7 @@
 firebase_admin==4.4.0
 python-dotenv==0.17.1
 Pillow==8.2.0
-discord.py
+
+git+https://github.com/Rapptz/discord.py@master
+discord-py-slash-command
 aiohttp

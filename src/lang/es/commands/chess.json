@@ -1,7 +1,0 @@
-{
-    "message": "{user} te invita a jugar a Chess juntos",
-    "fail": "Desafortunadamente no puedo usar chess",
-    "accept": "Aceptar invitación",
-    "invitation": "Mostrar invitación",
-    "voice": "Necesitas estar en un canal de voz o mencionar un canal de voz"
-}
