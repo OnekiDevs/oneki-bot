@@ -8,17 +8,18 @@ module.exports = {
             ephemeral: true
         });
         const channel = options.getChannel('channel');
-        db.collection(channel.guild.id).doc("edited").update({ 
-            channel: channel.id
+        db.collection('config').doc(channel.guild.id).update({
+            channelEditedMessages: channel.id
         }).catch(err => {
-            if (err.details.startsWith("No document to update")) db.collection(channel.guild.id).doc("edited").set({ 
-                channel: channel.id
-            })
-        })
+            if (err.details.startsWith("No document to update")) db.collection('config').doc(channel.guild.id).set({
+                channelEditedMessages: channel.id
+            });
+        });
         interact.reply({
             content: `${await util.replace(lang.reply, [{ match: "{channel}", replace: `\`${channel.name}\`` }])}`,
             ephemeral: true
         })
+        client.servers.get(interact.guildId)?.setMessageDeleted(channel.id);
     }, 
     reset: async (interact, options) => {
         const lang = util.lang({ lang: client.servers.get(interact.guildId).lang, route: 'slash/config' }).edited.reset;
@@ -26,10 +27,14 @@ module.exports = {
             content: lang.permissions,
             ephemeral: true
         });
-        db.collection(interact.guildId).doc("edited").delete()
+
+        db.collection('config').doc(interact.guildId).update({
+            channelEditedMessages: FieldValue.delete()
+        }).catch(()=>{})
         interact.reply({
             content: lang.reply,
             ephemeral: true
         })
+        client.servers.get(interact.guildId)?.setMessageDeleted(null);
     }
 }

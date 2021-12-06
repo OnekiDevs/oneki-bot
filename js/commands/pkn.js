@@ -1,6 +1,6 @@
 const shortid = require("shortid");
 const {MessageActionRow, MessageButton} = require("discord.js");
-module.exports = class Pkn extends require('../classes/Command'){
+module.exports = class Pkn extends require('../classes/OldCommand'){
 
     constructor() {
         super({

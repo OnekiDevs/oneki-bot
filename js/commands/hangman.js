@@ -9,7 +9,7 @@ class Life {
     subtract(){this.life--}
     add(){this.life++}
 }
-module.exports = class Hangman extends require('../classes/Command'){
+module.exports = class Hangman extends require('../classes/OldCommand'){
 
     constructor() {
         super({

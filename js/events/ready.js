@@ -1,71 +1,88 @@
-const FieldValue = require('firebase-admin').firestore.FieldValue;
 const fs = require('fs');
-const { GuildVoice, Server } = classes
+const {Server} = require('../scripts/exportClasses')
 module.exports = {
     name: 'ready',
     run: async () => {
         try {
             //load configs
-            await Promise.all(client.guilds.cache.map(async guild => {
-                const sdb = await db.collection(guild.id).doc('suggest').get();
-                let suggest = !sdb.exists ? [] : Object.keys(sdb.data()).filter(o => o != 'lastId').map(o => sdb.data()[o])
-                client.servers.set(guild.id, new Server(guild.id, {
-                    channels: {
-                        suggest
-                    }
-                }))
-            }))
+            await Promise.all(client.guilds.cache.map(({id}) => client.servers.set(id, new Server(id))))
 
-            db.collection('config').onSnapshot(async snap => {
-                for (const change of snap.docChanges()) {
-                    if(change.doc.id == 'bot') return
-                    // console.log(change.doc.id)
-                    if(client.servers.has(change.doc.id)) client.servers.get(change.doc.id).emit('change', {
-                        prefix: change.doc.data()?.prefix ?? '>',
-                        lang: change.doc.data()?.lang ?? 'en',
-                        blacklist: {
-                            channels: change.doc.data()?.blacklistChannels ?? []
-                        },
-                        channels: {
-                            attachments: change.doc.data()?.attachments ?? null
-                        }
-                    })
-                    else client.guilds.fetch(change.doc.id).then(guild => {
-                        client.servers.set(guild.id, new Server(guild.id, {
-                            prefix: change.doc.data()?.prefix ?? '>',
-                            lang: change.doc.data()?.lang ?? 'en',
-                            blacklist: {
-                                channels: change.doc.data()?.blacklistChannels ?? []
-                            },
-                            channels: {
-                                attachments: change.doc.data()?.attachments ?? null
-                            }
-                        }))
-                    }).catch(e => /*db.collection('config').doc(change.doc.id).delete()*/ {})
+            ws.on('message', function message(data) {
+                try {
+                    const req = JSON.parse(data)
+                    console.log(data)
+                    client.emit(req.event, req)
+                } catch (e) {
+                    if (e.toString().startsWith('SyntaxError')) {
+                        console.log('SyntaxError on socket', data)
+                    }
                 }
-            })
+            });
 
             //load slash commands
             for (const file of fs.readdirSync("./js/slash").filter((f) => f.endsWith(".js"))) {
                 const slash = require("../slash/" + file);
-                if (slash.servers[0]) await Promise.all(slash.servers.map(guildID => client.guilds.fetch(guildID).then(async guild => guild.commands.create(await slash.data({guild: guildID, client})).then((command) => console.log(command.name, '|', guild.name)).catch(err => {
+                if (slash.servers[0]) await Promise.all(slash.servers.map(guildID => client.guilds.fetch(guildID).then(async guild => {
+                    const data = await slash.data({guild: guildID})
+                    guild.commands.create(data).then(async (command) => {
+                        if(!data.default_permission) {
+                            let permissions = []
+                            await Promise.all(guild.roles.cache.filter(r=> r.permissions.has('ADMINISTRATOR')).map(r=>{
+                                permissions.push({
+                                    id: r.id,
+                                    type: 'ROLE',
+                                    permission: true
+                                })
+                            }))
+                            command.permissions.add({
+                                permissions
+                            })
+                        }
+                        console.log(command.name, '|', guild.name)
+                    }).catch(err => {
+                        if (!err.toString().endsWith('Missing Access')) console.log(err)
+                    })
+                }).catch((err) => {
+                    if (!err.toString().endsWith('Missing Access')) console.log(err)
+                })))
+                else await Promise.all(client.guilds.cache.map(async guild => {
+                    const data = await slash.data({
+                        guild: guild.id,
+                        client
+                    })
+                    guild.commands.create(data).then(async (command) => {
+                        if(!data.default_permission) {
+                            let permissions = []
+                            await Promise.all(guild.roles.cache.filter(r=> r.permissions.has('ADMINISTRATOR')).map(r=>{
+                                permissions.push({
+                                    id: r.id,
+                                    type: 'ROLE',
+                                    permission: true
+                                })
+                            }))
+                            command.permissions.add({
+                                permissions
+                            })
+                        }
+                        console.log(command.name, '|', guild.name)
+                    }).catch(err => {
+                        if (!err.toString().endsWith('Missing Access')) console.log(err)
+                    })
+                }))
+            }
+            // load user menu
+            for (const file of fs.readdirSync("./js/user").filter((f) => f.endsWith(".js"))) {
+                const user = require("../user/" + file);
+                if (user.servers && user.servers[0]) await Promise.all(user.servers.map(guildID => client.guilds.fetch(guildID).then(async guild => guild.commands.create(await user.data({guild: guildID})).then((command) => console.log(command.name, '|', guild.name)).catch(err => {
                     if (!err.toString().endsWith('Missing Access')) console.log(err)
                 })).catch((err) => {
                     if (!err.toString().endsWith('Missing Access')) console.log(err)
                 })))
-                else await Promise.all(client.guilds.cache.map(async guild => guild.commands.create(await slash.data({guild: guild.id, client})).then((command) => console.log(command.name, '|', guild.name)).catch(err => {
+                else await Promise.all(client.guilds.cache.map(async guild => guild.commands.create(await user.data({guild: guild.id})).then((command) => console.log(command.name, '|', guild.name)).catch(err => {
                     if (!err.toString().endsWith('Missing Access')) console.log(err)
                 })))
             }
-            // load user menu
-            // for (const file of fs.readdirSync("./js/user").filter((f) => f.endsWith(".js"))) {
-            //     const user = require("../user/" + file);
-            //     const guild = await client.guilds.cache.map(async g=>{
-            //         g.commands.create(await user.data({guild:g.id}))
-            //     })
-            // }
             console.log('\x1b[31m%s\x1b[0m', `${client.user.username} ${require('../../package.json').version} Listo y Atento!!!`);
-
 
 
             // let channel = () => {
@@ -123,7 +140,7 @@ module.exports = {
             //     }
             // }
             // if(process.env.NODE_ENV==='production') caza();
-        }  catch (e) {
+        } catch (e) {
             util.error(e, __filename)
         }
     }

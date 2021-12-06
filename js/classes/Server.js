@@ -9,37 +9,71 @@ module.exports = class Server extends EventEmitter {
     }
     channels = {
         suggest: [],
-        attachments: null
+        attachments: null,
+        messageDeleted: null,
+        messageEdited: null
     }
+    notifications = {}
     voice = null
-    guild = null
+    guildId = null
 
-    constructor(guild, {prefix, lang, blacklist, channels, voice}) {
+    constructor(guildId) {
         super()
 
-        this.guild = guild
-        this.voice = new GuildVoice(guild)
+        this.guildId = guildId
+        this.voice = new GuildVoice(guildId)
 
-        this.emit('change', {prefix, lang, blacklist, channels, voice})
-
-        this.on('change', ({prefix, lang, blacklist, channels, voice}) => {
-            if(prefix) this.prefix = prefix
-            if(lang) this.lang = lang
-            if(blacklist) {
-                const {channels: blChannels} = blacklist
-                if(blChannels) this.blacklist.channels = blChannels
-            }
-            if(channels) {
-                const {suggest, attachments} = channels
-                console.log(attachments)
-                if(attachments) this.channels.attachments = attachments
-            }
-            if(voice) this.voice = voice
+        db.collection('config').doc(guildId).get().then(config => {
+            if (!config.exists) return
+            if(config.data().prefix) this.prefix = config.data().prefix
+            if(config.data().lang) this.lang = config.data().lang
+            if(config.data().blacklistChannels) this.blacklist.channels = config.data().blacklistChannels
+            if(config.data().attachments) this.channels.attachments = config.data().attachments
+            if(config.data().channelDeletedMessages) this.channels.messageDeleted = config.data().channelDeletedMessages
+            if(config.data().channelEditedMessages) this.channels.messageEdited = config.data().channelEditedMessages
+            if(config.data().notifications) this.notifications = config.data().notifications
         })
+
+        db.collection(guildId).doc('suggest').get().then(config => {
+            if (config.exists) this.channels.suggest = Object.keys(config.data()).filter(k=>k!='lastId')?.map(k=>config.data()[k])??[]
+        })
+
+    }
+
+    setAttachmentsChannel(channel){
+        this.channels.attachments = channel
+    }
+
+    setMessageDeleted(channel){
+        this.channels.messageDeleted = channel
+    }
+
+    setMessageEdited(channel){
+        this.channels.messageEdited = channel
+    }
+
+    addBlacklistChannel(channel){
+        this.blacklist.channels.push(channel)
+    }
+
+    addSuggestChannel(channel){
+        this.channels.suggest.push(channel)
+    }
+
+    removeSuggestChannel(channel){
+        if(this.channels.suggest.includes(channel)) this.channels.suggest.splice(this.channels.suggest.indexOf(channel), 1)
+    }
+
+    removeBlacklistChannel(channel){
+        if(this.blacklist.channels.includes(channel)) this.blacklist.channels.splice(this.blacklist.channels.indexOf(channel), 1)
+    }
+
+    getPrefix() {
+        return [`<@${client.user.id}>`, `<@!${client.user.id}>`, this.prefix]
     }
 
     get prefix() {
-        return this.prefix
+        return [`<@${client.user.id}>`, `<@!${client.user.id}>`, this.prefix]
     }
 
     set prefix(prefix) {
@@ -62,13 +96,13 @@ module.exports = class Server extends EventEmitter {
         this.blacklist = blacklist
     }
 
-    get channels() {
-        return this.channels
-    }
-
-    set channels(channels) {
-        this.channels = channels
-    }
+    // get channels() {
+    //     return this.channels
+    // }
+    //
+    // set channels(channels) {
+    //     this.channels = channels
+    // }
 
     get voice() {
         return this.voice
@@ -79,7 +113,7 @@ module.exports = class Server extends EventEmitter {
     }
 
     get guild() {
-        return this.guild
+        return client.guilds.cache.get(this.guildId)
     }
 
 }

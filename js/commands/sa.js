@@ -1,11 +1,11 @@
 const shortid = require("shortid");
 const {MessageActionRow, MessageButton} = require("discord.js");
-module.exports = class Chess extends require('../classes/OldCommand'){
+module.exports = class Sa extends require('../classes/OldCommand'){
 
     constructor() {
         super({
-            name: 'chess',
-            aliases: ['ajedrez'],
+            name: 'sa',
+            aliases: ['sketchy-artist', 'sketchyartist'],
             permissions: {
                 bot: [],
                 member: []
@@ -17,9 +17,8 @@ module.exports = class Chess extends require('../classes/OldCommand'){
     }
 
     async run(message, args) {
-        //832012586023256104 dev
         const server = client.servers.get(message.guild.id);
-        const lang = util.lang({lang:server.lang, route:'commands/chess'});
+        const lang = util.lang({lang:server.lang, route:'commands/sa'});
         const messageMention = message.mentions.channels.first()
         let messageVoiceChannel;
         if (!message.member.voice.channel) {
@@ -37,7 +36,7 @@ module.exports = class Chess extends require('../classes/OldCommand'){
         }
 
         const invite = await messageVoiceChannel.createInvite({
-            targetApplication: "832012774040141894",
+            targetApplication: "879864070101172255",
             targetType: 2,
         });
         const ID = shortid.generate();
