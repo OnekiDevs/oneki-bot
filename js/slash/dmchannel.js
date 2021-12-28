@@ -8,7 +8,7 @@ module.exports = {
             resolve((new SlashCommandBuilder()
             .setName('dm')
             .setDescription('config dm channel messages')
-            .setDefaultPermission(false)
+            .setDefaultPermission(true)
             .addSubcommand(subcommand => subcommand
                 .setName('channel')
                 .setDescription('config dm channel messages')
