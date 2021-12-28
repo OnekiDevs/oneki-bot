@@ -4,6 +4,7 @@
 [submodule "oneki-ts"]
 	path = oneki-ts
 	url = https://github.com/OnekiDevs/oneki-ts
-[submodule "Oneki-rs"]
+
+[submodule "oneki-rs"]
 	path = oneki-rs
 	url = https://github.com/OnekiDevs/oneki-rs
