@@ -1,5 +1,5 @@
 const FieldValue = require('firebase-admin').firestore.FieldValue;
-module.exports = class Secret extends require('../classes/Command'){
+module.exports = class Secret extends require('../classes/OldCommand'){
 
     constructor() {
         super({

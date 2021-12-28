@@ -5,7 +5,7 @@ module.exports = {
         return new Promise(async resolve => {
             let guildConfig = await db.collection('config').doc(guild??"").get();
             let suggestChannels = await db.collection(guild??"").doc('suggest').get();
-            resolve((new SlashCommandBuilder().setName('config').setDescription('bot settings').addSubcommandGroup(subcommandGroup => {
+            resolve((new SlashCommandBuilder().setName('config').setDescription('bot settings').setDefaultPermission(true).addSubcommandGroup(subcommandGroup => {
                 return subcommandGroup.setName('prefix').setDescription('set bot prefix').addSubcommand(subcommand => {
                     return subcommand.setName('set').setDescription('set the new bot prefix').addStringOption(option => {
                         return option.setName('prefix').setDescription('new prefix').setRequired(true)
@@ -78,30 +78,38 @@ module.exports = {
                 }).addSubcommand(subcommand => {
                     return subcommand.setName('reset').setDescription('disable view edited messages')
                 })
-            }).addSubcommandGroup(subcommandGroup => {
-                return subcommandGroup.setName('deleted').setDescription('configure deleted messages').addSubcommand(subcommand => {
-                    return subcommand.setName('channel').setDescription('set the channel where you will see the deleted messages').addChannelOption(option => {
-                        return option.setName('channel').setDescription('channel to establish').setRequired(true)
-                    })
-                }).addSubcommand(subcommand => {
-                    return subcommand.setName('reset').setDescription('disable view deleted messages')
-                })
-            }).addSubcommandGroup(subcommandGroup => {
-                return subcommandGroup.setName('attachments').setDescription('configure attachments channel').addSubcommand(subcommand => {
-                    return subcommand.setName('channel').setDescription('configure attachments channel').addChannelOption(option => {
-                        return option.setName('channel').setDescription('channel where the attachments are send').setRequired(true)
-                    })
-                }).addSubcommand(subcommand => {
-                    return subcommand.setName('reset').setDescription('deactivate attachments channel')
-                })
-            })).toJSON())
+            }).addSubcommandGroup(subcommandGroup => subcommandGroup
+                .setName('deleted').setDescription('configure deleted messages')
+                .addSubcommand(subcommand => subcommand
+                    .setName('channel').setDescription('set the channel where you will see the deleted messages')
+                    .addChannelOption(option => option.setName('channel').setDescription('channel to establish').setRequired(true)))
+                .addSubcommand(subcommand => subcommand
+                    .setName('reset').setDescription('disable view deleted messages'))).addSubcommandGroup(subcommandGroup => subcommandGroup
+                .setName('attachments').setDescription('configure attachments channel')
+                .addSubcommand(subcommand => subcommand
+                    .setName('channel').setDescription('configure attachments channel')
+                    .addChannelOption(option => option.setName('channel').setDescription('channel where the attachments are send').setRequired(true)))
+                .addSubcommand(subcommand => subcommand
+                    .setName('reset').setDescription('deactivate attachments channel')))
+                .addSubcommandGroup(subcommandGroup => subcommandGroup
+                .setName('pings').setDescription('config pings')
+                .addSubcommand(subcommand => subcommand
+                    .setName('add_youtube').setDescription('config youtube pings')
+                    .addChannelOption(option => option.setName('channel').setDescription('channel where the pings will be sent').setRequired(true))
+                    .addStringOption(option => option.setName('yt_channel').setDescription('id of the channel').setRequired(true)))
+            )).toJSON())
         })
     },
     servers: [],
+    global: true,
     run: async (interact) => {
-        require(`./config/${interact.options.getSubcommandGroup()}`)[interact.options.getSubcommand()](
-            interact,
-            interact.options
-        );
+        try {
+            require(`./config/${interact.options.getSubcommandGroup()}`)[interact.options.getSubcommand()](
+                interact,
+                interact.options
+            );
+        } catch (e) {
+            throw e
+        }
     },
 };

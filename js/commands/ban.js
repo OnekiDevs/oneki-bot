@@ -1,5 +1,5 @@
 const {MessageEmbed} = require("discord.js");
-module.exports = class Ban extends require('../classes/Command'){
+module.exports = class Ban extends require('../classes/OldCommand'){
 
     constructor() {
         super({

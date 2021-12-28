@@ -1,5 +1,5 @@
 const CERO = require("../classes/Cero");
-module.exports = class Uno extends require('../classes/Command'){
+module.exports = class Uno extends require('../classes/OldCommand'){
 
     constructor() {
         super({

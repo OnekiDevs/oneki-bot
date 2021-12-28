@@ -6,7 +6,7 @@ module.exports = {
         try {
 
         } catch (e) {
-            util.error(e, `${__dirname}/${__filename}`)
+            util.error(e, __filename)
         }
         // const snapshot = await db.collection(member.guild.id).doc('bienvenidas').get();
         // if (!snapshot.exists || !snapshot.data()?.channelBans) return;

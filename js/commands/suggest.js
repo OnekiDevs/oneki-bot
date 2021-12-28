@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js')
 const FieldValue = require('firebase-admin').firestore.FieldValue;
-module.exports = class Suggest extends require('../classes/Command'){
+module.exports = class Suggest extends require('../classes/OldCommand'){
 
     constructor() {
         super({
@@ -23,7 +23,6 @@ module.exports = class Suggest extends require('../classes/Command'){
         const lang = util.lang({lang:server.lang, route:'commands/sugerir'});
         const snapshot = await db.collection(message.guild.id).doc("suggest").get();
         if (!snapshot.exists) return;
-        const prefix = await client.servers.get(message.guild.id).prefix;
         if (args.length < 1) return message.reply(`${await util.replace(lang.use, [{match:"{prefix}", replace:server.prefix}])}`);
         const channelid = snapshot.data()[args[0]];
         console.log(channelid, !!channelid, args.length < 2, !!channelid && args.length < 2);

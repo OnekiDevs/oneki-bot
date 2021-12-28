@@ -22,6 +22,7 @@ module.exports = {
                 ])}`,
                 ephemeral: true
             })
+            client.servers.get(interact.guildId)?.addBlacklistChannel(add.id);
         }
         if (remove) {
             const channel = client.channels.cache.get(remove)
@@ -34,6 +35,7 @@ module.exports = {
                 ])}`,
                 ephemeral: true
             })
+            client.servers.get(interact.guildId)?.removeBlacklistChannel(channel.id);
         }
         if (!add && !remove) {
             //get the config

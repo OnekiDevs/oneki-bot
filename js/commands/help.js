@@ -1,6 +1,6 @@
 const fetch = require("node-fetch");
 const {MessageEmbed, MessageButton, MessageActionRow} = require("discord.js");
-module.exports = class Help extends require('../classes/Command'){
+module.exports = class Help extends require('../classes/OldCommand'){
 
     constructor() {
         super({

@@ -1,6 +1,6 @@
 const shortid = require("shortid");
 const {MessageActionRow, MessageButton} = require("discord.js");
-module.exports = class Ytt extends require('../classes/Command'){
+module.exports = class Ytt extends require('../classes/OldCommand'){
 
     constructor() {
         super({
@@ -36,7 +36,7 @@ module.exports = class Ytt extends require('../classes/Command'){
         }
 
         const invite = await messageVoiceChannel.createInvite({
-            targetApplication: "755600276941176913",
+            targetApplication: "880218394199220334",
             targetType: 2,
         });
         const ID = shortid.generate();

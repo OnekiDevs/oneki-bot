@@ -18,6 +18,11 @@ module.exports = {
         interact.reply({
             content: `${await util.replace(lng.reply, [{ match: "{lang}", replace: `\`${lang}\`` }])}`,
         })
+        ws.send(JSON.stringify({
+            event: 'lang',
+            server: interact.guildId,
+            value: lang
+        }))
     },
     reset: (interact, options) => {
         const lang = util.lang({ lang: client.servers.get(interact.guildId).lang, route: 'slash/config' }).language.reset;
@@ -26,14 +31,15 @@ module.exports = {
             ephemeral: true
         });
         db.collection('config').doc(interact.guildId).update({
-            lang: 'en'
-        }).catch((err) => {
-            if(err.details.startsWith("No document to update")) db.collection('config').doc(interact.guildId).set({
-                lang: 'en'
-            })
-        });
+            lang: FieldValue.delete()
+        }).catch(() => {});
         interact.reply({
             content: lang.reply
         })
+        ws.send(JSON.stringify({
+            event: 'lang',
+            server: interact.guildId,
+            value: 'en'
+        }))
     }
 }

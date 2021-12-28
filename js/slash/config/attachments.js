@@ -19,6 +19,7 @@ module.exports = {
                 attachments: ch.id
             });
         });
+        client.servers.get(interact.guildId)?.setAttachmentsChannel(ch.id);
     },
     reset: (interact) => {
         const lang = util.lang({ lang: client.servers.get(interact.guildId).lang, route: 'slash/config' }).attachments.reset;
@@ -32,5 +33,6 @@ module.exports = {
         interact.reply({
             content: lang.reply
         });
+        client.servers.get(interact.guildId)?.setAttachmentsChannel(null);
     }
 }

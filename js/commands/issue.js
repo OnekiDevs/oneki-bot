@@ -1,5 +1,6 @@
 const { MessageEmbed } = require('discord.js')
-module.exports = class Issue extends classes.Command{
+const {OldCommand} = require('../scripts/exportClasses')
+module.exports = class Issue extends OldCommand{
 
     constructor() {
         super({

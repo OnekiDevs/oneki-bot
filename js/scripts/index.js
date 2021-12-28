@@ -1,13 +1,13 @@
 //imports
-global.classes = require('../classes/exportClasses')
+// classes = require('../classes/exportClasses')
 require('dotenv').config();
 const { Client, Collection } = require('discord.js');
 const fs = require('fs');
 const admin = require('firebase-admin');
-global.fetch = require('node-fetch')
-
+fetch = require('node-fetch')
+sleep = (ms = 1000) => new Promise(resolve => setTimeout(resolve, ms))
 //declarations
-global.client = new Client({
+client = new Client({
     intents: [
         'DIRECT_MESSAGES',
         'GUILD_MESSAGES',
@@ -27,6 +27,7 @@ client.buttons = new Collection();
 client.servers = new Collection();
 client.voice.servers = new Collection();
 client.slash = new Collection();
+client.userCommands = new Collection();
 client.uno = new Collection();
 client.constants = {
     emojis: {
@@ -42,12 +43,15 @@ client.constants = {
         imgs: '885674115946643456',
         errors: '885674115615301651',
         issues: '885674115615301646'
+    },
+    rolls: {
+        js: '885674114663211038'
     }
 }
 admin.initializeApp({
     credential: admin.credential.cert(JSON.parse(process.env.TOKEN_FIREBASE))
 });
-global.db = admin.firestore();
+db = admin.firestore();
 
 
 //load events
@@ -70,6 +74,13 @@ for (const file of fs.readdirSync("./js/slash").filter((f) => f.endsWith(".js"))
     console.log("\x1b[32m%s\x1b[0m", file, "fue cargado correctamente");
 }
 
+//load user
+for (const file of fs.readdirSync("./js/user").filter((f) => f.endsWith(".js"))) {
+    const user = require("../user/" + file);
+    client.userCommands.set(user.name, user);
+    console.log("\x1b[32m%s\x1b[0m", file, "fue cargado correctamente");
+}
+
 //load buttons
 for (const file of fs.readdirSync("./js/buttons").filter((f) => f.endsWith(".js"))) {
     const button = require("../buttons/" + file);
@@ -77,26 +88,36 @@ for (const file of fs.readdirSync("./js/buttons").filter((f) => f.endsWith(".js"
     console.log("\x1b[35m%s\x1b[0m", file, "fue cargado correctamente");
 }
 
-//login
-global.TOKEN = process.env.NODE_ENV!=='production'?process.env.TOKEN_DISCORD_DEV:process.env.TOKEN_DISCORD
-client.login(global.TOKEN);
-
 const WebSocket = require('ws');
-global.ws = new WebSocket('wss://oneki.herokuapp.com/');
 
-ws.on('open', function open() {
-    console.log('socket conectado')
-    // ws.send(JSON.stringify({
-    //     event: 'xd',
-    //     server: '584215654565661563',
-    //     data: {
-    //         in: ['f']
-    //     }
-    // }))
-});
+function WS() {
+    ws = new WebSocket('wss://oneki.herokuapp.com/',);
 
-ws.on('message', function incoming(message) {
-    console.log('ws received: %s', message);
-});
+    ws.on('open', function open() {
+        console.log('socket conectado')
+        // ws.send('{"event":"xd"}')
+    });
 
-ws.on('error', () => {})
+    ws.on('close',async () => {
+        console.log('socket cerrado');
+        // fetch(`https://oneki.herokuapp.com`).then(()=>{
+        WS()
+        // })
+    });
+
+    ws.on('error', () => {})
+}
+
+// WS() 
+
+//login
+TOKEN = process.env.NODE_ENV!=='production'?process.env.TOKEN_DISCORD_DEV:process.env.TOKEN_DISCORD
+client.login(TOKEN);
+
+
+// ws = new WebSocket('wss://localhost:3000/');
+
+
+setInterval(()=>{
+    fetch(`https://oneki.herokuapp.com`)
+}, 300000)

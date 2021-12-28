@@ -1,4 +1,5 @@
-module.exports = class Ping extends classes.Command{
+const {OldCommand} = require("../scripts/exportClasses");
+module.exports = class Ping extends OldCommand{
 
     constructor() {
         super({
@@ -14,8 +15,8 @@ module.exports = class Ping extends classes.Command{
 
     }
 
-    run(message, args) {
-        message.reply('pong')
+    async run(message, args) {
+        await message.reply('pong')
     }
 
 }

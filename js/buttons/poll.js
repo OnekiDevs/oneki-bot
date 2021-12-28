@@ -21,7 +21,7 @@ module.exports.run=async (interact, {id, option})=>{
     })
     const embed = new MessageEmbed(message.embeds[0])
     embed.fields = obj.options.map(o=>{
-        return{name:`${o.name.replace('_',' ')}: ${o.value}`,value:`\`${filledBar((o.votes.length/votesCount)*100, 25)}\` ${((o.votes.length/votesCount)*100)}%`}
+        return{name:`${o.name.replace('_',' ')}: ${o.value}`,value:`\`${filledBar((o.votes.length/votesCount)*100, 25)}\` ${Math.round((o.votes.length/votesCount)*100)}%`}
     })
     embed.setFooter(`Total votes: ${votesCount} | ${client.user.username} ${require('../../package.json').version}`, client.user.displayAvatarURL())
     message.edit({
@@ -37,6 +37,5 @@ const filledBar = (current, size) => {
     const emptyProgress = size - progress;
     const progressText = '█'.repeat(progress);
     const emptyProgressText = ' '.repeat(emptyProgress);
-    const bar = progressText + emptyProgressText;
-    return bar;
+    return progressText + emptyProgressText;
 };

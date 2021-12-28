@@ -1,7 +1,7 @@
 const shortid = require("shortid");
 const {MessageActionRow, MessageButton, MessageAttachment} = require("discord.js");
 const puppeteer = require("puppeteer");
-module.exports = class Ss extends require('../classes/Command'){
+module.exports = class Ss extends require('../classes/OldCommand'){
 
     constructor() {
         super({

@@ -34,7 +34,7 @@ module.exports = {
     async error(error, file) {
         console.log("\x1b[31m%s\x1b[0m", "*****************************************************************\n", error, "\x1b[31m%s\x1b[0m", "*****************************************************************");
         (await client.channels.fetch(client.constants.channels.errors)).send({
-            content: process.env.NODE_ENV!=='production'?process.env.DEVELOPER_ID?`<@${process.env.DEVELOPER_ID}>`:null:'<@&887514697690128425>',
+            content: process.env.NODE_ENV!=='production'?process.env.DEVELOPER_ID?`<@${process.env.DEVELOPER_ID}>`:null:`<@&${client.constants.rolls.js}>`,
             embeds: [
                 new MessageEmbed()
                     .setColor("YELLOW")

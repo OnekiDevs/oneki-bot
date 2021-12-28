@@ -29,7 +29,6 @@ module.exports = {
         await util.sleep()
         if(interact.options.getSubcommand() === 'member') {
             const member = interact.options.getMember('member')??interact.member;
-            console.log(member.user)
             const embed = new MessageEmbed()
                 .setTitle(`${member.displayName} info`)
                 .setDescription(`${member.user.bot?`Es Bot${member.user.flags.has('VERIFIED_BOT')?' verificado':''}`:''}
