@@ -5,7 +5,7 @@ module.exports = {
         return new Promise(async resolve => {
             let guildConfig = await db.collection('config').doc(guild??"").get();
             let suggestChannels = await db.collection(guild??"").doc('suggest').get();
-            resolve((new SlashCommandBuilder().setName('config').setDescription('bot settings').setDefaultPermission(false).addSubcommandGroup(subcommandGroup => {
+            resolve((new SlashCommandBuilder().setName('config').setDescription('bot settings').setDefaultPermission(true).addSubcommandGroup(subcommandGroup => {
                 return subcommandGroup.setName('prefix').setDescription('set bot prefix').addSubcommand(subcommand => {
                     return subcommand.setName('set').setDescription('set the new bot prefix').addStringOption(option => {
                         return option.setName('prefix').setDescription('new prefix').setRequired(true)
