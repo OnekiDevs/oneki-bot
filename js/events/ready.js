@@ -7,7 +7,7 @@ module.exports = {
             //load configs
             await Promise.all(client.guilds.cache.map(({id}) => client.servers.set(id, new Server(id))))
 
-            ws.on('message', function message(data) {
+            ws?.on('message', function message(data) {
                 try {
                     const req = JSON.parse(data)
                     console.log(data)
