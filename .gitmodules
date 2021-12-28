@@ -1,0 +1,9 @@
+[submodule "oneki-py"]
+	path = oneki-py
+	url = https://github.com/OnekiDevs/oneki-py
+[submodule "oneki-ts"]
+	path = oneki-ts
+	url = https://github.com/OnekiDevs/oneki-ts
+[submodule "oneki-rs"]
+	path = oneki-rs
+	url = https://github.com/OnekiDevs/oneki-rs
