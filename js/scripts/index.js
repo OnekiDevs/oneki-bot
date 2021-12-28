@@ -108,7 +108,7 @@ function WS() {
     ws.on('error', () => {})
 }
 
-// WS()
+// WS() 
 
 //login
 TOKEN = process.env.NODE_ENV!=='production'?process.env.TOKEN_DISCORD_DEV:process.env.TOKEN_DISCORD
