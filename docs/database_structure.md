@@ -3,13 +3,23 @@ esto puede ir cambiando con el tiempo
 
 **Simbolos:**
 > `->` sera para especificar si es una coleccion, documento, etc
+
 > `:`  dira el tipo de dato que guarda
+
 > `()` pequeña descripcion 
+
 > `{}` una referencia ya que el nombre es desconocido
 
 **Estructura:**
 ```markdown
-{id_servidor} -> coleccion
+guilds -> coleccion
+└── {id_servidor} -> documento
+    ├── prefixies: string[]
+    ├── lang: string
+    ├── suggest_channels: { channel: string (id), default: boolean, alias?: string }[]
+    └── last_suggest: int (id)
+```
+<!-- {id_servidor} -> coleccion
 ├── bienvenidas -> documento
 │   ├── canal: id
 │   ├── mensaje: string
@@ -57,5 +67,4 @@ users -> coleccion
             │   ├── description: str
             │   └── color: hex
             └── {page}: map
-                └── contenido
-```
+                └── contenido -->
