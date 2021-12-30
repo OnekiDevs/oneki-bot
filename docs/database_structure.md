@@ -1,36 +1,41 @@
 # Estructura de la db
+
 esto puede ir cambiando con el tiempo
 
 **Simbolos:**
+
 > `->` sera para especificar si es una coleccion, documento, etc
 
-> `:`  dira el tipo de dato que guarda:
-> * `{}` sera un objeto
-> * `type[]` indicara un array
-> * `[type]` indicara una tupla
+> `:` dira el tipo de dato que guarda:
+>
+> -   `{}` sera un objeto
+> -   `type[]` indicara un array
+> -   `[type]` indicara una tupla
 
-> `()` pequeña descripcion 
+> `()` pequeña descripcion
 
 > `{}` una referencia ya que el nombre es desconocido
 
 **Estructura:**
+
 ```markdown
 guilds -> coleccion
 └── {id_servidor} -> documento
-    ├── prefixies: string[]
-    ├── lang: string
-    ├── suggest_channels: { channel: string (id), default: boolean, alias?: string }[]
-    └── last_suggest: int (id)
+├── prefixes: string[]
+├── lang: string
+├── suggest_channels: { channel: string (id), default: boolean, alias?: string }[]
+└── last_suggest: int (id)
 ```
+
 <!-- {id_servidor} -> coleccion
 ├── bienvenidas -> documento
 │   ├── canal: id
 │   ├── mensaje: string
-│   └── roles (lista de roles para dar): list 
+│   └── roles (lista de roles para dar): list
 ├── moderacion -> documento
 │   ├── warns: int
 │   └── message: boolean
-├── report -> documento 
+├── report -> documento
 │   └── channel: id
 ├── suggest -> documento / subcoleccion
 │   ├── suggestions -> coleccion
@@ -47,8 +52,8 @@ guilds -> coleccion
 │       │   ├── warn (lista que contiene mapas con los datos de cada warn): list
 │       │   ├── mute (lista que contiene mapas con los datos de cada mute): list
 │       │   └── ban (lista que contiene mapas con los datos de cada ban): list
-│       └── reports -> documento 
-│           ├── report1 (datos del reporte): map 
+│       └── reports -> documento
+│           ├── report1 (datos del reporte): map
 │           │   ├── id: int
 │           │   └── report: str
 │           └── report_id: int
@@ -64,9 +69,9 @@ config -> coleccion
 │   └── mutes (mapa con todos los mutes): map
 users -> coleccion
 └── {id_usuario} -> documento / subcoleccion
-    └── notes -> coleccion 
+    └── notes -> coleccion
         └── {cuaderno} -> document
-            ├── config: map 
+            ├── config: map
             │   ├── description: str
             │   └── color: hex
             └── {page}: map

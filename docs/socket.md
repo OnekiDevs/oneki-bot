@@ -108,3 +108,17 @@ Lista de eventos registrados por el socket
     }
 }
 ```
+
+-   **remove_suggest_channel**: sera para avisar cuando se elimine un canal de sugerencias en el servidor
+
+```json
+// socket data object example
+{
+    "event": "remove_suggest_channel",
+    "from": "mts",
+    "data": {
+        "channel": "5965201426750345806",
+        "guild_id": "1862465930478540510"
+    }
+}
+```
