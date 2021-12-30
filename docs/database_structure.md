@@ -3,11 +3,14 @@ esto puede ir cambiando con el tiempo
 
 **Simbolos:**
 > `->` sera para especificar si es una coleccion, documento, etc
+
 > `:`  dira el tipo de dato que guarda:
 > * `{}` sera un objeto
 > * `type[]` indicara un array
 > * `[type]` indicara una tupla
+
 > `()` pequeña descripcion 
+
 > `{}` una referencia ya que el nombre es desconocido
 
 **Estructura:**
