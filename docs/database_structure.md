@@ -20,7 +20,7 @@ esto puede ir cambiando con el tiempo
 
 ```markdown
 guilds -> collection
-├── {id_servidor} -> document
+├── {guild_id} -> document
 │   ├── prefixies: array[string]
 │   ├── lang: string
 │   ├── suggest_channels: array
