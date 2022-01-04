@@ -9,8 +9,8 @@ esto puede ir cambiando con el tiempo
 > `:` dira el tipo de dato que guarda:
 >
 > -   `{}` sera un objeto
-> -   `type[]` indicara un array
-> -   `[type]` indicara una tupla
+> -   `array[type]` indicara un array
+> -   `tuple[type, ..., ...]` indicara una tupla
 
 > `()` pequeña descripcion
 
@@ -19,12 +19,22 @@ esto puede ir cambiando con el tiempo
 **Estructura:**
 
 ```markdown
-guilds -> coleccion
-└── {id_servidor} -> documento
-├── prefixes: string[]
-├── lang: string
-├── suggest_channels: { channel: string (id), default: boolean, alias?: string }[]
-└── last_suggest: int (id)
+guilds -> collection
+├── {id_servidor} -> document
+│   ├── prefixies: array[string]
+│   ├── lang: string
+│   ├── suggest_channels: array
+│   │   └── dict
+│   │       ├── channel: string (id) 
+│   │       ├── default: bool
+│   │       └── alias?: array
+│   │           └── string
+│   └── last_suggest: int(id)
+blacklist -> collection
+├── users -> document
+│   └── {user_id}: string (reason)
+└── guilds -> document
+    └── {guild_id}: string (reason)
 ```
 
 <!-- {id_servidor} -> coleccion
