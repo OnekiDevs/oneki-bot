@@ -14,9 +14,9 @@ esto puede ir cambiando con el tiempo
 
 > `()` pequeña descripcion
 
-> `...` el espacio se ocupara para algo en algun futuro
-
 > `{}` una referencia ya que el nombre es desconocido
+
+> `...` el espacio se ocupara para algo en algun futuro
 
 **Estructura:**
 
