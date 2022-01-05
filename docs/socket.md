@@ -32,7 +32,7 @@ Lista de eventos registrados por el socket
     "from": "mpy",
     "data": {
         "prefix": "!",
-        "guild_id": "1862465930478540510"
+        "guild": "1862465930478540510"
     }
 }
 ```
@@ -46,7 +46,7 @@ Lista de eventos registrados por el socket
     "from": "mpy",
     "data": {
         "prefix": "!",
-        "guild_id": "1862465930478540510"
+        "guild": "1862465930478540510"
     }
 }
 ```
@@ -60,7 +60,7 @@ Lista de eventos registrados por el socket
     "from": "mpy",
     "data": {
         "prefix": "!",
-        "guild_id": "1862465930478540510"
+        "guild": "1862465930478540510"
     }
 }
 ```
@@ -74,7 +74,7 @@ Lista de eventos registrados por el socket
     "from": "mpy",
     "data": {
         "lang": "es",
-        "guild_id": "1862465930478540510"
+        "guild": "1862465930478540510"
     }
 }
 ```
@@ -88,7 +88,7 @@ Lista de eventos registrados por el socket
     "from": "mts",
     "data": {
         "channel": "5965201426750345806",
-        "guild_id": "1862465930478540510"
+        "guild": "1862465930478540510"
     }
 }
 ```
@@ -102,7 +102,7 @@ Lista de eventos registrados por el socket
     "from": "mts",
     "data": {
         "channel": "5965201426750345806",
-        "guild_id": "1862465930478540510",
+        "guild": "1862465930478540510",
         "default": true,
         "alias": "games",
     }
@@ -118,7 +118,22 @@ Lista de eventos registrados por el socket
     "from": "mts",
     "data": {
         "channel": "5965201426750345806",
-        "guild_id": "1862465930478540510"
+        "guild": "1862465930478540510"
+    }
+}
+```
+
+-   **set_log**: sera para avisar cuando se agregue un canal para logs en el servidor
+
+```json
+// socket data object example
+{
+    "event": "set_log",
+    "from": "mts",
+    "data": {
+        "channel": "5965201426750345806",
+        "guild": "1862465930478540510",
+        "log": "MESSAGE_UPDATE"
     }
 }
 ```
