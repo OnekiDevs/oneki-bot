@@ -29,6 +29,8 @@ guilds -> collection
 │   │       ├── default: bool
 │   │       └── alias?: array
 │   │           └── string
+│   ├── logs_channels: dict
+│   │   └── message_update?: string (channel_id)
 │   └── last_suggest: int(id)
 blacklist -> collection
 ├── users -> document
