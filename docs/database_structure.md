@@ -14,6 +14,8 @@ esto puede ir cambiando con el tiempo
 
 > `()` pequeña descripcion
 
+> `...` el espacio se ocupara para algo en algun futuro
+
 > `{}` una referencia ya que el nombre es desconocido
 
 **Estructura:**
@@ -35,8 +37,15 @@ guilds -> collection
 blacklist -> collection
 ├── users -> document
 │   └── {user_id}: string (reason)
-└── guilds -> document
-    └── {guild_id}: string (reason)
+├── guilds -> document
+│   └── {guild_id}: string (reason)
+users -> collection
+├── {user_id} -> document
+│   └── ...
+└── afks -> document
+    └── {user_id}: dict 
+        ├── "reason": string 
+        └── "time": datetime.utc
 ```
 
 <!-- {id_servidor} -> coleccion
