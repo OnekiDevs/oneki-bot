@@ -2,38 +2,46 @@
 
 esto puede ir cambiando con el tiempo
 
-**Simbolos:**
+**Símbolos:**
 
-> `->` sera para especificar si es una coleccion, documento, etc
+> `->` será para especificar si es una coleccion, documento, etc
 
-> `:` dira el tipo de dato que guarda:
+> `:` dirá el tipo de dato que guarda:
 >
-> -   `{}` sera un objeto
+> -   `{}` será un objeto
 > -   `array[type]` indicara un array
 > -   `tuple[type, ..., ...]` indicara una tupla
 
-> `()` pequeña descripcion
+> `()` pequeña descripción
 
 > `{}` una referencia ya que el nombre es desconocido
 
-> `...` el espacio se ocupara para algo en algun futuro
+> `...` el espacio se ocupara para algo en algún futuro
 
 **Estructura:**
 
 ```markdown
 guilds -> collection
-├── {guild_id} -> document
-│   ├── prefixies: array[string]
-│   ├── lang: string
-│   ├── suggest_channels: array
-│   │   └── dict
-│   │       ├── channel: string (id) 
-│   │       ├── default: bool
-│   │       └── alias?: array
-│   │           └── string
-│   ├── logs_channels: dict
-│   │   └── message_update?: string (channel_id)
-│   └── last_suggest: int(id)
+└── {guild_id} -> document
+    ├── prefixies: array
+    │   └── string
+    ├── lang: string
+    ├── suggest_channels: array
+    │   └── dict
+    │       ├── channel: string (id) 
+    │       ├── default: bool
+    │       └── alias?: array
+    │           └── string
+    ├── logs_channels: dict
+    │   ├── message_update?: string (channel_id)
+    │   ├── message_delete?: string (channel_id)
+    │   └── message_attachment?: string (channel_id)
+    ├── last_suggest: int(id)
+    └── suggest -> collection
+        └── suggest_{sugges_id} -> document
+            ├── author: string (id)
+            ├── channel: string (id)
+            └── suggest: string
 blacklist -> collection
 ├── users -> document
 │   └── {user_id}: string (reason)
