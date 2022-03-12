@@ -141,4 +141,55 @@ getData(): ApplicationCommandDataResolvable {
 }
 ```
 
-...
+### Server
+El bot tiene una propiedad llamada `servers` la cual es una coleccion de clases `Server`; Una clase nueva con distintas propiedades y metodos nuevos y utilies para la gestion de configuraciones del gremio en cuestion. La clase es algo grande por lo que si escribes `client.servers.get('guild.id').` y presiones `ctrl` + `space` el VSC te listara todas sus propiedades y metodos con una pequeña descripcion, los parametros que nesesita y lo que retorna.
+
+![vsc capture](../server_properties.png)
+
+> **Nota:** si no aparece la propiedad `servers` en `client` tendras que convertir client en un `Client` (custom), ya que por defecto te arroja un `Client` de Disocrd.js
+```js
+;(client as Client).servers.get('guild.id')
+```
+
+### Multi Idiomas
+Una de los metodos que tiene `Server` es el de `translate()` el cual es un metodo que **SE DEBE** utilizar para dar respuesta a los comandos y cualquier interaciion del bot hacia el usuario
+
+Ocupa 2 parametros y requiere su previa configuracion. En la carpeta `lang` se debera crear un archivo JSON por cada lenguaje que acepte el bot. ejemplo:
+```markdown
+lang
+├── en.json
+└── es.json
+```
+dentro del archivo la estructura es la siguiente:
+```json
+{
+    "commandName": {
+        "responseName": "string {param}",
+        "errorResponseName": "phrase"
+    }
+}
+```
+Donde commandName sera el nombre del comando/evento/funcion y dentro de ese objeto se podran crear cuantos objetos o proopiedades (siempre strings) requiera. Si se requiere que la frase lleve algun parametro se coloca el nombre del parametro entre llaves `{}` al estilo de python.
+
+Es importante que todos los archivos  de lenguaje tengan la misma estructura y los nombres de las propiiedades no cambien, ejemplo:
+```json
+//en.json
+{
+    "avatar": {
+        "self": "Your avatar",
+        "other": "{user}'s avatar"
+    }
+}
+//es.json
+{
+    "avatar": {
+        "self": "Tu avatar",
+        "other": "Avatar de {user}"
+    }
+}
+```
+para usar el metodo translate debera pasarle la propiedad a traducir y si requiere alguna variable se pasa como objeto en otro parametro opcional y el comando retornara la frase traducida al idioma configurado en el servidor, ejemplo:
+```ts
+server.translate('avatar.self') // Your avatar
+server.translate('avatar.other', { user: user.username }) // oneki's avatar
+```
