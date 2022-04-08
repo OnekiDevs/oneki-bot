@@ -26,9 +26,9 @@ guilds -> collection
 │   ├── prefixies: array
 │   │   └── string
 │   ├── lang: string
-│   ├── keep_roles: boolean
-│   ├── premium: boolean
-│   ├── emoji_analisis_enabled: boolean
+│   ├── keep_roles: bool
+│   ├── premium: bool
+│   ├── emoji_analisis_enabled: bool
 │   ├── emoji_statistics: map
 │   │   └── {sticker_id}: number
 │   ├── suggest_channels: array
