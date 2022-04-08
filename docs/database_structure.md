@@ -22,54 +22,54 @@ esto puede ir cambiando con el tiempo
 
 ```markdown
 guilds -> collection
-└── {guild_id} -> document
-    ├── prefixies: array
-    │   └── string
-    ├── lang: string
-    ├── keep_roles: boolean
-    ├── premium: boolean
-    ├── emoji_analisis_enabled: boolean
-    ├── emoji_statistics: map
-    │   └── {sticker_id}: number
-    ├── suggest_channels: array
-    │   └── map
-    │       ├── channel: string (id) 
-    │       ├── default: bool
-    │       └── alias?: array
-    │           └── string
-    ├── logs_channels: map
-    │   ├── message_update?: string (channel_id)
-    │   ├── message_delete?: string (channel_id)
-    |   ├── invite?: string (channel_id)
-    |   ├── member_update?: string (channel_id)
-    │   └── message_attachment?: string (channel_id)
-    ├── last_suggest: int(id)
-    ├── birthday: map
-    │   ├── channel?: string (id)
-    │   └── message?: string
-    ├── suggest -> collection
-    │   └── suggest_{sugges_id} -> document
-    │       ├── author: string (id)
-    │       ├── channel: string (id)
-    │       └── suggest: string
-    ├── autoroles: map
-    |   └── {group_name}: string (rol_id) 
-    └── users -> collection
-        └── {user_id} -> document
-            ├── sanctions_level: array[int]
-            │   └── sanction_level
-            ├── sanctions_data: map
-            │   └── {sanction_type} (warn/mute/kick/ban): map
-            │       └── 
-            └── economy: map
-                └── ...
-
+├── {guild_id} -> document
+│   ├── prefixies: array
+│   │   └── string
+│   ├── lang: string
+│   ├── keep_roles: boolean
+│   ├── premium: boolean
+│   ├── emoji_analisis_enabled: boolean
+│   ├── emoji_statistics: map
+│   │   └── {sticker_id}: number
+│   ├── suggest_channels: array
+│   │   └── map
+│   │       ├── channel: string (id) 
+│   │       ├── default: bool
+│   │       └── alias?: array
+│   │           └── string
+│   ├── logs_channels: map
+│   │   ├── message_update?: string (channel_id)
+│   │   ├── message_delete?: string (channel_id)
+│   |   ├── invite?: string (channel_id)
+│   |   ├── member_update?: string (channel_id)
+│   │   └── message_attachment?: string (channel_id)
+│   ├── last_suggest: int(id)
+│   ├── birthday: map
+│   │   ├── channel?: string (id)
+│   │   └── message?: string
+│   ├── suggest -> collection
+│   │   └── suggest_{sugges_id} -> document
+│   │       ├── author: string (id)
+│   │       ├── channel: string (id)
+│   │       └── suggest: string
+│   ├── autoroles: map
+│   |   └── {group_name}: string (rol_id) 
+│   └── users -> collection
+│       └── {user_id} -> document
+│           ├── sanctions_level: array[int]
+│           │   └── sanction_level
+│           ├── sanctions_data: map
+│           │   └── {sanction_type} (warn/mute/kick/ban): map
+│           │       └── 
+│           └── economy: map
+│               └── ...
+│
 blacklist -> collection
 ├── users -> document
 │   └── {user_id}: string (reason)
-└── guilds -> document
-    └── {guild_id}: string (reason)
-    
+├── guilds -> document
+│   └── {guild_id}: string (reason)
+│   
 users -> collection
 ├── {user_id} -> document
 │   └── ...
