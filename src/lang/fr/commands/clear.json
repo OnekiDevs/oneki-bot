@@ -1,7 +1,0 @@
-{
-    "sure": "Estas seguro de borrar **TODOS** los mensajes del canal?\nEsta accion no se puede deshacer",
-    "buttons": {
-        "yes": "Si",
-        "no": "No"
-    }
-}
