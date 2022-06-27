@@ -1,1 +1,0 @@
-from commands.config.welcome import roles, message, deactivate
